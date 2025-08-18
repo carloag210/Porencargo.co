@@ -1,0 +1,12 @@
+{% extends "mis_pedidos.html" %}
+{% block content %}
+<h1 class="page-title">Editar información</h1>
+
+<form method="POST">
+    <input type="text" name="user_first_name" value="{{ user.user_first_name }}" required>
+    <input type="text" name="user_last_name" value="{{ user.user_last_name }}" required>
+    <input type="email" name="email" value="{{ user.email }}" required>
+    <input type="text" name="number" value="{{ user.number }}" required>
+    <button type="submit">Guardar cambios</button>
+</form>
+{% endblock %}

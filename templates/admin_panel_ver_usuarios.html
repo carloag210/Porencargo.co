@@ -1,0 +1,44 @@
+{% extends "admin_panel.html" %}
+{% block title %}Agregar producto{% endblock %}
+{% block content %}
+<h1>Panel de Administración</h1>
+<ul class="lista-usuarios">
+  {% for u in usuarios %}
+  {% if not u.is_admin %}
+    <li class="usuario-card">
+      <div class="usuario-info">
+        <p>ID: {{ u.id }}</p>
+        <p>Nombre: {{ u.user_first_name }}</p>
+        <p>Correo: {{ u.email }}</p>
+      </div>
+      <div class="usuario-actions">
+        <a href="{{ url_for('admin_ver_direcciones_usuario', user_id=u.id) }}"  class="btn-accion" >Direcciones </a>
+        <a href="{{ url_for('admin_editar_usuario', id=u.id) }}" class="btn-accion">Editar</a>
+        <a href="{{ url_for('admin_ver_pedidos_usuario', user_id=u.id) }}" class="btn-accion">Ver</a>
+        <a href="{{ url_for('admin_eliminar_usuario', id=u.id)}}" class="btn-accion-eli">Eliminar</a>
+      </div>
+    </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+  {% endblock %}
+<!--   
+    <h2>Paquetes</h2>
+    <ul>
+      {% for p in paquetes %}
+        <li>
+        ID del usuario"{{p.id_user}}" {{ p.nombre }} - Estado actual: {{ p.estado.value }}
+        numero pedido: {{p.numero_pedido}}
+        <form action="{{ url_for('actualizar_estado', paquete_id=p.id) }}" method="POST" style="display: inline;">
+            <select name="nuevo_estado">
+            {% for estado in estados_posibles %}
+                <option value="{{ estado.name }}" {% if estado == p.estado %}selected{% endif %}>
+                {{ estado.value }}
+                </option>
+            {% endfor %}
+            </select>
+            <button type="submit">Actualizar estado</button>
+        </form>
+        </li>
+    {% endfor %}
+    </ul> -->

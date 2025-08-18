@@ -1,0 +1,271 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+html, body{
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+body {
+    background: linear-gradient(to bottom, #50C878, #ffffff);
+}
+
+/* Header */
+header {
+    color: #50C878;
+
+    background-color: #707070	;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+nav {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo_porEncargo img{
+    border-radius: 100%;
+    width: 90px;  /* Reduje un poco el tamaño para mejor proporción */
+    height: 90px;
+    object-fit: cover;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+.nav-links li {
+    margin-left: 30px;
+}
+.nav-links a{
+    text-decoration: none;
+    font-weight: 500;
+    color: black;
+    transition: color 0.3s;
+}
+.nav-links a:hover{
+    color: #fff;
+}
+.nav-links a::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 0;
+    background: #50C878;
+    transition: width 0.3s ease;
+}
+.nav-links a:hover::after {
+    width: 100%;
+}
+/* contacto desplegable */
+/* Botón principal */
+.contacto-btn {
+    /* background-color: #ffe600;	; */
+    background-color: #707070	;
+    color: black;
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    transition: color 0.3s;
+
+}
+.contacto-btn:hover{
+    color: #fff;
+
+
+}
+
+.contacto-opciones {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+  border-radius: 10px;
+  overflow: hidden;
+  top: 100%;
+  flex-direction: column;
+     /* left: 0; */
+}
+.contacto-opciones.visible {
+  display: flex;
+}
+
+
+.contacto-opciones a {
+  display: block;              /* ← Asegura que ocupen línea completa */
+  padding: 12px 16px;
+  text-decoration: none;
+  color: black;
+  transition: background-color 0.2s;
+}
+.contacto-opciones a:hover {
+  background-color: #f1f1f1;
+}
+/* el bloque de login_ergistr */
+.auth-container {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    margin: 100px auto;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #707070, #5e5e5e);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    height: 520px; /* ✅ Altura fija para contener los formularios */
+}
+
+.form-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;  /* ✅ Usamos height en vez de min-height */
+    top: 0;
+    left: 0;
+    padding: 30px 25px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+/* Título */
+.form-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Campos de entrada */
+.form-container form input {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 15px;
+}
+
+/* Botón */
+.form-container form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #707070;
+    color: black;
+    border: none;
+    font-weight: bold;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color, color 0.3s;
+}
+.form-container form button:hover {
+    transition: 0.5s;
+    background-color: #aaa8a8;
+    color: white;
+}
+/* Links entre login/register */
+.toggle-btn {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #527aff;
+    font-weight: 500;
+    text-decoration: none;
+}
+.toggle-btn:hover {
+    text-decoration: underline;
+}
+
+/* Visibilidad por defecto */
+#login {
+    padding-top: 100px;
+    z-index: 2;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#register {
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Mostrar registro si se accede con #register */
+:target#register {
+    z-index: 2;
+    opacity: 1;
+    pointer-events: auto;
+}
+:target#register ~ #login {
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+}
+.menu-toggle{
+    display: none;
+}
+@media (max-width: 768px) {
+    /* Header responsive */
+    header {
+        padding: 10px 0;
+    }
+    
+    .container {
+        padding: 0 15px;
+    }
+    
+    nav {
+        flex-wrap: wrap;
+    }
+    
+    .logo_porEncargo img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: black;
+        cursor: pointer;
+        order: 2;
+    }
+    
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #707070;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 15px 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links li {
+        margin: 10px 0;
+        text-align: center;
+    }
+    
+    .dolar-widget {
+        display: none;
+    }
+}

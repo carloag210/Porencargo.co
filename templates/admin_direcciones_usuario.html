@@ -1,0 +1,28 @@
+{% extends "admin_panel.html" %}
+{% block title %}Pedidos de {{ usuario.user_first_name }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="/assets/css/admin_panel.css">
+{% if direcciones %}
+  <ul class="lista-pedidos">
+    {% for dir in direcciones %}
+      <li class="pedido-card">
+          <div class="bloque">
+            <ul>
+                <li><strong>Nombre:</strong> {{ dir.name }}</li>
+                <li><strong>Pais:</strong> {{ dir.pais }}</li>
+                <li><strong>Ciudad:</strong> {{ dir.ciudad }}</li>
+                <li><strong>Direccion completa:</strong> {{ dir.direccion }}</li>
+                <li><strong>Codigo postal:</strong> {{ dir.codigo_postal }}</li>
+            </ul>
+      </div>
+      </li>
+    {% endfor %}
+
+  </ul>
+{% else %}
+  <p>Este usuario no tiene direcciones registradas.</p>
+{% endif %}
+</ul>
+
+
+{% endblock %}

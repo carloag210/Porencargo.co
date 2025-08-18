@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>porencargo</title>
+    <link rel="stylesheet" href="/assets/css/mis_pedidos.css">
+</head>
+<body>
+    <div class="mensaje-flash">
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+          {% if mensajes %}
+            {% for categoria, mensaje in mensajes %}
+              <div id="mensaje-flash-directo" class="flash {{ categoria }}">{{ mensaje }}</div>
+            {% endfor %}
+          {% endif %}   
+        {% endwith %}
+    </div>
+
+    <!-- HEADER -->
+    <header>
+      <div class="container">
+    <nav>
+      <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+      <div class="logo_porEncargo">
+        <img src="assets/img/logo_porEncargo_sinLetras.png" alt="logo">
+      </div>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('index')}}">Inicio</a></li>
+        <li><a href="{{ url_for('login_register')}}">Mi casillero</a></li>
+        <li><a href="{{ url_for('productos')}}">Productos</a></li>
+        <li><a href="{{ url_for('calculadora')}}" class="contacto-btn">Calculadora</a></li>
+        <li><a href="{{ url_for('rastrea_tu_orden')}}">Rastrea tu orden</a></li>
+        {% if current_user.is_authenticated and current_user.is_admin %}
+          <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
+        {% endif %}
+        {% if current_user.is_authenticated and not current_user.is_admin %}
+          <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
+        {% endif %}
+      </ul>
+      <!-- Dólar Hoy TRM -->
+      <style>#dolar_wpc1 a { font-size:1.2rem; font-weight:500; text-decoration:none;} #widget_usd_cop1 {font-size:1.1rem; color:#000;}</style>
+      <div id="dolar_wpc1"><a href="https://dolar.wilkinsonpc.com.co/" target="_new">Dólar Hoy TRM</a></div>
+      <script src="https://widgets.wilkinsonpc.com.co/curr/curr-usd-cop1.js"></script>
+    </nav>
+  </div>
+</header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-item">
+                <a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a>
+            </div>
+            <div class="sidebar-item">
+                <a href="{{ url_for('direcciones') }}">Mis direcciones</a>
+            </div>
+            <div class="sidebar-item">
+                <a href="{{ url_for('info') }}">Mi información</a>
+            </div>
+            <div class="sidebar-item" >
+                <a href="{{ url_for('add_prealerta')}}">Prealertar</a>
+            </div>
+            <div class="sidebar-item">
+                <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            </div>
+        </div>
+
+        <!-- Área de contenido -->
+        <div class="content-area">
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="{{ url_for('static', filename='js/animacion_contact.js') }}"></script>
+    <script src="/assets/js/animacion_contact.js"></script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
+
+

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>porencargo</title>
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+        @media (max-width: 900px) {
+          header .container {
+            padding: 10px 0;
+          }
+          .logo_porEncargo img {
+            width: 60px;
+            height: auto;
+          }
+          .nav-links {
+            gap: 10px;
+            font-size: 0.95rem;
+          }
+        }
+        @media (max-width: 600px) {
+          header .container {
+            padding: 6px 0;
+          }
+          .logo_porEncargo img {
+            width: 40px;
+          }
+          .nav-links {
+            gap: 5px;
+            font-size: 0.85rem;
+          }
+        }
+    </style>
+     <script>
+        window.addEventListener('scroll', function() {
+          const header = document.querySelector('header');
+          if (window.scrollY > 100) {
+            header.style.position = 'fixed';
+            header.style.top = '0';
+            header.style.width = '100%';
+            header.style.zIndex = '1000';
+            header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+          } else {
+            header.style.position = '';
+            header.style.top = '';
+            header.style.width = '';
+            header.style.zIndex = '';
+            header.style.boxShadow = '';
+          }
+        });
+    </script>
+  
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- swiper.js para deslisar con flechas -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+</head>
+<body>
+
+  <header>
+      <div class="container">
+    <nav>
+      <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+      <div class="logo_porEncargo">
+        <img src="assets/img/logo_porEncargo_sinLetras.png" alt="logo">
+      </div>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('index')}}">Inicio</a></li>
+        <li><a href="{{ url_for('login_register')}}">Mi casillero</a></li>
+        <li><a href="{{ url_for('productos')}}">Productos</a></li>
+        <li><a href="{{ url_for('calculadora')}}" class="contacto-btn">Calculadora</a></li>
+        <li><a href="{{ url_for('rastrea_tu_orden')}}">Rastrea tu orden</a></li>
+        {% if current_user.is_authenticated and current_user.is_admin %}
+          <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
+        {% endif %}
+        {% if current_user.is_authenticated and not current_user.is_admin %}
+          <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
+        {% endif %}
+      </ul>
+      <!-- Dólar Hoy TRM -->
+      <style>#dolar_wpc1 a { font-size:1.2rem; font-weight:500; text-decoration:none;} #widget_usd_cop1 {font-size:1.1rem; color:#000;}</style>
+      <div id="dolar_wpc1"><a href="https://dolar.wilkinsonpc.com.co/" target="_new">Dólar Hoy TRM</a></div>
+      <script src="https://widgets.wilkinsonpc.com.co/curr/curr-usd-cop1.js"></script>
+    </nav>
+  </div>
+</header>
+  <!-- HERO -->
+  <section class="hero">
+    <img src="assets/img/representacion-de-la-cadena-de-suministro-de-vehiculos-en-portatiles.jpg" alt="Imagen de fondo">
+  </section>
+    <!-- seccion aliados -->
+     <section class="aliados-container">
+    <div class="swiper mySwiper">
+        <h1 style="color: grey;" ><span style="color: #0e0d0d;" >Aliados</span> de confianza</h1>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="slide-content">
+               
+                    <img src="assets/img/nvidia_logo.png" alt="Producto">
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+            
+                    <img src="assets/img/amd_logo.png" alt="Producto">
+  
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/gigabyte_882734.png" alt="Producto">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/amazon_logo.png" alt="Producto">
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/ebay_888848.png" alt="Producto">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/newegg_logo.png" alt="Producto">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/walmart_logo.png" alt="Producto">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/intel_logo.svg" alt="Producto">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/asus_logo.png" alt="Producto">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/msi_logo.jpg" alt="Producto">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/corsair_logo.png" alt="Producto" style="width: 180px; height: 100px; object-fit: contain;">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/acer_logo.jpg" alt="Producto" style="width: 190px; height: 200px; object-fit: contain;">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/lenovo_logo.jpg" alt="Producto">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/logitech_logo.png" alt="Producto" style="width: 150px; height: 100px; object-fit: contain;">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="assets/img/bose_logo.png" alt="Producto" style="width: 150px; height: 100px; object-fit: contain;">           
+                 
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slide-content">
+                    <img src="/assets/img/sony_logo.png" alt="Producto">           
+                 
+              </div>
+            </div>
+
+
+            
+            <!-- Cada logo es un slide -->
+
+        </div>
+
+        <!-- Flechas -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+  </section>
+
+
+
+  
+  <!-- Testimonios -->
+  <section id="resenas" class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>¿Te preguntas por qué confiar en nosotros?</h2>
+                <p>Mirá lo que dicen nuestros clientes</p>
+            </div>
+                <!-- reseña 1 -->
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Servicio rápido y confiable, siempre recibo mis paquetes a tiempo."</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>William Jiménez</h4>
+                            <p>Bogotá</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- reseña 2 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Excelente atención al cliente, muy amables y eficientes."</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Fabio Castro</h4>
+                            <p>Bogotá</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- reseña 3 --> 
+                      <div class="testimonial-card">
+                        <p class="testimonial-text">"Casilleros seguros y fáciles de usar, muy recomendados."</p>
+                        <div class="testimonial-author">
+                          <div class="author-info">
+                            <h4>Juan Blandón</h4>
+                            <p>Medellín</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- reseña 4 -->
+                      <div class="testimonial-card">
+                        <p class="testimonial-text">"Precios justos y entregas sin problemas, muy satisfecho."</p>
+                        <div class="testimonial-author">
+                          <div class="author-info">
+                            <h4>Sebastián Florez</h4>
+                            <p>Cucuta</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- reseña 5 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Siempre me avisan cuando llega mi paquete, muy organizados."</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Julián Mejia</h4>
+                            <p>Medellín</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- reseña 6 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text">""La mejor opción en Miami para recibir compras desde el exterior."</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Cristian Naranjo</h4>
+                            <p>Medellín</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+              </div>
+            </div>
+          </section>
+          
+          
+          
+          
+          
+          
+          
+          <!-- seccion productos destacados -->
+            <section class="slider-container">
+              <div class="swiper mySwiper">
+                  <h1>Productos destacados</h1>
+                  <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <div class="slide-content">
+                          <h3 class="product-name">Nombre del producto</h3>
+                          <a href="#">
+                              <img src="assets/img/logo_porEncargo.png" alt="Producto">
+                            </a>
+                          <p class="product-price">$99.900</p>
+                        </div>
+                      </div>
+          
+                      <div class="swiper-slide">
+                        <div class="slide-content">
+                          <h3 class="product-name">Nombre del producto</h3>
+                          <a href="#">
+                              <img src="assets/img/logo_porEncargo.png" alt="Producto">
+                            </a>
+                          <p class="product-price">$99.900</p>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="slide-content">
+                          <h3 class="product-name">Nombre del producto</h3>
+                          <a href="#">
+                              <img src="assets/img/logo_porEncargo.png" alt="Producto">
+                            </a>
+                          <p class="product-price">$99.900</p>
+                        </div>
+                      </div>
+          
+                      <div class="swiper-slide">
+                        <div class="slide-content">
+                          <h3 class="product-name">Nombre del producto</h3>
+                          <a href="#">
+                              <img src="assets/img/logo_porEncargo.png" alt="Producto">
+                            </a>
+                          <p class="product-price">$99.900</p>
+                        </div>
+                      </div>
+             
+                     
+                    
+                      <!-- Cada logo es un slide -->
+          
+                  </div>
+          
+                  <!-- Flechas -->
+                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-button-next"></div>
+              </div>
+            </section>
+          <!-- FOOTER -->
+      <footer>
+        <div class="footer-container">
+            <!-- Columna 3: >Soporte -->
+            <div>
+                <span class="footer-title">Soporte</span>
+                <ul class="footer-list">
+                    <li>Centro de ayuda </li>
+                    <li>Garantía</li>
+                    <li>Preguntas frecuentes FAQ</li>
+                    <li>Contacto directo</li>
+                </ul>
+            </div>
+            
+            <!-- Columna 4: Enlaces -->
+            <div>
+                <span class="footer-title">Sobre nosotros</span>
+                <ul class="footer-list">
+                    <li><a href="#">Acerca de "PorEncargo"</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Centro de ayuda</a></li>
+                    <li><a href="#">Preguntas frecuentes - FAQs</a></li>
+                </ul>
+            </div>
+            
+            <!-- Columna 5-6: Newsletter -->
+            <div class="newsletter">
+                <span class="footer-title">Mantengámonos en contacto</span>
+                <p>¡Registra tu correo y obtén 15% de descuento en tu primera orden!*, ofertas únicas y mucho más!</p>
+                <div class="newsletter-input">
+                    <input type="email" placeholder="Ingresa tu correo">
+                    <button>></button>
+                </div>
+                <small style="color: #0e0d0d;">*Aplican términos y condiciones</small>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2023 porencargo. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+      <a href="https://wa.me/573186505475" target="_blank" style="position:fixed;bottom:20px;right:20px;z-index:9999;"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" style="width:50px;height:50px;"></a>
+
+
+  <!-- AOS JS -->
+  <!-- <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script> -->
+  <!-- sroll en aliados -->
+   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const aliados = document.querySelectorAll(".slide-in-from-wall");
+
+        const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+            }
+        });
+        }, {
+        threshold: 0.2
+        });
+
+        aliados.forEach(el => observer.observe(el));
+    });
+    </script>
+    <!-- link para las flechas -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- js de las flechas  -->
+    <script>
+    const swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev"
+        },
+        loop: true
+    }); 
+    </script>
+  <script src="/assets/js/animacion_contact.js"></script>
+
+</body>
+</html>

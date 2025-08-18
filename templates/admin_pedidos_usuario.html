@@ -1,0 +1,113 @@
+{% extends "admin_panel.html" %}
+{% block title %}Pedidos de {{ usuario.user_first_name }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="/assets/css/admin_panel.css">
+
+
+
+{% if paquetes %}
+  <ul class="lista-pedidos">
+    {% for p in paquetes %}
+      <li class="pedido-card action">
+        <form method="POST" action="{{ url_for('actualizar_estado') }}">
+          <input type="hidden" name="paquete_id" value="{{ p.id }}">
+          {% if p.prealerta %}
+          <div class="bloque" style="background-color: #e4f199; position: relative;">
+            <ul>
+              <form action="">
+                <li><strong>Nombre: </strong><input type="text" name="nombre" placeholder="{{ p.nombre }}" value="{{ p.nombre}}"></li>
+                <li><strong>Precio: </strong><input type="text" name="precio" placeholder="{{ p.precio }}" value="{{ p.precio}}"></li>
+                <li><strong>Numero_guia: </strong><input type="text" name="numero_guia" placeholder="{{ p.numero_guia }}" value="{{ p.numero_guia}}"></li>
+                <li><strong>Peso: </strong><input type="text" name="peso" placeholder="{{ p.peso }}" value="{{ p.peso}}"></li>
+                <li><strong>Estado: </strong> {{ p.estado.value }}</li>
+              </form>
+                <li class="pedido-card {% if p.prealerta %}{% endif %}"></li>
+                {% if p.prealerta %}
+                  <label>
+                    <input type="checkbox" name="prealerta_resuelta" value="true">
+                    ✅ Marcar como pedido (quitar prealerta)
+                  </label>
+                {% endif %}
+
+            </ul>
+          <select name="nuevo_estado">
+            {% for estado in estados_posibles %}
+              <option value="{{ estado.value }}" {% if estado == p.estado %}selected{% endif %}>
+                {{ estado.value }}
+              </option>
+            {% endfor %}
+          </select>
+          <button type="submit">Actualizar estado</button>
+        </form>
+            <form action="{{ url_for('eliminar_paquete', id=p.id) }}" method="POST" >
+          <button style="position: absolute; top: 75px; right: 35px; width: 90px; background-color: rgb(218, 69, 69); " class="btn-add-productos" > Eliminar</button>
+        </form>
+      
+
+        
+      </div>
+      {% else %}
+      <div class="bloque" style="position: relative;">
+            <ul>
+              <form action="">
+                <li><strong>Nombre: </strong><input type="text" name="nombre" placeholder="{{ p.nombre }}" value="{{ p.nombre}}"></li>
+                <li><strong>Precio: </strong><input type="text" name="precio" placeholder="{{ p.precio }}" value="{{ p.precio}}"></li>
+                <li><strong>Numero_guia: </strong><input type="text" name="numero_guia" placeholder="{{ p.numero_guia }}" value="{{ p.numero_guia}}"></li>
+                <li><strong>Peso: </strong><input type="text" name="peso" placeholder="{{ p.peso }}" value="{{ p.peso}}"></li>
+                <li><strong>Estado: </strong> {{ p.estado.value }}</li>
+              </form>
+                <li class="pedido-card {% if p.prealerta %}{% endif %}"></li>
+                {% if p.prealerta %}
+                  <label>
+                    <input type="checkbox" name="prealerta_resuelta" value="true">
+                    ✅ Marcar como pedido (quitar prealerta)
+                  </label>
+                {% endif %}
+
+            </ul>
+          <select name="nuevo_estado">
+            {% for estado in estados_posibles %}
+              <option value="{{ estado.value }}" {% if estado == p.estado %}selected{% endif %}>
+                {{ estado.value }}
+              </option>
+            {% endfor %}
+          </select>
+          <button type="submit">Actualizar estado</button>
+        </form>
+          <form action="{{ url_for('eliminar_paquete', id=p.id) }}" method="POST" >
+          <button style="position: absolute; top: 75px; right: 35px; width: 90px; background-color: rgb(218, 69, 69); " class="btn-add-productos">Eliminar</button>
+        </form>
+     
+        
+      </div>
+      {% endif %}
+      </li>
+    {% endfor %}
+
+  </ul>
+{% else %}
+  <p>Este usuario no tiene pedidos registrados.</p>
+{% endif %}
+</ul>
+
+
+
+<div class="auth-container">
+    <form class="form-container" action="{{ url_for('crear_paquete', user_id=usuario.id) }}" method="POST">
+        <h2>Agregar nuevo producto</h2>
+        <input class="form-input" type="text" name="nombre" placeholder="Nombre" required><br>
+        <input class="form-input" type="text" name="numero_guia" step="0.01" placeholder="numero_guia" required><br>
+        <input class="form-input" type="text" name="precio" step="0.01" placeholder="Precio" required><br>
+        <input class="form-input" type="text" name="peso" step="0.01" placeholder="Peso en kg o gramos" required><br>
+        <input type="hidden" name="id_user" value="{{ usuario.id }}">
+        <label>Categoría:</label>
+          <select class="form-input" name="estado">
+            {% for estado in estados_posibles %}
+              <option value="{{ estado.name }}">{{ estado.value }}</option>
+            {% endfor %}
+          </select>
+        <button class="btn-add-productos" type="submit">Guardar producto</button>
+    </form>
+</div>
+
+{% endblock %}
