@@ -14,7 +14,7 @@ import os
 # agrego templates y seets a mano porque no funciona si no determino el assets
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 app.config.from_object(Config)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['UPLOAD_FOLDER'] = 'assets/img_productos'
 
 
@@ -529,5 +529,6 @@ def crear_paquete_usuario():
 
 
 if __name__=='__main__':
+
 
     app.run(debug=True)
