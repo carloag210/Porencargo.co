@@ -527,8 +527,8 @@ def crear_paquete_usuario():
     estados_posibles = list(EstadoPaquete)  # para el <select>
     return render_template('formulario_paquete_usuario.html', estados_posibles=estados_posibles, usuario=current_user)
 
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
 
-if __name__=='__main__':
-
-
-    app.run(debug=True)
