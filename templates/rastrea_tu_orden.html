@@ -50,14 +50,14 @@
       <h2>Rastrea tu orden</h2>
       <form method="POST" action="/rastrear">
      
-        <input type="email" name="email" placeholder="Correo electronico" required>
-        <input type="text" name="numero_guia" placeholder="Numero de guia" required>
+        <input type="email" name="email" placeholder="Correo Electrónico" required>
+        <input type="text" name="numero_guia" placeholder="Numero de Guia" required>
         <button type="submit" >buscar</button>
       </form>
     </div>
     <div class="form">
       {% if paquete %}
-      <h2 class="h2_2">Información del pedido</h2>
+      <h2 class="h2_2">Información del Pedido</h2>
       <ul>
         <li><strong>Nombre:</strong> {{ paquete.nombre }}</li>
         <li><strong>Precio:</strong> ${{ paquete.precio }}</li>
@@ -65,7 +65,7 @@
         <li><strong>Peso:</strong> {{ paquete.peso }}</li>
       </ul>
       {% elif request.method == 'POST' %}
-      <p>No se encontró ningún pedido con esos datos.</p>
+      <p>No se encontraron pedidos con esta informacion.</p>
       {% endif %}
     </div>
   </main>
