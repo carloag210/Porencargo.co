@@ -29,7 +29,7 @@
         <li><a href="{{ url_for('login_register')}}">Mi casillero</a></li>
         <li><a href="{{ url_for('productos')}}">Productos</a></li>
         <li><a href="{{ url_for('calculadora')}}" class="contacto-btn">Calculadora</a></li>
-        <li><a href="{{ url_for('rastrea_tu_orden')}}">Rastrea tu orden</a></li>
+        <li><a href="{{ url_for('rastrea_tu_orden')}}">Rastrea tu Órden</a></li>
         {% if current_user.is_authenticated and current_user.is_admin %}
           <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
         {% endif %}
