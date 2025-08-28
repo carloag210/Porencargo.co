@@ -29,10 +29,10 @@ app.permanent_session_lifetime = timedelta(days=7)  # dura 7 días
 #email automatico
 app.config['MAIL_SERVER'] = 'smtp.purelymail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = 'logistica@porencargo.co'         # tu correo
-app.config['MAIL_PASSWORD'] = 'Carlos161809Aguado*2025*'           # contraseña de aplicación
+app.config['MAIL_PASSWORD'] = 'pm-live-c0196312-75cd-4eb2-a8bd-5085bd590a43'           # contraseña de aplicación
 app.config['MAIL_DEFAULT_SENDER'] = 'logistica@porencargo.co'   # quien envía
     
 mail = Mail(app)
