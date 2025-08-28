@@ -33,7 +33,7 @@ nav {
     align-items: center;
 }
 .logo_porEncargo img{
-    border-radius: 100%;
+    border-radius: 10%;
     width: 90px;  /* Reduje un poco el tamaño para mejor proporción */
     height: 90px;
     object-fit: cover;
