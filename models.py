@@ -71,6 +71,7 @@ class Producto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.Text, nullable=False)
     precio = db.Column(db.String(50), nullable=False)
+    peso = db.Column(db.String(50), nullable=False)
     imagen = db.Column(db.Text)  # ruta de imagen
     categoria = db.Column(db.Text, nullable=False)
     
