@@ -27,8 +27,8 @@ with app.app_context():
 app.secret_key = os.urandom(24)
 app.permanent_session_lifetime = timedelta(days=7)  # dura 7 días
 #email automatico
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
+app.config['MAIL_SERVER'] = 'smtp.purelymail.com'
+app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = 'logistica@porencargo.co'         # tu correo
