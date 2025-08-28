@@ -6,13 +6,13 @@ from flask_login import UserMixin
 import enum
 
 class EstadoPaquete(enum.Enum):
-    COMPRADO = "Comprado en tienda"
-    DESPACHADO_TIENDA = "Despachado por tienda"
-    EN_ENVIO = "Despachado bodega Miami"
-    EN_BODEGA_MIAMI = "Llegó a bodega Miami"
-    EN_AEROPUERTO = "Llegó a aeropuerto Bogotá"
-    EN_COLOMBIA = "En bodega Medellín"
-    LLEGO = "enviado a tú dirreción"
+    COMPRADO = "Comprado en Tienda"
+    DESPACHADO_TIENDA = "Despachado por Tienda"
+    EN_ENVIO = "Despachado Bodega Miami"
+    EN_BODEGA_MIAMI = "Llegó a Bodega Miami"
+    EN_AEROPUERTO = "Llegó Aeropuerto Bogotá"
+    EN_COLOMBIA = "En Bodega Medellín"
+    LLEGO = "Despachado a tú Dirección"
 
 class Paquete(db.Model):
     __tablename__ = 'paquetes'
