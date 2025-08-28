@@ -9,6 +9,8 @@ from flask_mail import Mail, Message
 from auth.decorators import admin_required
 from werkzeug.utils import secure_filename
 from datetime import timedelta
+import ssl
+import smtplib          
 import os
 
 # agrego templates y seets a mano porque no funciona si no determino el assets
