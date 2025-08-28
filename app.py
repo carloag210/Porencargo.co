@@ -30,9 +30,10 @@ app.permanent_session_lifetime = timedelta(days=7)  # dura 7 días
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'vasil.zabuza.luffy@gmail.com'         # tu correo
-app.config['MAIL_PASSWORD'] = 'vwpo cjvf qtfl nqtq'           # contraseña de aplicación
-app.config['MAIL_DEFAULT_SENDER'] = 'vasil.zabuza.luffy@gmail.com'   # quien envía
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = 'logistica@porencargo.co'         # tu correo
+app.config['MAIL_PASSWORD'] = 'pm-live-c0196312-75cd-4eb2-a8bd-5085bd590a43'           # contraseña de aplicación
+app.config['MAIL_DEFAULT_SENDER'] = 'logistica@porencargo.co'   # quien envía
     
 mail = Mail(app)
 
@@ -531,4 +532,5 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
