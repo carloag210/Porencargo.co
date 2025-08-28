@@ -15,8 +15,10 @@
     <nav>
       <button class="menu-toggle" aria-label="Abrir menú">☰</button>
       <div class="logo_porEncargo">
-        <img src="assets/img/logo_porEncargo_sinLetras.png" alt="logo">
-      </div>
+    <a href="{{ url_for('index') }}"> <!-- Agrega este enlace -->
+        <img src="assets/img/logo_porEncargo_sinLetras.jpg" alt="logo">
+    </a>
+</div>
       <ul class="nav-links">
         <li><a href="{{ url_for('index')}}">Inicio</a></li>
         <li><a href="{{ url_for('login_register')}}">Mi casillero</a></li>
