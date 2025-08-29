@@ -1,40 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Detalle del Producto - PorEncargo</title>
-    <style>
-        .producto { max-width: 600px; margin: 2rem auto; }
-        .producto img { width: 100%; border-radius: 10px; }
-        .precio { color: #ff6b00; font-size: 1.5rem; }
-    </style>
-</head>
-<body>
-    <div class="producto">
-        <img id="producto-imagen" src="" alt="">
-        <h1 id="producto-nombre"></h1>
-        <p class="precio" id="producto-precio"></p>
-        <p id="producto-descripcion"></p>
-        <button onclick="agregarAlCarrito()">Agregar al carrito</button>
-    </div>
+{% extends "base.html" %}
 
-    <script>
-        // Obtener ID del producto de la URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const productoId = urlParams.get('id');
-
-        // Cargar producto desde JSON
-        fetch('/data/productos.json')
-            .then(response => response.json())
-            .then(productos => {
-                const producto = productos.find(p => p.id == productoId);
-                if (producto) {
-                    document.getElementById('producto-imagen').src = producto.imagen;
-                    document.getElementById('producto-nombre').textContent = producto.nombre;
-                    document.getElementById('producto-precio').textContent = `$${producto.precio.toLocaleString()}`;
-                    document.getElementById('producto-descripcion').textContent = producto.descripcion;
-                }
-            });
-    </script>
-</body>
-</html>
+{% block content %}
+<div class="detalle-producto">
+    <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+    <h1>{{ producto.nombre }}</h1>
+    <p class="precio">${{ '{:,}'.format(producto.precio) }}</p>
+    <p class="descripcion">{{ producto.descripcion }}</p>
+    <p class="categoria"><strong>Categoría:</strong> {{ producto.categoria }}</p>
+    <p class="stock"><strong>Stock:</strong> {{ producto.stock }} unidades</p>
+    
+    <button class="btn-carrito" onclick="agregarAlCarrito({{ producto.id }})">
+        🛒 Agregar al carrito
+    </button>
+</div>
+{% endblock %}
