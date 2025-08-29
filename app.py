@@ -79,6 +79,10 @@ def admin_panel_ver_usuarios():
             )
         return render_template("admin_panel_ver_usuarios.html")
 
+@app.route(/)
+def new item():
+return render_template ('new_items.html')
+
 @app.route('/admin_panel_modificar_productos/<int:id>', methods=['GET', 'POST'])
 @admin_required
 def admin_panel_modificar_productos(id):
