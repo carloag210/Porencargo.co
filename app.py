@@ -34,7 +34,7 @@ app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = 'logistica@porencargo.co'         # tu correo
-app.config['MAIL_PASSWORD'] = ''           # contraseña de aplicación
+app.config['MAIL_PASSWORD'] = 'Carlos161809Aguado*2025*'           # contraseña de aplicación
 app.config['MAIL_DEFAULT_SENDER'] = 'logistica@porencargo.co'   # quien envía
     
 mail = Mail(app)
@@ -534,5 +534,6 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
