@@ -16,9 +16,22 @@ import os
 # agrego templates y seets a mano porque no funciona si no determino el assets
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 app.config.from_object(Config)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-app.config['UPLOAD_FOLDER'] = 'assets/img_productos'
+app.config.from_object(Config)
 
+# --- Config DB Railway ---
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_LINK")
+
+# Fix si Railway devuelve postgres:// en vez de postgresql://
+if app.config['SQLALCHEMY_DATABASE_URI'] and app.config['SQLALCHEMY_DATABASE_URI'].startswith("postgres://"):
+    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace("postgres://", "postgresql://", 1)
+
+# Forzar SSL
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "connect_args": {"sslmode": "require"}
+}
+# --- Fin config DB ---
+    
+app.config['UPLOAD_FOLDER'] = 'assets/img_productos'
 
 db.init_app(app)
 login_manager.init_app(app)
