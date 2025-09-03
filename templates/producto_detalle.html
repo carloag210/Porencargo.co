@@ -1,22 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>{{ producto.nombre }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ producto.nombre }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/producto_detalle.css') }}">
 </head>
 <body>
-  <div class="producto-detalle">
-    <img src="{{ url_for('static', filename='img_productos/' + producto.imagen) }}" 
-         alt="{{ producto.nombre }}" 
-         class="producto-img-detalle">
+    <header>
+        <div class="container">
+            <nav>
+                <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+                <div class="logo_porEncargo">
+                    <a href="{{ url_for('index') }}">
+                        <img src="{{ url_for('static', filename='img/logo_porEncargo_sinLetras.jpg') }}" alt="logo">
+                    </a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index')}}">Inicio</a></li>
+                    <li><a href="{{ url_for('login_register')}}">Mi casillero</a></li>
+                    <li><a href="{{ url_for('productos')}}">Productos</a></li>
+                    <li><a href="{{ url_for('calculadora')}}" class="contacto-btn">Calculadora</a></li>
+                    <li><a href="{{ url_for('rastrea_tu_orden')}}">Rastrea tu orden</a></li>
+                    {% if current_user.is_authenticated and current_user.is_admin %}
+                        <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
+                    {% endif %}
+                    {% if current_user.is_authenticated and not current_user.is_admin %}
+                        <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <h1>{{ producto.nombre }}</h1>
-    <p><strong>Precio:</strong> ${{ producto.precio }}</p>
-    <p><strong>Peso:</strong> {{ producto.peso }} Kg</p>
-    <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+    <main class="detalle-container">
+        <div class="detalle-img">
+            <img src="{{ url_for('static', filename=producto.imagen) }}" alt="{{ producto.nombre }}">
+        </div>
 
-    <a href="{{ url_for('productos') }}">⬅ Volver a productos</a>
-  </div>
+        <div class="detalle-info">
+            <h1>{{ producto.nombre }}</h1>
+            <p class="precio">${{ producto.precio }}</p>
+            <p class="descripcion">{{ producto.descripcion or 'Sin descripción disponible' }}</p>
+
+            <a href="https://wa.me/573186505475?text=Hola,%20me%20interesa%20el%20producto%20{{ producto.nombre }}">
+                <button class="btn-comprar">Comprar por WhatsApp</button>
+            </a>
+        </div>
+    </main>
+
+    <!-- WhatsApp flotante -->
+    <a href="https://wa.me/573186505475" target="_blank" style="position:fixed;bottom:20px;right:20px;z-index:9999;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" style="width:50px;height:50px;">
+    </a>
+
+    <script src="{{ url_for('static', filename='js/animacion_contact.js') }}"></script>
 </body>
 </html>
