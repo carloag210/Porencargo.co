@@ -1,104 +1,103 @@
-  <!DOCTYPE html>
-  <html lang="es">
-  <head>
-     <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Marketplace de Productos</title>
-      <link rel="stylesheet" href="assets/css/productos.css">
-      <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketplace de Productos</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/productos.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+        <div class="logo_porEncargo">
+          <a href="{{ url_for('index') }}">
+            <img src="/assets/img/logo_porEncargo_sinLetras.jpg" alt="logo">
+          </a>
+        </div>
+        <ul class="nav-links">
+          <li><a href="{{ url_for('index')}}">Inicio</a></li>
+          <li><a href="{{ url_for('login_register')}}">Mi casillero</a></li>
+          <li><a href="{{ url_for('productos')}}">Productos</a></li>
+          <li><a href="{{ url_for('calculadora')}}" class="contacto-btn">Calculadora</a></li>
+          <li><a href="{{ url_for('rastrea_tu_orden')}}">Rastrea tu orden</a></li>
+          {% if current_user.is_authenticated and current_user.is_admin %}
+            <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
+          {% endif %}
+          {% if current_user.is_authenticated and not current_user.is_admin %}
+            <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
+          {% endif %}
+        </ul>
+        <!-- Dólar Hoy TRM -->
+        <style>#dolar_wpc1 a { font-size:1.2rem; font-weight:500; text-decoration:none;} #widget_usd_cop1 {font-size:1.1rem; color:#000;}</style>
+        <div id="dolar_wpc1"><a href="https://dolar.wilkinsonpc.com.co/" target="_new">Dólar Hoy TRM</a></div>
+        <script src="https://widgets.wilkinsonpc.com.co/curr/curr-usd-cop1.js"></script>
+      </nav>
+    </div>
+  </header>
 
-  </head>
-  <body>
-    <header>
-      <div class="container">
-    <nav>
-      <button class="menu-toggle" aria-label="Abrir menú">☰</button>
-      <div class="logo_porEncargo">
-    <a href="{{ url_for('index') }}"> <!-- Agrega este enlace -->
-        <img src="assets/img/logo_porEncargo_sinLetras.jpg" alt="logo">
-    </a>
-</div>
-      <ul class="nav-links">
-        <li><a href="{{ url_for('index')}}">Inicio</a></li>
-        <li><a href="{{ url_for('login_register')}}">Mi casillero</a></li>
-        <li><a href="{{ url_for('productos')}}">Productos</a></li>
-        <li><a href="{{ url_for('calculadora')}}" class="contacto-btn">Calculadora</a></li>
-        <li><a href="{{ url_for('rastrea_tu_orden')}}">Rastrea tu orden</a></li>
-        {% if current_user.is_authenticated and current_user.is_admin %}
-          <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
-        {% endif %}
-        {% if current_user.is_authenticated and not current_user.is_admin %}
-          <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
-        {% endif %}
-      </ul>
-      <!-- Dólar Hoy TRM -->
-      <style>#dolar_wpc1 a { font-size:1.2rem; font-weight:500; text-decoration:none;} #widget_usd_cop1 {font-size:1.1rem; color:#000;}</style>
-      <div id="dolar_wpc1"><a href="https://dolar.wilkinsonpc.com.co/" target="_new">Dólar Hoy TRM</a></div>
-      <script src="https://widgets.wilkinsonpc.com.co/curr/curr-usd-cop1.js"></script>
-    </nav>
-  </div>
-</header>
-
-
-      <div class="container-productos">
-          <aside class="sidebar">
-              <h2>Filtrar búsqueda</h2>
-              <div class="filter-group">
-                  <label for="precio-min">Precio Mínimo:</label>
-                  <input type="number" id="precio-min" name="precio-min" min="0"><br>
-                  <label for="precio-max">Precio Máximo:</label>
-                  <input type="number" id="precio-max" name="precio-max" min="0">
-              </div>
-              <div class="filter-group">
-                  <label for="categoria">Categoría:</label>
-                  <select id="categoria" name="categoria">
-                      <option value="">Todas</option>
-                      <option value="Informática">Informática</option>
-                      <option value="electronica">Electrónica</option>
-                      <option value="ropa">Ropa</option>
-                      <option value="hogar">Hogar</option>
-                      <option value="deportes">Deportes</option>
-                  </select>
-              </div>
-             
-              <button>Buscar</button>
-          </aside>
-          <main class="main">
-              <h1>Productos</h1>
-              <div class="product-grid">
-                {% for producto in productos%}
-                  <!-- Ejemplo de producto -->
-                  <div class="product-card">
-  <div class="image-container">
-    <a href="{{ url_for('producto_detalle', id=producto.id) }}">
-      <img src="{{ url_for('static', filename=producto.imagen) }}" 
-           alt="Imagen de {{ producto.nombre }}" 
-           class="product-image">
-    </a>
-  </div>
-  <h3>
-    <a href="{{ url_for('producto_detalle', id=producto.id) }}">
-      {{ producto.nombre }}
-    </a>
-  </h3>
-  <p>${{ producto.precio }}</p>
-
-  <a href="https://wa.me/573186505475?text=Hola,%20me%20interesa%20el%20producto%20{{ producto.nombre }}"> 
-    <button class="btn-productos" type="submit">Comprar</button>
-  </a>
-</div>
-
-                      
-                  </div>
-                {% endfor %}
-                  <!-- Más productos aquí -->
-              </div>
-          </main>
+  <div class="container-productos">
+    <aside class="sidebar">
+      <h2>Filtrar búsqueda</h2>
+      <div class="filter-group">
+        <label for="precio-min">Precio Mínimo:</label>
+        <input type="number" id="precio-min" name="precio-min" min="0"><br>
+        <label for="precio-max">Precio Máximo:</label>
+        <input type="number" id="precio-max" name="precio-max" min="0">
       </div>
-      <a href="https://wa.me/573186505475" target="_blank" style="position:fixed;bottom:20px;right:20px;z-index:9999;"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" style="width:50px;height:50px;"></a>
-    <script src="/assets/js/animacion_contact.js"></script>
-  </body>
+      <div class="filter-group">
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" name="categoria">
+          <option value="">Todas</option>
+          <option value="Informática">Informática</option>
+          <option value="electronica">Electrónica</option>
+          <option value="ropa">Ropa</option>
+          <option value="hogar">Hogar</option>
+          <option value="deportes">Deportes</option>
+        </select>
+      </div>
+      <button>Buscar</button>
+    </aside>
 
-  </html>
+    <main class="main">
+      <h1>Productos</h1>
+      <div class="product-grid">
+        {% for producto in productos %}
+          <div class="product-card" data-aos="fade-up">
+            <div class="image-container">
+              <a href="{{ url_for('producto_detalle', id=producto.id) }}">
+                <img src="{{ url_for('static', filename=producto.imagen) }}" 
+                     alt="Imagen de {{ producto.nombre }}" 
+                     class="product-image">
+              </a>
+            </div>
+            <h3>
+              <a href="{{ url_for('producto_detalle', id=producto.id) }}">
+                {{ producto.nombre }}
+              </a>
+            </h3>
+            <p class="precio">${{ producto.precio }}</p>
+            <a href="https://wa.me/573186505475?text=Hola,%20me%20interesa%20el%20producto%20{{ producto.nombre }}"> 
+              <button class="btn-productos" type="button">Comprar</button>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </main>
+  </div>
 
+  <!-- WhatsApp fijo -->
+  <a href="https://wa.me/573186505475" target="_blank" 
+     style="position:fixed;bottom:20px;right:20px;z-index:9999;">
+     <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" 
+          alt="WhatsApp" style="width:50px;height:50px;">
+  </a>
+
+  <script src="/assets/js/animacion_contact.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init();</script>
+</body>
+</html>
