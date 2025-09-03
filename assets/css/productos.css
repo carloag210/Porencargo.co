@@ -7,12 +7,13 @@
   margin: auto;
 }
 
-/* === Sidebar filtros === */
+/* Sidebar fijo a la izquierda */
 .sidebar {
-  flex: 1;
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
+  width: 250px;
+  margin-left: 0;  /* elimina espacio extra */
+  background-color: #f9f9f9; /* opcional: mismo estilo de las otras cajas */
+  padding: 15px;
+  border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
