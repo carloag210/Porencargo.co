@@ -1,0 +1,63 @@
+.detalle-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.detalle-img {
+  flex: 1 1 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detalle-img img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain; /* mantiene proporción sin deformar */
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
+}
+
+.detalle-info {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.detalle-info h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.detalle-info .precio {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.detalle-info .descripcion {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.btn-comprar {
+  padding: 12px 20px;
+  font-size: 1rem;
+  background: #25d366; /* verde WhatsApp */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-comprar:hover {
+  background: #1ebe57;
+}
