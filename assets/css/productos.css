@@ -1,126 +1,112 @@
-/* ===== Estilo unificado productos ===== */
-
-.container-productos {
-  display: flex;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 1rem;
-}
-
-/* Sidebar filtros */
-.sidebar {
-  flex: 1;
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.sidebar h2 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+/* === Layout general === */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9fafc;
+  margin: 0;
+  padding: 0;
   color: #333;
 }
 
+header {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h1, h2, h3 {
+  color: #222;
+}
+
+/* === Sidebar filtros === */
+.sidebar {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
 .filter-group {
-  margin-bottom: 1.2rem;
+  margin-bottom: 15px;
 }
 
-.filter-group label {
-  font-size: 0.9rem;
-  display: block;
-  margin-bottom: 0.3rem;
-  color: #555;
-}
-
-.filter-group input,
-.filter-group select {
+.sidebar input,
+.sidebar select {
   width: 100%;
-  padding: 0.6rem;
+  padding: 8px;
   border: 1px solid #ccc;
   border-radius: 8px;
 }
 
-/* Contenido principal */
-.main {
-  flex: 3;
+.sidebar button {
+  width: 100%;
+  padding: 10px;
+  background: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background: #005fa3;
+}
+
+/* === Contenido principal === */
+.container-productos {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 20px;
+  padding: 20px;
 }
 
 .main h1 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: #222;
-  text-align: center;
+  margin-bottom: 20px;
 }
 
-/* Grid de productos */
+/* === Grilla de productos === */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
 }
 
-/* Tarjeta de producto */
 .product-card {
   background: #fff;
-  border: 1px solid #eaeaea;
   border-radius: 16px;
-  padding: 1rem;
+  padding: 15px;
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
-/* Imagen */
-.image-container {
-  width: 100%;
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
+  transform: translateY(-5px);
 }
 
 .product-image {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
   border-radius: 12px;
-  object-fit: contain;
 }
 
-/* Nombre y precio */
-.product-card h3 {
-  font-size: 1.1rem;
-  margin: 0.5rem 0;
-  color: #333;
-}
-
-.product-card p {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #444;
-  margin-bottom: 1rem;
-}
-
-/* Botón comprar (igual al resto de botones de tu web) */
 .btn-productos {
-  background: #1e88e5; /* mismo color de acción */
+  background: #28a745;
   color: #fff;
   border: none;
-  padding: 0.7rem 1.2rem;
-  border-radius: 12px;
-  font-size: 0.95rem;
+  padding: 10px 16px;
+  margin-top: 10px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .btn-productos:hover {
-  background: #1565c0;
+  background: #218838;
 }
