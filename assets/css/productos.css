@@ -1,81 +1,126 @@
-/* --------------------------------
-   TARJETAS E IMÁGENES DE PRODUCTOS UNIFORMES
------------------------------------*/
+/* ===== Estilo unificado productos ===== */
 
-.container-productos .product-card {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    padding: 20px;
-    text-align: center;
-    transition: all 0.3s ease;
-    border: 1px solid #eee;
-    overflow: hidden;
-    height: 100%;
+.container-productos {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
 }
 
-.container-productos .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+/* Sidebar filtros */
+.sidebar {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.container-productos .product-card h3 {
-    font-size: 1.2rem;
-    margin: 15px 0 10px;
-    color: #222;
-    font-weight: 600;
+.sidebar h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #333;
 }
 
-.container-productos .product-card p {
-    margin: 8px 0;
-    color: #555;
-    font-size: 1.1rem;
+.filter-group {
+  margin-bottom: 1.2rem;
 }
 
-/* Contenedor de imagen: tamaño fijo y centrado */
-.container-productos .product-card .image-container {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 12px;
-    width: 100%;
-    min-height: 250px;   /* Altura uniforme */
-    max-height: 300px;   /* Evita que se desborde */
+.filter-group label {
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #555;
 }
 
-/* Imagen del producto: proporción completa y centrada */
-.container-productos .product-card img {
-    max-width: 100%;      /* No sale del contenedor */
-    max-height: 100%;     /* Ajuste al contenedor */
-    width: auto;          /* Mantiene proporción original */
-    height: auto;         /* Mantiene proporción original */
-    object-fit: contain;  /* No recorta ni distorsiona */
-    border-radius: 12px;
-    transition: transform 0.3s ease;
+.filter-group input,
+.filter-group select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
-.container-productos .product-card:hover img {
-    transform: scale(0.95);
-    opacity: 0.9;
+/* Contenido principal */
+.main {
+  flex: 3;
 }
 
-/* Botón de comprar */
+.main h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+  text-align: center;
+}
+
+/* Grid de productos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Tarjeta de producto */
+.product-card {
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Imagen */
+.image-container {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.product-image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+/* Nombre y precio */
+.product-card h3 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.product-card p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+/* Botón comprar (igual al resto de botones de tu web) */
 .btn-productos {
-    background-color: #707070;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.3s;
+  background: #1e88e5; /* mismo color de acción */
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .btn-productos:hover {
-    background-color: #50C878;
+  background: #1565c0;
 }
