@@ -62,6 +62,11 @@ def index():
 def login_register():
     return render_template('login_register.html')
 
+@app.route('/calculadora')
+def calculadora():
+    return render_template("calculadora.html")
+
+
 @app.route('/rastrea_tu_orden')
 def rastrea_tu_orden():
     return render_template('rastrea_tu_orden.html')
