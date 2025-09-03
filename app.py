@@ -71,6 +71,11 @@ def productos():
     productos = Producto.query.all()
     return render_template('productos.html', productos=productos)
 
+@app.route('/producto/<int:id>')
+def producto_detalle(id):
+    producto = Producto.query.get_or_404(id)
+    return render_template('producto_detalle.html', producto=producto)
+
 @app.route('/admin_panel_add_productos')
 @admin_required
 def admin_panel_add_productos():
