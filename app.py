@@ -23,7 +23,10 @@ if os.environ.get("FLASK_ENV") == "development":
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_LINK")
     if app.config['SQLALCHEMY_DATABASE_URI'] and app.config['SQLALCHEMY_DATABASE_URI'].startswith("postgres://"):
         app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace("postgres://", "postgresql://", 1)
-    # Forzar SSL en producción
+
+        print(">>> FLASK_ENV:", os.environ.get("FLASK_ENV"))
+print(">>> SQLALCHEMY_DATABASE_URI:", app.config.get("SQLALCHEMY_DATABASE_URI"))
+# Forzar SSL en producción
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
         "connect_args": {"sslmode": "require"}
     }
