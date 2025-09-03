@@ -1,5 +1,5 @@
 /* --------------------------------
-   TARJETAS E IMÁGENES DE PRODUCTOS
+   TARJETAS E IMÁGENES DE PRODUCTOS UNIFORMES
 -----------------------------------*/
 
 .container-productos .product-card {
@@ -34,7 +34,7 @@
     font-size: 1.1rem;
 }
 
-/* Contenedor de imagen: altura uniforme */
+/* Contenedor de imagen: tamaño fijo y centrado */
 .container-productos .product-card .image-container {
     flex-grow: 1;
     display: flex;
@@ -43,16 +43,18 @@
     background-color: #f9f9f9;
     padding: 10px;
     border-radius: 12px;
-    min-height: 250px; /* Altura uniforme para todas las imágenes */
+    width: 100%;
+    min-height: 250px;   /* Altura uniforme */
+    max-height: 300px;   /* Evita que se desborde */
 }
 
-/* Imagen del producto: mantener proporción */
+/* Imagen del producto: proporción completa y centrada */
 .container-productos .product-card img {
-    width: auto;           /* No fuerza ancho */
-    max-width: 100%;       /* Máximo ancho del contenedor */
-    height: auto;          /* Mantiene proporción */
-    max-height: 100%;      /* Ajusta al contenedor */
-    object-fit: contain;   /* No recorta la imagen */
+    max-width: 100%;      /* No sale del contenedor */
+    max-height: 100%;     /* Ajuste al contenedor */
+    width: auto;          /* Mantiene proporción original */
+    height: auto;         /* Mantiene proporción original */
+    object-fit: contain;  /* No recorta ni distorsiona */
     border-radius: 12px;
     transition: transform 0.3s ease;
 }
