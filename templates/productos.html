@@ -15,7 +15,7 @@
         <button class="menu-toggle" aria-label="Abrir menú">☰</button>
         <div class="logo_porEncargo">
           <a href="{{ url_for('index') }}">
-            <img src="/assets/img/logo_porEncargo_sinLetras.jpg" alt="logo">
+            <img src="{{ url_for('static', filename='img/logo_porEncargo_sinLetras.jpg') }}" alt="logo">
           </a>
         </div>
         <ul class="nav-links">
@@ -32,8 +32,13 @@
           {% endif %}
         </ul>
         <!-- Dólar Hoy TRM -->
-        <style>#dolar_wpc1 a { font-size:1.2rem; font-weight:500; text-decoration:none;} #widget_usd_cop1 {font-size:1.1rem; color:#000;}</style>
-        <div id="dolar_wpc1"><a href="https://dolar.wilkinsonpc.com.co/" target="_new">Dólar Hoy TRM</a></div>
+        <style>
+          #dolar_wpc1 a { font-size:1.2rem; font-weight:500; text-decoration:none;}
+          #widget_usd_cop1 {font-size:1.1rem; color:#000;}
+        </style>
+        <div id="dolar_wpc1">
+          <a href="https://dolar.wilkinsonpc.com.co/" target="_new">Dólar Hoy TRM</a>
+        </div>
         <script src="https://widgets.wilkinsonpc.com.co/curr/curr-usd-cop1.js"></script>
       </nav>
     </div>
@@ -59,44 +64,45 @@
           <option value="deportes">Deportes</option>
         </select>
       </div>
-      <button>Buscar</button>
+      <button class="btn-productos">Buscar</button>
     </aside>
 
     <main class="main">
       <h1>Productos</h1>
       <div class="product-grid">
         {% for producto in productos %}
-          <div class="product-card" data-aos="fade-up">
-            <div class="image-container">
-              <a href="{{ url_for('producto_detalle', id=producto.id) }}">
-                <img src="{{ url_for('static', filename=producto.imagen) }}" 
-                     alt="Imagen de {{ producto.nombre }}" 
-                     class="product-image">
-              </a>
-            </div>
-            <h3>
-              <a href="{{ url_for('producto_detalle', id=producto.id) }}">
-                {{ producto.nombre }}
-              </a>
-            </h3>
-            <p class="precio">${{ producto.precio }}</p>
-            <a href="https://wa.me/573186505475?text=Hola,%20me%20interesa%20el%20producto%20{{ producto.nombre }}"> 
-              <button class="btn-productos" type="button">Comprar</button>
+        <div class="product-card" data-aos="fade-up">
+          <div class="image-container">
+            <a href="{{ url_for('producto_detalle', id=producto.id) }}">
+              <img src="{{ url_for('static', filename=producto.imagen) }}"
+                   alt="Imagen de {{ producto.nombre }}"
+                   class="product-image">
             </a>
           </div>
+          <h3>
+            <a href="{{ url_for('producto_detalle', id=producto.id) }}">
+              {{ producto.nombre }}
+            </a>
+          </h3>
+          <p>${{ producto.precio }}</p>
+
+          <a href="https://wa.me/573186505475?text=Hola,%20me%20interesa%20el%20producto%20{{ producto.nombre }}">
+            <button class="btn-productos" type="submit">Comprar</button>
+          </a>
+        </div>
         {% endfor %}
       </div>
     </main>
   </div>
 
-  <!-- WhatsApp fijo -->
-  <a href="https://wa.me/573186505475" target="_blank" 
+  <!-- WhatsApp flotante -->
+  <a href="https://wa.me/573186505475" target="_blank"
      style="position:fixed;bottom:20px;right:20px;z-index:9999;">
-     <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" 
-          alt="WhatsApp" style="width:50px;height:50px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png"
+         alt="WhatsApp" style="width:50px;height:50px;">
   </a>
 
-  <script src="/assets/js/animacion_contact.js"></script>
+  <script src="{{ url_for('static', filename='js/animacion_contact.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init();</script>
 </body>
