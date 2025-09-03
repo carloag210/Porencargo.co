@@ -1,112 +1,111 @@
 /* === Layout general === */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f9fafc;
-  margin: 0;
-  padding: 0;
-  color: #333;
-}
-
-header {
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
-}
-
-.container {
-  width: 90%;
+.container-productos {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
   max-width: 1200px;
   margin: auto;
 }
 
-h1, h2, h3 {
-  color: #222;
-}
-
 /* === Sidebar filtros === */
 .sidebar {
+  flex: 1;
   background: #fff;
-  padding: 20px;
   border-radius: 12px;
+  padding: 1.5rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+.sidebar h2 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: var(--color-primario, #333);
+}
+
 .filter-group {
-  margin-bottom: 15px;
+  margin-bottom: 1.2rem;
 }
 
-.sidebar input,
-.sidebar select {
+.filter-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.filter-group input,
+.filter-group select {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
   border-radius: 8px;
 }
 
-.sidebar button {
-  width: 100%;
-  padding: 10px;
-  background: #0077cc;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.sidebar button:hover {
-  background: #005fa3;
-}
-
-/* === Contenido principal === */
-.container-productos {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 20px;
-  padding: 20px;
+/* === Main productos === */
+.main {
+  flex: 3;
 }
 
 .main h1 {
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  text-align: center;
+  color: var(--color-primario, #222);
 }
 
-/* === Grilla de productos === */
+/* === Grid productos === */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
 }
 
+/* === Card producto === */
 .product-card {
   background: #fff;
-  border-radius: 16px;
-  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 1rem;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .product-image {
   width: 100%;
   height: 180px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
+.product-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-card p {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #27ae60;
+}
+
+/* === Botón comprar === */
 .btn-productos {
-  background: #28a745;
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  background: var(--color-secundario, #ff6600);
   color: #fff;
   border: none;
-  padding: 10px 16px;
-  margin-top: 10px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.2s ease;
 }
 
 .btn-productos:hover {
-  background: #218838;
+  background: #e65c00;
 }
