@@ -17,8 +17,8 @@ app.config.from_object(Config)
 # --- Configuración de la base de datos ---
 if os.environ.get("FLASK_ENV") == "development":
     # ENTORNO LOCAL (SQLite)
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///porencargo_local.db"
-else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:Adminops*@localhost:5432/porencargo_local"
+
     # PRODUCCIÓN (Railway)
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_LINK")
     if app.config['SQLALCHEMY_DATABASE_URI'] and app.config['SQLALCHEMY_DATABASE_URI'].startswith("postgres://"):
