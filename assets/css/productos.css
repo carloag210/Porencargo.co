@@ -41,9 +41,9 @@
   border-radius: 8px;
 }
 
-/* === Main productos === */
+/* Main ocupa el resto */
 .main {
-  flex: 3;
+  flex: 1; /* hace que los productos usen el espacio restante */
 }
 
 .main h1 {
