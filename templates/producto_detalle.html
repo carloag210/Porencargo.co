@@ -33,14 +33,29 @@
         </div>
     </header>
 
- <div class="detalle-img">
-    <div class="swiper mySwiperDetalle">
-        <div class="swiper-wrapper">
-            {% for img in producto.imagenes %}
-            <div class="swiper-slide">
-                <img src="{{ url_for('static', filename=img) }}" alt="{{ producto.nombre }}">
-            </div>
-            {% endfor %}
+<div class="detalle-img">
+  <!-- Swiper -->
+  <div class="swiper mySwiperDetalle">
+    <div class="swiper-wrapper">
+      <!-- Imagen principal del producto -->
+      <div class="swiper-slide">
+        <img src="{{ url_for('static', filename=producto.imagen) }}" alt="{{ producto.nombre }}">
+      </div>
+
+      <!-- Ejemplo: si tienes más imágenes en el futuro, puedes agregarlas aquí -->
+      {# 
+      <div class="swiper-slide">
+        <img src="{{ url_for('static', filename='img/otro_ejemplo.jpg') }}" alt="otra imagen">
+      </div>
+      #}
+    </div>
+
+    <!-- Controles -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+</div>
         </div>
 
         <!-- Flechas de navegación -->
