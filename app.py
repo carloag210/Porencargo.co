@@ -103,35 +103,29 @@ def admin_panel_modificar_productos(id):
     producto = Producto.query.get_or_404(id)
 
     if request.method == 'POST':
+        # Actualizar datos del producto
         producto.nombre = request.form['nombre']
         producto.precio = request.form['precio']
         producto.peso = request.form['peso']
         producto.categoria = request.form['categoria']
 
-        nueva_imagen = request.files['imagen']
-        if nueva_imagen:
-            nombre_archivo = secure_filename(nueva_imagen.filename)
-            ruta_relativa = os.path.join('img_productos', nombre_archivo)
-            ruta_completa = os.path.join(app.config['UPLOAD_FOLDER'], nombre_archivo)
-            nueva_imagen.save(ruta_completa)
-            producto.imagen = ruta_relativa  # 👈 guardar la ruta relativa como en "add_productos"
+        # Procesar imágenes
+        imagenes = request.files.getlist("imagenes")
 
+        for imagen in imagenes:
+            if imagen and imagen.filename != "":
+                filename = secure_filename(imagen.filename)
+                path = os.path.join("static/uploads", filename)  # ruta donde se guarda
+                imagen.save(path)
 
-db.session.add(nuevo_producto)
-db.session.commit()  # Guardamos primero el producto para tener su ID
+                nueva_img = ImagenProducto(ruta=f"uploads/{filename}", producto_id=producto.id)
+                db.session.add(nueva_img)
 
-for imagen in imagenes:
-    if imagen.filename != "":
-        filename = secure_filename(imagen.filename)
-        path = os.path.join("static/uploads", filename)
-        imagen.save(path)
+        db.session.commit()
+        return redirect(url_for('admin_panel'))
 
-        nueva_img = ImagenProducto(ruta=f"uploads/{filename}", producto_id=nuevo_producto.id)
-        db.session.add(nueva_img)
+    return render_template('admin_panel_modificar_productos.html', producto=producto)
 
-db.session.commit()
-
-return redirect(url_for('admin_panel'))
 
 @app.route('/calculadora')
 def calculadora():
@@ -564,6 +558,7 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
