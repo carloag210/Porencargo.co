@@ -131,9 +131,7 @@ for imagen in imagenes:
 
 db.session.commit()
 
-        return redirect(url_for('admin_panel')
-
-    return render_template('admin_panel_modificar_productos.html', producto=producto)
+return redirect(url_for('admin_panel'))
 
 @app.route('/calculadora')
 def calculadora():
@@ -566,6 +564,7 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
