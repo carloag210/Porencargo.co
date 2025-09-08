@@ -34,13 +34,18 @@
     </header>
 
 <div class="detalle-img">
-  <!-- Swiper -->
-  <div class="swiper mySwiperDetalle">
-    <div class="swiper-wrapper">
-      <!-- Imagen principal del producto -->
-      <div class="swiper-slide">
-        <img src="{{ url_for('static', filename=producto.imagen) }}" alt="{{ producto.nombre }}">
-      </div>
+    <div class="carousel">
+        <div class="carousel-track">
+            {% for img in producto.imagenes %}
+                <div class="carousel-slide">
+                    <img src="{{ url_for('static', filename=img.ruta) }}" alt="{{ producto.nombre }}">
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-btn prev">❮</button>
+        <button class="carousel-btn next">❯</button>
+    </div>
+</div>
 
       <!-- Ejemplo: si tienes más imágenes en el futuro, puedes agregarlas aquí -->
       {# 
