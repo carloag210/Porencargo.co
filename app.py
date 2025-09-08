@@ -108,15 +108,29 @@ def admin_panel_modificar_productos(id):
         producto.peso = request.form['peso']
         producto.categoria = request.form['categoria']
 
-        nueva_imagen = request.files['imagen']
-        if nueva_imagen:
-            nombre_archivo = secure_filename(nueva_imagen.filename)
-            ruta_relativa = os.path.join('img_productos', nombre_archivo)
-            ruta_completa = os.path.join(app.config['UPLOAD_FOLDER'], nombre_archivo)
-            nueva_imagen.save(ruta_completa)
-            producto.imagen = ruta_relativa  # 👈 guardar la ruta relativa como en "add_productos"
+        imagenes = request.files.getlist("imagenes")
 
-        db.session.commit()
+nuevo_producto = Producto(
+    nombre=request.form["nombre"],
+    precio=request.form["precio"],
+    peso=request.form["peso"],
+    categoria=request.form["categoria"]
+)
+
+db.session.add(nuevo_producto)
+db.session.commit()  # Guardamos primero el producto para tener su ID
+
+for imagen in imagenes:
+    if imagen.filename != "":
+        filename = secure_filename(imagen.filename)
+        path = os.path.join("static/uploads", filename)
+        imagen.save(path)
+
+        nueva_img = ImagenProducto(ruta=f"uploads/{filename}", producto_id=nuevo_producto.id)
+        db.session.add(nueva_img)
+
+db.session.commit()
+
         return redirect(url_for('admin_panel'))
 
     return render_template('admin_panel_modificar_productos.html', producto=producto)
