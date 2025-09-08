@@ -108,14 +108,14 @@ def admin_panel_modificar_productos(id):
         producto.peso = request.form['peso']
         producto.categoria = request.form['categoria']
 
-        imagenes = request.files.getlist("imagenes")
+        nueva_imagen = request.files['imagen']
+        if nueva_imagen:
+            nombre_archivo = secure_filename(nueva_imagen.filename)
+            ruta_relativa = os.path.join('img_productos', nombre_archivo)
+            ruta_completa = os.path.join(app.config['UPLOAD_FOLDER'], nombre_archivo)
+            nueva_imagen.save(ruta_completa)
+            producto.imagen = ruta_relativa  # 👈 guardar la ruta relativa como en "add_productos"
 
-nuevo_producto = Producto(
-    nombre=request.form["nombre"],
-    precio=request.form["precio"],
-    peso=request.form["peso"],
-    categoria=request.form["categoria"]
-)
 
 db.session.add(nuevo_producto)
 db.session.commit()  # Guardamos primero el producto para tener su ID
@@ -566,6 +566,7 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
