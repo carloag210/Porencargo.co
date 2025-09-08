@@ -33,10 +33,26 @@
         </div>
     </header>
 
-    <main class="detalle-container">
-        <div class="detalle-img">
-            <img src="{{ url_for('static', filename=producto.imagen) }}" alt="{{ producto.nombre }}">
+ <div class="detalle-img">
+    <div class="swiper mySwiperDetalle">
+        <div class="swiper-wrapper">
+            {% for img in producto.imagenes %}
+            <div class="swiper-slide">
+                <img src="{{ url_for('static', filename=img) }}" alt="{{ producto.nombre }}">
+            </div>
+            {% endfor %}
         </div>
+
+        <!-- Flechas de navegación -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- Paginación (punticos) -->
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
+
 
         <div class="detalle-info">
             <h1>{{ producto.nombre }}</h1>
@@ -55,5 +71,29 @@
     </a>
 
     <script src="{{ url_for('static', filename='js/animacion_contact.js') }}"></script>
+
+        <!-- WhatsApp flotante -->
+    <a href="https://wa.me/573186505475" target="_blank" style="position:fixed;bottom:20px;right:20px;z-index:9999;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" style="width:50px;height:50px;">
+    </a>
+
+    <script src="{{ url_for('static', filename='js/animacion_contact.js') }}"></script>
+
+    <!-- Swiper JS (para el carrusel de imágenes del producto) -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+    var swiper = new Swiper(".mySwiperDetalle", {
+      loop: true,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+    </script>
 </body>
 </html>
+
