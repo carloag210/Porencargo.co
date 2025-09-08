@@ -456,4 +456,26 @@ footer {
     }
 }
 
+.logo-img {
+  max-width: 120px;   /* tamaño máximo en pantallas grandes */
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.05); /* efecto suave al pasar el mouse */
+}
+
+@media (max-width: 768px) {
+  .logo-img {
+    max-width: 80px; /* más pequeño en tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-img {
+    max-width: 60px; /* aún más pequeño en móviles */
+  }
+}
 
