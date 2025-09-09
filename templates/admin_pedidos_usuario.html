@@ -15,11 +15,23 @@
           <div class="bloque" style="background-color: #e4f199; position: relative;">
             <ul>
               <form action="">
-                <li><strong>Nombre: </strong><input type="text" name="nombre" placeholder="{{ p.nombre }}" value="{{ p.nombre}}"></li>
-                <li><strong>Precio: </strong><input type="text" name="precio" placeholder="{{ p.precio }}" value="{{ p.precio}}"></li>
-                <li><strong>Numero_guia: </strong><input type="text" name="numero_guia" placeholder="{{ p.numero_guia }}" value="{{ p.numero_guia}}"></li>
-                <li><strong>Peso: </strong><input type="text" name="peso" placeholder="{{ p.peso }}" value="{{ p.peso}}"></li>
-                <li><strong>Estado: </strong> {{ p.estado.value }}</li>
+                <li><strong>Fecha de recibido: </strong>
+    <input type="date" name="fecha_recibido" value="{{ p.fecha_recibido|default('') }}">
+</li>
+<li><strong>Nombre: </strong>
+    <input type="text" name="nombre" placeholder="{{ p.nombre }}" value="{{ p.nombre }}">
+</li>
+<li><strong>Precio: </strong>
+    <input type="text" name="precio" placeholder="{{ p.precio }}" value="{{ p.precio }}">
+</li>
+<li><strong>Número_guia: </strong>
+    <input type="text" name="numero_guia" placeholder="{{ p.numero_guia }}" value="{{ p.numero_guia }}">
+</li>
+<li><strong>Peso: </strong>
+    <input type="text" name="peso" placeholder="{{ p.peso }}" value="{{ p.peso }}">
+</li>
+<li><strong>Estado: </strong> {{ p.estado.value }}</li>
+
               </form>
                 <li class="pedido-card {% if p.prealerta %}{% endif %}"></li>
                 {% if p.prealerta %}
@@ -120,3 +132,4 @@
 
 
 {% endblock %}
+
