@@ -1,5 +1,21 @@
 {% extends "mis_pedidos.html" %}
+
 {% block content %}
+
+<!-- Logo agregado manualmente -->
+<header>
+  <div class="container">
+    <nav>
+      <div class="logo_porEncargo">
+        <a href="{{ url_for('index') }}">
+          <img src="/assets/img/logo_porEncargo_sinLetras.jpg" alt="logo">
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+<!-- Fin logo manual -->
+
 <h1 class="page-title">Mis pedidos</h1>
 
 {% if paquetes %}
@@ -28,8 +44,8 @@
 {% else %}
     <p>No tienes paquetes registrados.</p>
 {% endif %}
-{% endblock %}
 
+{% endblock %}
 
 
 
