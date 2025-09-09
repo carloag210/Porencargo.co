@@ -94,20 +94,29 @@
 
 <div class="auth-container">
     <form class="form-container" action="{{ url_for('crear_paquete', user_id=usuario.id) }}" method="POST">
-        <h2>Agregar Nueva Guia o Paquete</h2>
+        <h2>Agregar Nueva Guía o Paquete</h2>
+
+        <!-- NUEVO: Fecha de recibido -->
+        <input class="form-input" type="date" name="fecha_recibido" placeholder="Fecha de recibido"><br>
+
+        <!-- Campos existentes -->
         <input class="form-input" type="text" name="nombre" placeholder="Nombre" required><br>
-        <input class="form-input" type="text" name="numero_guia" step="0.01" placeholder="numero_guia" required><br>
+        <input class="form-input" type="text" name="numero_guia" step="0.01" placeholder="Número de guía" required><br>
         <input class="form-input" type="text" name="precio" step="0.01" placeholder="Precio" required><br>
         <input class="form-input" type="text" name="peso" step="0.01" placeholder="Peso en kg o gramos" required><br>
         <input type="hidden" name="id_user" value="{{ usuario.id }}">
-        <label>Categoría:</label>
-          <select class="form-input" name="estado">
+
+        <label>Categoría / Estado:</label>
+        <select class="form-input" name="estado">
             {% for estado in estados_posibles %}
-              <option value="{{ estado.name }}">{{ estado.value }}</option>
+                <option value="{{ estado.name }}">{{ estado.value }}</option>
             {% endfor %}
-          </select>
-        <button class="btn-add-productos" type="submit">Guardar producto</button>
+        </select><br><br>
+
+        <button class="btn-add-productos" type="submit">Guardar paquete</button>
     </form>
 </div>
+
+
 
 {% endblock %}
