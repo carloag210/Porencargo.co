@@ -12,9 +12,9 @@
                 <li><strong>Número de guía:</strong> {{ paquete.numero_guia }}</li>
                 <li><strong>Peso:</strong> {{ paquete.peso }}</li>
                 {% if paquete.prealerta %}
-                <li style="color: #e90303;" ><strong style="color: #333;" >Estado del pedido:</strong> En prealerta </li>
-                {% else %}
-                <li style="color: #50c850;" ><strong style="color: #333;">Estado del pedido:</strong> Pedido realizado</li>
+                    <li style="color: #e90303;">
+                        <strong style="color: #333;">Estado del pedido:</strong> En prealerta
+                    </li>
                 {% endif %}
             </ul>
         </div>
@@ -23,4 +23,6 @@
     <p>No tienes paquetes registrados.</p>
 {% endif %}
 {% endblock %}
+
+
 
