@@ -47,7 +47,7 @@ app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = 'logistica@porencargo.co'         # tu correo
-app.config['MAIL_PASSWORD'] = 'Carlos161809Aguado*2025*'           # contraseña de aplicación
+app.config['MAIL_PASSWORD'] = 'pm-live-1711d7f7-4e24-4425-9a6d-a912c1ddbc0c'           # contraseña de aplicación
 app.config['MAIL_DEFAULT_SENDER'] = 'logistica@porencargo.co'   # quien envía
     
 mail = Mail(app)
