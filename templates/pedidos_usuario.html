@@ -7,15 +7,21 @@
         <div class="bloque">
             <ul>
                 <li><strong>Nombre:</strong> {{ paquete.nombre }}</li>
-                <li><strong>Estado:</strong> {{ paquete.estado.value }}</li>
                 <li><strong>Precio:</strong> {{ paquete.precio }}</li>
                 <li><strong>Número de guía:</strong> {{ paquete.numero_guia }}</li>
                 <li><strong>Peso:</strong> {{ paquete.peso }}</li>
+                
                 {% if paquete.prealerta %}
-                    <li style="color: #e90303;">
-                        <strong style="color: #333;">Estado del pedido:</strong> En prealerta
-                    </li>
+                  <li style="color: #e90303;"><strong style="color: #333;">Aviso:</strong> En prealerta</li>
                 {% endif %}
+                
+                <!-- Estado ahora va al final -->
+                <li>
+                  <strong>Estado:</strong> 
+                  <span style="color: {% if paquete.estado.value == 'En prealerta' %}#e90303{% else %}#50c850{% endif %};">
+                    {{ paquete.estado.value }}
+                  </span>
+                </li>
             </ul>
         </div>
     {% endfor %}
@@ -23,6 +29,8 @@
     <p>No tienes paquetes registrados.</p>
 {% endif %}
 {% endblock %}
+
+
 
 
 
