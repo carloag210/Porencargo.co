@@ -2,23 +2,6 @@
 
 {% block content %}
 
-<!-- Header completo con logo y menú -->
-<header>
-  <div class="container">
-    <nav>
-      <button class="menu-toggle" aria-label="Abrir menú">☰</button>
-      {% if current_user.is_authenticated and current_user.is_admin %}
-          <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
-        {% endif %}
-        {% if current_user.is_authenticated and not current_user.is_admin %}
-          <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
-        {% endif %}
-      </ul>
-    </nav>
-  </div>
-</header>
-<!-- Fin header -->
-
 <h1 class="page-title">Mis pedidos</h1>
 
 {% if paquetes %}
@@ -48,5 +31,3 @@
 {% endif %}
 
 {% endblock %}
-
-
