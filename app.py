@@ -387,7 +387,7 @@ def login():
             login_user(user)
             if user.is_admin:
                 return redirect('/admin')
-            flash("has ingresado con exito","success")
+            flash("Bienvenido a su Cuenta","success")
             return redirect('/pedidos_del_usuario')
         flash("contraseña incorrecta","error")
     return redirect('/login_register')
@@ -395,7 +395,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    flash("Has cerrado sesion con exito","success")
+    flash("Hasta Pronto","success")
     return redirect('/login_register')
 
 @app.route('/pedidos_del_usuario')
@@ -558,6 +558,7 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
