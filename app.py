@@ -278,20 +278,17 @@ def actualizar_estado():
 @login_required
 def marcar_consolidar():
     paquete_id = request.form.get("paquete_id")
-    if not paquete_id:
-        return jsonify({"success": False, "error": "ID de paquete no proporcionado"}), 400
-
     paquete = Paquete.query.get_or_404(paquete_id)
 
-    # ✅ Verificamos que el paquete pertenezca al usuario actual
+    # Verificamos que el paquete sea del usuario logueado
     if paquete.id_user != current_user.id:
-        return jsonify({"success": False, "error": "No tienes permisos"}), 403
+        return {"success": False, "error": "No tienes permisos"}, 403
 
-    # ✅ Actualizar consolidación
-    paquete.consolidar = request.form.get("consolidar") == "true"
+    # Guarda True si está marcado, False si no
+    paquete.consolidar = bool(request.form.get("consolidar"))
+
     db.session.commit()
-
-    return jsonify({"success": True, "consolidar": paquete.consolidar})
+    return {"success": True, "consolidar": paquete.consolidar}
 
 
 
@@ -587,6 +584,7 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
