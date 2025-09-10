@@ -240,10 +240,11 @@ def crear_paquete(user_id):
 def actualizar_estado():
     paquete_id = request.form.get('paquete_id')
     nuevo_estado_str = request.form.get('nuevo_estado')
-    p_nombre = request.form.get('nombre')#cambios que puse para que chat gpt los vea
-    p_precio = request.form.get('precio')#cambios que puse para que chat gpt los vea
-    p_numero_guia = request.form.get('numero_guia')#cambios que puse para que chat gpt los vea
-    p_peso = request.form.get('peso')#cambios que puse para que chat gpt los vea
+    p_nombre = request.form.get('nombre')
+    p_precio = request.form.get('precio')
+    p_numero_guia = request.form.get('numero_guia')
+    p_peso = request.form.get('peso')
+    fecha_recibido = request.form.get('fecha_recibido')  # <-- NUEVO CAMPO
 
     paquete = Paquete.query.get(paquete_id)
 
@@ -253,17 +254,23 @@ def actualizar_estado():
     # Actualizar estado
     paquete.estado = EstadoPaquete(nuevo_estado_str)
 
-    paquete.nombre = p_nombre#cambios que puse para que chat gpt los vea
-    paquete.precio = p_precio#cambios que puse para que chat gpt los vea
-    paquete.numero_guia = p_numero_guia#cambios que puse para que chat gpt los vea
-    paquete.peso = p_peso#cambios que puse para que chat gpt los vea
+    # Actualizar los demás campos
+    paquete.nombre = p_nombre
+    paquete.precio = p_precio
+    paquete.numero_guia = p_numero_guia
+    paquete.peso = p_peso
+
+    # Actualizar fecha recibido solo si se proporciona
+    if fecha_recibido:
+        paquete.fecha_recibido = fecha_recibido
 
     # Actualizar prealerta si el admin marcó "resuelta"
     if 'prealerta_resuelta' in request.form:
-        paquete.prealerta = False  # ✅ ESTO es lo que faltaba
+        paquete.prealerta = False
 
-    db.session.commit()  # guarda los cambios
+    db.session.commit()  # Guarda todos los cambios
 
+    flash("Paquete actualizado correctamente", "success")
     return redirect(request.referrer)
 
 @app.route('/nueva_direccion', methods=['POST'])
@@ -558,6 +565,7 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
