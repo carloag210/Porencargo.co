@@ -70,6 +70,7 @@
 <div class="auth-container">
     <form class="form-container" action="{{ url_for('crear_paquete', user_id=usuario.id) }}" method="POST">
         <h2>Agregar Nueva Guía o Paquete</h2>
+        <input class="form-input" type="date" name="fecha_recibido" placeholder="Fecha de recibido">
         <input class="form-input" type="text" name="nombre" placeholder="Nombre" required><br>
         <input class="form-input" type="text" name="numero_guia" placeholder="Número de guía" required><br>
         <input class="form-input" type="text" name="precio" placeholder="Precio" required><br>
@@ -86,6 +87,7 @@
 </div>
 
 {% endblock %}
+
 
 
 
