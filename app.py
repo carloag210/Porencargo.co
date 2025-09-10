@@ -277,19 +277,17 @@ def actualizar_estado():
 @login_required
 def marcar_consolidar():
     paquete_id = request.form.get("paquete_id")
-    consolidar = request.form.get("consolidar") == "true"
+    paquete = Paquete.query.get_or_404(paquete_id)
 
-    paquete = Paquete.query.filter_by(id=paquete_id, id_user=current_user.id).first()
+    # Verificamos que el paquete sea del usuario logueado
+    if paquete.id_user != current_user.id:
+        return {"success": False, "error": "No tienes permisos"}, 403
 
-    if not paquete:
-        flash("No se encontró el paquete o no tienes permiso.", "error")
-        return redirect(url_for("mis_pedidos"))
+    paquete.consolidar = True if request.form.get("consolidar") == "true" else False
 
-    paquete.consolidar = consolidar
     db.session.commit()
+    return {"success": True, "consolidar": paquete.consolidar}
 
-    flash("Estado de consolidación actualizado.", "success")
-    return redirect(url_for("mis_pedidos"))
 
 
 @app.route('/nueva_direccion', methods=['POST'])
@@ -584,6 +582,7 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
