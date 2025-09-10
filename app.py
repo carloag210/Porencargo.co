@@ -43,12 +43,12 @@ with app.app_context():
 app.secret_key = os.urandom(24)
 app.permanent_session_lifetime = timedelta(days=7)  # dura 7 días
 #email automatico
-app.config['MAIL_SERVER'] = 'smtp.purelymail.com'
+app.config['MAIL_SERVER'] = 'smtp.mailgun.org'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = 'logistica@porencargo.co'         # tu correo
-app.config['MAIL_PASSWORD'] = 'pm-live-1711d7f7-4e24-4425-9a6d-a912c1ddbc0c'           # contraseña de aplicación
+app.config['MAIL_PASSWORD'] = 'a908db693f31b3f8182dc6be4a5f570e-fbceb7cb-37203a5d'  # contraseña de aplicación
 app.config['MAIL_DEFAULT_SENDER'] = 'logistica@porencargo.co'   # quien envía
     
 mail = Mail(app)
@@ -584,6 +584,7 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
