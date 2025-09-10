@@ -3,20 +3,17 @@
 {% block content %}
 <link rel="stylesheet" href="/assets/css/admin_panel.css">
 
-
-
 {% if paquetes %}
   <ul class="lista-pedidos">
     {% for p in paquetes %}
       <li class="pedido-card action">
         <form method="POST" action="{{ url_for('actualizar_estado') }}">
           <input type="hidden" name="paquete_id" value="{{ p.id }}">
-          <div class="bloque" style="{% if p.prealerta %}background-color: #e4f199;{% endif %} position: relative;">
+          <div class="bloque" style="position: relative; {% if p.prealerta %}background-color: #e4f199;{% endif %}">
             <ul>
-              <!-- Campos editables -->
               <li>
-                <strong>Fecha de recibido: </strong>
-                <input type="date" name="fecha_recibido" value="{{ p.fecha_recibido|default('') }}">
+                <strong>Fecha recibido: </strong>
+                <input type="date" name="fecha_recibido" value="{{ p.fecha_recibido | default('', true) }}">
               </li>
               <li>
                 <strong>Nombre: </strong>
@@ -37,6 +34,7 @@
               <li>
                 <strong>Estado: </strong> {{ p.estado.value }}
               </li>
+
               {% if p.prealerta %}
                 <li>
                   <label>
@@ -47,7 +45,6 @@
               {% endif %}
             </ul>
 
-            <!-- Selección de nuevo estado -->
             <select name="nuevo_estado">
               {% for estado in estados_posibles %}
                 <option value="{{ estado.value }}" {% if estado == p.estado %}selected{% endif %}>
@@ -55,53 +52,40 @@
                 </option>
               {% endfor %}
             </select>
-
             <button type="submit">Actualizar estado</button>
         </form>
 
-        <!-- Botón eliminar -->
         <form action="{{ url_for('eliminar_paquete', id=p.id) }}" method="POST">
-          <button style="position: absolute; top: 75px; right: 35px; width: 90px; background-color: rgb(218, 69, 69);" class="btn-add-productos">
-            Eliminar
-          </button>
+          <button style="position: absolute; top: 75px; right: 35px; width: 90px; background-color: rgb(218, 69, 69);" class="btn-add-productos">Eliminar</button>
         </form>
       </div>
-      </li>
+    </li>
     {% endfor %}
   </ul>
 {% else %}
   <p>Este usuario no tiene pedidos registrados.</p>
 {% endif %}
 
-
-
+<!-- Formulario para agregar nuevo paquete -->
 <div class="auth-container">
     <form class="form-container" action="{{ url_for('crear_paquete', user_id=usuario.id) }}" method="POST">
         <h2>Agregar Nueva Guía o Paquete</h2>
-
-        <!-- NUEVO: Fecha de recibido -->
-        <input class="form-input" type="date" name="fecha_recibido" placeholder="Fecha de recibido"><br>
-
-        <!-- Campos existentes -->
         <input class="form-input" type="text" name="nombre" placeholder="Nombre" required><br>
-        <input class="form-input" type="text" name="numero_guia" step="0.01" placeholder="Número de guía" required><br>
-        <input class="form-input" type="text" name="precio" step="0.01" placeholder="Precio" required><br>
-        <input class="form-input" type="text" name="peso" step="0.01" placeholder="Peso en kg o gramos" required><br>
+        <input class="form-input" type="text" name="numero_guia" placeholder="Número de guía" required><br>
+        <input class="form-input" type="text" name="precio" placeholder="Precio" required><br>
+        <input class="form-input" type="text" name="peso" placeholder="Peso en kg o gramos" required><br>
         <input type="hidden" name="id_user" value="{{ usuario.id }}">
-
-        <label>Categoría / Estado:</label>
-        <select class="form-input" name="estado">
+        <label>Categoría:</label>
+          <select class="form-input" name="estado">
             {% for estado in estados_posibles %}
-                <option value="{{ estado.name }}">{{ estado.value }}</option>
+              <option value="{{ estado.name }}">{{ estado.value }}</option>
             {% endfor %}
-        </select><br><br>
-
-        <button class="btn-add-productos" type="submit">Guardar paquete</button>
+          </select>
+        <button class="btn-add-productos" type="submit">Guardar producto</button>
     </form>
 </div>
 
-
-
 {% endblock %}
+
 
 
