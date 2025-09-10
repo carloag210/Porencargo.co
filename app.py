@@ -204,37 +204,37 @@ def admin_ver_direcciones_usuario(user_id):
 @admin_required
 def crear_paquete(user_id):
     if request.method == 'POST':
-        
-            nombre = request.form['nombre']
-            precio = request.form['precio']
-            numero_guia = request.form['numero_guia']
-            peso = request.form['peso']
-            estado_str = request.form['estado']
-            id_user = request.form['id_user']
+        nombre = request.form['nombre']
+        precio = request.form['precio']
+        numero_guia = request.form['numero_guia']
+        peso = request.form['peso']
+        estado_str = request.form['estado']
+        id_user = request.form['id_user']
+        fecha_recibido = request.form.get('fecha_recibido')  # <-- NUEVO CAMPO
 
-            # Convertimos el estado recibido como string a Enum
-            estado = EstadoPaquete[estado_str]
-            
-            # Crear el paquete
-            nuevo_paquete    = Paquete(
-                nombre=nombre,
-                precio=precio,
-                numero_guia=numero_guia,
-                peso=peso,
-                estado=estado,
-                id_user=id_user
-            )
-            print(request.form)
-            db.session.add(nuevo_paquete)
-            db.session.commit()
-            flash("Paquete creado correctamente", "success")
-            return redirect(request.referrer)
-    return redirect('login_register')
-    # Si es GET, muestra el formulario con usuarios y estados posibles
-    usuarios = User.query.get_or_404(user_id)
-    paquetes = Paquete.query.get_or_404(user_id)
+        # Convertimos el estado recibido como string a Enum
+        estado = EstadoPaquete[estado_str]
+
+        # Crear el paquete
+        nuevo_paquete = Paquete(
+            nombre=nombre,
+            precio=precio,
+            numero_guia=numero_guia,
+            peso=peso,
+            estado=estado,
+            id_user=id_user,
+            fecha_recibido=fecha_recibido  # <-- guardamos la fecha
+        )
+
+        db.session.add(nuevo_paquete)
+        db.session.commit()
+        flash("Paquete creado correctamente", "success")
+        return redirect(request.referrer)
+
+    # GET: mostrar formulario
+    usuario = User.query.get_or_404(user_id)
     estados_posibles = list(EstadoPaquete)
-    return render_template('admin_pedidos_usuario.html', paquetes=paquetes , usuario=usuarios, estados_posibles=estados_posibles)
+    return render_template('admin_pedidos_usuario.html', usuario=usuario, estados_posibles=estados_posibles)
 
 @app.route('/admin/actualizar_estado', methods=['POST'])
 def actualizar_estado():
@@ -565,6 +565,7 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
