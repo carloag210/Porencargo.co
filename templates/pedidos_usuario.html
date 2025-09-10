@@ -32,6 +32,19 @@
                     {{ paquete.estado.value }}
                   </span>
                 </li>
+
+                <!-- ✅ Checkbox de consolidación -->
+                <li>
+                  <form method="POST" action="{{ url_for('marcar_consolidar') }}">
+                    <input type="hidden" name="paquete_id" value="{{ paquete.id }}">
+                    <label>
+                      <input type="checkbox" name="consolidar" value="true"
+                             onchange="this.form.submit()" 
+                             {% if paquete.consolidar %}checked{% endif %}>
+                      ✅ Marcar para consolidación
+                    </label>
+                  </form>
+                </li>
             </ul>
         </div>
     {% endfor %}
@@ -40,4 +53,3 @@
 {% endif %}
 
 {% endblock %}
-
