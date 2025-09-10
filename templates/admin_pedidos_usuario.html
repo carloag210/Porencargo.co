@@ -10,6 +10,17 @@
         <form method="POST" action="{{ url_for('actualizar_estado') }}">
           <input type="hidden" name="paquete_id" value="{{ p.id }}">
           <div class="bloque" style="position: relative; {% if p.prealerta %}background-color: #e4f199;{% endif %}">
+            
+            <!-- 🔹 Badge si está marcado para consolidar -->
+            {% if p.consolidar %}
+              <span style="position: absolute; top: 5px; right: 5px; 
+                           background-color: #007bff; color: white; 
+                           padding: 4px 8px; border-radius: 8px; 
+                           font-size: 12px; font-weight: bold;">
+                📦 Consolidar
+              </span>
+            {% endif %}
+
             <ul>
               <li>
                 <strong>Fecha recibido: </strong>
@@ -87,7 +98,3 @@
 </div>
 
 {% endblock %}
-
-
-
-
