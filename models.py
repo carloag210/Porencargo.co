@@ -26,6 +26,7 @@ class Paquete(db.Model):
     estado = Column(Enum(EstadoPaquete), default=EstadoPaquete.EN_ENVIO, nullable=False)
     prealerta = Column(Boolean, default=False, nullable=False)
 
+    fecha_recibido = Column(Date, nullable=True)
 
     usuario = relationship('User', back_populates='paquetes')
 
@@ -76,4 +77,5 @@ class Producto(db.Model):
     categoria = db.Column(db.Text, nullable=False)
     
     def __repr__(self):
+
         return f'<Producto {self.nombre}>'
