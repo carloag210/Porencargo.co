@@ -1,5 +1,5 @@
 from extencions import db
-from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey, Enum
+from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey, Enum, Date,
 # la clomuna de arriba solo hace que s epueda tranajar con clomun, etc sin mensionar db. al principio
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
@@ -79,3 +79,4 @@ class Producto(db.Model):
     def __repr__(self):
 
         return f'<Producto {self.nombre}>'
+
