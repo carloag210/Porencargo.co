@@ -1,14 +1,12 @@
 {% extends "mis_pedidos.html" %}
 
 {% block content %}
-
 <h1 class="page-title">Mis pedidos</h1>
 
 {% if paquetes %}
     {% for paquete in paquetes %}
         <div class="bloque">
             <ul>
-                <!-- Fecha de recibido al inicio -->
                 <li><strong>Fecha de recibido:</strong>
                     {% if paquete.fecha_recibido %}
                         {{ paquete.fecha_recibido.strftime('%d/%m/%Y') }}
@@ -21,29 +19,30 @@
                 <li><strong>Precio:</strong> {{ paquete.precio }}</li>
                 <li><strong>Número de guía:</strong> {{ paquete.numero_guia }}</li>
                 <li><strong>Peso:</strong> {{ paquete.peso }}</li>
-                
+
+                <!-- ✅ Checkbox para consolidar -->
+                <li>
+                  <form class="form-consolidar" method="POST" action="{{ url_for('marcar_consolidar') }}">
+                    <input type="hidden" name="paquete_id" value="{{ paquete.id }}">
+                    <label>
+                      <input type="checkbox" name="consolidar" value="true"
+                             {% if paquete.consolidar %}checked{% endif %}>
+                      ✅ Marcar para consolidación
+                    </label>
+                  </form>
+                </li>
+
                 {% if paquete.prealerta %}
-                  <li style="color: #e90303;"><strong style="color: #333;">Aviso:</strong> En prealerta</li>
+                  <li style="color: #e90303;">
+                    <strong style="color: #333;">Aviso:</strong> En prealerta
+                  </li>
                 {% endif %}
-                
+
                 <li>
                   <strong>Estado:</strong> 
                   <span style="color: {% if paquete.estado.value == 'En prealerta' %}#e90303{% else %}#50c850{% endif %};">
                     {{ paquete.estado.value }}
                   </span>
-                </li>
-
-                <!-- ✅ Checkbox de consolidación -->
-                <li>
-                  <form method="POST" action="{{ url_for('marcar_consolidar') }}">
-                    <input type="hidden" name="paquete_id" value="{{ paquete.id }}">
-                    <label>
-                      <input type="checkbox" name="consolidar" value="true"
-                             onchange="this.form.submit()" 
-                             {% if paquete.consolidar %}checked{% endif %}>
-                      ✅ Marcar para consolidación
-                    </label>
-                  </form>
                 </li>
             </ul>
         </div>
@@ -51,5 +50,33 @@
 {% else %}
     <p>No tienes paquetes registrados.</p>
 {% endif %}
+
+<!-- 🚀 Script AJAX justo al final -->
+<script>
+document.querySelectorAll(".form-consolidar input[type='checkbox']").forEach(checkbox => {
+    checkbox.addEventListener("change", function() {
+        let form = this.closest("form");
+        let formData = new FormData(form);
+
+        if (!this.checked) {
+            formData.set("consolidar", "false");
+        }
+
+        fetch(form.action, {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Consolidación actualizada:", data.consolidar);
+            } else {
+                alert("Error: " + (data.error || "No se pudo actualizar"));
+            }
+        })
+        .catch(err => console.error("Error AJAX:", err));
+    });
+});
+</script>
 
 {% endblock %}
