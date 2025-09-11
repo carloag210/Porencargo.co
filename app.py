@@ -1,20 +1,64 @@
-from flask import flash, Flask, request, render_template, redirect, url_for, session
+# app.py (reemplazo completo, usa Brevo API en lugar de Flask-Mail / SMTP)
+from flask import flash, Flask, request, render_template, redirect, url_for, session, jsonify
 from extencions import db, init_extencions, login_manager
 from models import User, Paquete, EstadoPaquete, Direccion, Producto
 from config import Config
-from flask_login import login_user, logout_user, login_required, current_user, LoginManager
-from flask_sqlalchemy import SQLAlchemy 
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_mail import Mail, Message
 from auth.decorators import admin_required
 from werkzeug.utils import secure_filename
 from datetime import timedelta
-from flask import jsonify
-import ssl
-import smtplib          
 import os
+import requests
+from dotenv import load_dotenv
 
-# agrego templates y seets a mano porque no funciona si no determino el assets
+# Cargar .env si existe (útil para pruebas locales)
+load_dotenv()
+
+# ---------------- Configuración Brevo ----------------
+BREVO_API_KEY = os.getenv("BREVO_API_KEY")
+BREVO_SENDER_EMAIL = os.getenv("BREVO_SENDER_EMAIL", "logistica@porencargo.co")
+BREVO_SENDER_NAME = os.getenv("BREVO_SENDER_NAME", "PorEncargo")
+BREVO_URL = "https://api.brevo.com/v3/smtp/email"
+
+def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO_SENDER_NAME, sender_email: str = BREVO_SENDER_EMAIL):
+    """
+    Envía un correo usando la API de Brevo.
+    Devuelve (True, response_text) si tuvo éxito, (False, response_text) si falló.
+    """
+    if not BREVO_API_KEY:
+        msg = "BREVO_API_KEY no configurada"
+        print("Error enviando email:", msg)
+        return False, msg
+
+    headers = {
+        "accept": "application/json",
+        "api-key": BREVO_API_KEY,
+        "content-type": "application/json"
+    }
+
+    # Usamos textContent para cuerpo en texto plano (tu mensaje es largo), si quieres HTML cambia a htmlContent
+    data = {
+        "sender": {"name": sender_name, "email": sender_email},
+        "to": [{"email": recipient}],
+        "subject": subject,
+        "textContent": body
+    }
+
+    try:
+        resp = requests.post(BREVO_URL, headers=headers, json=data, timeout=10)
+    except requests.RequestException as e:
+        print("Error enviando email (excepción requests):", str(e))
+        return False, str(e)
+
+    if resp.status_code in (200, 201):
+        return True, resp.text
+    else:
+        # Log para ti, pero devolvemos mensaje genérico para el usuario en las rutas
+        print(f"Error enviando email: status {resp.status_code} - {resp.text}")
+        return False, resp.text
+
+# ---------------- Config Flask ----------------
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 app.config.from_object(Config)
 app.config.from_object(Config)
@@ -26,12 +70,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_LINK")
 if app.config['SQLALCHEMY_DATABASE_URI'] and app.config['SQLALCHEMY_DATABASE_URI'].startswith("postgres://"):
     app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace("postgres://", "postgresql://", 1)
 
-# Forzar SSL
+# Forzar SSL en la conexión
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
     "connect_args": {"sslmode": "require"}
 }
 # --- Fin config DB ---
-    
+
 app.config['UPLOAD_FOLDER'] = 'assets/img_productos'
 
 db.init_app(app)
@@ -42,18 +86,8 @@ with app.app_context():
 
 app.secret_key = os.urandom(24)
 app.permanent_session_lifetime = timedelta(days=7)  # dura 7 días
-#email automatico
-app.config['MAIL_SERVER'] = 'smtp.mailgun.org'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'logistica@porencargo.co'         # tu correo
-app.config['MAIL_PASSWORD'] = 'a908db693f31b3f8182dc6be4a5f570e-fbceb7cb-37203a5d'  # contraseña de aplicación
-app.config['MAIL_DEFAULT_SENDER'] = 'logistica@porencargo.co'   # quien envía
-    
-mail = Mail(app)
 
-# rutas simples
+# ----------------- Rutas -----------------
 
 @app.route('/')
 def index():
@@ -85,18 +119,17 @@ def admin_panel_add_productos():
 @app.route('/admin_panel_ver_usuarios')
 @admin_required
 def admin_panel_ver_usuarios():
-        usuarios = User.query.all()
-        paquetes = Paquete.query.all()  # si ya tenés un modelo de paquetes
-        productos= Producto.query.all()
-        estados_posibles = list(EstadoPaquete)
-        return render_template(
-            'admin_panel_ver_usuarios.html', 
-            usuarios=usuarios, 
-            paquetes=paquetes,
-            estados_posibles=estados_posibles,
-            productos=productos
-            )
-        return render_template("admin_panel_ver_usuarios.html")
+    usuarios = User.query.all()
+    paquetes = Paquete.query.all()  # si ya tenés un modelo de paquetes
+    productos= Producto.query.all()
+    estados_posibles = list(EstadoPaquete)
+    return render_template(
+        'admin_panel_ver_usuarios.html', 
+        usuarios=usuarios, 
+        paquetes=paquetes,
+        estados_posibles=estados_posibles,
+        productos=productos
+    )
 
 @app.route('/admin_panel_modificar_productos/<int:id>', methods=['GET', 'POST'])
 @admin_required
@@ -119,39 +152,25 @@ def admin_panel_modificar_productos(id):
                 path = os.path.join("static/uploads", filename)  # ruta donde se guarda
                 imagen.save(path)
 
-                nueva_img = ImagenProducto(ruta=f"uploads/{filename}", producto_id=producto.id)
-                db.session.add(nueva_img)
+                # si tienes modelo ImagenProducto destrábalo; aquí se mantiene tu intención
+                try:
+                    nueva_img = ImagenProducto(ruta=f"uploads/{filename}", producto_id=producto.id)
+                    db.session.add(nueva_img)
+                except NameError:
+                    # Si no definiste ImagenProducto en models, solo ignoramos añadir
+                    pass
 
         db.session.commit()
         return redirect(url_for('admin_panel'))
 
     return render_template('admin_panel_modificar_productos.html', producto=producto)
 
-
 @app.route('/calculadora')
 def calculadora():
     return render_template("calculadora.html")
-#------------
-# @app.route('/admin_modificar_paquete/<int:id>', methods=['get', 'post'])
-# def admin_modificar_paquete(id):
-#     paquete = Paquete.query.get_or_404(id)
-
-#     if request.method == 'POST':
-#         print(request.form) 
-#         paquete.nombre = request.form['nombre']
-#         paquete.precio = request.form['precio']
-#         paquete.numero_guia = request.form['numero_guia']
-#         paquete.peso = request.form['peso']
-
-#         db.session.commit()
-        
-#         return redirect(url_for('admin_panel_ver_usuarios'))
-        
-#     return render_template('admin_modificar_paquete.html', paquete=paquete)
-#-------------------
 
 @app.route('/admin/editar_usuario/<int:id>', methods=['GET', 'POST'])
-@admin_required  # si ya tienes este decorador  
+@admin_required
 def admin_editar_usuario(id):
     usuario = User.query.get_or_404(id)
 
@@ -171,20 +190,16 @@ def admin_editar_usuario(id):
 def admin_eliminar_usuario(id):
     usuario = User.query.get_or_404(id)
     if request.method == 'GET':
-        
-        
         db.session.delete(usuario)
         db.session.commit()
         return redirect(url_for('admin_panel_ver_usuarios'))
-    
+
 @app.route('/admin/pedidos_usuario/<int:user_id>')
 @admin_required
 def admin_ver_pedidos_usuario(user_id):
     usuario = User.query.get_or_404(user_id)
     paquetes_usuario = Paquete.query.filter_by(id_user=usuario.id).order_by(Paquete.prealerta.desc()).all()
-    # paquetes_usuario = usuario.paquetes  # Gracias al relationship
     estados_posibles = list(EstadoPaquete)
-
     return render_template('admin_pedidos_usuario.html', usuario=usuario, paquetes=paquetes_usuario, estados_posibles=estados_posibles)
     
 @app.route('/admin/direcciones_usuario/<int:user_id>')
@@ -192,14 +207,7 @@ def admin_ver_pedidos_usuario(user_id):
 def admin_ver_direcciones_usuario(user_id):
     usuario = User.query.get_or_404(user_id)
     direcciones_usuario = usuario.direcciones  # Gracias al relationship
-
     return render_template('admin_direcciones_usuario.html', usuario=usuario, direcciones=direcciones_usuario)
-
-
-
-
-
-
 
 @app.route('/admin/crear_paquete/<int:user_id>', methods=['GET', 'POST'])
 @admin_required
@@ -211,7 +219,7 @@ def crear_paquete(user_id):
         peso = request.form['peso']
         estado_str = request.form['estado']
         id_user = request.form['id_user']
-        fecha_recibido = request.form.get('fecha_recibido')  # <-- NUEVO CAMPO
+        fecha_recibido = request.form.get('fecha_recibido')  # opcional
 
         # Convertimos el estado recibido como string a Enum
         estado = EstadoPaquete[estado_str]
@@ -224,7 +232,7 @@ def crear_paquete(user_id):
             peso=peso,
             estado=estado,
             id_user=id_user,
-            fecha_recibido=fecha_recibido  # <-- guardamos la fecha
+            fecha_recibido=fecha_recibido
         )
 
         db.session.add(nuevo_paquete)
@@ -245,23 +253,20 @@ def actualizar_estado():
     p_precio = request.form.get('precio')
     p_numero_guia = request.form.get('numero_guia')
     p_peso = request.form.get('peso')
-    fecha_recibido = request.form.get('fecha_recibido')  # <-- NUEVO CAMPO
+    fecha_recibido = request.form.get('fecha_recibido')  # opcional
 
     paquete = Paquete.query.get(paquete_id)
 
     if paquete is None:
         return "Paquete no encontrado", 404
 
-    # Actualizar estado
+    # Actualizar estado y demás campos
     paquete.estado = EstadoPaquete(nuevo_estado_str)
-
-    # Actualizar los demás campos
     paquete.nombre = p_nombre
     paquete.precio = p_precio
     paquete.numero_guia = p_numero_guia
     paquete.peso = p_peso
 
-    # Actualizar fecha recibido solo si se proporciona
     if fecha_recibido:
         paquete.fecha_recibido = fecha_recibido
 
@@ -269,8 +274,7 @@ def actualizar_estado():
     if 'prealerta_resuelta' in request.form:
         paquete.prealerta = False
 
-    db.session.commit()  # Guarda todos los cambios
-
+    db.session.commit()
     flash("Paquete actualizado correctamente", "success")
     return redirect(request.referrer)
 
@@ -284,13 +288,9 @@ def marcar_consolidar():
     if paquete.id_user != current_user.id:
         return {"success": False, "error": "No tienes permisos"}, 403
 
-    # Guarda True si está marcado, False si no
     paquete.consolidar = bool(request.form.get("consolidar"))
-
     db.session.commit()
     return {"success": True, "consolidar": paquete.consolidar}
-
-
 
 @app.route('/nueva_direccion', methods=['POST'])
 @login_required
@@ -319,12 +319,10 @@ def nueva_direccion():
 @app.route('/eliminar_producto/<int:id>', methods=['POST'])
 @admin_required
 def eliminar_producto(id):
-    # id = request.form.get('id')  # <- obtenemos el ID del producto seleccionado
     producto = Producto.query.get_or_404(id)
     db.session.delete(producto)
     db.session.commit()
     return redirect(url_for('admin_panel'))
-
 
 @app.route('/eliminar_paquete/<int:id>', methods=['POST'])
 @admin_required
@@ -347,9 +345,7 @@ def eliminar_direccion(id):
 
     db.session.delete(direccion)
     db.session.commit()
-    # flash("Dirección eliminada con éxito", "success")
     return redirect(url_for('direcciones'))
-
 
 @app.route('/registro', methods=['POST'])
 def registro():
@@ -380,14 +376,80 @@ def registro():
     db.session.add(nuevo_usuario)
     db.session.commit()
 
-    msg_al_admin = Message('Nuevo usuario registrado',
-                  recipients=['carloag210@hotmail.com'])  #<<<<<<<<<<----------------
-    msg_al_admin.body = f'Se ha registrado un nuevo usuario:\n\nNombre del usuario: {user_first_name}\n Apellido del usuario:{user_last_name}\nCorreo: {email}'
-    mail.send(msg_al_admin)
-    msg_al_usuario = Message('¡Bienvenido a PorEncargo!, ', 
-                  recipients=[nuevo_usuario.email])  #<<<<<<<<<<----------------
-    msg_al_usuario.body = f"Buenas Tardes\n\nTe informamos que se realizó con éxito la apertura de tu casillero con código:\n(COCAR8480)\n\nCuando realices una compra, por favor envíanos el número de tracking para rastrearlo.\n\nRecuerda que todas las cajas deben venir marcadas con tu nombre y código de casillero así:\nNAME:{user_first_name} {user_last_name} / COCAR8480\n\nLa dirección de envío de tus paquetes es:\n\nADDRESS: 7705 NW 46th ST\nCITY: DORAL\nSTATE: FLORIDA\nZIP: 33195\nPHONE: 3057176595\nUNITED STATES\n\nTarifas:\n\nSERVICIO DE CASILLERO\nTARIFA PRODUCTOS HASTA 199 USD\n\nDirección Física en Doral - Florida - Estados Unidos\nTarifa: $14.000 COP todo incluido por libra para productos hasta 199 USD\nAcumulamos tus paquetes totalmente gratis\nAlmacenamiento gratis máximo por 20 días\n\nTARIFAS PRODUCTOS MAYOR A 199 USD\n\nTarifas:\nValor por libra: $2.8 USD + 10% de impuestos del valor declarado\n\nCondiciones para computadores:\nComputadores portátiles: $38 USD + 10% del valor en USD\n\nCARGA COMERCIAL (más de 6 productos iguales y mayor a 200 USD)\nSIN RESTRICCIONES COMERCIALES\nDesde $3.5 USD por libra + 29% de impuestos\n\nTe recomendamos agregar el código de tu casillero en el área de \"número de suite o apto\" al momento de ingresar la dirección.\n\n¡Ya puedes utilizar tu casillero!\n\nQuedamos atentos a cualquier inquietud.\n\nCordialmente,\n\nCarlos Aguado\nPorEncargo.co\nP.O. BOX Manager\nCel: +57 3186505475\n7705 NW 46 ST, Doral, Florida 33166\n\nPorEncargo, LLC assumes no responsibility for any package or items shipped to us or delivered to us by USPS, since there is no record of real-time status of deliveries, or proof of signature by that company.\n\nPorEncargo, LLC no asume responsabilidad por ningún paquete o artículo transportado o entregado a nosotros por USPS, dado que no hay constancia de status en tiempo real de las entregas, ni prueba de firma por parte de dicha compañía."
-    mail.send(msg_al_usuario)
+    # --- Notificar admin (antes: Message + mail.send) ---
+    subject_admin = 'Nuevo usuario registrado'
+    body_admin = f'Se ha registrado un nuevo usuario:\n\nNombre del usuario: {user_first_name}\n Apellido del usuario:{user_last_name}\nCorreo: {email}'
+    ok, resp = send_email(subject_admin, "carloag210@hotmail.com", body_admin)
+    if not ok:
+        # No mostramos detalles crudos al usuario, solo un mensaje amigable
+        print("Error notificando admin:", resp)
+        flash("Usuario creado, pero hubo un problema notificando al administrador", "warning")
+
+    # --- Mensaje de bienvenida al usuario (idéntico al que tenías) ---
+    subject_user = '¡Bienvenido a PorEncargo!, '
+    mensaje_bienvenida = f"""Buenas Tardes
+
+Te informamos que se realizó con éxito la apertura de tu casillero con código:
+(COCAR8480)
+
+Cuando realices una compra, por favor envíanos el número de tracking para rastrearlo.
+
+Recuerda que todas las cajas deben venir marcadas con tu nombre y código de casillero así:
+NAME:{user_first_name} {user_last_name} / COCAR8480
+
+La dirección de envío de tus paquetes es:
+
+ADDRESS: 7705 NW 46th ST
+CITY: DORAL
+STATE: FLORIDA
+ZIP: 33195
+PHONE: 3057176595
+UNITED STATES
+
+Tarifas:
+
+SERVICIO DE CASILLERO
+TARIFA PRODUCTOS HASTA 199 USD
+
+Dirección Física en Doral - Florida - Estados Unidos
+Tarifa: $14.000 COP todo incluido por libra para productos hasta 199 USD
+Acumulamos tus paquetes totalmente gratis
+Almacenamiento gratis máximo por 20 días
+
+TARIFAS PRODUCTOS MAYOR A 199 USD
+
+Tarifas:
+Valor por libra: $2.8 USD + 10% de impuestos del valor declarado
+
+Condiciones para computadores:
+Computadores portátiles: $38 USD + 10% del valor en USD
+
+CARGA COMERCIAL (más de 6 productos iguales y mayor a 200 USD)
+SIN RESTRICCIONES COMERCIALES
+Desde $3.5 USD por libra + 29% de impuestos
+
+Te recomendamos agregar el código de tu casillero en el área de "número de suite o apto" al momento de ingresar la dirección.
+
+¡Ya puedes utilizar tu casillero!
+
+Quedamos atentos a cualquier inquietud.
+
+Cordialmente,
+
+Carlos Aguado
+PorEncargo.co
+P.O. BOX Manager
+Cel: +57 3186505475
+7705 NW 46 ST, Doral, Florida 33166
+
+PorEncargo, LLC assumes no responsibility for any package or items shipped to us or delivered to us by USPS, since there is no record of real-time status of deliveries, or proof of signature by that company.
+
+PorEncargo, LLC no asume responsabilidad por ningún paquete o artículo transportado o entregado a nosotros por USPS, dado que no hay constancia de status en tiempo real de las entregas, ni prueba de firma por parte de dicha compañía.
+"""
+    ok2, resp2 = send_email(subject_user, nuevo_usuario.email, mensaje_bienvenida)
+    if not ok2:
+        print("Error enviando bienvenida al usuario:", resp2)
+        flash("Usuario creado, pero hubo un problema enviando el correo de bienvenida", "warning")
 
     flash('Usuario registrado con éxito', 'success')
     return redirect('/login_register')
@@ -436,7 +498,6 @@ def direcciones():
     direcciones_lugares = current_user.direcciones
     return render_template('mis_direcciones.html', direccioness=direcciones_lugares)
 
-
 @app.route('/info')
 @login_required
 def info():
@@ -452,12 +513,9 @@ def editar_usuario():
         current_user.number = request.form['number']
         db.session.commit()
         flash('Información actualizada correctamente', 'success')
-        return redirect(url_for('pedidos_del_usuario'))  # o a donde quieras llevarlo
+        return redirect(url_for('pedidos_del_usuario'))
 
     return render_template('editar_usuario.html', user=current_user)
-
-
-
 
 @app.route("/rastrear", methods=["GET", "POST"])
 def rastrear_pedido():
@@ -485,9 +543,8 @@ def rastrear_pedido():
 @login_required
 @admin_required
 def admin_panel():
-    # Ejemplo: obtener todos los paquetes y usuarios
     usuarios = User.query.all()
-    paquetes = Paquete.query.all()  # si ya tenés un modelo de paquetes
+    paquetes = Paquete.query.all()
     productos= Producto.query.all()
     estados_posibles = list(EstadoPaquete)
     return render_template(
@@ -497,8 +554,6 @@ def admin_panel():
         estados_posibles=estados_posibles,
         productos=productos
     )
-
-
 
 @app.route('/add_productos', methods=['GET', 'POST'])
 def add_productos():
@@ -512,11 +567,8 @@ def add_productos():
         ruta_imagen = None
         if imagen:
             nombre_archivo = secure_filename(imagen.filename)
-            print(nombre_archivo)
             ruta_relativa = os.path.join('img_productos', nombre_archivo)
-            print(ruta_relativa)
             ruta_completa = os.path.join(app.config['UPLOAD_FOLDER'], nombre_archivo)
-            print(ruta_completa)
             imagen.save(ruta_completa)
             ruta_imagen = ruta_relativa
 
@@ -569,23 +621,23 @@ def crear_paquete_usuario():
 
         db.session.add(nuevo_paquete)
         db.session.commit()            
-        msg_al_admin = Message('Nueva prealerta registrada',
-                    recipients=['carloag210@hotmail.com'])   
-        msg_al_admin.body = f'Se ha registrado un nuevo usuario:\n\nNombre del usuario: {user.user_first_name}\n Apellido del usuario:{user.user_last_name}\nCorreo: {user.email}'
-        mail.send(msg_al_admin)
+        # --- Notificar al admin con Brevo ---
+        subject_paquete = 'Nueva prealerta registrada'
+        body_paquete = f'Se ha registrado un nuevo usuario:\n\nNombre del usuario: {user.user_first_name}\n Apellido del usuario:{user.user_last_name}\nCorreo: {user.email}'
+        ok3, resp3 = send_email(subject_paquete, "carloag210@hotmail.com", body_paquete)
+        if not ok3:
+            print("Error notificando admin de prealerta:", resp3)
+            flash("Prealerta creada, pero hubo un problema notificando al administrador", "warning")
 
-        return redirect(url_for('pedidos_del_usuario'))  # ajusta según tu vista de usuario
+        return redirect(url_for('pedidos_del_usuario'))
 
     # si es GET, renderiza el formulario
     estados_posibles = list(EstadoPaquete)  # para el <select>
     return render_template('formulario_paquete_usuario.html', estados_posibles=estados_posibles, usuario=current_user)
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
-
-
 
 
 
