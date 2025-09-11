@@ -8,6 +8,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from auth.decorators import admin_required
 from werkzeug.utils import secure_filename
 from datetime import timedelta
+import json
+import http.client
 import os
 from dotenv import load_dotenv
 
@@ -22,7 +24,7 @@ BREVO_URL = "https://api.brevo.com/v3/smtp/email"
 
 def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO_SENDER_NAME, sender_email: str = BREVO_SENDER_EMAIL):
     """
-    Envía un correo usando la API de Brevo.
+    Envía un correo usando la API de Brevo vía http.client (sin requests).
     Devuelve (True, response_text) si tuvo éxito, (False, response_text) si falló.
     """
     if not BREVO_API_KEY:
@@ -30,32 +32,33 @@ def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO
         print("Error enviando email:", msg)
         return False, msg
 
-    headers = {
-        "accept": "application/json",
-        "api-key": BREVO_API_KEY,
-        "content-type": "application/json"
-    }
-
-    # Usamos textContent para cuerpo en texto plano (tu mensaje es largo), si quieres HTML cambia a htmlContent
-    data = {
+    conn = http.client.HTTPSConnection("api.brevo.com")
+    payload = json.dumps({
         "sender": {"name": sender_name, "email": sender_email},
         "to": [{"email": recipient}],
         "subject": subject,
         "textContent": body
+    })
+    headers = {
+        'accept': "application/json",
+        'api-key': BREVO_API_KEY,
+        'content-type': "application/json"
     }
 
     try:
-        resp = requests.post(BREVO_URL, headers=headers, json=data, timeout=10)
-    except requests.RequestException as e:
-        print("Error enviando email (excepción requests):", str(e))
+        conn.request("POST", "/v3/smtp/email", body=payload, headers=headers)
+        res = conn.getresponse()
+        data = res.read().decode("utf-8")
+        if res.status in (200, 201):
+            return True, data
+        else:
+            print(f"Error enviando email: status {res.status} - {data}")
+            return False, data
+    except Exception as e:
+        print("Error enviando email (excepción):", str(e))
         return False, str(e)
-
-    if resp.status_code in (200, 201):
-        return True, resp.text
-    else:
-        # Log para ti, pero devolvemos mensaje genérico para el usuario en las rutas
-        print(f"Error enviando email: status {resp.status_code} - {resp.text}")
-        return False, resp.text
+    finally:
+        conn.close()
 
 # ---------------- Config Flask ----------------
 app = Flask(__name__, static_folder='assets', template_folder='templates')
@@ -637,6 +640,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
