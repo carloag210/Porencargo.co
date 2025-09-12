@@ -1,17 +1,20 @@
-from flask import flash, Flask, request, render_template, redirect, url_for, session
+# app.py (reemplazo completo, usa Brevo API en lugar de Flask-Mail / SMTP)
+from flask import flash, Flask, request, render_template, redirect, url_for, session, jsonify
 from extencions import db, init_extencions, login_manager
 from models import User, Paquete, EstadoPaquete, Direccion, Producto
 from config import Config
-from flask_login import login_user, logout_user, login_required, current_user, LoginManager
-from flask_sqlalchemy import SQLAlchemy 
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_mail import Mail, Message
 from auth.decorators import admin_required
 from werkzeug.utils import secure_filename
 from datetime import timedelta
-import ssl
-import smtplib          
+import json
+import http.client
 import os
+from dotenv import load_dotenv
+
+# Cargar .env si existe (útil para pruebas locales)
+load_dotenv()
 
 # ---------------- Configuración Brevo ----------------
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
@@ -57,50 +60,34 @@ def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO
     finally:
         conn.close()
 
-# ----------------------------
-# INICIALIZACIÓN FLASK
-# ----------------------------
+# ---------------- Config Flask ----------------
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 app.config.from_object(Config)
+app.config.from_object(Config)
 
-# ----------------------------
-# CONFIGURACIÓN DB
-# ----------------------------
-database_url = os.getenv("DATABASE_LINK")
-
-if not database_url:
-    # 👉 cambia user, password y base por los que tengas en pgAdmin
-    database_url = "postgresql://postgres:tu_password@localhost:5432/porencargo_dev"
+# --- Config DB Railway ---
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_LINK")
 
 # Fix si Railway devuelve postgres:// en vez de postgresql://
-if database_url.startswith("postgres://"):
-    database_url = database_url.replace("postgres://", "postgresql://", 1)
+if app.config['SQLALCHEMY_DATABASE_URI'] and app.config['SQLALCHEMY_DATABASE_URI'].startswith("postgres://"):
+    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace("postgres://", "postgresql://", 1)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+# Forzar SSL en la conexión
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "connect_args": {"sslmode": "require"}
+}
+# --- Fin config DB ---
 
-# Solo forzamos SSL si estamos en Railway
-if "railway" in (database_url or "").lower():
-    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-        "connect_args": {"sslmode": "require"}
-    }
+app.config['UPLOAD_FOLDER'] = 'assets/img_productos'
 
-# ----------------------------
-# LOGIN MANAGER
-# ----------------------------
+db.init_app(app)
 login_manager.init_app(app)
-login_manager.login_view = "login"  # ruta donde tienes tu login
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+with app.app_context():
+    db.create_all()
 
-# ----------------------------
-# CONTEXT PROCESSOR
-# ----------------------------
-@app.context_processor
-def inject_user():
-    # Así current_user está disponible en TODOS los templates
-    return dict(current_user=current_user)
+app.secret_key = os.urandom(24)
+app.permanent_session_lifetime = timedelta(days=7)  # dura 7 días
 
 # ----------------- Rutas -----------------
 
@@ -653,6 +640,18 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
