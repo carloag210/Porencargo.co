@@ -102,13 +102,6 @@ def inject_user():
     # Así current_user está disponible en TODOS los templates
     return dict(current_user=current_user)
 
-# ----------------------------
-# RUTA DE EJEMPLO
-# ----------------------------
-@app.route("/")
-def index():
-    return render_template("index.html")
-
 # ----------------- Rutas -----------------
 
 @app.route('/')
@@ -660,6 +653,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
