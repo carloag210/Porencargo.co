@@ -13,9 +13,6 @@ import http.client
 import os
 from dotenv import load_dotenv
 
-# Cargar .env si existe (útil para pruebas locales)
-load_dotenv()
-
 # ---------------- Configuración Brevo ----------------
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
 BREVO_SENDER_EMAIL = os.getenv("BREVO_SENDER_EMAIL", "logistica@porencargo.co")
@@ -60,34 +57,33 @@ def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO
     finally:
         conn.close()
 
-# ---------------- Config Flask ----------------
+# INICIALIZACIÓN FLASK
+# ----------------------------
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 app.config.from_object(Config)
-app.config.from_object(Config)
 
-# --- Config DB Railway ---
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_LINK")
+# ----------------------------
+# CONFIGURACIÓN DB
+# ----------------------------
+# Railway (producción)
+database_url = os.getenv("DATABASE_LINK")
+
+# Local (si no encuentra la de Railway)
+if not database_url:
+    # 👉 cambia user, password y base por los que tengas en pgAdmin
+    database_url = "postgresql://postgres:Adminops*@localhost:5432/PostgresSQL 17"
 
 # Fix si Railway devuelve postgres:// en vez de postgresql://
-if app.config['SQLALCHEMY_DATABASE_URI'] and app.config['SQLALCHEMY_DATABASE_URI'].startswith("postgres://"):
-    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace("postgres://", "postgresql://", 1)
+if database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
 
-# Forzar SSL en la conexión
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-    "connect_args": {"sslmode": "require"}
-}
-# --- Fin config DB ---
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 
-app.config['UPLOAD_FOLDER'] = 'assets/img_productos'
-
-db.init_app(app)
-login_manager.init_app(app)
-
-with app.app_context():
-    db.create_all()
-
-app.secret_key = os.urandom(24)
-app.permanent_session_lifetime = timedelta(days=7)  # dura 7 días
+# Solo forzamos SSL si estamos en Railway
+if "railway" in (database_url or "").lower():
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+        "connect_args": {"sslmode": "require"}
+    }
 
 # ----------------- Rutas -----------------
 
@@ -640,6 +636,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
