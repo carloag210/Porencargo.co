@@ -1,17 +1,17 @@
-# app.py (reemplazo completo, usa Brevo API en lugar de Flask-Mail / SMTP)
-from flask import flash, Flask, request, render_template, redirect, url_for, session, jsonify
+from flask import flash, Flask, request, render_template, redirect, url_for, session
 from extencions import db, init_extencions, login_manager
 from models import User, Paquete, EstadoPaquete, Direccion, Producto
 from config import Config
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required, current_user, LoginManager
+from flask_sqlalchemy import SQLAlchemy 
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_mail import Mail, Message
 from auth.decorators import admin_required
 from werkzeug.utils import secure_filename
 from datetime import timedelta
-import json
-import http.client
+import ssl
+import smtplib          
 import os
-from dotenv import load_dotenv
 
 # ---------------- Configuración Brevo ----------------
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
@@ -57,6 +57,7 @@ def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO
     finally:
         conn.close()
 
+# ----------------------------
 # INICIALIZACIÓN FLASK
 # ----------------------------
 app = Flask(__name__, static_folder='assets', template_folder='templates')
@@ -65,13 +66,11 @@ app.config.from_object(Config)
 # ----------------------------
 # CONFIGURACIÓN DB
 # ----------------------------
-# Railway (producción)
 database_url = os.getenv("DATABASE_LINK")
 
-# Local (si no encuentra la de Railway)
 if not database_url:
     # 👉 cambia user, password y base por los que tengas en pgAdmin
-    database_url = "postgresql://postgres:Adminops*@localhost:5432/PostgresSQL 17"
+    database_url = "postgresql://postgres:tu_password@localhost:5432/porencargo_dev"
 
 # Fix si Railway devuelve postgres:// en vez de postgresql://
 if database_url.startswith("postgres://"):
@@ -84,6 +83,31 @@ if "railway" in (database_url or "").lower():
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
         "connect_args": {"sslmode": "require"}
     }
+
+# ----------------------------
+# LOGIN MANAGER
+# ----------------------------
+login_manager.init_app(app)
+login_manager.login_view = "login"  # ruta donde tienes tu login
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+# ----------------------------
+# CONTEXT PROCESSOR
+# ----------------------------
+@app.context_processor
+def inject_user():
+    # Así current_user está disponible en TODOS los templates
+    return dict(current_user=current_user)
+
+# ----------------------------
+# RUTA DE EJEMPLO
+# ----------------------------
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 # ----------------- Rutas -----------------
 
@@ -636,6 +660,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
