@@ -280,18 +280,18 @@ def actualizar_estado():
 
         # 🚀 Enviar correo al usuario
         try:
-            subject_user = f"Actualización de tu paquete #{paquete.id}"
+            subject_user = f"Actualización de tu paquete: {paquete.nombre}"
             body_user = f"""
 Hola {paquete.usuario.user_first_name},
 
-Tu paquete con número de guía {paquete.numero_guia or 'N/A'} ha cambiado de estado:
+Tu paquete "{paquete.nombre}" (Guía: {paquete.numero_guia or 'N/A'}) ha cambiado de estado:
 
 📦 Estado anterior: {estado_anterior}
-➡️ Nuevo estado: {paquete.estado.name}
+➡️ Nuevo estado: {paquete.estado.value}
 
 Puedes ingresar a tu cuenta en PorEncargo.co para ver más detalles.
 
-Saludos,
+Saludos,  
 Equipo PorEncargo
 """
             ok, resp = send_email(subject_user, paquete.usuario.email, body_user)
@@ -305,6 +305,7 @@ Equipo PorEncargo
     except Exception as e:
         db.session.rollback()
         return f"Error al actualizar el paquete: {str(e)}", 500
+
 
 
 @app.route('/marcar_consolidar', methods=['POST'])
@@ -667,6 +668,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
