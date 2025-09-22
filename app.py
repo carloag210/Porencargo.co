@@ -17,14 +17,25 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ---------------- Configuración Brevo ----------------
+
+# Claves de API y remitente
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
 BREVO_SENDER_EMAIL = os.getenv("BREVO_SENDER_EMAIL", "logistica@porencargo.co")
 BREVO_SENDER_NAME = os.getenv("BREVO_SENDER_NAME", "PorEncargo")
 BREVO_URL = "https://api.brevo.com/v3/smtp/email"
 
-def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO_SENDER_NAME, sender_email: str = BREVO_SENDER_EMAIL):
+
+def send_email(
+    subject: str,
+    recipient: str,
+    body: str,
+    sender_name: str = BREVO_SENDER_NAME,
+    sender_email: str = BREVO_SENDER_EMAIL,
+    html: bool = False
+):
     """
-    Envía un correo usando la API de Brevo vía http.client (sin requests).
+    Envía un correo usando la API de Brevo vía http.client.
+    Soporta texto plano (textContent) o HTML (htmlContent).
     Devuelve (True, response_text) si tuvo éxito, (False, response_text) si falló.
     """
     if not BREVO_API_KEY:
@@ -33,32 +44,43 @@ def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO
         return False, msg
 
     conn = http.client.HTTPSConnection("api.brevo.com")
-    payload = json.dumps({
+
+    # Construcción del payload
+    payload_dict = {
         "sender": {"name": sender_name, "email": sender_email},
         "to": [{"email": recipient}],
         "subject": subject,
-        "textContent": body
-    })
+    }
+
+    if html:
+        payload_dict["htmlContent"] = body
+    else:
+        payload_dict["textContent"] = body
+
+    payload = json.dumps(payload_dict)
+
     headers = {
-        'accept': "application/json",
-        'api-key': BREVO_API_KEY,
-        'content-type': "application/json"
+        "accept": "application/json",
+        "api-key": BREVO_API_KEY,
+        "content-type": "application/json",
     }
 
     try:
         conn.request("POST", "/v3/smtp/email", body=payload, headers=headers)
         res = conn.getresponse()
         data = res.read().decode("utf-8")
+
         if res.status in (200, 201):
             return True, data
         else:
-            print(f"Error enviando email: status {res.status} - {data}")
+            print(f"❌ Error enviando email: status {res.status} - {data}")
             return False, data
     except Exception as e:
-        print("Error enviando email (excepción):", str(e))
+        print("⚠️ Excepción enviando email:", str(e))
         return False, str(e)
     finally:
         conn.close()
+
 
 # ---------------- Config Flask ----------------
 app = Flask(__name__, static_folder='assets', template_folder='templates')
@@ -670,6 +692,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
