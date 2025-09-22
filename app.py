@@ -278,23 +278,26 @@ def actualizar_estado():
     try:
         db.session.commit()
 
-        # 🚀 Enviar correo al usuario
+        # 🚀 Enviar correo al usuario con plantilla HTML
         try:
             subject_user = f"Actualización de tu paquete: {paquete.nombre}"
-            body_user = f"""
-Hola {paquete.usuario.user_first_name},
 
-Tu paquete "{paquete.nombre}" (Guía: {paquete.numero_guia or 'N/A'}) ha cambiado de estado:
+            body_user_html = render_template(
+                "email_paquete.html",
+                user_nombre=paquete.usuario.user_first_name,
+                paquete_nombre=paquete.nombre,
+                paquete_guia=paquete.numero_guia or "N/A",
+                estado_anterior=estado_anterior,
+                estado_nuevo=paquete.estado.value,
+                year=datetime.now().year
+            )
 
-📦 Estado anterior: {estado_anterior}
-➡️ Nuevo estado: {paquete.estado.value}
-
-Puedes ingresar a tu cuenta en PorEncargo.co para ver más detalles.
-
-Saludos,  
-Equipo PorEncargo
-"""
-            ok, resp = send_email(subject_user, paquete.usuario.email, body_user)
+            ok, resp = send_email(
+                subject_user,
+                paquete.usuario.email,
+                body_user_html,
+                html=True   # 👈 importante: marcar que es HTML
+            )
             if not ok:
                 print("❌ Error enviando notificación al usuario:", resp)
         except Exception as e:
@@ -305,7 +308,6 @@ Equipo PorEncargo
     except Exception as e:
         db.session.rollback()
         return f"Error al actualizar el paquete: {str(e)}", 500
-
 
 
 @app.route('/marcar_consolidar', methods=['POST'])
@@ -668,6 +670,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
