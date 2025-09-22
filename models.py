@@ -8,7 +8,7 @@ import enum
 class EstadoPaquete(enum.Enum):
     COMPRADO = "Comprado en Tienda"
     DESPACHADO_TIENDA = "Despachado por Tienda"
-    EN_ENVIO = "Despachado Bodega Miami"
+    DESPACHADO_A_COLOMBIA = "Despachado Bodega Miami"
     EN_BODEGA_MIAMI = "Llegó a Bodega Miami"
     EN_AEROPUERTO = "Llegó Aeropuerto Bogotá"
     EN_COLOMBIA = "En Bodega Medellín"
@@ -79,5 +79,6 @@ class Producto(db.Model):
     def __repr__(self):
 
         return f'<Producto {self.nombre}>'
+
 
 
