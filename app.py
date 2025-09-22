@@ -18,7 +18,6 @@ load_dotenv()
 
 # ---------------- Configuración Brevo ----------------
 
-# Claves de API y remitente
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
 BREVO_SENDER_EMAIL = os.getenv("BREVO_SENDER_EMAIL", "logistica@porencargo.co")
 BREVO_SENDER_NAME = os.getenv("BREVO_SENDER_NAME", "PorEncargo")
@@ -36,8 +35,10 @@ def send_email(
     """
     Envía un correo usando la API de Brevo vía http.client.
     Soporta texto plano (textContent) o HTML (htmlContent).
+    Usa UTF-8 para que caracteres especiales funcionen correctamente.
     Devuelve (True, response_text) si tuvo éxito, (False, response_text) si falló.
     """
+
     if not BREVO_API_KEY:
         msg = "BREVO_API_KEY no configurada"
         print("Error enviando email:", msg)
@@ -45,25 +46,31 @@ def send_email(
 
     conn = http.client.HTTPSConnection("api.brevo.com")
 
-    # Construcción del payload
+    # Payload base
     payload_dict = {
         "sender": {"name": sender_name, "email": sender_email},
         "to": [{"email": recipient}],
-        "subject": subject,
+        "subject": subject
     }
 
+    # Elegir HTML o texto plano
     if html:
         payload_dict["htmlContent"] = body
     else:
         payload_dict["textContent"] = body
 
-    payload = json.dumps(payload_dict)
+    # Convertir a JSON con UTF-8
+    payload = json.dumps(payload_dict, ensure_ascii=False).encode('utf-8')
 
     headers = {
         "accept": "application/json",
         "api-key": BREVO_API_KEY,
-        "content-type": "application/json",
+        "content-type": "application/json; charset=utf-8",
     }
+
+    # Debug: ver payload antes de enviar
+    print("🚀 Payload que se enviará a Brevo:")
+    print(json.dumps(payload_dict, ensure_ascii=False, indent=2))
 
     try:
         conn.request("POST", "/v3/smtp/email", body=payload, headers=headers)
@@ -71,6 +78,7 @@ def send_email(
         data = res.read().decode("utf-8")
 
         if res.status in (200, 201):
+            print("✅ Correo enviado correctamente.")
             return True, data
         else:
             print(f"❌ Error enviando email: status {res.status} - {data}")
@@ -692,6 +700,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
