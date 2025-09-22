@@ -279,11 +279,6 @@ def crear_paquete(user_id):
 
 @app.route('/admin/actualizar_estado', methods=['POST'])
 def actualizar_estado():
-    """
-    Ruta para actualizar el estado de un paquete desde el panel de administración.
-    También envía un correo al usuario notificando el cambio de estado usando una plantilla HTML.
-    """
-    # ---------------------- Obtener datos del formulario ----------------------
     paquete_id = request.form.get('paquete_id')
     nuevo_estado_str = request.form.get('nuevo_estado')
     p_nombre = request.form.get('nombre')
@@ -292,62 +287,55 @@ def actualizar_estado():
     p_peso = request.form.get('peso')
     fecha_recibido = request.form.get('fecha_recibido')  # opcional
 
-    # ---------------------- Buscar el paquete ----------------------
     paquete = Paquete.query.get(paquete_id)
+
     if paquete is None:
         return "Paquete no encontrado", 404
 
     # Guardar estado anterior para el correo
     estado_anterior = paquete.estado.name if paquete.estado else "Sin estado"
 
-    # ---------------------- Actualizar paquete ----------------------
+    # Actualizar estado y demás campos
     paquete.estado = EstadoPaquete(nuevo_estado_str)
     paquete.nombre = p_nombre
     paquete.precio = p_precio
     paquete.numero_guia = p_numero_guia
     paquete.peso = p_peso
+
     if fecha_recibido:
         paquete.fecha_recibido = fecha_recibido
 
     try:
-        db.session.commit()  # Guardar cambios en la base de datos
+        db.session.commit()
 
-        # ---------------------- Enviar correo al usuario ----------------------
+        # 🚀 Enviar correo al usuario
         try:
-            # Asunto del correo
             subject_user = f"Actualización de tu paquete: {paquete.nombre}"
+            body_user = f"""
+Hola {paquete.usuario.user_first_name},
 
-            # Construir contenido HTML usando la plantilla email_paquete.html
-            body_user_html = render_template(
-                "email_paquete.html",
-                user_nombre=paquete.usuario.user_first_name,
-                paquete_nombre=paquete.nombre,
-                paquete_guia=paquete.numero_guia or "N/A",
-                estado_anterior=estado_anterior,
-                estado_nuevo=paquete.estado.value,
-                year=datetime.now().year
-            )
+Tu paquete "{paquete.nombre}" (Guía: {paquete.numero_guia or 'N/A'}) ha cambiado de estado:
 
-            # Enviar correo con la función send_email
-            ok, resp = send_email(
-                subject_user,
-                paquete.usuario.email,
-                body_user_html,
-                html=True  # 👈 importante: indicar que es HTML
-            )
+📦 Estado anterior: {estado_anterior}
+➡️ Nuevo estado: {paquete.estado.value}
 
+Puedes ingresar a tu cuenta en PorEncargo.co para ver más detalles.
+
+Saludos,  
+Equipo PorEncargo
+"""
+            ok, resp = send_email(subject_user, paquete.usuario.email, body_user)
             if not ok:
                 print("❌ Error enviando notificación al usuario:", resp)
-
         except Exception as e:
-            print("⚠️ Excepción al enviar correo:", str(e))
+            print("⚠️ Excepción enviando correo:", str(e))
 
-        # ---------------------- Redirigir al admin ----------------------
         return redirect(request.referrer)
 
     except Exception as e:
         db.session.rollback()
         return f"Error al actualizar el paquete: {str(e)}", 500
+
 
 
 
@@ -711,6 +699,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
