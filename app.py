@@ -279,6 +279,11 @@ def crear_paquete(user_id):
 
 @app.route('/admin/actualizar_estado', methods=['POST'])
 def actualizar_estado():
+    """
+    Ruta para actualizar el estado de un paquete desde el panel de administración.
+    También envía un correo al usuario notificando el cambio de estado usando una plantilla HTML.
+    """
+    # ---------------------- Obtener datos del formulario ----------------------
     paquete_id = request.form.get('paquete_id')
     nuevo_estado_str = request.form.get('nuevo_estado')
     p_nombre = request.form.get('nombre')
@@ -287,31 +292,32 @@ def actualizar_estado():
     p_peso = request.form.get('peso')
     fecha_recibido = request.form.get('fecha_recibido')  # opcional
 
+    # ---------------------- Buscar el paquete ----------------------
     paquete = Paquete.query.get(paquete_id)
-
     if paquete is None:
         return "Paquete no encontrado", 404
 
     # Guardar estado anterior para el correo
     estado_anterior = paquete.estado.name if paquete.estado else "Sin estado"
 
-    # Actualizar estado y demás campos
+    # ---------------------- Actualizar paquete ----------------------
     paquete.estado = EstadoPaquete(nuevo_estado_str)
     paquete.nombre = p_nombre
     paquete.precio = p_precio
     paquete.numero_guia = p_numero_guia
     paquete.peso = p_peso
-
     if fecha_recibido:
         paquete.fecha_recibido = fecha_recibido
 
     try:
-        db.session.commit()
+        db.session.commit()  # Guardar cambios en la base de datos
 
-        # 🚀 Enviar correo al usuario con plantilla HTML
+        # ---------------------- Enviar correo al usuario ----------------------
         try:
+            # Asunto del correo
             subject_user = f"Actualización de tu paquete: {paquete.nombre}"
 
+            # Construir contenido HTML usando la plantilla email_paquete.html
             body_user_html = render_template(
                 "email_paquete.html",
                 user_nombre=paquete.usuario.user_first_name,
@@ -322,22 +328,27 @@ def actualizar_estado():
                 year=datetime.now().year
             )
 
+            # Enviar correo con la función send_email
             ok, resp = send_email(
                 subject_user,
                 paquete.usuario.email,
                 body_user_html,
-                html=True   # 👈 importante: marcar que es HTML
+                html=True  # 👈 importante: indicar que es HTML
             )
+
             if not ok:
                 print("❌ Error enviando notificación al usuario:", resp)
-        except Exception as e:
-            print("⚠️ Excepción enviando correo:", str(e))
 
+        except Exception as e:
+            print("⚠️ Excepción al enviar correo:", str(e))
+
+        # ---------------------- Redirigir al admin ----------------------
         return redirect(request.referrer)
 
     except Exception as e:
         db.session.rollback()
         return f"Error al actualizar el paquete: {str(e)}", 500
+
 
 
 @app.route('/marcar_consolidar', methods=['POST'])
@@ -700,6 +711,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
