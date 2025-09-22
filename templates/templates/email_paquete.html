@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Actualización de tu paquete</title>
+  </head>
+  <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center" style="padding: 20px 0; background-color: #007BFF;">
+          <!-- LOGO -->
+          <img src="https://porencargo.co/static/logo.png" alt="PorEncargo" width="150" style="display:block;">
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <table width="600" cellpadding="20" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <tr>
+              <td>
+                <h2 style="color:#007BFF; margin-top:0;">📦 Actualización de tu paquete</h2>
+                <p>Hola <strong>{{ user_nombre }}</strong>,</p>
+                <p>
+                  Tu paquete <strong>"{{ paquete_nombre }}"</strong> 
+                  (Guía: <strong>{{ paquete_guia }}</strong>) ha cambiado de estado:
+                </p>
+                <table cellpadding="10" cellspacing="0" style="width:100%; border:1px solid #ddd; border-radius:6px; margin:20px 0;">
+                  <tr>
+                    <td style="background-color:#f9f9f9; width:50%;"><b>Estado anterior:</b></td>
+                    <td>{{ estado_anterior }}</td>
+                  </tr>
+                  <tr>
+                    <td style="background-color:#f9f9f9;"><b>Nuevo estado:</b></td>
+                    <td style="color:#007BFF; font-weight:bold;">{{ estado_nuevo }}</td>
+                  </tr>
+                </table>
+                <p>
+                  👉 Puedes ingresar a tu cuenta en  
+                  <a href="https://porencargo.co" style="color:#007BFF; text-decoration:none; font-weight:bold;">PorEncargo.co</a> 
+                  para ver más detalles.
+                </p>
+                <p style="margin-top:30px;">Saludos,<br><b>Equipo PorEncargo</b></p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" style="padding: 20px; font-size:12px; color:#777;">
+          © {{ year }} PorEncargo. Todos los derechos reservados.
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
 
