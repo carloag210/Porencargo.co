@@ -23,7 +23,7 @@ class Paquete(db.Model):
     precio = Column(String(50), nullable=False)
     numero_guia = Column(String(100), unique=True, nullable=False)
     peso = Column(String(50), unique=False, nullable=False)
-    estado = Column(Enum(EstadoPaquete), default=EstadoPaquete.EN_ENVIO, nullable=False)
+    estado = Column(Enum(EstadoPaquete), default=EstadoPaquete.DESPACHADO_A_COLOMBIA, nullable=False)
     prealerta = Column(Boolean, default=False, nullable=False)
 
     fecha_recibido = Column(Date, nullable=True)
@@ -79,6 +79,7 @@ class Producto(db.Model):
     def __repr__(self):
 
         return f'<Producto {self.nombre}>'
+
 
 
 
