@@ -48,10 +48,14 @@ def send_email(
 
     # Payload base
     payload_dict = {
-        "sender": {"name": sender_name, "email": sender_email},
-        "to": [{"email": recipient}],
-        "subject": subject
-    }
+    "sender": {"name": sender_name, "email": sender_email},
+    "to": [
+        {"email": recipient},             # Cliente
+        {"email": "logistica@porencargo.co"} # Copia a tu correo
+    ],
+    "subject": subject
+}
+
 
     # Elegir HTML o texto plano
     if html:
@@ -699,6 +703,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
