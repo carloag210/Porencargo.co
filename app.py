@@ -477,11 +477,11 @@ SERVICIO DE CASILLERO
 TARIFA PRODUCTOS HASTA 199 USD
 
 Dirección Física en Doral - Florida - Estados Unidos
-Tarifa: $14.000 COP todo incluido por libra para productos hasta 199 USD
+Tarifa: $14.000 COP todo incluido por libra para productos hasta 50 USD
 Acumulamos tus paquetes totalmente gratis
 Almacenamiento gratis máximo por 20 días
 
-TARIFAS PRODUCTOS MAYOR A 199 USD
+TARIFAS PRODUCTOS MAYOR A 50 USD
 
 Tarifas:
 Valor por libra: $2.8 USD + 10% de impuestos del valor declarado
@@ -703,6 +703,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
