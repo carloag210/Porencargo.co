@@ -300,7 +300,7 @@ def actualizar_estado():
     estado_anterior = paquete.estado.name if paquete.estado else "Sin estado"
 
     # Actualizar estado y demás campos
-    paquete.estado = EstadoPaquete(nuevo_estado_str)
+    paquete.estado = EstadoPaquete[nuevo_estado_str.strip()]
     paquete.nombre = p_nombre
     paquete.precio = p_precio
     paquete.numero_guia = p_numero_guia
@@ -703,6 +703,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
