@@ -11,6 +11,7 @@ class EstadoPaquete(enum.Enum):
     DESPACHADO_A_COLOMBIA = "Despachado Bodega Miami"
     EN_BODEGA_MIAMI = "Llegó a Bodega Miami"
     EN_AEROPUERTO = "Llegó Aeropuerto Bogotá"
+    EN_PROCESO_ADUANA ="Procesando en Aduana Bogotá "
     EN_COLOMBIA = "En Bodega Medellín"
     LLEGO = "Despachado a tú Dirección"
 
@@ -79,6 +80,7 @@ class Producto(db.Model):
     def __repr__(self):
 
         return f'<Producto {self.nombre}>'
+
 
 
 
