@@ -484,10 +484,10 @@ Almacenamiento gratis máximo por 20 días
 TARIFAS PRODUCTOS MAYOR A 50 USD
 
 Tarifas:
-Valor por libra: $2.8 USD + 29% de impuestos del valor declarado
+Valor por libra: $2.8 USD + 15 % de impuestos del valor declarado
 
-Condiciones para computadores:
-Computadores portátiles: $60 USD + 10% del valor en USD
+Condiciones para computadores de mas 300 USD:
+Computadores portátiles: $60 USD + 29% del valor en USD
 
 CARGA COMERCIAL (más de 6 productos iguales y mayor a 200 USD)
 SIN RESTRICCIONES COMERCIALES
@@ -703,6 +703,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
