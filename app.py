@@ -460,15 +460,15 @@ Te informamos que se realizó con éxito la apertura de tu casillero con código
 Cuando realices una compra, por favor envíanos el número de tracking para rastrearlo.
 
 Recuerda que todas las cajas deben venir marcadas con tu nombre y código de casillero así:
-NAME:{user_first_name} {user_last_name} / COCAR8480
+NAME:{user_first_name} {user_last_name} / C1093
 
 La dirección de envío de tus paquetes es:
 
-ADDRESS: 7705 NW 46th ST
-CITY: DORAL
+ADDRESS: 1716 Northwest 28th Terrace
+CITY: CAPE CORAL
 STATE: FLORIDA
-ZIP: 33195
-PHONE: 3057176595
+ZIP: 33993
+PHONE: (786) 432 1524
 UNITED STATES
 
 Tarifas:
@@ -703,6 +703,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
