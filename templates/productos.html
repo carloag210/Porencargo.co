@@ -75,7 +75,7 @@
           <div class="product-card">
             <div class="image-container">
               <a href="{{ url_for('producto_detalle', id=producto.id) }}">
-                <img src="{{ url_for('static', filename=producto.imagen) }}" 
+                <img src="{{ producto.imagen }}"
                      alt="Imagen de {{ producto.nombre }}" 
                      class="product-image">
               </a>
@@ -103,3 +103,4 @@
   <script src="/assets/js/animacion_contact.js"></script>
 </body>
 </html>
+
