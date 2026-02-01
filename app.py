@@ -1,4 +1,6 @@
 # app.py (reemplazo completo, usa Brevo API en lugar de Flask-Mail / SMTP)
+import cloudinary
+import cloudinary.uploader
 from flask import flash, Flask, request, render_template, redirect, url_for, session, jsonify
 from extencions import db, init_extencions, login_manager
 from models import User, Paquete, EstadoPaquete, Direccion, Producto
@@ -15,7 +17,12 @@ from dotenv import load_dotenv
 
 # Cargar .env si existe (útil para pruebas locales)
 load_dotenv()
-
+cloudinary.config( 
+  cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME"), 
+  api_key = os.getenv("CLOUDINARY_API_KEY"), 
+  api_secret = os.getenv("CLOUDINARY_API_SECRET"),
+  secure = True
+)
 # ---------------- Configuración Brevo ----------------
 
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
@@ -631,12 +638,11 @@ def add_productos():
 
         ruta_imagen = None
         if imagen:
-            nombre_archivo = secure_filename(imagen.filename)
-            ruta_relativa = os.path.join('img_productos', nombre_archivo)
-            ruta_completa = os.path.join(app.config['UPLOAD_FOLDER'], nombre_archivo)
-            imagen.save(ruta_completa)
-            ruta_imagen = ruta_relativa
-
+                    # Esto sube la imagen a internet (Cloudinary)
+                    upload_result = cloudinary.uploader.upload(imagen, folder="productos")
+                    # Esto guarda la URL de internet en lugar de la ruta de tu compu
+                    ruta_imagen = upload_result['secure_url']
+                    
         nuevo_producto = Producto(
             nombre=nombre,
             precio=precio,
@@ -703,6 +709,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
