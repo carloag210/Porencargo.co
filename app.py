@@ -173,41 +173,38 @@ def admin_panel_ver_usuarios():
         estados_posibles=estados_posibles,
         productos=productos
     )
-
 @app.route('/admin_panel_modificar_productos/<int:id>', methods=['GET', 'POST'])
 @admin_required
 def admin_panel_modificar_productos(id):
     producto = Producto.query.get_or_404(id)
 
     if request.method == 'POST':
-        # Actualizar datos del producto
         producto.nombre = request.form['nombre']
         producto.precio = request.form['precio']
         producto.peso = request.form['peso']
         producto.categoria = request.form['categoria']
 
-        # Procesar imágenes
+        # Procesar imágenes nuevas
         imagenes = request.files.getlist("imagenes")
 
         for imagen in imagenes:
             if imagen and imagen.filename != "":
-                filename = secure_filename(imagen.filename)
-                path = os.path.join("static/uploads", filename)  # ruta donde se guarda
-                imagen.save(path)
+                # SUBIDA A CLOUDINARY (Igual que en add_productos)
+                upload_result = cloudinary.uploader.upload(imagen, folder="productos")
+                url_nube = upload_result['secure_url']
 
-                # si tienes modelo ImagenProducto destrábalo; aquí se mantiene tu intención
                 try:
-                    nueva_img = ImagenProducto(ruta=f"uploads/{filename}", producto_id=producto.id)
+                    # Si usas una tabla aparte para varias fotos:
+                    nueva_img = ImagenProducto(ruta=url_nube, producto_id=producto.id)
                     db.session.add(nueva_img)
                 except NameError:
-                    # Si no definiste ImagenProducto en models, solo ignoramos añadir
-                    pass
+                    # Si solo tienes una foto principal por producto, actualiza el campo:
+                    producto.imagen = url_nube
 
         db.session.commit()
         return redirect(url_for('admin_panel'))
 
     return render_template('admin_panel_modificar_productos.html', producto=producto)
-
 @app.route('/calculadora')
 def calculadora():
     return render_template("calculadora.html")
@@ -709,6 +706,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
