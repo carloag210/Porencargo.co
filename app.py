@@ -625,10 +625,26 @@ def admin_panel():
         estados_posibles=estados_posibles,
         productos=productos
     )
-
 @app.route('/add_productos', methods=['GET', 'POST'])
 def add_productos():
     if request.method == 'POST':
+        # 1. DIAGNÓSTICO: Imprimir qué ve Railway en este momento exacto
+        print("--- DEBUGGING CLOUDINARY ---")
+        api_key_check = os.environ.get("CLOUDINARY_API_KEY")
+        print(f"API KEY detectada: {api_key_check}") 
+        
+        if not api_key_check:
+            return "ERROR CRÍTICO: Railway no me está dando la API KEY", 500
+
+        # 2. CONFIGURACIÓN FORZADA (La solución nuclear)
+        # Configuramos justo antes de usarlo para asegurarnos
+        cloudinary.config(
+            cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"), 
+            api_key = os.environ.get("CLOUDINARY_API_KEY"), 
+            api_secret = os.environ.get("CLOUDINARY_API_SECRET"),
+            secure = True
+        )
+
         nombre = request.form['nombre']
         precio = request.form['precio']
         peso = request.form['peso']
@@ -637,10 +653,15 @@ def add_productos():
 
         ruta_imagen = None
         if imagen:
-                    # Esto sube la imagen a internet (Cloudinary)
-                    upload_result = cloudinary.uploader.upload(imagen, folder="productos")
-                    # Esto guarda la URL de internet en lugar de la ruta de tu compu
-                    ruta_imagen = upload_result['secure_url']
+            try:
+                # 3. SUBIDA
+                print("Intentando subir imagen...")
+                upload_result = cloudinary.uploader.upload(imagen, folder="productos")
+                ruta_imagen = upload_result['secure_url']
+                print(f"Imagen subida con éxito: {ruta_imagen}")
+            except Exception as e:
+                print(f"❌ ERROR AL SUBIR: {e}")
+                return f"Error de Cloudinary: {e}", 500
                     
         nuevo_producto = Producto(
             nombre=nombre,
@@ -655,9 +676,7 @@ def add_productos():
 
         return redirect(url_for('admin_panel_add_productos'))
 
-    return render_template('admin_panel_add_productos.html')
-
-@app.route('/add_prealerta')
+    return render_template('admin_panel_add_productos.html')@app.route('/add_prealerta')
 @login_required
 def add_prealerta():
     estados_posibles = list(EstadoPaquete)
@@ -708,6 +727,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
