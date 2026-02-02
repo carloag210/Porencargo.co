@@ -23,6 +23,10 @@ cloudinary.config(
   api_secret = os.getenv("CLOUDINARY_API_SECRET"),
   secure = True
 )
+if not os.getenv("CLOUDINARY_CLOUD_NAME"):
+    print("❌ ERROR: No se detectaron las variables de Cloudinary")
+else:
+    print("✅ Cloudinary configurado correctamente")
 # ---------------- Configuración Brevo ----------------
 
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
@@ -706,6 +710,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
