@@ -15,18 +15,21 @@ import http.client
 import os
 from dotenv import load_dotenv
 
-# Cargar .env si existe (útil para pruebas locales)
+# Cargar .env si existe (útil para pruebas locales)# Cargar .env si existe (útil para pruebas locales)
 load_dotenv()
+
+# --- CONFIGURACIÓN LIMPIA DE CLOUDINARY ---
 cloudinary.config( 
-  cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME"), 
-  api_key = os.getenv("CLOUDINARY_API_KEY"), 
-  api_secret = os.getenv("CLOUDINARY_API_SECRET"),
-  secure = True
+    cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"), 
+    api_key = os.environ.get("CLOUDINARY_API_KEY"), 
+    api_secret = os.environ.get("CLOUDINARY_API_SECRET"),
+    secure = True
 )
-if not os.getenv("CLOUDINARY_CLOUD_NAME"):
-    print("❌ ERROR: No se detectaron las variables de Cloudinary")
+
+if not os.environ.get("CLOUDINARY_API_KEY"):
+    print("❌ ERROR: Railway no está pasando la API_KEY a Flask")
 else:
-    print("✅ Cloudinary configurado correctamente")
+    print("✅ Cloudinary conectado con éxito")
 # ---------------- Configuración Brevo ----------------
 
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
@@ -193,23 +196,18 @@ def admin_panel_modificar_productos(id):
 
         for imagen in imagenes:
             if imagen and imagen.filename != "":
-                # SUBIDA A CLOUDINARY (Igual que en add_productos)
-                upload_result = cloudinary.uploader.upload(imagen, folder="productos")
-                url_nube = upload_result['secure_url']
-
+                # SUBIDA A CLOUDINARY
                 try:
-                    # Si usas una tabla aparte para varias fotos:
-                    nueva_img = ImagenProducto(ruta=url_nube, producto_id=producto.id)
-                    db.session.add(nueva_img)
-                except NameError:
-                    # Si solo tienes una foto principal por producto, actualiza el campo:
-                    producto.imagen = url_nube
+                    upload_result = cloudinary.uploader.upload(imagen, folder="productos")
+                    producto.imagen = upload_result['secure_url'] 
+                except Exception as e:
+                    print(f"Error subiendo a Cloudinary: {e}")
 
         db.session.commit()
         return redirect(url_for('admin_panel'))
 
-    return render_template('admin_panel_modificar_productos.html', producto=producto)
-@app.route('/calculadora')
+    return render_template('admin_panel_modificar_productos.html', producto=producto)@app.route('/calculadora')
+  
 def calculadora():
     return render_template("calculadora.html")
 
@@ -710,6 +708,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
