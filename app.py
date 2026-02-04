@@ -196,46 +196,39 @@ def calculadora():
 @app.route('/add_productos', methods=['GET', 'POST'])
 def add_productos():
     if request.method == 'POST':
-        # --- ZONA DE DETECTIVE (Solución Nuclear) ---
-        print("🛑 INICIANDO DIAGNÓSTICO EN VIVO 🛑")
-        
-        # Leemos las variables directamente del sistema
-        test_cloud = os.environ.get("CLOUDINARY_CLOUD_NAME")
-        test_key = os.environ.get("CLOUDINARY_API_KEY")
-        test_secret = os.environ.get("CLOUDINARY_API_SECRET")
-
-        print(f"👉 Cloud Name: '{test_cloud}'")
-        print(f"👉 API Key: '{test_key}'") # Si esto sale None, es error de Railway
-
-        # RE-CONFIGURACIÓN MANUAL OBLIGATORIA
-        if test_key:
-            cloudinary.config(
-                cloud_name = test_cloud,
-                api_key = test_key,
-                api_secret = test_secret,
-                secure = True
-            )
-            print("✅ Configuración forzada aplicada.")
-        else:
-            return "<h1>ERROR CRÍTICO</h1><p>Railway no está entregando la variable CLOUDINARY_API_KEY. Revisa el panel de variables.</p>", 500
-        # --------------------------------------------
-
         nombre = request.form['nombre']
         precio = request.form['precio']
         peso = request.form['peso']
         categoria = request.form['categoria']
         imagen = request.files['imagen']
 
+        # --- DIAGNÓSTICO FINAL ---
+        # Vamos a ver qué demonios está leyendo Railway
+        cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME")
+        api_key = os.environ.get("CLOUDINARY_API_KEY")
+        api_secret = os.environ.get("CLOUDINARY_API_SECRET")
+        print(api_secret)
+        print(api_key)
+        print(cloud_name)
+
+        if not api_key:
+             return "<h1>ERROR FATAL: Railway no tiene las variables. Revisa la pestaña Variables en Railway y asegúrate de que se llamen CLOUDINARY_API_KEY (sin espacios).</h1>", 500
+
         ruta_imagen = None
         if imagen:
             try:
-                print("🚀 Intentando subir a Cloudinary...")
-                upload_result = cloudinary.uploader.upload(imagen, folder="productos")
+                # AQUÍ ESTÁ EL CAMBIO: Le damos las llaves EN LA MANO, no usamos la configuración global
+                upload_result = cloudinary.uploader.upload(
+                    imagen, 
+                    folder="productos",
+                    api_key=api_key,
+                    api_secret=api_secret,
+                    cloud_name=cloud_name
+                )
                 ruta_imagen = upload_result['secure_url']
-                print(f"✅ Imagen subida: {ruta_imagen}")
             except Exception as e:
-                print(f"🔥 ERROR AL SUBIR: {e}")
-                return f"Error detallado de Cloudinary: {e}", 500
+                print(f"🔥 Error subiendo: {e}")
+                return f"Error de Cloudinary: {e}", 500
                     
         nuevo_producto = Producto(
             nombre=nombre,
@@ -251,7 +244,7 @@ def add_productos():
         return redirect(url_for('admin_panel_add_productos'))
 
     return render_template('admin_panel_add_productos.html')
-
+    
 @app.route('/admin/editar_usuario/<int:id>', methods=['GET', 'POST'])
 @admin_required
 def admin_editar_usuario(id):
@@ -650,3 +643,4 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
