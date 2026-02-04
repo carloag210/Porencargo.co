@@ -21,9 +21,9 @@ load_dotenv()
 # Esto intenta cargar la configuración al iniciar.
 # Si falla aquí, la función add_productos tiene un respaldo (Plan B).
 cloudinary.config( 
-    cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"), 
-    api_key = os.environ.get("CLOUDINARY_API_KEY"), 
-    api_secret = os.environ.get("CLOUDINARY_API_SECRET"),
+    cloud_name = "dqifuloqx", 
+    api_key = "137144339184829", 
+    api_secret = "qEShls5QHmi9oUX9-6BGOcrM9R0",
     secure = True
 )
 
@@ -643,4 +643,5 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
