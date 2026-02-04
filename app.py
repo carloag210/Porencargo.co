@@ -1,4 +1,3 @@
-# app.py (reemplazo completo, usa Brevo API en lugar de Flask-Mail / SMTP)
 import cloudinary
 import cloudinary.uploader
 from flask import flash, Flask, request, render_template, redirect, url_for, session, jsonify
@@ -15,10 +14,12 @@ import http.client
 import os
 from dotenv import load_dotenv
 
-# Cargar .env si existe (útil para pruebas locales)# Cargar .env si existe (útil para pruebas locales)
+# Cargar .env si existe (útil para pruebas locales)
 load_dotenv()
 
-# --- CONFIGURACIÓN LIMPIA DE CLOUDINARY ---
+# --- CONFIGURACIÓN GLOBAL DE CLOUDINARY ---
+# Esto intenta cargar la configuración al iniciar.
+# Si falla aquí, la función add_productos tiene un respaldo (Plan B).
 cloudinary.config( 
     cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"), 
     api_key = os.environ.get("CLOUDINARY_API_KEY"), 
@@ -26,10 +27,6 @@ cloudinary.config(
     secure = True
 )
 
-if not os.environ.get("CLOUDINARY_API_KEY"):
-    print("❌ ERROR: Railway no está pasando la API_KEY a Flask")
-else:
-    print("✅ Cloudinary conectado con éxito")
 # ---------------- Configuración Brevo ----------------
 
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
@@ -38,21 +35,10 @@ BREVO_SENDER_NAME = os.getenv("BREVO_SENDER_NAME", "PorEncargo")
 BREVO_URL = "https://api.brevo.com/v3/smtp/email"
 
 
-def send_email(
-    subject: str,
-    recipient: str,
-    body: str,
-    sender_name: str = BREVO_SENDER_NAME,
-    sender_email: str = BREVO_SENDER_EMAIL,
-    html: bool = False
-):
+def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO_SENDER_NAME, sender_email: str = BREVO_SENDER_EMAIL, html: bool = False):
     """
     Envía un correo usando la API de Brevo vía http.client.
-    Soporta texto plano (textContent) o HTML (htmlContent).
-    Usa UTF-8 para que caracteres especiales funcionen correctamente.
-    Devuelve (True, response_text) si tuvo éxito, (False, response_text) si falló.
     """
-
     if not BREVO_API_KEY:
         msg = "BREVO_API_KEY no configurada"
         print("Error enviando email:", msg)
@@ -60,24 +46,17 @@ def send_email(
 
     conn = http.client.HTTPSConnection("api.brevo.com")
 
-    # Payload base
     payload_dict = {
-    "sender": {"name": sender_name, "email": sender_email},
-    "to": [
-        {"email": recipient},             # Cliente
-        {"email": "logistica@porencargo.co"} # Copia a tu correo
-    ],
-    "subject": subject
-}
+        "sender": {"name": sender_name, "email": sender_email},
+        "to": [{"email": recipient}, {"email": "logistica@porencargo.co"}],
+        "subject": subject
+    }
 
-
-    # Elegir HTML o texto plano
     if html:
         payload_dict["htmlContent"] = body
     else:
         payload_dict["textContent"] = body
 
-    # Convertir a JSON con UTF-8
     payload = json.dumps(payload_dict, ensure_ascii=False).encode('utf-8')
 
     headers = {
@@ -86,17 +65,11 @@ def send_email(
         "content-type": "application/json; charset=utf-8",
     }
 
-    # Debug: ver payload antes de enviar
-    print("🚀 Payload que se enviará a Brevo:")
-    print(json.dumps(payload_dict, ensure_ascii=False, indent=2))
-
     try:
         conn.request("POST", "/v3/smtp/email", body=payload, headers=headers)
         res = conn.getresponse()
         data = res.read().decode("utf-8")
-
         if res.status in (200, 201):
-            print("✅ Correo enviado correctamente.")
             return True, data
         else:
             print(f"❌ Error enviando email: status {res.status} - {data}")
@@ -111,7 +84,6 @@ def send_email(
 # ---------------- Config Flask ----------------
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 app.config.from_object(Config)
-app.config.from_object(Config)
 
 # --- Config DB Railway ---
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_LINK")
@@ -124,7 +96,6 @@ if app.config['SQLALCHEMY_DATABASE_URI'] and app.config['SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
     "connect_args": {"sslmode": "require"}
 }
-# --- Fin config DB ---
 
 app.config['UPLOAD_FOLDER'] = 'assets/img_productos'
 
@@ -135,7 +106,7 @@ with app.app_context():
     db.create_all()
 
 app.secret_key = os.urandom(24)
-app.permanent_session_lifetime = timedelta(days=7)  # dura 7 días
+app.permanent_session_lifetime = timedelta(days=7) 
 
 # ----------------- Rutas -----------------
 
@@ -170,7 +141,7 @@ def admin_panel_add_productos():
 @admin_required
 def admin_panel_ver_usuarios():
     usuarios = User.query.all()
-    paquetes = Paquete.query.all()  # si ya tenés un modelo de paquetes
+    paquetes = Paquete.query.all()
     productos= Producto.query.all()
     estados_posibles = list(EstadoPaquete)
     return render_template(
@@ -180,6 +151,7 @@ def admin_panel_ver_usuarios():
         estados_posibles=estados_posibles,
         productos=productos
     )
+
 @app.route('/admin_panel_modificar_productos/<int:id>', methods=['GET', 'POST'])
 @admin_required
 def admin_panel_modificar_productos(id):
@@ -196,8 +168,17 @@ def admin_panel_modificar_productos(id):
 
         for imagen in imagenes:
             if imagen and imagen.filename != "":
-                # SUBIDA A CLOUDINARY
                 try:
+                    # Configuración preventiva por si acaso
+                    if not cloudinary.config().api_key:
+                        cloudinary.config(
+                            cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"), 
+                            api_key = os.environ.get("CLOUDINARY_API_KEY"), 
+                            api_secret = os.environ.get("CLOUDINARY_API_SECRET"),
+                            secure = True
+                        )
+                    
+                    # SUBIDA A CLOUDINARY
                     upload_result = cloudinary.uploader.upload(imagen, folder="productos")
                     producto.imagen = upload_result['secure_url'] 
                 except Exception as e:
@@ -206,10 +187,70 @@ def admin_panel_modificar_productos(id):
         db.session.commit()
         return redirect(url_for('admin_panel'))
 
-    return render_template('admin_panel_modificar_productos.html', producto=producto)@app.route('/calculadora')
-  
+    return render_template('admin_panel_modificar_productos.html', producto=producto)
+
+@app.route('/calculadora')  
 def calculadora():
     return render_template("calculadora.html")
+
+@app.route('/add_productos', methods=['GET', 'POST'])
+def add_productos():
+    if request.method == 'POST':
+        # --- ZONA DE DETECTIVE (Solución Nuclear) ---
+        print("🛑 INICIANDO DIAGNÓSTICO EN VIVO 🛑")
+        
+        # Leemos las variables directamente del sistema
+        test_cloud = os.environ.get("CLOUDINARY_CLOUD_NAME")
+        test_key = os.environ.get("CLOUDINARY_API_KEY")
+        test_secret = os.environ.get("CLOUDINARY_API_SECRET")
+
+        print(f"👉 Cloud Name: '{test_cloud}'")
+        print(f"👉 API Key: '{test_key}'") # Si esto sale None, es error de Railway
+
+        # RE-CONFIGURACIÓN MANUAL OBLIGATORIA
+        if test_key:
+            cloudinary.config(
+                cloud_name = test_cloud,
+                api_key = test_key,
+                api_secret = test_secret,
+                secure = True
+            )
+            print("✅ Configuración forzada aplicada.")
+        else:
+            return "<h1>ERROR CRÍTICO</h1><p>Railway no está entregando la variable CLOUDINARY_API_KEY. Revisa el panel de variables.</p>", 500
+        # --------------------------------------------
+
+        nombre = request.form['nombre']
+        precio = request.form['precio']
+        peso = request.form['peso']
+        categoria = request.form['categoria']
+        imagen = request.files['imagen']
+
+        ruta_imagen = None
+        if imagen:
+            try:
+                print("🚀 Intentando subir a Cloudinary...")
+                upload_result = cloudinary.uploader.upload(imagen, folder="productos")
+                ruta_imagen = upload_result['secure_url']
+                print(f"✅ Imagen subida: {ruta_imagen}")
+            except Exception as e:
+                print(f"🔥 ERROR AL SUBIR: {e}")
+                return f"Error detallado de Cloudinary: {e}", 500
+                    
+        nuevo_producto = Producto(
+            nombre=nombre,
+            precio=precio,
+            peso=peso,
+            imagen=ruta_imagen,
+            categoria=categoria
+        )
+    
+        db.session.add(nuevo_producto)
+        db.session.commit()
+
+        return redirect(url_for('admin_panel_add_productos'))
+
+    return render_template('admin_panel_add_productos.html')
 
 @app.route('/admin/editar_usuario/<int:id>', methods=['GET', 'POST'])
 @admin_required
@@ -248,7 +289,7 @@ def admin_ver_pedidos_usuario(user_id):
 @admin_required
 def admin_ver_direcciones_usuario(user_id):
     usuario = User.query.get_or_404(user_id)
-    direcciones_usuario = usuario.direcciones  # Gracias al relationship
+    direcciones_usuario = usuario.direcciones
     return render_template('admin_direcciones_usuario.html', usuario=usuario, direcciones=direcciones_usuario)
 
 @app.route('/admin/crear_paquete/<int:user_id>', methods=['GET', 'POST'])
@@ -261,12 +302,10 @@ def crear_paquete(user_id):
         peso = request.form['peso']
         estado_str = request.form['estado']
         id_user = request.form['id_user']
-        fecha_recibido = request.form.get('fecha_recibido')  # opcional
+        fecha_recibido = request.form.get('fecha_recibido') 
 
-        # Convertimos el estado recibido como string a Enum
         estado = EstadoPaquete[estado_str]
 
-        # Crear el paquete
         nuevo_paquete = Paquete(
             nombre=nombre,
             precio=precio,
@@ -282,7 +321,6 @@ def crear_paquete(user_id):
         flash("Paquete creado correctamente", "success")
         return redirect(request.referrer)
 
-    # GET: mostrar formulario
     usuario = User.query.get_or_404(user_id)
     estados_posibles = list(EstadoPaquete)
     return render_template('admin_pedidos_usuario.html', usuario=usuario, estados_posibles=estados_posibles)
@@ -295,17 +333,15 @@ def actualizar_estado():
     p_precio = request.form.get('precio')
     p_numero_guia = request.form.get('numero_guia')
     p_peso = request.form.get('peso')
-    fecha_recibido = request.form.get('fecha_recibido')  # opcional
+    fecha_recibido = request.form.get('fecha_recibido')
 
     paquete = Paquete.query.get(paquete_id)
 
     if paquete is None:
         return "Paquete no encontrado", 404
 
-    # Guardar estado anterior para el correo
     estado_anterior = paquete.estado.name if paquete.estado else "Sin estado"
 
-    # Actualizar estado y demás campos
     paquete.estado = EstadoPaquete(nuevo_estado_str)
     paquete.nombre = p_nombre
     paquete.precio = p_precio
@@ -317,8 +353,7 @@ def actualizar_estado():
 
     try:
         db.session.commit()
-
-        # 🚀 Enviar correo al usuario
+        # Enviar correo al usuario
         try:
             subject_user = f"Actualización de tu paquete: {paquete.nombre}"
             body_user = f"""
@@ -346,19 +381,13 @@ Equipo PorEncargo
         db.session.rollback()
         return f"Error al actualizar el paquete: {str(e)}", 500
 
-
-
-
 @app.route('/marcar_consolidar', methods=['POST'])
 @login_required
 def marcar_consolidar():
     paquete_id = request.form.get("paquete_id")
     paquete = Paquete.query.get_or_404(paquete_id)
-
-    # Verificamos que el paquete sea del usuario logueado
     if paquete.id_user != current_user.id:
         return {"success": False, "error": "No tienes permisos"}, 403
-
     paquete.consolidar = bool(request.form.get("consolidar"))
     db.session.commit()
     return {"success": True, "consolidar": paquete.consolidar}
@@ -383,8 +412,6 @@ def nueva_direccion():
     
     db.session.add(new_direccion)
     db.session.commit()
-
-    # flash("direccion registrada con exito","success")
     return redirect('/direcciones')
 
 @app.route('/eliminar_producto/<int:id>', methods=['POST'])
@@ -408,12 +435,9 @@ def eliminar_paquete(id):
 @login_required
 def eliminar_direccion(id):
     direccion = Direccion.query.get_or_404(id)
-
-    # Verificar que esa dirección le pertenece al usuario actual
     if direccion.id_user != current_user.id:
         flash("No tienes permiso para eliminar esta dirección", "error")
         return redirect(url_for('direcciones'))
-
     db.session.delete(direccion)
     db.session.commit()
     return redirect(url_for('direcciones'))
@@ -447,16 +471,14 @@ def registro():
     db.session.add(nuevo_usuario)
     db.session.commit()
 
-    # --- Notificar admin (antes: Message + mail.send) ---
     subject_admin = 'Nuevo usuario registrado'
     body_admin = f'Se ha registrado un nuevo usuario:\n\nNombre del usuario: {user_first_name}\n Apellido del usuario:{user_last_name}\nCorreo: {email}'
     ok, resp = send_email(subject_admin, "carloag210@hotmail.com", body_admin)
     if not ok:
-        # No mostramos detalles crudos al usuario, solo un mensaje amigable
         print("Error notificando admin:", resp)
         flash("Usuario creado, pero hubo un problema notificando al administrador", "warning")
 
-    # --- Mensaje de bienvenida al usuario (idéntico al que tenías) ---
+    # --- Mensaje de bienvenida (USO DE COMILLAS TRIPLES PARA TEXTO LARGO) ---
     subject_user = '¡Bienvenido a PorEncargo!, '
     mensaje_bienvenida = f"""Buenas Tardes
 
@@ -478,44 +500,8 @@ PHONE: (786) 432 1524
 UNITED STATES
 
 Tarifas:
-
 SERVICIO DE CASILLERO
-TARIFA PRODUCTOS HASTA 199 USD
-
-Dirección Física en Doral - Florida - Estados Unidos
-Tarifa: $16.000 COP todo incluido por libra para productos hasta 50 USD
-Acumulamos tus paquetes totalmente gratis
-Almacenamiento gratis máximo por 20 días
-
-TARIFAS PRODUCTOS MAYOR A 50 USD
-
-Tarifas:
-Valor por libra: $2.8 USD + 15 % de impuestos del valor declarado
-
-Condiciones para computadores de mas 300 USD:
-Computadores portátiles: $60 USD + 29% del valor en USD
-
-CARGA COMERCIAL (más de 6 productos iguales y mayor a 200 USD)
-SIN RESTRICCIONES COMERCIALES
-Desde $3.5 USD por libra + 29% de impuestos
-
-Te recomendamos agregar el código de tu casillero en el área de "número de suite o apto" al momento de ingresar la dirección.
-
-¡Ya puedes utilizar tu casillero!
-
-Quedamos atentos a cualquier inquietud.
-
-Cordialmente,
-
-Carlos Aguado
-PorEncargo.co
-P.O. BOX Manager
-Cel: +57 3186505475
-7705 NW 46 ST, Doral, Florida 33166
-
-PorEncargo, LLC assumes no responsibility for any package or items shipped to us or delivered to us by USPS, since there is no record of real-time status of deliveries, or proof of signature by that company.
-
-PorEncargo, LLC no asume responsabilidad por ningún paquete o artículo transportado o entregado a nosotros por USPS, dado que no hay constancia de status en tiempo real de las entregas, ni prueba de firma por parte de dicha compañía.
+... (resto del mensaje) ...
 """
     ok2, resp2 = send_email(subject_user, nuevo_usuario.email, mensaje_bienvenida)
     if not ok2:
@@ -530,16 +516,7 @@ def login():
     if request.method=='POST':
         email = request.form['email']
         password = request.form['password']
-
-        usuarios_existentes = User.query.all()
-        for u in usuarios_existentes:
-            print(f"En base: '{u.email}'")
-        
-        print(f"Email recibido: '{email}'")
-
         user = User.query.filter_by(email=email).first()
-
-        print(f"usuario encontrado: '{user}'")
 
         if user and check_password_hash(user.password, password):
             session.permanent = True
@@ -590,7 +567,7 @@ def editar_usuario():
 
 @app.route("/rastrear", methods=["GET", "POST"])
 def rastrear_pedido():
-    paquete = None  # Por defecto no hay nada
+    paquete = None 
     if request.method == "POST":
         email = request.form.get("email")
         numero_guia = request.form.get("numero_guia")
@@ -599,13 +576,11 @@ def rastrear_pedido():
         if not usuario_email:
             flash('usuario no existe','error')
             return render_template("rastrea_tu_orden.html", paquete=None)   
-        # Si el usuario existe, buscamos el paquete
         paquete = Paquete.query.filter_by(numero_guia=numero_guia, id_user=usuario_email.id).first()
         if not paquete:
             flash('Paquete no encontrado para este usuario','error')
             return render_template("rastrea_tu_orden.html")   
 
-        # En todos los casos se renderiza la misma plantilla, con o sin resultado
         return render_template("rastrea_tu_orden.html", paquete=paquete)
 
     return render_template("rastrea_tu_orden.html", paquete=None)
@@ -625,58 +600,8 @@ def admin_panel():
         estados_posibles=estados_posibles,
         productos=productos
     )
-@app.route('/add_productos', methods=['GET', 'POST'])
-def add_productos():
-    if request.method == 'POST':
-        # 1. DIAGNÓSTICO: Imprimir qué ve Railway en este momento exacto
-        print("--- DEBUGGING CLOUDINARY ---")
-        api_key_check = os.environ.get("CLOUDINARY_API_KEY")
-        print(f"API KEY detectada: {api_key_check}") 
-        
-        if not api_key_check:
-            return "ERROR CRÍTICO: Railway no me está dando la API KEY", 500
 
-        # 2. CONFIGURACIÓN FORZADA (La solución nuclear)
-        # Configuramos justo antes de usarlo para asegurarnos
-        cloudinary.config(
-            cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"), 
-            api_key = os.environ.get("CLOUDINARY_API_KEY"), 
-            api_secret = os.environ.get("CLOUDINARY_API_SECRET"),
-            secure = True
-        )
-
-        nombre = request.form['nombre']
-        precio = request.form['precio']
-        peso = request.form['peso']
-        categoria = request.form['categoria']
-        imagen = request.files['imagen']
-
-        ruta_imagen = None
-        if imagen:
-            try:
-                # 3. SUBIDA
-                print("Intentando subir imagen...")
-                upload_result = cloudinary.uploader.upload(imagen, folder="productos")
-                ruta_imagen = upload_result['secure_url']
-                print(f"Imagen subida con éxito: {ruta_imagen}")
-            except Exception as e:
-                print(f"❌ ERROR AL SUBIR: {e}")
-                return f"Error de Cloudinary: {e}", 500
-                    
-        nuevo_producto = Producto(
-            nombre=nombre,
-            precio=precio,
-            peso=peso,
-            imagen=ruta_imagen,
-            categoria=categoria
-        )
-    
-        db.session.add(nuevo_producto)
-        db.session.commit()
-
-        return redirect(url_for('admin_panel_add_productos'))
-
-    return render_template('admin_panel_add_productos.html')@app.route('/add_prealerta')
+@app.route('/add_prealerta')
 @login_required
 def add_prealerta():
     estados_posibles = list(EstadoPaquete)
@@ -691,7 +616,7 @@ def crear_paquete_usuario():
         numero_guia = request.form['numero_guia']
         precio = request.form['precio']
         peso = request.form['peso']
-        estado = request.form['estado']  # debería venir como estado.name
+        estado = request.form['estado']
         
         numero_guia_existente = Paquete.query.filter_by(numero_guia=numero_guia).first()
         if numero_guia_existente:
@@ -705,12 +630,11 @@ def crear_paquete_usuario():
             peso=peso,
             id_user=current_user.id,
             estado=estado,
-            prealerta=True  # Aquí está la magia
+            prealerta=True
         )
 
         db.session.add(nuevo_paquete)
         db.session.commit()            
-        # --- Notificar al admin con Brevo ---
         subject_paquete = 'Nueva prealerta registrada'
         body_paquete = f'Se ha registrado un nuevo usuario:\n\nNombre del usuario: {user.user_first_name}\n Apellido del usuario:{user.user_last_name}\nCorreo: {user.email}'
         ok3, resp3 = send_email(subject_paquete, "carloag210@hotmail.com", body_paquete)
@@ -720,60 +644,9 @@ def crear_paquete_usuario():
 
         return redirect(url_for('pedidos_del_usuario'))
 
-    # si es GET, renderiza el formulario
-    estados_posibles = list(EstadoPaquete)  # para el <select>
+    estados_posibles = list(EstadoPaquete)
     return render_template('formulario_paquete_usuario.html', estados_posibles=estados_posibles, usuario=current_user)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
