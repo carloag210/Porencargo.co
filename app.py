@@ -1,5 +1,5 @@
-import cloudinary
-import cloudinary.uploader
+# import cloudinary
+# import cloudinary.uploader
 from flask import flash, Flask, request, render_template, redirect, url_for, session, jsonify
 from extencions import db, init_extencions, login_manager
 from models import User, Paquete, EstadoPaquete, Direccion, Producto
@@ -639,5 +639,6 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
