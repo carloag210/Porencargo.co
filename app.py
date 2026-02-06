@@ -14,18 +14,14 @@ import http.client
 import os
 from dotenv import load_dotenv
 
-# Cargar .env si existe (útil para pruebas locales)
 load_dotenv()
 
-# --- CONFIGURACIÓN GLOBAL DE CLOUDINARY ---
-# Esto intenta cargar la configuración al iniciar.
-# Si falla aquí, la función add_productos tiene un respaldo (Plan B).
-cloudinary.config( 
-    cloud_name = "dqifuloqx", 
-    api_key = "137144339184829", 
-    api_secret = "qEShls5QHmi9oUX9-6BGOcrM9R0",
-    secure = True
-)
+# cloudinary.config( 
+#     cloud_name = "dqifuloqx", 
+#     api_key = "137144339184829", 
+#     api_secret = "qEShls5QHmi9oUX9-6BGOcrM9R0",
+#     secure = True
+# )
 
 # ---------------- Configuración Brevo ----------------
 
