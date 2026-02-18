@@ -1,5 +1,5 @@
-# import cloudinary
-# import cloudinary.uploader
+import cloudinary
+import cloudinary.uploader
 from flask import flash, Flask, request, render_template, redirect, url_for, session, jsonify
 from extencions import db, init_extencions, login_manager
 from models import User, Paquete, EstadoPaquete, Direccion, Producto
@@ -16,12 +16,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# cloudinary.config( 
-#     cloud_name = "dqifuloqx", 
-#     api_key = "137144339184829", 
-#     api_secret = "qEShls5QHmi9oUX9-6BGOcrM9R0",
-#     secure = True
-# )
+cloudinary.config(
+    cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key    = os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret = os.environ.get("CLOUDINARY_API_SECRET"),
+    secure     = True
+)
 
 # ---------------- Configuración Brevo ----------------
 
@@ -213,26 +213,19 @@ def add_productos():
         ruta_imagen = None
         if imagen:
             try:
-                # AQUÍ ESTÁ EL CAMBIO: Le damos las llaves EN LA MANO, no usamos la configuración global
-                upload_result = cloudinary.uploader.upload(
-                    imagen, 
-                    folder="productos",
-                    api_key=api_key,
-                    api_secret=api_secret,
-                    cloud_name=cloud_name
-                )
+                upload_result = cloudinary.uploader.upload(imagen, folder="productos")
                 ruta_imagen = upload_result['secure_url']
             except Exception as e:
-                print(f"🔥 Error subiendo: {e}")
+                print(f"Error subiendo a Cloudinary: {e}")
                 return f"Error de Cloudinary: {e}", 500
-                    
-        nuevo_producto = Producto(
-            nombre=nombre,
-            precio=precio,
-            peso=peso,
-            imagen=ruta_imagen,
-            categoria=categoria
-        )
+                            
+                nuevo_producto = Producto(
+                    nombre=nombre,
+                    precio=precio,
+                    peso=peso,
+                    imagen=ruta_imagen,
+                    categoria=categoria
+                )
     
         db.session.add(nuevo_producto)
         db.session.commit()
@@ -639,6 +632,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
