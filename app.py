@@ -211,7 +211,7 @@ def add_productos():
              return "<h1>ERROR FATAL: Railway no tiene las variables. Revisa la pestaña Variables en Railway y asegúrate de que se llamen CLOUDINARY_API_KEY (sin espacios).</h1>", 500
 
         ruta_imagen = None
-        if imagen:
+        if imagen and imagen.filename != '':
             try:
                 upload_result = cloudinary.uploader.upload(imagen, folder="productos")
                 ruta_imagen = upload_result['secure_url']
@@ -632,6 +632,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
