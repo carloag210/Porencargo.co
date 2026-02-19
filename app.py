@@ -196,19 +196,7 @@ def add_productos():
         precio = request.form['precio']
         peso = request.form['peso']
         categoria = request.form['categoria']
-        imagen = request.files['imagen']
-
-        # --- DIAGNÓSTICO FINAL ---
-        # Vamos a ver qué demonios está leyendo Railway
-        cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME")
-        api_key = os.environ.get("CLOUDINARY_API_KEY")
-        api_secret = os.environ.get("CLOUDINARY_API_SECRET")
-        print(api_secret)
-        print(api_key)
-        print(cloud_name)
-
-        if not api_key:
-             return "<h1>ERROR FATAL: Railway no tiene las variables. Revisa la pestaña Variables en Railway y asegúrate de que se llamen CLOUDINARY_API_KEY (sin espacios).</h1>", 500
+        imagen = request.files.get('imagen')
 
         ruta_imagen = None
         if imagen and imagen.filename != '':
@@ -218,20 +206,19 @@ def add_productos():
             except Exception as e:
                 print(f"Error subiendo a Cloudinary: {e}")
                 return f"Error de Cloudinary: {e}", 500
-                            
-                nuevo_producto = Producto(
-                    nombre=nombre,
-                    precio=precio,
-                    peso=peso,
-                    imagen=ruta_imagen,
-                    categoria=categoria
-                )
-    
+
+        # 👈 nuevo_producto FUERA del if/try, al mismo nivel que ruta_imagen
+        nuevo_producto = Producto(
+            nombre=nombre,
+            precio=precio,
+            peso=peso,
+            imagen=ruta_imagen,
+            categoria=categoria
+        )
+
         db.session.add(nuevo_producto)
         db.session.commit()
-
         return redirect(url_for('admin_panel_add_productos'))
-
     return render_template('admin_panel_add_productos.html')
     
 @app.route('/admin/editar_usuario/<int:id>', methods=['GET', 'POST'])
@@ -632,6 +619,7 @@ def crear_paquete_usuario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
