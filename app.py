@@ -607,8 +607,8 @@ def crear_paquete_usuario():
         db.session.commit()            
         subject_paquete = 'Nueva prealerta registrada'
 
-body_paquete = f'''
-📦 Nueva prealerta registrada
+body_paquete = f"""
+Nueva prealerta registrada
 
 Usuario:
 Nombre: {user.user_first_name}
@@ -622,6 +622,7 @@ Precio: {nuevo_paquete.precio}
 Peso: {nuevo_paquete.peso}
 Estado: {nuevo_paquete.estado}
 Prealerta: {nuevo_paquete.prealerta}
+"""
         ok3, resp3 = send_email(subject_paquete, "carloag210@hotmail.com", body_paquete)
         if not ok3:
             print("Error notificando admin de prealerta:", resp3)
@@ -635,5 +636,6 @@ Prealerta: {nuevo_paquete.prealerta}
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+
 
 
