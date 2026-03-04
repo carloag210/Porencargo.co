@@ -609,7 +609,7 @@ def crear_paquete_usuario():
 
         subject_paquete = 'Nueva prealerta registrada'
 
-        body_paquete = f"""
+                body_paquete = f"""
 <html>
 <body style="font-family: Arial, sans-serif; background-color:#f4f4f4; padding:20px;">
 
@@ -675,11 +675,13 @@ Este es un mensaje automático del sistema de prealertas.
 </body>
 </html>
 """
-  ok3, resp3 = send_email(subject_paquete,
-    "carloag210@hotmail.com",
-    body_paquete,
-    html=True
-)
+
+        ok3, resp3 = send_email(
+            subject_paquete,
+            "carloag210@hotmail.com",
+            body_paquete,
+            html=True
+        )
 
         if not ok3:
             print("Error notificando admin de prealerta:", resp3)
@@ -696,6 +698,7 @@ Este es un mensaje automático del sistema de prealertas.
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+
 
 
 
