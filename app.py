@@ -452,7 +452,7 @@ def registro():
     mensaje_bienvenida = f"""Buenas Tardes
 
 Te informamos que se realizó con éxito la apertura de tu casillero con código:
-(COCAR8480)
+(C1093)
 
 Cuando realices una compra, por favor envíanos el número de tracking para rastrearlo.
 
@@ -463,6 +463,7 @@ La dirección de envío de tus paquetes es:
 
 ADDRESS: 1716 Northwest 28th Terrace
 CITY: CAPE CORAL
+Casillero : C1093
 STATE: FLORIDA
 ZIP: 33993
 PHONE: (786) 432 1524
@@ -634,4 +635,5 @@ Prealerta: {nuevo_paquete.prealerta}
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+
 
