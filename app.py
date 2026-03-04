@@ -642,6 +642,17 @@ Mensaje automático del sistema
             print("Error notificando admin de prealerta:", resp3)
             flash("Prealerta creada, pero hubo un problema notificando al administrador", "warning")
 
+        # 👇 AQUÍ va el correo del usuario
+        ok_user, resp_user = send_email(
+            "Tu prealerta fue registrada correctamente 📦",
+            user.email,
+            body_paquete,
+            html=False
+        )
+
+        if not ok_user:
+            print("Error notificando usuario:", resp_user)
+
         return redirect(url_for('pedidos_del_usuario'))
 
     estados_posibles = list(EstadoPaquete)
@@ -653,6 +664,7 @@ Mensaje automático del sistema
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+
 
 
 
