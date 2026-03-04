@@ -609,26 +609,33 @@ def crear_paquete_usuario():
 
         subject_paquete = 'Nueva prealerta registrada'
         
-        body_paquete = f"""
-Nueva prealerta registrada
+                body_paquete = f"""
+📦 NUEVA PREALERTA REGISTRADA
 
-Usuario:
-Nombre: {user.user_first_name} {user.user_last_name}
-Correo: {user.email}
+━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Información del paquete:
-Contenido: {nuevo_paquete.nombre}
-Número de guía: {nuevo_paquete.numero_guia}
-Precio: ${nuevo_paquete.precio}
-Peso: {nuevo_paquete.peso}
-Estado: {nuevo_paquete.estado.value}
+👤 USUARIO
+Nombre : {user.user_first_name} {user.user_last_name}
+Correo : {user.email}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 INFORMACIÓN DEL PAQUETE
+Contenido      : {nuevo_paquete.nombre}
+Número de guía : {nuevo_paquete.numero_guia}
+Precio         : ${nuevo_paquete.precio}
+Peso           : {nuevo_paquete.peso}
+Estado         : {nuevo_paquete.estado.value}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mensaje automático del sistema
 """
 
         ok3, resp3 = send_email(
             subject_paquete,
             "carloag210@hotmail.com",
             body_paquete,
-            html=True
+            html=False
         )
 
         if not ok3:
@@ -646,6 +653,7 @@ Estado: {nuevo_paquete.estado.value}
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+
 
 
 
