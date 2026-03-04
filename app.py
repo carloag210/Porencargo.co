@@ -581,13 +581,14 @@ def add_prealerta():
 @login_required
 def crear_paquete_usuario():
     user = current_user
+
     if request.method == 'POST':
         nombre = request.form['nombre']
         numero_guia = request.form['numero_guia']
         precio = request.form['precio']
         peso = request.form['peso']
         estado = request.form['estado']
-        
+
         numero_guia_existente = Paquete.query.filter_by(numero_guia=numero_guia).first()
         if numero_guia_existente:
             flash('Este numero de guia ya ha sido utilizado','error')
@@ -604,10 +605,11 @@ def crear_paquete_usuario():
         )
 
         db.session.add(nuevo_paquete)
-        db.session.commit()            
+        db.session.commit()
+
         subject_paquete = 'Nueva prealerta registrada'
 
-body_paquete = f"""
+        body_paquete = f"""
 Nueva prealerta registrada
 
 Usuario:
@@ -623,7 +625,9 @@ Peso: {nuevo_paquete.peso}
 Estado: {nuevo_paquete.estado}
 Prealerta: {nuevo_paquete.prealerta}
 """
+
         ok3, resp3 = send_email(subject_paquete, "carloag210@hotmail.com", body_paquete)
+
         if not ok3:
             print("Error notificando admin de prealerta:", resp3)
             flash("Prealerta creada, pero hubo un problema notificando al administrador", "warning")
@@ -631,11 +635,15 @@ Prealerta: {nuevo_paquete.prealerta}
         return redirect(url_for('pedidos_del_usuario'))
 
     estados_posibles = list(EstadoPaquete)
-    return render_template('formulario_paquete_usuario.html', estados_posibles=estados_posibles, usuario=current_user)
-
+    return render_template(
+        'formulario_paquete_usuario.html',
+        estados_posibles=estados_posibles,
+        usuario=current_user
+    )
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+
 
 
 
