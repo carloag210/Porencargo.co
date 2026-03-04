@@ -610,23 +610,72 @@ def crear_paquete_usuario():
         subject_paquete = 'Nueva prealerta registrada'
 
         body_paquete = f"""
-Nueva prealerta registrada
+<html>
+<body style="font-family: Arial, sans-serif; background-color:#f4f4f4; padding:20px;">
 
-Usuario:
-Nombre: {user.user_first_name}
-Apellido: {user.user_last_name}
-Correo: {user.email}
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr>
+<td align="center">
 
-Información del paquete:
-Contenido: {nuevo_paquete.nombre}
-Número de guía: {nuevo_paquete.numero_guia}
-Precio: {nuevo_paquete.precio}
-Peso: {nuevo_paquete.peso}
-Estado: {nuevo_paquete.estado}
-Prealerta: {nuevo_paquete.prealerta}
+<table width="600" cellpadding="12" cellspacing="0" style="background:#ffffff; border:1px solid #ddd;">
+
+<tr>
+<td style="background:#1a73e8; color:white; font-size:20px;">
+📦 Nueva Prealerta Registrada
+</td>
+</tr>
+
+<tr>
+<td>
+<strong>Usuario:</strong><br>
+{user.user_first_name} {user.user_last_name}<br>
+{user.email}
+</td>
+</tr>
+
+<tr>
+<td>
+<table width="100%" border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse;">
+<tr>
+<td><strong>Contenido</strong></td>
+<td>{nuevo_paquete.nombre}</td>
+</tr>
+<tr>
+<td><strong>Número de guía</strong></td>
+<td>{nuevo_paquete.numero_guia}</td>
+</tr>
+<tr>
+<td><strong>Precio</strong></td>
+<td>${nuevo_paquete.precio}</td>
+</tr>
+<tr>
+<td><strong>Peso</strong></td>
+<td>{nuevo_paquete.peso}</td>
+</tr>
+<tr>
+<td><strong>Estado</strong></td>
+<td>{nuevo_paquete.estado.value}</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td style="font-size:12px; color:gray;">
+Este es un mensaje automático del sistema de prealertas.
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>
 """
-
-        ok3, resp3 = send_email(subject_paquete,
+  ok3, resp3 = send_email(subject_paquete,
     "carloag210@hotmail.com",
     body_paquete,
     html=True
@@ -647,6 +696,7 @@ Prealerta: {nuevo_paquete.prealerta}
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+
 
 
 
