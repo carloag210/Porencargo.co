@@ -470,8 +470,43 @@ PHONE: (786) 432 1524
 UNITED STATES
 
 Tarifas:
+
 SERVICIO DE CASILLERO
-... (resto del mensaje) ...
+TARIFA PRODUCTOS HASTA 199 USD
+
+Dirección Física en Doral - Florida - Estados Unidos
+Tarifa: $14.000 COP todo incluido por libra para productos hasta 199 USD
+Acumulamos tus paquetes totalmente gratis
+Almacenamiento gratis máximo por 20 días
+
+TARIFAS PRODUCTOS MAYOR A 199 USD
+
+Tarifas:
+Valor por libra: $2.8 USD + 10% de impuestos del valor declarado
+
+Condiciones para computadores:
+Computadores portátiles: $38 USD + 10% del valor en USD
+
+CARGA COMERCIAL (más de 6 productos iguales y mayor a 200 USD)
+SIN RESTRICCIONES COMERCIALES
+Desde $3.5 USD por libra + 29% de impuestos
+
+Te recomendamos agregar el código de tu casillero en el área de "número de suite o apto" al momento de ingresar la dirección.
+
+¡Ya puedes utilizar tu casillero!
+
+Quedamos atentos a cualquier inquietud.
+
+Cordialmente,
+
+Carlos Aguado
+PorEncargo.co
+P.O. BOX Manager
+Cel: +57 3186505475
+7705 NW 46 ST, Doral, Florida 33166
+
+PorEncargo, LLC assumes no responsibility for any package or items shipped to us or delivered to us by USPS, since there is no record of real-time status of deliveries, or proof of signature by that company.
+
 """
     ok2, resp2 = send_email(subject_user, nuevo_usuario.email, mensaje_bienvenida)
     if not ok2:
@@ -664,6 +699,7 @@ Mensaje automático del sistema
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+
 
 
 
