@@ -415,32 +415,32 @@ def eliminar_direccion(id):
 @app.route('/registro', methods=['POST'])
 def registro():
     # Verificar Cloudflare Turnstile
-token = request.form.get("cf-turnstile-response")
+    token = request.form.get("cf-turnstile-response")
 
-respuesta = requests.post(
-    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-    data={
-        "secret": "0x4AAAAAADhXJtwphXw5hu0RWBU9EvM7bIo",
-        "response": token,
-        "remoteip": request.remote_addr
-    }
-)
+    respuesta = requests.post(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        data={
+            "secret": os.getenv("TURNSTILE_SECRET_KEY"),
+            "response": token,
+            "remoteip": request.remote_addr
+        }
+    )
 
-resultado = respuesta.json()
+    resultado = respuesta.json()
 
-if not resultado.get("success"):
-    flash("Verificación de seguridad incorrecta.", "error")
-    return redirect('/login_register')
+    if not resultado.get("success"):
+        flash("Verificación de seguridad incorrecta.", "error")
+        return redirect('/login_register')
 
     usuario_existente_email = User.query.filter_by(email=email).first()
-    if usuario_existente_email :
+    if usuario_existente_email:
         flash('este correo ya ha sido registrado','error')
-        return redirect ('/login_register')
-    
+        return redirect('/login_register')
+
     usuario_existente_number = User.query.filter_by(number=number).first()
     if usuario_existente_number:
         flash('este numero ya ha sido registrado','error')
-        return redirect ('/login_register')
+        return redirect('/login_register')
     
     nuevo_usuario = User(
         user_first_name=user_first_name, 
