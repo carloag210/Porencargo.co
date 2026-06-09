@@ -1,4 +1,5 @@
 import cloudinary
+import requests
 import cloudinary.uploader
 from flask import flash, Flask, request, render_template, redirect, url_for, session, jsonify
 from extencions import db, init_extencions, login_manager
@@ -413,12 +414,23 @@ def eliminar_direccion(id):
 
 @app.route('/registro', methods=['POST'])
 def registro():
-    user_first_name = request.form['user_first_name']
-    user_last_name = request.form['user_last_name']
-    email = request.form['email']
-    number = request.form['number']
-    password_plana = request.form['password']
-    password_hasheada = generate_password_hash(password_plana)
+    # Verificar Cloudflare Turnstile
+token = request.form.get("cf-turnstile-response")
+
+respuesta = requests.post(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    data={
+        "secret": "0x4AAAAAADhXJtwphXw5hu0RWBU9EvM7bIo",
+        "response": token,
+        "remoteip": request.remote_addr
+    }
+)
+
+resultado = respuesta.json()
+
+if not resultado.get("success"):
+    flash("Verificación de seguridad incorrecta.", "error")
+    return redirect('/login_register')
 
     usuario_existente_email = User.query.filter_by(email=email).first()
     if usuario_existente_email :
