@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>porencargo</title>
-    <link rel="stylesheet" href="/assets/css/login_register.css">
+   <link rel="stylesheet" href="/assets/css/login_register.css">
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 </head>
 <body>
      <div class="mensaje-flash">
@@ -55,13 +54,18 @@
             <!-- Formulario de Registro (oculto por defecto) -->
             <h2>Registro</h2>
             <form method="POST" action="registro">
-                <input type="text" name="user_first_name" placeholder="Nombre" required>
-                <input type="text" name="user_last_name" placeholder="Apellido" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="number" name="number" placeholder="Numero de celular" required>
-                <input type="password" name="password" placeholder="Contraseña" required>
-                <button type="submit">Registrarse</button>
-            </form>
+    <input type="text" name="user_first_name" placeholder="Nombre" required>
+    <input type="text" name="user_last_name" placeholder="Apellido" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="number" name="number" placeholder="Numero de celular" required>
+    <input type="password" name="password" placeholder="Contraseña" required>
+
+    <div class="cf-turnstile"
+         data-sitekey="0x4AAAAAADhXJogQ20-ymeKq">
+    </div>
+
+    <button type="submit">Registrarse</button>
+</form>
             <!-- Botón para volver a Login -->
             <a href="#login" class="toggle-btn">¿Ya tienes cuenta? Inicia sesión</a></p>
         </div>
