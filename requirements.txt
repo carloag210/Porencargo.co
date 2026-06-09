@@ -8,3 +8,4 @@ python-dotenv==1.1.1
 
 pymongo==4.14.0
 cloudinary==1.41.0
+requests==2.32.3
