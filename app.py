@@ -451,13 +451,10 @@ def registro():
         return redirect('/login_register')
 
     usuario_existente_number = User.query.filter_by(number=number).first()
-
-    if usuario_existente_number:
-        flash('este numero ya ha sido registrado','error')
-        return redirect('/login_register')
-if usuario_existente_number:
+   if usuario_existente_number:
     flash('este numero ya ha sido registrado','error')
     return redirect('/login_register')
+    
     # --- Mensaje de bienvenida (USO DE COMILLAS TRIPLES PARA TEXTO LARGO) ---
     subject_user = '¡Bienvenido a PorEncargo!, '
     mensaje_bienvenida = f"""Buenas Tardes
