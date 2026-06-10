@@ -428,49 +428,33 @@ def registro():
 
     resultado = respuesta.json()
 
-    if not resultado.get("success"):
-        flash("Verificación de seguridad incorrecta.", "error")
-        return redirect('/login_register')
-        
-            # ===== AGREGAR ESTO =====
-    user_first_name = request.form.get('user_first_name')
-    user_last_name = request.form.get('user_last_name')
-    email = request.form.get('email')
-    number = request.form.get('number')
-    password = request.form.get('password')
+if not resultado.get("success"):
+    flash("Verificación de seguridad incorrecta.", "error")
+    return redirect('/login_register')
 
-    password_hasheada = generate_password_hash(
-        password,
-        method='pbkdf2:sha256'
-    )
-    # ========================
- usuario_existente_email = User.query.filter_by(email=email).first()
-    if usuario_existente_email:
-        flash('este correo ya ha sido registrado','error')
-        return redirect('/login_register')
+# Obtener datos del formulario
+user_first_name = request.form.get('user_first_name')
+user_last_name = request.form.get('user_last_name')
+email = request.form.get('email')
+number = request.form.get('number')
+password = request.form.get('password')
 
-    usuario_existente_number = User.query.filter_by(number=number).first()
-    if usuario_existente_number:
-        flash('este numero ya ha sido registrado','error')
-        return redirect('/login_register')
-    
-    nuevo_usuario = User(
-        user_first_name=user_first_name, 
-        user_last_name=user_last_name, 
-        email=email, 
-        number=number,
-        password=password_hasheada)
-    
-    db.session.add(nuevo_usuario)
-    db.session.commit()
+password_hasheada = generate_password_hash(
+    password,
+    method='pbkdf2:sha256'
+)
 
-    subject_admin = 'Nuevo usuario registrado'
-    body_admin = f'Se ha registrado un nuevo usuario:\n\nNombre del usuario: {user_first_name}\n Apellido del usuario:{user_last_name}\nCorreo: {email}'
-    ok, resp = send_email(subject_admin, "carloag210@hotmail.com", body_admin)
-    if not ok:
-        print("Error notificando admin:", resp)
-        flash("Usuario creado, pero hubo un problema notificando al administrador", "warning")
+usuario_existente_email = User.query.filter_by(email=email).first()
 
+if usuario_existente_email:
+    flash('este correo ya ha sido registrado','error')
+    return redirect('/login_register')
+
+usuario_existente_number = User.query.filter_by(number=number).first()
+
+if usuario_existente_number:
+    flash('este numero ya ha sido registrado','error')
+    return redirect('/login_register')
     # --- Mensaje de bienvenida (USO DE COMILLAS TRIPLES PARA TEXTO LARGO) ---
     subject_user = '¡Bienvenido a PorEncargo!, '
     mensaje_bienvenida = f"""Buenas Tardes
