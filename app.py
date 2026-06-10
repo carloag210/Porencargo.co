@@ -428,30 +428,33 @@ def registro():
 
     resultado = respuesta.json()
 
-if not resultado.get("success"):
-    flash("Verificación de seguridad incorrecta.", "error")
-    return redirect('/login_register')
+    if not resultado.get("success"):
+        flash("Verificación de seguridad incorrecta.", "error")
+        return redirect('/login_register')
 
-# Obtener datos del formulario
-user_first_name = request.form.get('user_first_name')
-user_last_name = request.form.get('user_last_name')
-email = request.form.get('email')
-number = request.form.get('number')
-password = request.form.get('password')
+    # Obtener datos del formulario
+    user_first_name = request.form.get('user_first_name')
+    user_last_name = request.form.get('user_last_name')
+    email = request.form.get('email')
+    number = request.form.get('number')
+    password = request.form.get('password')
 
-password_hasheada = generate_password_hash(
-    password,
-    method='pbkdf2:sha256'
-)
+    password_hasheada = generate_password_hash(
+        password,
+        method='pbkdf2:sha256'
+    )
 
-usuario_existente_email = User.query.filter_by(email=email).first()
+    usuario_existente_email = User.query.filter_by(email=email).first()
 
-if usuario_existente_email:
-    flash('este correo ya ha sido registrado','error')
-    return redirect('/login_register')
+    if usuario_existente_email:
+        flash('este correo ya ha sido registrado','error')
+        return redirect('/login_register')
 
-usuario_existente_number = User.query.filter_by(number=number).first()
+    usuario_existente_number = User.query.filter_by(number=number).first()
 
+    if usuario_existente_number:
+        flash('este numero ya ha sido registrado','error')
+        return redirect('/login_register')
 if usuario_existente_number:
     flash('este numero ya ha sido registrado','error')
     return redirect('/login_register')
