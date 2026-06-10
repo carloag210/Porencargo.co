@@ -431,8 +431,20 @@ def registro():
     if not resultado.get("success"):
         flash("Verificación de seguridad incorrecta.", "error")
         return redirect('/login_register')
+        
+            # ===== AGREGAR ESTO =====
+    user_first_name = request.form.get('user_first_name')
+    user_last_name = request.form.get('user_last_name')
+    email = request.form.get('email')
+    number = request.form.get('number')
+    password = request.form.get('password')
 
-    usuario_existente_email = User.query.filter_by(email=email).first()
+    password_hasheada = generate_password_hash(
+        password,
+        method='pbkdf2:sha256'
+    )
+    # ========================
+ usuario_existente_email = User.query.filter_by(email=email).first()
     if usuario_existente_email:
         flash('este correo ya ha sido registrado','error')
         return redirect('/login_register')
