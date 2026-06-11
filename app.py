@@ -450,7 +450,7 @@ def registro():
         flash('este correo ya ha sido registrado','error')
         return redirect('/login_register')
 
-usuario_existente_number = User.query.filter_by(number=number).first()
+    usuario_existente_number = User.query.filter_by(number=number).first()
     if usuario_existente_number:
         flash('este numero ya ha sido registrado','error')
         return redirect ('/login_register')
