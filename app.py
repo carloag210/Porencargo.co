@@ -77,22 +77,23 @@ def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO
     finally:
         conn.close()
         
-        def verify_turnstile(token, remote_ip):
-        url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+def verify_turnstile(token, remote_ip):
+    url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
 
-       data = {
+    data = {
         "secret": TURNSTILE_SECRET_KEY,
         "response": token,
         "remoteip": remote_ip
     }
 
-      try:
+    try:
         response = requests.post(url, data=data)
         result = response.json()
         return result.get("success", False)
-      except Exception as e:
+
+    except Exception as e:
         print("Error validando Turnstile:", e)
-        return False
+        return False  
 
 
 # ---------------- Config Flask ----------------
