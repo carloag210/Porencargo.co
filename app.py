@@ -9,13 +9,14 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from auth.decorators import admin_required
 from werkzeug.utils import secure_filename
 from datetime import timedelta
+import requests
 import json
 import http.client
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
+TURNSTILE_SECRET_KEY = os.getenv("TURNSTILE_SECRET_KEY")
 cloudinary.config(
     cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"),
     api_key    = os.environ.get("CLOUDINARY_API_KEY"),
@@ -75,6 +76,22 @@ def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO
         return False, str(e)
     finally:
         conn.close()
+        def verify_turnstile(token, remote_ip):
+    url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+
+    data = {
+        "secret": TURNSTILE_SECRET_KEY,
+        "response": token,
+        "remoteip": remote_ip
+    }
+
+    try:
+        response = requests.post(url, data=data)
+        result = response.json()
+        return result.get("success", False)
+    except Exception as e:
+        print("Error validando Turnstile:", e)
+        return False
 
 
 # ---------------- Config Flask ----------------
@@ -413,6 +430,16 @@ def eliminar_direccion(id):
 
 @app.route('/registro', methods=['POST'])
 def registro():
+    turnstile_token = request.form.get("cf-turnstile-response")
+
+    if not turnstile_token:
+        flash("Completa la verificación de seguridad", "error")
+        return redirect('/login_register')
+
+    if not verify_turnstile(turnstile_token, request.remote_addr):
+        flash("Verificación de seguridad inválida", "error")
+        return redirect('/login_register')
+        
     user_first_name = request.form['user_first_name']
     user_last_name = request.form['user_last_name']
     email = request.form['email']
