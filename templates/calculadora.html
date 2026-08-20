@@ -39,15 +39,30 @@
     </nav>
   </div>
 </header>
-  <div class="calculadora">
-    
-    <div ng-app="calculoid"
-         ng-controller="CalculoidMainCtrl"
-         ng-init="init({calcId:108245, apiKey:'c4273820688a2abe3a239'})"
-         ng-include="load()">
+  <main class="calculator-page">
+
+    <div class="calculator-header">
+        <span>POR ENCARGO</span>
+
+        <h1>Calcula tu envío</h1>
+
+        <p>
+            Estima cuánto puede costar traer tu compra
+            desde Estados Unidos hasta Colombia.
+        </p>
     </div>
 
-  </div>
+    <div class="calculator-card">
+
+        <div ng-app="calculoid"
+             ng-controller="CalculoidMainCtrl"
+             ng-init="init({calcId:108245, apiKey:'c4273820688a2abe3a239'})"
+             ng-include="load()">
+        </div>
+
+    </div>
+
+</main>
   <script src="/assets/js/animacion_contact.js"></script>
 
 </body>
