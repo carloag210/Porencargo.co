@@ -1,62 +1,98 @@
+/* =========================================================
+   POR ENCARGO - CALCULADORA
+   Estilo visual
+========================================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-html, body{
+
+html,
+body {
     margin: 0;
     padding: 0;
-    /* background-color: #e0e0e0; */
-    background-color: white;
-
-    color: black;
+    min-height: 100%;
 }
 
 body {
-    background: linear-gradient(to bottom, #50C878, #ffffff);
+    background: #f7f8fa;
+    color: #222;
 }
-/* Header */
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 header {
-    color: #50C878;
-    background-color: #707070	;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.97);
+    color: #222;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
 }
+
 nav {
     display: flex;
     list-style: none;
     justify-content: space-between;
     align-items: center;
+    min-height: 85px;
 }
-.logo_porEncargo img{
-    border-radius: 10%;
-    width: 90px;  /* Reduje un poco el tamaño para mejor proporción */
-    height: 90px;
-    object-fit: cover;
-}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
 }
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo_porEncargo img {
+    border-radius: 10%;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
 .nav-links {
     display: flex;
     list-style: none;
+    align-items: center;
+    margin: 0;
+    padding: 0;
 }
+
 .nav-links li {
-    margin-left: 30px;
+    margin-left: 28px;
 }
-.nav-links a{
+
+.nav-links a {
+    position: relative;
     text-decoration: none;
     font-weight: 500;
-    color: black;
-    transition: color 0.3s;
+    color: #222;
+    transition: color 0.3s ease;
 }
-.nav-links a:hover{
-    color: #fff;
+
+.nav-links a:hover {
+    color: #50C878;
 }
+
 .nav-links a::after {
     content: "";
     display: block;
@@ -64,124 +100,249 @@ nav {
     width: 0;
     background: #50C878;
     transition: width 0.3s ease;
+    margin-top: 4px;
 }
+
 .nav-links a:hover::after {
     width: 100%;
 }
-/* contacto desplegable */
-/* Botón principal */
+
+
+/* =========================================================
+   CALCULADORA - FONDO
+========================================================= */
+
+.calculadora {
+    width: 100%;
+    max-width: 1050px;
+    margin: 55px auto 80px;
+    padding: 0 25px;
+
+    transform: none;
+
+    overflow: visible;
+}
+
+
+/* =========================================================
+   CONTENEDOR DE CALCULATOR
+========================================================= */
+
+/*
+   Calculoid queda dentro de esta zona.
+   No modificamos sus controles internos.
+*/
+
+.calculadora > div {
+    background: #ffffff;
+    border-radius: 22px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.08);
+
+    padding: 35px;
+
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+
+/* =========================================================
+   TITULO / ENCABEZADO DE LA CALCULADORA
+========================================================= */
+
+.calculadora::before {
+    content: "Calcula tu envío";
+    display: block;
+
+    text-align: center;
+
+    font-size: 2.2rem;
+    font-weight: 700;
+
+    color: #222;
+
+    margin-bottom: 10px;
+}
+
+.calculadora::after {
+    content: "Calcula fácilmente el costo aproximado de traer tus compras desde Estados Unidos.";
+    display: block;
+
+    text-align: center;
+
+    max-width: 650px;
+
+    margin: 0 auto 35px;
+
+    color: #707070;
+
+    font-size: 1rem;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   BOTON CALCULADORA
+========================================================= */
+
 .contacto-btn {
-    /* background-color: #ffe600;	; */
-    background-color: #707070	;
-    color: black;
-    font-weight: 500;
-    font-size: 16px;
-    border: none;
-    transition: color 0.3s;
-
-}
-.contacto-btn:hover{
-    color: #fff;
-
-
+    color: #222;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
-.contacto-opciones {
-  display: none;
-  position: absolute;
-  background-color: white;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-  z-index: 1000;
-  border-radius: 10px;
-  overflow: hidden;
-  top: 100%;
-  flex-direction: column;
-     /* left: 0; */
-}
-.contacto-opciones.visible {
-  display: flex;
+.contacto-btn:hover {
+    color: #50C878;
 }
 
 
-.contacto-opciones a {
-  display: block;              /* ← Asegura que ocupen línea completa */
-  padding: 12px 16px;
-  text-decoration: none;
-  color: black;
-  transition: background-color 0.2s;
-}
-.contacto-opciones a:hover {
-  background-color: #f1f1f1;
-}
-/* calcualdora */
-.calculadora{
-    transform: scale(0.8); 
-    width: 100%; 
-    overflow: hidden;
-}
-.menu-toggle{
+/* =========================================================
+   MENU MOBILE
+========================================================= */
+
+.menu-toggle {
     display: none;
+    background: none;
+    border: none;
+    font-size: 26px;
+    color: #222;
+    cursor: pointer;
 }
-@media (max-width: 768px) {
-    /* Header responsive */
-    header {
-        padding: 10px 0;
+
+
+/* =========================================================
+   DOLAR
+========================================================= */
+
+#dolar_wpc1 {
+    white-space: nowrap;
+}
+
+#dolar_wpc1 a {
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: #222;
+}
+
+#widget_usd_cop1 {
+    font-size: 1rem;
+    color: #222;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .nav-links li {
+        margin-left: 18px;
     }
-    
+
+    .calculadora {
+        max-width: 95%;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    header {
+        padding: 8px 0;
+    }
+
+    nav {
+        min-height: 70px;
+    }
+
     .container {
         padding: 0 15px;
     }
-    
-    nav {
-        flex-wrap: wrap;
-    }
-    
+
     .logo_porEncargo img {
-        width: 70px;
-        height: 70px;
+        width: 60px;
+        height: 60px;
     }
-    
+
     .menu-toggle {
         display: block;
-        background: none;
-        border: none;
-        font-size: 24px;
-        color: black;
-        cursor: pointer;
         order: 2;
     }
-    
+
     .nav-links {
         display: none;
         flex-direction: column;
+
         width: 100%;
-        background-color: #707070;
+
+        background: #ffffff;
+
         position: absolute;
+
         top: 100%;
         left: 0;
+
         padding: 15px 0;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+
+        box-shadow:
+            0 8px 20px rgba(0, 0, 0, 0.10);
     }
-    
+
     .nav-links.active {
         display: flex;
     }
-    
+
     .nav-links li {
         margin: 10px 0;
         text-align: center;
     }
-    
-    .dolar-widget {
+
+    #dolar_wpc1 {
         display: none;
+    }
+
+
+    .calculadora {
+        width: 100%;
+        max-width: 100%;
+        margin: 35px auto 50px;
+        padding: 0 12px;
+    }
+
+    .calculadora::before {
+        font-size: 1.8rem;
+    }
+
+    .calculadora::after {
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+
+    .calculadora > div {
+        padding: 20px 12px;
+        border-radius: 16px;
     }
 }
 
 
+/* =========================================================
+   PANTALLAS MUY PEQUEÑAS
+========================================================= */
 
+@media (max-width: 480px) {
 
+    .calculadora::before {
+        font-size: 1.55rem;
+    }
 
+    .calculadora::after {
+        font-size: 0.9rem;
+    }
 
-
-
+    .calculadora > div {
+        padding: 15px 8px;
+    }
+}
