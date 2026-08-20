@@ -1,519 +1,2333 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
+    <meta name="description"
+        content="PorEncargo - Compra en Estados Unidos y recibe tus productos en Colombia. Casillero virtual en Miami, envíos internacionales y rastreo de paquetes.">
 
- <meta name="description" content="Compra en el exterior fácil y seguro. Casillero virtual en Miami, envíos a Colombia, calculadora de costos y más.">
-    <meta name="keywords" content="casillero virtual, compras USA, envíos Colombia, Miami, importación, courier">
+    <meta name="keywords"
+        content="PorEncargo, casillero virtual, compras USA, envíos Colombia, Miami, courier, rastreo de paquetes">
 
     <meta name="author" content="PorEncargo">
 
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "PorEncargo",
-  "url": "https://porencargo.co",
-  "logo": "https://porencargo.co/assets/img/logo_porEncargo_sinLetras.jpeg",
-  "description": "Casillero virtual en Miami para compras en USA y envíos a Colombia.",
-  "serviceType": "Courier internacional"
-}
-</script>
-
     <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
 
-    <title>PorEncargo - Compra en el exterior fácil y seguro
-    <!-- Luego siguen tus estilos y scripts -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>PorEncargo | Compra en USA y recibe en Colombia</title>
 
-  <title>porencargo</title>
-  <!-- Estilos propios -->
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <style>
-        
-        
-        
-        @media (max-width: 900px) {
-          header .container {
-            padding: 10px 0;
-          }
-          .logo_porEncargo img {
-            width: 60px;
-            height: auto;
-          }
-          .nav-links {
-            gap: 10px;
-            font-size: 0.95rem;
-          }
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Swiper -->
+    <link rel="stylesheet"
+        href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <style>
+
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --text: #334155;
+            --muted: #64748b;
+            --light: #f8fafc;
+            --white: #ffffff;
+
+            --border: rgba(15, 23, 42, 0.08);
+
+            --shadow-sm: 0 8px 30px rgba(15, 23, 42, 0.06);
+            --shadow-md: 0 20px 50px rgba(15, 23, 42, 0.10);
+
+            --radius: 22px;
         }
-        @media (max-width: 600px) {
-          header .container {
-            padding: 6px 0;
-          }
-          .logo_porEncargo img {
-            width: 40px;
-          }
-          .nav-links {
-            gap: 5px;
-            font-size: 0.85rem;
-          }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =========================================================
+           CONTAINER
+        ========================================================= */
+
+        .container {
+            width: min(1180px, 92%);
+            margin: auto;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            background: rgba(255,255,255,0.82);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(15,23,42,0.06);
+
+            transition: 0.3s ease;
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        nav {
+            min-height: 78px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+
+        /* LOGO */
+
+        .logo_porEncargo img {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+
+            border-radius: 14px;
+
+            transition: 0.3s ease;
+        }
+
+        .logo_porEncargo img:hover {
+            transform: scale(1.05);
+        }
+
+
+        /* MENU */
+
+        .nav-links {
+            list-style: none;
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: block;
+
+            padding: 10px 14px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            color: #475569;
+
+            border-radius: 10px;
+
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            background: #eff6ff;
+        }
+
+
+        /* CALCULADORA */
+
+        .nav-links .contacto-btn {
+            background: var(--primary);
+            color: white;
+
+            padding: 11px 18px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 8px 20px rgba(37,99,235,0.20);
+        }
+
+        .nav-links .contacto-btn:hover {
+            background: var(--primary-dark);
+            color: white;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* DOLAR */
+
+        #dolar_wpc1 {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        #dolar_wpc1 a {
+            color: #475569;
+        }
+
+        #widget_usd_cop1 {
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+
+        /* MENU MOBILE */
+
+        .menu-toggle {
+            display: none;
+
+            border: none;
+            background: #eff6ff;
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            font-size: 20px;
+            cursor: pointer;
+
+            color: var(--secondary);
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            min-height: 760px;
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            overflow: hidden;
+
+            background-image:
+                linear-gradient(
+                    90deg,
+                    rgba(5, 15, 35, 0.90) 0%,
+                    rgba(5, 15, 35, 0.72) 40%,
+                    rgba(5, 15, 35, 0.25) 75%,
+                    rgba(5, 15, 35, 0.15) 100%
+                ),
+                url("/assets/img/representacion-de-la-cadena-de-suministro-de-vehiculos-en-portatiles.jpg");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+
+        .hero-content {
+            width: min(1180px, 92%);
+            margin: auto;
+
+            padding-top: 70px;
+
+            color: white;
+        }
+
+        .hero-text {
+            max-width: 680px;
+
+            animation: heroAppear 0.9s ease forwards;
+        }
+
+        @keyframes heroAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 14px;
+
+            border-radius: 999px;
+
+            background: rgba(255,255,255,0.13);
+            border: 1px solid rgba(255,255,255,0.20);
+
+            backdrop-filter: blur(10px);
+
+            font-size: 13px;
+            font-weight: 600;
+
+            margin-bottom: 22px;
+        }
+
+
+        .hero h1 {
+            font-family: "Poppins", sans-serif;
+
+            font-size: clamp(42px, 6vw, 72px);
+
+            line-height: 1.08;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .hero h1 span {
+            color: #60a5fa;
+        }
+
+
+        .hero p {
+            max-width: 600px;
+
+            font-size: 18px;
+
+            color: rgba(255,255,255,0.82);
+
+            margin-bottom: 34px;
+        }
+
+
+        /* BOTONES */
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 15px 23px;
+
+            border-radius: 13px;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            transition: 0.25s ease;
+        }
+
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+
+            box-shadow: 0 12px 30px rgba(37,99,235,0.35);
+        }
+
+        .btn-primary:hover {
+            background: #3b82f6;
+            transform: translateY(-3px);
+        }
+
+
+        .btn-secondary {
+            color: white;
+
+            border: 1px solid rgba(255,255,255,0.35);
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.16);
+
+            transform: translateY(-3px);
+        }
+
+
+        /* =========================================================
+           SERVICIOS
+        ========================================================= */
+
+        .services {
+            margin-top: -70px;
+
+            position: relative;
+            z-index: 5;
+        }
+
+
+        .services-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .service-card {
+            background: rgba(255,255,255,0.96);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            padding: 30px;
+
+            box-shadow: var(--shadow-md);
+
+            transition: 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-7px);
+        }
+
+
+        .service-icon {
+            width: 54px;
+            height: 54px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background: #eff6ff;
+
+            font-size: 25px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .service-card h3 {
+            font-family: "Poppins", sans-serif;
+
+            color: var(--secondary);
+
+            font-size: 19px;
+
+            margin-bottom: 8px;
+        }
+
+        .service-card p {
+            color: var(--muted);
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           SECCIONES
+        ========================================================= */
+
+        section:not(.hero) {
+            padding: 90px 0;
+        }
+
+
+        .section-heading {
+            text-align: center;
+
+            max-width: 680px;
+
+            margin: 0 auto 45px;
+        }
+
+        .section-heading span {
+            display: inline-block;
+
+            color: var(--primary);
+
+            font-size: 13px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.5px;
+
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            font-family: "Poppins", sans-serif;
+
+            font-size: clamp(30px, 4vw, 42px);
+
+            line-height: 1.2;
+
+            color: var(--secondary);
+
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+
+            font-size: 16px;
+        }
+
+
+        /* =========================================================
+           MARCAS
+        ========================================================= */
+
+        .brands-section {
+            background: white;
+        }
+
+        .brands-slider {
+            overflow: hidden;
+        }
+
+        .brand-slide {
+            height: 130px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .brand-slide img {
+            max-width: 150px;
+            max-height: 75px;
+
+            object-fit: contain;
+
+            filter: grayscale(100%);
+            opacity: 0.65;
+
+            transition: 0.3s ease;
+        }
+
+        .brand-slide img:hover {
+            filter: grayscale(0);
+            opacity: 1;
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================================================
+           ESTADISTICAS
+        ========================================================= */
+
+        .stats {
+            background: #0f172a;
+
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 20px;
+
+            text-align: center;
+        }
+
+        .stat {
+            padding: 20px;
+        }
+
+        .stat strong {
+            display: block;
+
+            font-family: "Poppins", sans-serif;
+
+            font-size: 38px;
+
+            color: #60a5fa;
+
+            margin-bottom: 5px;
+        }
+
+        .stat span {
+            color: rgba(255,255,255,0.65);
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           TESTIMONIOS
+        ========================================================= */
+
+        .testimonials {
+            background: #f8fafc;
+        }
+
+
+        .testimonial-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .testimonial-card {
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            padding: 28px;
+
+            box-shadow: var(--shadow-sm);
+
+            transition: 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow: var(--shadow-md);
+        }
+
+
+        .stars {
+            color: #f59e0b;
+
+            font-size: 16px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .testimonial-text {
+            color: #475569;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+
+            margin-bottom: 22px;
+        }
+
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .author-avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #dbeafe;
+
+            color: var(--primary);
+
+            font-weight: 800;
+        }
+
+
+        .author-info h4 {
+            color: var(--secondary);
+
+            font-size: 14px;
+        }
+
+        .author-info p {
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           PRODUCTOS
+        ========================================================= */
+
+        .products-section {
+            background: white;
+        }
+
+
+        .product-slide {
+            padding: 10px;
+        }
+
+
+        .product-card {
+            background: #f8fafc;
+
+            border: 1px solid var(--border);
+
+            border-radius: 22px;
+
+            padding: 25px;
+
+            text-align: center;
+
+            transition: 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow: var(--shadow-md);
+        }
+
+
+        .product-card img {
+            width: 100%;
+            height: 190px;
+
+            object-fit: contain;
+
+            margin: auto;
+
+            margin-bottom: 20px;
+        }
+
+
+        .product-name {
+            font-family: "Poppins", sans-serif;
+
+            font-size: 16px;
+
+            color: var(--secondary);
+
+            margin-bottom: 8px;
+        }
+
+
+        .product-price {
+            color: var(--primary);
+
+            font-weight: 800;
+
+            font-size: 18px;
+        }
+
+
+        /* =========================================================
+           CTA
+        ========================================================= */
+
+        .cta {
+            padding: 80px 0 !important;
+
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(59,130,246,0.35),
+                    transparent 40%
+                ),
+                #0f172a;
+
+            color: white;
+
+            text-align: center;
+        }
+
+
+        .cta h2 {
+            font-family: "Poppins", sans-serif;
+
+            font-size: clamp(30px, 5vw, 46px);
+
+            margin-bottom: 15px;
+        }
+
+
+        .cta p {
+            max-width: 600px;
+
+            margin: 0 auto 28px;
+
+            color: rgba(255,255,255,0.65);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            background: #020617;
+
+            color: white;
+
+            padding-top: 70px;
+        }
+
+
+        .footer-container {
+            width: min(1180px, 92%);
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr 1.5fr;
+
+            gap: 50px;
+
+            padding-bottom: 50px;
+        }
+
+
+        .footer-title {
+            display: block;
+
+            font-family: "Poppins", sans-serif;
+
+            font-weight: 700;
+
+            margin-bottom: 18px;
+        }
+
+
+        .footer-list {
+            list-style: none;
+        }
+
+
+        .footer-list li {
+            margin-bottom: 10px;
+
+            color: #94a3b8;
+
+            font-size: 14px;
+        }
+
+
+        .footer-list a:hover {
+            color: white;
+        }
+
+
+        .newsletter p {
+            color: #94a3b8;
+
+            font-size: 14px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .newsletter-input {
+            display: flex;
+
+            background: white;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+        }
+
+
+        .newsletter-input input {
+            flex: 1;
+
+            border: none;
+
+            outline: none;
+
+            padding: 14px;
+
+            min-width: 0;
+        }
+
+
+        .newsletter-input button {
+            width: 55px;
+
+            border: none;
+
+            background: var(--primary);
+
+            color: white;
+
+            font-size: 20px;
+
+            cursor: pointer;
+        }
+
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+
+            padding: 22px;
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           WHATSAPP
+        ========================================================= */
+
+        .whatsapp {
+            position: fixed;
+
+            right: 22px;
+            bottom: 22px;
+
+            width: 58px;
+            height: 58px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #25d366;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.20);
+
+            z-index: 2000;
+
+            transition: 0.3s ease;
+        }
+
+        .whatsapp:hover {
+            transform: scale(1.08);
+        }
+
+        .whatsapp img {
+            width: 34px;
+            height: 34px;
+        }
+
+
+        /* =========================================================
+           SWIPER
+        ========================================================= */
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--primary);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1000px) {
+
+            .nav-links {
+                position: fixed;
+
+                top: 78px;
+                left: 4%;
+                right: 4%;
+
+                display: none;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                background: white;
+
+                padding: 15px;
+
+                border-radius: 18px;
+
+                box-shadow: var(--shadow-md);
+
+                gap: 5px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                flex-wrap: wrap;
+            }
+
+            #dolar_wpc1 {
+                margin-left: auto;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonial-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            nav {
+                min-height: 68px;
+            }
+
+            .logo_porEncargo img {
+                width: 48px;
+                height: 48px;
+            }
+
+            #dolar_wpc1 {
+                display: none;
+            }
+
+            .hero {
+                min-height: 680px;
+
+                background-position: 62% center;
+            }
+
+            .hero-content {
+                padding-top: 60px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+
+                letter-spacing: -1.5px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+
+            section:not(.hero) {
+                padding: 65px 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+
+                gap: 35px;
+            }
+
+            .whatsapp {
+                width: 52px;
+                height: 52px;
+
+                right: 15px;
+                bottom: 15px;
+            }
+
+        }
+
     </style>
-     <script>
-        window.addEventListener('scroll', function() {
-          const header = document.querySelector('header');
-          if (window.scrollY > 100) {
-            header.style.position = 'fixed';
-            header.style.top = '0';
-            header.style.width = '100%';
-            header.style.zIndex = '1000';
-            header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-          } else {
-            header.style.position = '';
-            header.style.top = '';
-            header.style.width = '';
-            header.style.zIndex = '';
-            header.style.boxShadow = '';
-          }
-        });
-    </script>
-  
-  <!-- AOS CSS -->
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <!-- swiper.js para deslisar con flechas -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
 </head>
+
+
 <body>
 
-  <header>
-      <div class="container">
-    <nav>
-      <button class="menu-toggle" aria-label="Abrir menú">☰</button>
-      <div class="logo_porEncargo">
-    <a href="{{ url_for('index') }}"> <!-- Agrega este enlace -->
-        <img src="assets/img/logo_porEncargo_sinLetras.jpg" alt="logo">
-    </a>
-</div>
-      <ul class="nav-links">
-        <li><a href="{{ url_for('index')}}">Inicio</a></li>
-        <li><a href="{{ url_for('login_register')}}">Mi Casillero</a></li>
-        <li><a href="{{ url_for('productos')}}">Productos</a></li>
-        <li><a href="{{ url_for('calculadora')}}" class="contacto-btn">Calculadora</a></li>
-        <li><a href="{{ url_for('rastrea_tu_orden')}}">Rastrea tu Orden</a></li>
-        {% if current_user.is_authenticated and current_user.is_admin %}
-          <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
-        {% endif %}
-        {% if current_user.is_authenticated and not current_user.is_admin %}
-          <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
-        {% endif %}
-      </ul>
-      <!-- Dólar Hoy TRM -->
-      <style>#dolar_wpc1 a { font-size:1.2rem; font-weight:500; text-decoration:none;} #widget_usd_cop1 {font-size:1.1rem; color:#000;}</style>
-      <div id="dolar_wpc1"><a href="https://dolar.wilkinsonpc.com.co/" target="_new">Dólar Hoy TRM</a></div>
-      <script src="https://widgets.wilkinsonpc.com.co/curr/curr-usd-cop1.js"></script>
-    </nav>
-  </div>
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header id="main-header">
+
+    <div class="container">
+
+        <nav>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Abrir menú">
+                ☰
+            </button>
+
+
+            <div class="logo_porEncargo">
+
+                <a href="{{ url_for('index') }}">
+
+                    <img
+                        src="/assets/img/logo_porEncargo_sinLetras.jpg"
+                        alt="PorEncargo">
+
+                </a>
+
+            </div>
+
+
+            <ul class="nav-links" id="navLinks">
+
+                <li>
+                    <a href="{{ url_for('index') }}">
+                        Inicio
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('login_register') }}">
+                        Mi Casillero
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('productos') }}">
+                        Productos
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="{{ url_for('calculadora') }}"
+                        class="contacto-btn">
+                        Calculadora
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('rastrea_tu_orden') }}">
+                        Rastrea tu Orden
+                    </a>
+                </li>
+
+
+                {% if current_user.is_authenticated and current_user.is_admin %}
+
+                <li>
+                    <a href="{{ url_for('admin_panel') }}">
+                        Panel Admin
+                    </a>
+                </li>
+
+                {% endif %}
+
+
+                {% if current_user.is_authenticated and not current_user.is_admin %}
+
+                <li>
+                    <a href="{{ url_for('pedidos_del_usuario') }}">
+                        Mis pedidos
+                    </a>
+                </li>
+
+                {% endif %}
+
+            </ul>
+
+
+            <div id="dolar_wpc1">
+
+                <a
+                    href="https://dolar.wilkinsonpc.com.co/"
+                    target="_blank">
+                    Dólar Hoy
+                </a>
+
+                <div id="widget_usd_cop1"></div>
+
+            </div>
+
+
+        </nav>
+
+    </div>
+
 </header>
-  <!-- HERO -->
-  <section class="hero">
-    <img src="assets/img/representacion-de-la-cadena-de-suministro-de-vehiculos-en-portatiles.jpg" alt="Imagen de fondo">
-  </section>
-    <!-- seccion aliados -->
-<section class="aliados-container">
-  <div class="swiper mySwiper">
-    <h1 style="color: grey;">
-      <span style="color: #7e7d7d;">Tiendas y Marcas </span> Reconocidas
-    </h1>
-    <div class="swiper-wrapper">
 
-      <!-- NVIDIA -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.nvidia.com" target="_blank">
-            <img src="assets/img/nvidia_logo.png" alt="NVIDIA logo">
-          </a>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-text">
+
+            <div class="hero-badge">
+                🇺🇸 Casillero virtual en Miami
+            </div>
+
+
+            <h1>
+                Compra en USA.
+                <span>Recibe en Colombia.</span>
+            </h1>
+
+
+            <p>
+                Compra en tus tiendas favoritas de Estados Unidos,
+                recibe tus productos en nuestro centro de distribución
+                y nosotros nos encargamos del resto.
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="{{ url_for('rastrea_tu_orden') }}"
+                    class="btn-primary">
+                    📦 Rastrear mi paquete
+                </a>
+
+
+                <a
+                    href="{{ url_for('calculadora') }}"
+                    class="btn-secondary">
+                    🧮 Calcular envío
+                </a>
+
+            </div>
+
         </div>
-      </div>
-
-      <!-- AMD -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.amd.com" target="_blank">
-            <img src="assets/img/amd_logo.jpeg" alt="AMD logo">
-          </a>
-        </div>
-      </div>
-
-      <!-- Gigabyte -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.gigabyte.com" target="_blank">
-            <img src="assets/img/gigabyte_882734.png" alt="Gigabyte logo">
-          </a>
-        </div>
-      </div>
-
-      <!-- Amazon -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.amazon.com" target="_blank">
-            <img src="assets/img/amazon_logo.png" alt="Amazon logo">
-          </a>
-        </div>
-      </div>
-
-      <!-- eBay -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.ebay.com" target="_blank">
-            <img src="assets/img/ebay_888848.png" alt="eBay logo">
-          </a>
-        </div>
-      </div>
-
-      <!-- Newegg -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.newegg.com" target="_blank">
-            <img src="assets/img/newegg_logo.png" alt="Newegg logo">
-          </a>
-        </div>
-      </div>
-
-      <!-- Walmart -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.walmart.com" target="_blank">
-            <img src="assets/img/walmart_logo.png" alt="Walmart logo">
-          </a>
-        </div>
-      </div>
-
-      <!-- Intel -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.intel.com" target="_blank">
-            <img src="assets/img/intel_logo.svg" alt="Intel logo">
-          </a>
-        </div>
-      </div>
-
-      <!-- ASUS -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.asus.com" target="_blank">
-            <img src="assets/img/asus_logo.png" alt="ASUS logo">
-          </a>
-        </div>
-      </div>
-
-      <!-- MSI -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.msi.com" target="_blank">
-            <img src="assets/img/msi_logo.jpg" alt="MSI logo">
-          </a>
-        </div>
-      </div>
-
-      <!-- Corsair -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.corsair.com" target="_blank">
-            <img src="assets/img/corsair_logo.png" alt="Corsair logo" style="width: 180px; height: 100px; object-fit: contain;">
-          </a>
-        </div>
-      </div>
-
-      <!-- Acer -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.acer.com" target="_blank">
-            <img src="assets/img/acer_logo.jpg" alt="Acer logo" style="width: 190px; height: 200px; object-fit: contain;">
-          </a>
-        </div>
-      </div>
-
-      <!-- Lenovo -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.lenovo.com" target="_blank">
-            <img src="assets/img/lenovo_logo.jpg" alt="Lenovo logo">
-          </a>
-        </div>
-      </div>
-
-      <!-- Logitech -->
-<div class="swiper-slide">
-  <div class="slide-content">
-    <a href="https://www.logitech.com" target="_blank">
-      <img src="assets/img/logitech_logo.png" alt="Logitech logo" class="logo-img">
-    </a>
-  </div>
-</div>
-
-
-      <!-- Bose -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.bose.com" target="_blank">
-            <img src="assets/img/bose_logo.png" alt="Bose logo" style="width: 150px; height: 100px; object-fit: contain;">
-          </a>
-        </div>
-      </div>
-
-      <!-- Sony -->
-      <div class="swiper-slide">
-        <div class="slide-content">
-          <a href="https://www.sony.com" target="_blank">
-            <img src="assets/img/sony_logo.png" alt="Sony logo">
-          </a>
-        </div>
-      </div>
 
     </div>
 
-    <!-- Flechas -->
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div>
 </section>
-            
-            <!-- Cada logo es un slide -->
+
+
+
+<!-- =========================================================
+     SERVICIOS
+========================================================= -->
+
+<section class="services">
+
+    <div class="container">
+
+        <div class="services-grid">
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Tu casillero en Miami
+                </h3>
+
+                <p>
+                    Recibe tus compras en nuestra dirección
+                    en Estados Unidos y nosotros nos encargamos
+                    de traerlas hasta Colombia.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    🚚
+                </div>
+
+                <h3>
+                    Envíos internacionales
+                </h3>
+
+                <p>
+                    Transportamos tus paquetes desde Estados Unidos
+                    hasta Colombia de forma segura y con seguimiento.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    Rastreo de paquetes
+                </h3>
+
+                <p>
+                    Consulta el estado de tus pedidos y mantente
+                    informado durante todo el proceso.
+                </p>
+
+            </div>
+
 
         </div>
 
-        <!-- Flechas -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
     </div>
-  </section>
+
+</section>
 
 
 
-  
-  <!-- Testimonios -->
-  <section id="resenas" class="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>¿Porqué confiar en nosotros?</h2>
-                <p>¿Que Opinan Nuestros Clientes?</p>
-            </div>
-                <!-- reseña 1 -->
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"Servicio rápido y confiable, Me Ayudan con todo; Desde el pago a proveedores hasta recibir mis paquetes para mi negocio de radiologia."</p>
+<!-- =========================================================
+     MARCAS
+========================================================= -->
 
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h4>William Jiménez</h4>
-                            <p>Bogotá</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- reseña 2 -->
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"Excelente atención al cliente, muy amables y eficientes."</p>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h4>Fabio Castro</h4>
-                            <p>Bogotá</p>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- reseña 3 --> 
-                      <div class="testimonial-card">
-                        <p class="testimonial-text">"Casilleros seguros rápidos y confiables, muy recomendados."</p>
-                        <div class="testimonial-author">
-                          <div class="author-info">
-                            <h4>Juan Blandón</h4>
-                            <p>Medellín</p>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- reseña 4 -->
-                      <div class="testimonial-card">
-                        <p class="testimonial-text">"Precios justos y entregas sin problemas, muy satisfecho."</p>
-                        <div class="testimonial-author">
-                          <div class="author-info">
-                            <h4>Sebastián Florez</h4>
-                            <p>Cucuta</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- reseña 5 -->
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"El mejor servicio y las mejores tarifas.muy recomendados 100%"</p>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h4>Julián Mejia</h4>
-                            <p>Medellín</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- reseña 6 -->
-                <div class="testimonial-card">
-                    <p class="testimonial-text">""Excelente servicio para Emprendedores; Se adaptan a mis necesidades, muy recomendados."</p>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h4>Cristian Naranjo</h4>
-                            <p>Medellín</p>
-                        </div>
-                    </div>
-                </div>
+<section class="brands-section">
 
-                
-              </div>
-            </div>
-          </section>
-          
-          
-          
-          
-          
-          
-          
-          <!-- seccion productos destacados -->
-            <section class="slider-container">
-              <div class="swiper mySwiper">
-                  <h1>Productos destacados</h1>
-                  <div class="swiper-wrapper">
-                      <div class="swiper-slide">
-                        <div class="slide-content">
-                          <h3 class="product-name">Bose QuietComfort Ultra</h3>
-                          <a href="#">
-                              <img src="/assets/img_productos/Google Headphones.webp" alt="Bose Headphones">
-                            </a>
-                          <p class="product-price">$99.900</p>
-                        </div>
-                      </div>
-          
-                      <div class="swiper-slide">
-                        <div class="slide-content">
-                          <h3 class="product-name">Invicta Men's Pro Diver 45mm</h3>
-                          <a href="#">
-                              <img src="/assets/img_productos/Watch1.png" alt="Invicta Reloj">
-                            </a>
-                          <p class="product-price">$99.900</p>
-                        </div>
-                      </div>
-                      <div class="swiper-slide">
-                        <div class="slide-content">
-                          <h3 class="product-name">DJI Mini 4 Pro</h3>
-                          <a href="#">
-                              <img src="/assets/img_productos/dji.webp" alt="Dji Drone">
-                            </a>
-                          <p class="product-price">$99.900</p>
-                        </div>
-                      </div>
-          
-                      <div class="swiper-slide">
-                        <div class="slide-content">
-                          <h3 class="product-name">Nikon L105</h3>
-                          <a href="#">
-                              <img src="/assets/img_productos/Nikon" alt="Camara Nikon">
-                            </a>
-                          <p class="product-price">$99.900</p>
-                        </div>
-                      </div>
-             
-                     
-                    
-                      <!-- Cada logo es un slide -->
-          
-                  </div>
-          
-                  <!-- Flechas -->
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-button-next"></div>
-              </div>
-            </section>
-          <!-- FOOTER -->
-      <footer>
-        <div class="footer-container">
-            <!-- Columna 3: >Soporte -->
-            <div>
-                <span class="footer-title">Soporte</span>
-                <ul class="footer-list">
-                    <li>Centro de ayuda </li>
-                    <li>Garantía</li>
-                    <li>Preguntas frecuentes FAQ</li>
-                    <li>Contacto directo</li>
-                </ul>
-            </div>
-            
-            <!-- Columna 4: Enlaces -->
-            <div>
-                <span class="footer-title">Sobre nosotros</span>
-                <ul class="footer-list">
-                    <li><a href="#">Acerca de "PorEncargo"</a></li>
-                    <li><a href="#">Contacto</a></li>
-                    <li><a href="#">Centro de ayuda</a></li>
-                    <li><a href="#">Preguntas frecuentes - FAQs</a></li>
-                </ul>
-            </div>
-            
-            <!-- Columna 5-6: Newsletter -->
-            <div class="newsletter">
-                <span class="footer-title">Mantengámonos en contacto</span>
-                <p>¡Registra tu correo y obtén 15% de descuento en tu primera orden!*, ofertas únicas y mucho más!</p>
-                <div class="newsletter-input">
-                    <input type="email" placeholder="Ingresa tu correo">
-                    <button>></button>
-                </div>
-                <small style="color: #0e0d0d;">*Aplican términos y condiciones</small>
-            </div>
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>
+                Compra donde quieras
+            </span>
+
+            <h2>
+                Tus tiendas favoritas
+            </h2>
+
+            <p>
+                Utiliza nuestro casillero para comprar en algunas
+                de las principales tiendas y marcas internacionales.
+            </p>
+
         </div>
-        
-        <div class="footer-bottom">
-            <p>© 2023 porencargo. Todos los derechos reservados.</p>
+
+
+        <div class="swiper brands-slider">
+
+            <div class="swiper-wrapper">
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.nvidia.com" target="_blank">
+                        <img
+                            src="/assets/img/nvidia_logo.png"
+                            alt="NVIDIA">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.amd.com" target="_blank">
+                        <img
+                            src="/assets/img/amd_logo.jpeg"
+                            alt="AMD">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.gigabyte.com" target="_blank">
+                        <img
+                            src="/assets/img/gigabyte_882734.png"
+                            alt="Gigabyte">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.amazon.com" target="_blank">
+                        <img
+                            src="/assets/img/amazon_logo.png"
+                            alt="Amazon">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.ebay.com" target="_blank">
+                        <img
+                            src="/assets/img/ebay_888848.png"
+                            alt="eBay">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.newegg.com" target="_blank">
+                        <img
+                            src="/assets/img/newegg_logo.png"
+                            alt="Newegg">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.walmart.com" target="_blank">
+                        <img
+                            src="/assets/img/walmart_logo.png"
+                            alt="Walmart">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.intel.com" target="_blank">
+                        <img
+                            src="/assets/img/intel_logo.svg"
+                            alt="Intel">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.asus.com" target="_blank">
+                        <img
+                            src="/assets/img/asus_logo.png"
+                            alt="ASUS">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.msi.com" target="_blank">
+                        <img
+                            src="/assets/img/msi_logo.jpg"
+                            alt="MSI">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.corsair.com" target="_blank">
+                        <img
+                            src="/assets/img/corsair_logo.png"
+                            alt="Corsair">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.acer.com" target="_blank">
+                        <img
+                            src="/assets/img/acer_logo.jpg"
+                            alt="Acer">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.lenovo.com" target="_blank">
+                        <img
+                            src="/assets/img/lenovo_logo.jpg"
+                            alt="Lenovo">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.logitech.com" target="_blank">
+                        <img
+                            src="/assets/img/logitech_logo.png"
+                            alt="Logitech">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.bose.com" target="_blank">
+                        <img
+                            src="/assets/img/bose_logo.png"
+                            alt="Bose">
+                    </a>
+                </div>
+
+
+                <div class="swiper-slide brand-slide">
+                    <a href="https://www.sony.com" target="_blank">
+                        <img
+                            src="/assets/img/sony_logo.png"
+                            alt="Sony">
+                    </a>
+                </div>
+
+
+            </div>
+
+
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
         </div>
-    </footer>
-      <a href="https://wa.me/573186505475" target="_blank" style="position:fixed;bottom:20px;right:20px;z-index:9999;"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" style="width:50px;height:50px;"></a>
+
+    </div>
+
+</section>
 
 
-  <!-- AOS JS -->
-  <!-- <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script> -->
-  <!-- sroll en aliados -->
-   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const aliados = document.querySelectorAll(".slide-in-from-wall");
 
-        const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-            }
-        });
-        }, {
-        threshold: 0.2
-        });
+<!-- =========================================================
+     ESTADISTICAS
+========================================================= -->
 
-        aliados.forEach(el => observer.observe(el));
+<section class="stats">
+
+    <div class="container">
+
+        <div class="stats-grid">
+
+            <div class="stat">
+
+                <strong>🇺🇸</strong>
+
+                <span>
+                    Centro de distribución en Miami
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>24/7</strong>
+
+                <span>
+                    Consulta el estado de tus paquetes
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>📦</strong>
+
+                <span>
+                    Consolidación de paquetes
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>🇨🇴</strong>
+
+                <span>
+                    Entregas en Colombia
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TESTIMONIOS
+========================================================= -->
+
+<section class="testimonials">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>
+                Confianza
+            </span>
+
+            <h2>
+                ¿Por qué confiar en nosotros?
+            </h2>
+
+            <p>
+                Esto dicen algunos de nuestros clientes.
+            </p>
+
+        </div>
+
+
+        <div class="testimonial-grid">
+
+
+            <div class="testimonial-card">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p class="testimonial-text">
+                    "Servicio rápido y confiable. Me ayudan con todo;
+                    desde el pago a proveedores hasta recibir mis
+                    paquetes para mi negocio de radiología."
+                </p>
+
+                <div class="testimonial-author">
+
+                    <div class="author-avatar">
+                        W
+                    </div>
+
+                    <div class="author-info">
+
+                        <h4>
+                            William Jiménez
+                        </h4>
+
+                        <p>
+                            Bogotá
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="testimonial-card">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p class="testimonial-text">
+                    "Excelente atención al cliente, muy amables
+                    y eficientes."
+                </p>
+
+                <div class="testimonial-author">
+
+                    <div class="author-avatar">
+                        F
+                    </div>
+
+                    <div class="author-info">
+
+                        <h4>
+                            Fabio Castro
+                        </h4>
+
+                        <p>
+                            Bogotá
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="testimonial-card">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p class="testimonial-text">
+                    "Casilleros seguros, rápidos y confiables.
+                    Muy recomendados."
+                </p>
+
+                <div class="testimonial-author">
+
+                    <div class="author-avatar">
+                        J
+                    </div>
+
+                    <div class="author-info">
+
+                        <h4>
+                            Juan Blandón
+                        </h4>
+
+                        <p>
+                            Medellín
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="testimonial-card">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p class="testimonial-text">
+                    "Precios justos y entregas sin problemas.
+                    Muy satisfecho."
+                </p>
+
+                <div class="testimonial-author">
+
+                    <div class="author-avatar">
+                        S
+                    </div>
+
+                    <div class="author-info">
+
+                        <h4>
+                            Sebastián Florez
+                        </h4>
+
+                        <p>
+                            Cúcuta
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="testimonial-card">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p class="testimonial-text">
+                    "El mejor servicio y las mejores tarifas.
+                    Muy recomendados 100%."
+                </p>
+
+                <div class="testimonial-author">
+
+                    <div class="author-avatar">
+                        J
+                    </div>
+
+                    <div class="author-info">
+
+                        <h4>
+                            Julián Mejía
+                        </h4>
+
+                        <p>
+                            Medellín
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="testimonial-card">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p class="testimonial-text">
+                    "Excelente servicio para emprendedores.
+                    Se adaptan a mis necesidades, muy recomendados."
+                </p>
+
+                <div class="testimonial-author">
+
+                    <div class="author-avatar">
+                        C
+                    </div>
+
+                    <div class="author-info">
+
+                        <h4>
+                            Cristian Naranjo
+                        </h4>
+
+                        <p>
+                            Medellín
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PRODUCTOS
+========================================================= -->
+
+<section class="products-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>
+                Oportunidades
+            </span>
+
+            <h2>
+                Productos destacados
+            </h2>
+
+            <p>
+                Algunos de los productos que puedes encontrar
+                en nuestro catálogo.
+            </p>
+
+        </div>
+
+
+        <div class="swiper products-slider">
+
+            <div class="swiper-wrapper">
+
+
+                <div class="swiper-slide product-slide">
+
+                    <div class="product-card">
+
+                        <img
+                            src="/assets/img_productos/Google Headphones.webp"
+                            alt="Bose QuietComfort Ultra">
+
+                        <h3 class="product-name">
+                            Bose QuietComfort Ultra
+                        </h3>
+
+                        <p class="product-price">
+                            $99.900
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="swiper-slide product-slide">
+
+                    <div class="product-card">
+
+                        <img
+                            src="/assets/img_productos/Watch1.png"
+                            alt="Invicta Men's Pro Diver">
+
+                        <h3 class="product-name">
+                            Invicta Men's Pro Diver 45mm
+                        </h3>
+
+                        <p class="product-price">
+                            $99.900
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="swiper-slide product-slide">
+
+                    <div class="product-card">
+
+                        <img
+                            src="/assets/img_productos/dji.webp"
+                            alt="DJI Mini 4 Pro">
+
+                        <h3 class="product-name">
+                            DJI Mini 4 Pro
+                        </h3>
+
+                        <p class="product-price">
+                            $99.900
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="swiper-slide product-slide">
+
+                    <div class="product-card">
+
+                        <img
+                            src="/assets/img_productos/Nikon"
+                            alt="Nikon L105">
+
+                        <h3 class="product-name">
+                            Nikon L105
+                        </h3>
+
+                        <p class="product-price">
+                            $99.900
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section class="cta">
+
+    <div class="container">
+
+        <h2>
+            ¿Listo para comprar en USA?
+        </h2>
+
+        <p>
+            Crea tu casillero virtual y empieza a recibir
+            tus compras en Colombia.
+        </p>
+
+
+        <a
+            href="{{ url_for('login_register') }}"
+            class="btn-primary">
+
+            Crear mi casillero →
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+
+        <div>
+
+            <span class="footer-title">
+                Soporte
+            </span>
+
+            <ul class="footer-list">
+
+                <li>
+                    Centro de ayuda
+                </li>
+
+                <li>
+                    Garantía
+                </li>
+
+                <li>
+                    Preguntas frecuentes
+                </li>
+
+                <li>
+                    Contacto directo
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div>
+
+            <span class="footer-title">
+                PorEncargo
+            </span>
+
+            <ul class="footer-list">
+
+                <li>
+                    <a href="#">
+                        Acerca de nosotros
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Contacto
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Centro de ayuda
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Preguntas frecuentes
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="newsletter">
+
+            <span class="footer-title">
+                Mantengámonos en contacto
+            </span>
+
+            <p>
+                Registra tu correo y recibe ofertas,
+                novedades y promociones especiales.
+            </p>
+
+
+            <div class="newsletter-input">
+
+                <input
+                    type="email"
+                    placeholder="Ingresa tu correo">
+
+                <button>
+                    →
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © 2026 PorEncargo. Todos los derechos reservados.
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     WHATSAPP
+========================================================= -->
+
+<a
+    href="https://wa.me/573186505475"
+    target="_blank"
+    class="whatsapp"
+    aria-label="Contactar por WhatsApp">
+
+    <img
+        src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png"
+        alt="WhatsApp">
+
+</a>
+
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
+<script>
+
+    /* =========================================================
+       MENU MOBILE
+    ========================================================= */
+
+    const menuToggle =
+        document.getElementById("menuToggle");
+
+    const navLinks =
+        document.getElementById("navLinks");
+
+
+    menuToggle.addEventListener("click", () => {
+
+        navLinks.classList.toggle("active");
+
     });
-    </script>
-    <!-- link para las flechas -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <!-- js de las flechas  -->
-    <script>
-    const swiper = new Swiper(".mySwiper", {
-        slidesPerView: 3,
-        spaceBetween: 30,
-        navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
+
+
+    /* Cerrar menú al hacer click */
+
+    document.querySelectorAll(".nav-links a")
+        .forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                navLinks.classList.remove("active");
+
+            });
+
+        });
+
+
+
+    /* =========================================================
+       HEADER AL HACER SCROLL
+    ========================================================= */
+
+    const header =
+        document.getElementById("main-header");
+
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 30) {
+
+            header.classList.add("scrolled");
+
+        } else {
+
+            header.classList.remove("scrolled");
+
+        }
+
+    });
+
+
+
+    /* =========================================================
+       MARCAS
+    ========================================================= */
+
+    new Swiper(".brands-slider", {
+
+        slidesPerView: 2,
+
+        spaceBetween: 20,
+
+        loop: true,
+
+        autoplay: {
+
+            delay: 2200,
+
+            disableOnInteraction: false
+
         },
-        loop: true
-    }); 
-    </script>
-  <script src="/assets/js/animacion_contact.js"></script>
+
+        navigation: {
+
+            nextEl: ".brands-slider .swiper-button-next",
+
+            prevEl: ".brands-slider .swiper-button-prev"
+
+        },
+
+        breakpoints: {
+
+            600: {
+
+                slidesPerView: 3
+
+            },
+
+            900: {
+
+                slidesPerView: 5
+
+            }
+
+        }
+
+    });
+
+
+
+    /* =========================================================
+       PRODUCTOS
+    ========================================================= */
+
+    new Swiper(".products-slider", {
+
+        slidesPerView: 1,
+
+        spaceBetween: 20,
+
+        loop: true,
+
+        autoplay: {
+
+            delay: 3000,
+
+            disableOnInteraction: false
+
+        },
+
+        navigation: {
+
+            nextEl: ".products-slider .swiper-button-next",
+
+            prevEl: ".products-slider .swiper-button-prev"
+
+        },
+
+        breakpoints: {
+
+            600: {
+
+                slidesPerView: 2
+
+            },
+
+            900: {
+
+                slidesPerView: 3
+
+            },
+
+            1150: {
+
+                slidesPerView: 4
+
+            }
+
+        }
+
+    });
+
+</script>
+
+
+<script src="https://widgets.wilkinsonpc.com.co/curr/curr-usd-cop1.js"></script>
+
 
 </body>
 </html>
