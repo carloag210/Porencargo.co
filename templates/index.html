@@ -1,7 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -111,11 +113,12 @@
             width: 100%;
             z-index: 1000;
 
-            background: rgba(255,255,255,0.82);
+            background: rgba(255, 255, 255, 0.82);
+
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
 
-            border-bottom: 1px solid rgba(15,23,42,0.06);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
 
             transition: 0.3s ease;
         }
@@ -140,6 +143,7 @@
         .logo_porEncargo img {
             width: 58px;
             height: 58px;
+
             object-fit: contain;
 
             border-radius: 14px;
@@ -180,6 +184,7 @@
 
         .nav-links a:hover {
             color: var(--primary);
+
             background: #eff6ff;
         }
 
@@ -188,28 +193,33 @@
 
         .nav-links .contacto-btn {
             background: var(--primary);
+
             color: white;
 
             padding: 11px 18px;
 
             border-radius: 12px;
 
-            box-shadow: 0 8px 20px rgba(37,99,235,0.20);
+            box-shadow:
+                0 8px 20px rgba(37, 99, 235, 0.20);
         }
 
         .nav-links .contacto-btn:hover {
             background: var(--primary-dark);
+
             color: white;
 
             transform: translateY(-1px);
         }
 
 
-        /* DOLAR */
+        /* DÓLAR */
 
         #dolar_wpc1 {
             font-size: 13px;
+
             font-weight: 600;
+
             white-space: nowrap;
         }
 
@@ -219,6 +229,7 @@
 
         #widget_usd_cop1 {
             color: var(--primary);
+
             font-size: 14px;
         }
 
@@ -229,6 +240,7 @@
             display: none;
 
             border: none;
+
             background: #eff6ff;
 
             width: 42px;
@@ -237,6 +249,7 @@
             border-radius: 12px;
 
             font-size: 20px;
+
             cursor: pointer;
 
             color: var(--secondary);
@@ -258,6 +271,7 @@
             overflow: hidden;
 
             background-image:
+
                 linear-gradient(
                     90deg,
                     rgba(5, 15, 35, 0.90) 0%,
@@ -265,15 +279,18 @@
                     rgba(5, 15, 35, 0.25) 75%,
                     rgba(5, 15, 35, 0.15) 100%
                 ),
+
                 url("/assets/img/representacion-de-la-cadena-de-suministro-de-vehiculos-en-portatiles.jpg");
 
             background-size: cover;
+
             background-position: center;
         }
 
 
         .hero-content {
             width: min(1180px, 92%);
+
             margin: auto;
 
             padding-top: 70px;
@@ -281,22 +298,29 @@
             color: white;
         }
 
+
         .hero-text {
             max-width: 680px;
 
-            animation: heroAppear 0.9s ease forwards;
+            animation:
+                heroAppear 0.9s ease forwards;
         }
+
 
         @keyframes heroAppear {
 
             from {
                 opacity: 0;
-                transform: translateY(25px);
+
+                transform:
+                    translateY(25px);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+
+                transform:
+                    translateY(0);
             }
 
         }
@@ -304,19 +328,25 @@
 
         .hero-badge {
             display: inline-flex;
+
             align-items: center;
+
             gap: 8px;
 
             padding: 8px 14px;
 
             border-radius: 999px;
 
-            background: rgba(255,255,255,0.13);
-            border: 1px solid rgba(255,255,255,0.20);
+            background:
+                rgba(255, 255, 255, 0.13);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.20);
 
             backdrop-filter: blur(10px);
 
             font-size: 13px;
+
             font-weight: 600;
 
             margin-bottom: 22px;
@@ -326,7 +356,8 @@
         .hero h1 {
             font-family: "Poppins", sans-serif;
 
-            font-size: clamp(42px, 6vw, 72px);
+            font-size:
+                clamp(42px, 6vw, 72px);
 
             line-height: 1.08;
 
@@ -346,25 +377,43 @@
 
             font-size: 18px;
 
-            color: rgba(255,255,255,0.82);
+            color:
+                rgba(255, 255, 255, 0.82);
 
             margin-bottom: 34px;
         }
 
 
-        /* BOTONES */
+        /* =========================================================
+           BOTONES HERO
+        ========================================================= */
 
         .hero-buttons {
             display: flex;
-            flex-wrap: wrap;
+
+            flex-direction: column;
+
+            align-items: flex-start;
+
             gap: 14px;
         }
+
+
+        .hero-secondary-buttons {
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
 
         .btn-primary,
         .btn-secondary {
             display: inline-flex;
 
             align-items: center;
+
             justify-content: center;
 
             padding: 15px 23px;
@@ -372,39 +421,64 @@
             border-radius: 13px;
 
             font-size: 15px;
+
             font-weight: 700;
 
             transition: 0.25s ease;
         }
 
 
-        .btn-primary {
-            background: var(--primary);
+        /* BOTÓN PRINCIPAL */
+
+        .btn-casillero {
+            padding:
+                17px 30px;
+
+            font-size: 16px;
+
+            background:
+                var(--primary);
+
             color: white;
 
-            box-shadow: 0 12px 30px rgba(37,99,235,0.35);
+            box-shadow:
+                0 14px 35px
+                rgba(37, 99, 235, 0.35);
         }
 
-        .btn-primary:hover {
-            background: #3b82f6;
-            transform: translateY(-3px);
+
+        .btn-casillero:hover {
+            background:
+                #3b82f6;
+
+            transform:
+                translateY(-3px);
         }
 
+
+        /* BOTONES SECUNDARIOS */
 
         .btn-secondary {
             color: white;
 
-            border: 1px solid rgba(255,255,255,0.35);
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.35);
 
-            background: rgba(255,255,255,0.08);
+            background:
+                rgba(255, 255, 255, 0.08);
 
-            backdrop-filter: blur(10px);
+            backdrop-filter:
+                blur(10px);
         }
 
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.16);
 
-            transform: translateY(-3px);
+        .btn-secondary:hover {
+            background:
+                rgba(255, 255, 255, 0.16);
+
+            transform:
+                translateY(-3px);
         }
 
 
@@ -416,6 +490,7 @@
             margin-top: -70px;
 
             position: relative;
+
             z-index: 5;
         }
 
@@ -423,28 +498,36 @@
         .services-grid {
             display: grid;
 
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns:
+                repeat(3, 1fr);
 
             gap: 20px;
         }
 
 
         .service-card {
-            background: rgba(255,255,255,0.96);
+            background:
+                rgba(255, 255, 255, 0.96);
 
-            border: 1px solid var(--border);
+            border:
+                1px solid var(--border);
 
-            border-radius: var(--radius);
+            border-radius:
+                var(--radius);
 
             padding: 30px;
 
-            box-shadow: var(--shadow-md);
+            box-shadow:
+                var(--shadow-md);
 
-            transition: 0.3s ease;
+            transition:
+                0.3s ease;
         }
 
+
         .service-card:hover {
-            transform: translateY(-7px);
+            transform:
+                translateY(-7px);
         }
 
 
@@ -453,12 +536,15 @@
             height: 54px;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
             border-radius: 15px;
 
-            background: #eff6ff;
+            background:
+                #eff6ff;
 
             font-size: 25px;
 
@@ -467,17 +553,22 @@
 
 
         .service-card h3 {
-            font-family: "Poppins", sans-serif;
+            font-family:
+                "Poppins",
+                sans-serif;
 
-            color: var(--secondary);
+            color:
+                var(--secondary);
 
             font-size: 19px;
 
             margin-bottom: 8px;
         }
 
+
         .service-card p {
-            color: var(--muted);
+            color:
+                var(--muted);
 
             font-size: 14px;
         }
@@ -497,40 +588,58 @@
 
             max-width: 680px;
 
-            margin: 0 auto 45px;
+            margin:
+                0 auto 45px;
         }
+
 
         .section-heading span {
-            display: inline-block;
+            display:
+                inline-block;
 
-            color: var(--primary);
+            color:
+                var(--primary);
 
             font-size: 13px;
+
             font-weight: 800;
 
-            text-transform: uppercase;
+            text-transform:
+                uppercase;
 
-            letter-spacing: 1.5px;
+            letter-spacing:
+                1.5px;
 
-            margin-bottom: 10px;
+            margin-bottom:
+                10px;
         }
+
 
         .section-heading h2 {
-            font-family: "Poppins", sans-serif;
+            font-family:
+                "Poppins",
+                sans-serif;
 
-            font-size: clamp(30px, 4vw, 42px);
+            font-size:
+                clamp(30px, 4vw, 42px);
 
-            line-height: 1.2;
+            line-height:
+                1.2;
 
-            color: var(--secondary);
+            color:
+                var(--secondary);
 
-            margin-bottom: 12px;
+            margin-bottom:
+                12px;
         }
 
-        .section-heading p {
-            color: var(--muted);
 
-            font-size: 16px;
+        .section-heading p {
+            color:
+                var(--muted);
+
+            font-size:
+                16px;
         }
 
 
@@ -539,40 +648,65 @@
         ========================================================= */
 
         .brands-section {
-            background: white;
+            background:
+                white;
         }
+
 
         .brands-slider {
-            overflow: hidden;
+            overflow:
+                hidden;
         }
+
 
         .brand-slide {
-            height: 130px;
+            height:
+                130px;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display:
+                flex;
 
-            padding: 20px;
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                20px;
         }
+
 
         .brand-slide img {
-            max-width: 150px;
-            max-height: 75px;
+            max-width:
+                150px;
 
-            object-fit: contain;
+            max-height:
+                75px;
 
-            filter: grayscale(100%);
-            opacity: 0.65;
+            object-fit:
+                contain;
 
-            transition: 0.3s ease;
+            filter:
+                grayscale(100%);
+
+            opacity:
+                0.65;
+
+            transition:
+                0.3s ease;
         }
 
-        .brand-slide img:hover {
-            filter: grayscale(0);
-            opacity: 1;
 
-            transform: scale(1.05);
+        .brand-slide img:hover {
+            filter:
+                grayscale(0);
+
+            opacity:
+                1;
+
+            transform:
+                scale(1.05);
         }
 
 
@@ -581,41 +715,60 @@
         ========================================================= */
 
         .stats {
-            background: #0f172a;
+            background:
+                #0f172a;
 
-            color: white;
+            color:
+                white;
         }
+
 
         .stats-grid {
-            display: grid;
+            display:
+                grid;
 
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns:
+                repeat(4, 1fr);
 
-            gap: 20px;
+            gap:
+                20px;
 
-            text-align: center;
+            text-align:
+                center;
         }
+
 
         .stat {
-            padding: 20px;
+            padding:
+                20px;
         }
+
 
         .stat strong {
-            display: block;
+            display:
+                block;
 
-            font-family: "Poppins", sans-serif;
+            font-family:
+                "Poppins",
+                sans-serif;
 
-            font-size: 38px;
+            font-size:
+                38px;
 
-            color: #60a5fa;
+            color:
+                #60a5fa;
 
-            margin-bottom: 5px;
+            margin-bottom:
+                5px;
         }
 
-        .stat span {
-            color: rgba(255,255,255,0.65);
 
-            font-size: 14px;
+        .stat span {
+            color:
+                rgba(255, 255, 255, 0.65);
+
+            font-size:
+                14px;
         }
 
 
@@ -624,96 +777,137 @@
         ========================================================= */
 
         .testimonials {
-            background: #f8fafc;
+            background:
+                #f8fafc;
         }
 
 
         .testimonial-grid {
-            display: grid;
+            display:
+                grid;
 
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns:
+                repeat(3, 1fr);
 
-            gap: 20px;
+            gap:
+                20px;
         }
 
 
         .testimonial-card {
-            background: white;
+            background:
+                white;
 
-            border: 1px solid var(--border);
+            border:
+                1px solid var(--border);
 
-            border-radius: var(--radius);
+            border-radius:
+                var(--radius);
 
-            padding: 28px;
+            padding:
+                28px;
 
-            box-shadow: var(--shadow-sm);
+            box-shadow:
+                var(--shadow-sm);
 
-            transition: 0.3s ease;
+            transition:
+                0.3s ease;
         }
 
-        .testimonial-card:hover {
-            transform: translateY(-5px);
 
-            box-shadow: var(--shadow-md);
+        .testimonial-card:hover {
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                var(--shadow-md);
         }
 
 
         .stars {
-            color: #f59e0b;
+            color:
+                #f59e0b;
 
-            font-size: 16px;
+            font-size:
+                16px;
 
-            margin-bottom: 15px;
+            margin-bottom:
+                15px;
         }
 
 
         .testimonial-text {
-            color: #475569;
+            color:
+                #475569;
 
-            font-size: 14px;
+            font-size:
+                14px;
 
-            line-height: 1.8;
+            line-height:
+                1.8;
 
-            margin-bottom: 22px;
+            margin-bottom:
+                22px;
         }
 
 
         .testimonial-author {
-            display: flex;
-            align-items: center;
+            display:
+                flex;
 
-            gap: 12px;
+            align-items:
+                center;
+
+            gap:
+                12px;
         }
 
 
         .author-avatar {
-            width: 42px;
-            height: 42px;
+            width:
+                42px;
 
-            border-radius: 50%;
+            height:
+                42px;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius:
+                50%;
 
-            background: #dbeafe;
+            display:
+                flex;
 
-            color: var(--primary);
+            align-items:
+                center;
 
-            font-weight: 800;
+            justify-content:
+                center;
+
+            background:
+                #dbeafe;
+
+            color:
+                var(--primary);
+
+            font-weight:
+                800;
         }
 
 
         .author-info h4 {
-            color: var(--secondary);
+            color:
+                var(--secondary);
 
-            font-size: 14px;
+            font-size:
+                14px;
         }
 
-        .author-info p {
-            color: var(--muted);
 
-            font-size: 12px;
+        .author-info p {
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
         }
 
 
@@ -722,74 +916,231 @@
         ========================================================= */
 
         .products-section {
-            background: white;
+            background:
+                white;
         }
 
 
         .product-slide {
-            padding: 10px;
+            padding:
+                10px;
         }
 
 
         .product-card {
-            background: #f8fafc;
+            background:
+                #f8fafc;
 
-            border: 1px solid var(--border);
+            border:
+                1px solid var(--border);
 
-            border-radius: 22px;
+            border-radius:
+                22px;
 
-            padding: 25px;
+            padding:
+                25px;
 
-            text-align: center;
+            text-align:
+                center;
 
-            transition: 0.3s ease;
+            transition:
+                0.3s ease;
         }
 
-        .product-card:hover {
-            transform: translateY(-5px);
 
-            box-shadow: var(--shadow-md);
+        .product-card:hover {
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                var(--shadow-md);
         }
 
 
         .product-card img {
-            width: 100%;
-            height: 190px;
+            width:
+                100%;
 
-            object-fit: contain;
+            height:
+                190px;
 
-            margin: auto;
+            object-fit:
+                contain;
 
-            margin-bottom: 20px;
+            margin:
+                auto;
+
+            margin-bottom:
+                20px;
         }
 
 
         .product-name {
-            font-family: "Poppins", sans-serif;
+            font-family:
+                "Poppins",
+                sans-serif;
 
-            font-size: 16px;
+            font-size:
+                16px;
 
-            color: var(--secondary);
+            color:
+                var(--secondary);
 
-            margin-bottom: 8px;
+            margin-bottom:
+                8px;
         }
 
 
         .product-price {
-            color: var(--primary);
+            color:
+                var(--primary);
 
-            font-weight: 800;
+            font-weight:
+                800;
 
-            font-size: 18px;
+            font-size:
+                18px;
         }
 
 
         /* =========================================================
-           CTA
+           COMO FUNCIONA
+        ========================================================= */
+
+        .how-it-works {
+            background:
+                #f8fafc;
+        }
+
+
+        .steps {
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                25px;
+
+            position:
+                relative;
+        }
+
+
+        .step {
+            position:
+                relative;
+
+            background:
+                white;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                var(--radius);
+
+            padding:
+                35px 30px;
+
+            text-align:
+                center;
+
+            box-shadow:
+                var(--shadow-sm);
+
+            transition:
+                0.3s ease;
+        }
+
+
+        .step:hover {
+            transform:
+                translateY(-6px);
+
+            box-shadow:
+                var(--shadow-md);
+        }
+
+
+        .step-number {
+            width:
+                52px;
+
+            height:
+                52px;
+
+            margin:
+                0 auto 18px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius:
+                50%;
+
+            background:
+                #dbeafe;
+
+            color:
+                var(--primary);
+
+            font-size:
+                18px;
+
+            font-weight:
+                800;
+        }
+
+
+        .step-icon {
+            font-size:
+                34px;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .step h3 {
+            font-family:
+                "Poppins",
+                sans-serif;
+
+            color:
+                var(--secondary);
+
+            font-size:
+                19px;
+
+            margin-bottom:
+                8px;
+        }
+
+
+        .step p {
+            color:
+                var(--muted);
+
+            font-size:
+                14px;
+        }
+
+
+        /* =========================================================
+           CTA FINAL
         ========================================================= */
 
         .cta {
-            padding: 80px 0 !important;
+            padding:
+                80px 0 !important;
 
             background:
                 radial-gradient(
@@ -799,27 +1150,36 @@
                 ),
                 #0f172a;
 
-            color: white;
+            color:
+                white;
 
-            text-align: center;
+            text-align:
+                center;
         }
 
 
         .cta h2 {
-            font-family: "Poppins", sans-serif;
+            font-family:
+                "Poppins",
+                sans-serif;
 
-            font-size: clamp(30px, 5vw, 46px);
+            font-size:
+                clamp(30px, 5vw, 46px);
 
-            margin-bottom: 15px;
+            margin-bottom:
+                15px;
         }
 
 
         .cta p {
-            max-width: 600px;
+            max-width:
+                600px;
 
-            margin: 0 auto 28px;
+            margin:
+                0 auto;
 
-            color: rgba(255,255,255,0.65);
+            color:
+                rgba(255,255,255,0.65);
         }
 
 
@@ -828,117 +1188,160 @@
         ========================================================= */
 
         footer {
-            background: #020617;
+            background:
+                #020617;
 
-            color: white;
+            color:
+                white;
 
-            padding-top: 70px;
+            padding-top:
+                70px;
         }
 
 
         .footer-container {
-            width: min(1180px, 92%);
+            width:
+                min(1180px, 92%);
 
-            margin: auto;
+            margin:
+                auto;
 
-            display: grid;
+            display:
+                grid;
 
-            grid-template-columns: 1fr 1fr 1.5fr;
+            grid-template-columns:
+                1fr 1fr 1.5fr;
 
-            gap: 50px;
+            gap:
+                50px;
 
-            padding-bottom: 50px;
+            padding-bottom:
+                50px;
         }
 
 
         .footer-title {
-            display: block;
+            display:
+                block;
 
-            font-family: "Poppins", sans-serif;
+            font-family:
+                "Poppins",
+                sans-serif;
 
-            font-weight: 700;
+            font-weight:
+                700;
 
-            margin-bottom: 18px;
+            margin-bottom:
+                18px;
         }
 
 
         .footer-list {
-            list-style: none;
+            list-style:
+                none;
         }
 
 
         .footer-list li {
-            margin-bottom: 10px;
+            margin-bottom:
+                10px;
 
-            color: #94a3b8;
+            color:
+                #94a3b8;
 
-            font-size: 14px;
+            font-size:
+                14px;
         }
 
 
         .footer-list a:hover {
-            color: white;
+            color:
+                white;
         }
 
 
         .newsletter p {
-            color: #94a3b8;
+            color:
+                #94a3b8;
 
-            font-size: 14px;
+            font-size:
+                14px;
 
-            margin-bottom: 18px;
+            margin-bottom:
+                18px;
         }
 
 
         .newsletter-input {
-            display: flex;
+            display:
+                flex;
 
-            background: white;
+            background:
+                white;
 
-            border-radius: 12px;
+            border-radius:
+                12px;
 
-            overflow: hidden;
+            overflow:
+                hidden;
         }
 
 
         .newsletter-input input {
-            flex: 1;
+            flex:
+                1;
 
-            border: none;
+            border:
+                none;
 
-            outline: none;
+            outline:
+                none;
 
-            padding: 14px;
+            padding:
+                14px;
 
-            min-width: 0;
+            min-width:
+                0;
         }
 
 
         .newsletter-input button {
-            width: 55px;
+            width:
+                55px;
 
-            border: none;
+            border:
+                none;
 
-            background: var(--primary);
+            background:
+                var(--primary);
 
-            color: white;
+            color:
+                white;
 
-            font-size: 20px;
+            font-size:
+                20px;
 
-            cursor: pointer;
+            cursor:
+                pointer;
         }
 
 
         .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.08);
+            border-top:
+                1px solid
+                rgba(255,255,255,0.08);
 
-            padding: 22px;
+            padding:
+                22px;
 
-            text-align: center;
+            text-align:
+                center;
 
-            color: #64748b;
+            color:
+                #64748b;
 
-            font-size: 12px;
+            font-size:
+                12px;
         }
 
 
@@ -947,36 +1350,60 @@
         ========================================================= */
 
         .whatsapp {
-            position: fixed;
+            position:
+                fixed;
 
-            right: 22px;
-            bottom: 22px;
+            right:
+                22px;
 
-            width: 58px;
-            height: 58px;
+            bottom:
+                22px;
 
-            border-radius: 50%;
+            width:
+                58px;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height:
+                58px;
 
-            background: #25d366;
+            border-radius:
+                50%;
 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.20);
+            display:
+                flex;
 
-            z-index: 2000;
+            align-items:
+                center;
 
-            transition: 0.3s ease;
+            justify-content:
+                center;
+
+            background:
+                #25d366;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.20);
+
+            z-index:
+                2000;
+
+            transition:
+                0.3s ease;
         }
+
 
         .whatsapp:hover {
-            transform: scale(1.08);
+            transform:
+                scale(1.08);
         }
 
+
         .whatsapp img {
-            width: 34px;
-            height: 34px;
+            width:
+                34px;
+
+            height:
+                34px;
         }
 
 
@@ -986,7 +1413,8 @@
 
         .swiper-button-next,
         .swiper-button-prev {
-            color: var(--primary);
+            color:
+                var(--primary);
         }
 
 
@@ -997,131 +1425,219 @@
         @media (max-width: 1000px) {
 
             .nav-links {
-                position: fixed;
+                position:
+                    fixed;
 
-                top: 78px;
-                left: 4%;
-                right: 4%;
+                top:
+                    78px;
 
-                display: none;
+                left:
+                    4%;
 
-                flex-direction: column;
+                right:
+                    4%;
 
-                align-items: stretch;
+                display:
+                    none;
 
-                background: white;
+                flex-direction:
+                    column;
 
-                padding: 15px;
+                align-items:
+                    stretch;
 
-                border-radius: 18px;
+                background:
+                    white;
 
-                box-shadow: var(--shadow-md);
+                padding:
+                    15px;
 
-                gap: 5px;
+                border-radius:
+                    18px;
+
+                box-shadow:
+                    var(--shadow-md);
+
+                gap:
+                    5px;
             }
+
 
             .nav-links.active {
-                display: flex;
+                display:
+                    flex;
             }
+
 
             .menu-toggle {
-                display: block;
+                display:
+                    block;
             }
+
 
             nav {
-                flex-wrap: wrap;
+                flex-wrap:
+                    wrap;
             }
+
 
             #dolar_wpc1 {
-                margin-left: auto;
+                margin-left:
+                    auto;
             }
+
 
             .services-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
             }
+
 
             .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
+
 
             .testimonial-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
-            .footer-container {
-                grid-template-columns: 1fr 1fr;
+
+            .steps {
+                grid-template-columns:
+                    1fr;
             }
+
+
+            .footer-container {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
         }
 
 
         @media (max-width: 650px) {
 
             nav {
-                min-height: 68px;
+                min-height:
+                    68px;
             }
+
 
             .logo_porEncargo img {
-                width: 48px;
-                height: 48px;
+                width:
+                    48px;
+
+                height:
+                    48px;
             }
+
 
             #dolar_wpc1 {
-                display: none;
+                display:
+                    none;
             }
+
 
             .hero {
-                min-height: 680px;
+                min-height:
+                    680px;
 
-                background-position: 62% center;
+                background-position:
+                    62% center;
             }
+
 
             .hero-content {
-                padding-top: 60px;
+                padding-top:
+                    60px;
             }
+
 
             .hero h1 {
-                font-size: 42px;
+                font-size:
+                    42px;
 
-                letter-spacing: -1.5px;
+                letter-spacing:
+                    -1.5px;
             }
+
 
             .hero p {
-                font-size: 16px;
+                font-size:
+                    16px;
             }
+
 
             .hero-buttons {
-                flex-direction: column;
+                align-items:
+                    stretch;
             }
 
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
+
+            .btn-casillero {
+                width:
+                    100%;
             }
+
+
+            .hero-secondary-buttons {
+                width:
+                    100%;
+
+                flex-direction:
+                    column;
+            }
+
+
+            .hero-secondary-buttons .btn-secondary {
+                width:
+                    100%;
+            }
+
 
             section:not(.hero) {
-                padding: 65px 0;
+                padding:
+                    65px 0;
             }
+
 
             .stats-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns:
+                    1fr 1fr;
             }
+
 
             .testimonial-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
             }
+
 
             .footer-container {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
 
-                gap: 35px;
+                gap:
+                    35px;
             }
 
-            .whatsapp {
-                width: 52px;
-                height: 52px;
 
-                right: 15px;
-                bottom: 15px;
+            .whatsapp {
+                width:
+                    52px;
+
+                height:
+                    52px;
+
+                right:
+                    15px;
+
+                bottom:
+                    15px;
             }
 
         }
@@ -1144,11 +1660,14 @@
 
         <nav>
 
+
             <button
                 class="menu-toggle"
                 id="menuToggle"
                 aria-label="Abrir menú">
+
                 ☰
+
             </button>
 
 
@@ -1165,47 +1684,72 @@
             </div>
 
 
-            <ul class="nav-links" id="navLinks">
+            <ul
+                class="nav-links"
+                id="navLinks">
+
 
                 <li>
+
                     <a href="{{ url_for('index') }}">
                         Inicio
                     </a>
+
                 </li>
 
+
                 <li>
+
                     <a href="{{ url_for('login_register') }}">
                         Mi Casillero
                     </a>
+
                 </li>
 
+
                 <li>
+
                     <a href="{{ url_for('productos') }}">
                         Productos
                     </a>
+
                 </li>
 
+
                 <li>
+
                     <a
                         href="{{ url_for('calculadora') }}"
                         class="contacto-btn">
+
                         Calculadora
+
                     </a>
+
                 </li>
 
+
                 <li>
+
                     <a href="{{ url_for('rastrea_tu_orden') }}">
+
                         Rastrea tu Orden
+
                     </a>
+
                 </li>
 
 
                 {% if current_user.is_authenticated and current_user.is_admin %}
 
                 <li>
+
                     <a href="{{ url_for('admin_panel') }}">
+
                         Panel Admin
+
                     </a>
+
                 </li>
 
                 {% endif %}
@@ -1214,12 +1758,17 @@
                 {% if current_user.is_authenticated and not current_user.is_admin %}
 
                 <li>
+
                     <a href="{{ url_for('pedidos_del_usuario') }}">
+
                         Mis pedidos
+
                     </a>
+
                 </li>
 
                 {% endif %}
+
 
             </ul>
 
@@ -1229,7 +1778,9 @@
                 <a
                     href="https://dolar.wilkinsonpc.com.co/"
                     target="_blank">
+
                     Dólar Hoy
+
                 </a>
 
                 <div id="widget_usd_cop1"></div>
@@ -1251,44 +1802,82 @@
 
 <section class="hero">
 
+
     <div class="hero-content">
+
 
         <div class="hero-text">
 
+
             <div class="hero-badge">
+
                 🇺🇸 Casillero virtual en Miami
+
             </div>
 
 
             <h1>
+
                 Compra en USA.
-                <span>Recibe en Colombia.</span>
+
+                <span>
+                    Recibe en Colombia.
+                </span>
+
             </h1>
 
 
             <p>
+
                 Compra en tus tiendas favoritas de Estados Unidos,
                 recibe tus productos en nuestro centro de distribución
                 y nosotros nos encargamos del resto.
+
             </p>
 
 
             <div class="hero-buttons">
 
+
+                <!-- BOTÓN PRINCIPAL -->
+
                 <a
-                    href="{{ url_for('rastrea_tu_orden') }}"
-                    class="btn-primary">
-                    📦 Rastrear mi paquete
+                    href="{{ url_for('login_register') }}"
+                    class="btn-primary btn-casillero">
+
+                    🚀 Abrir mi casillero
+
                 </a>
 
 
-                <a
-                    href="{{ url_for('calculadora') }}"
-                    class="btn-secondary">
-                    🧮 Calcular envío
-                </a>
+                <!-- BOTONES SECUNDARIOS -->
+
+                <div class="hero-secondary-buttons">
+
+
+                    <a
+                        href="{{ url_for('rastrea_tu_orden') }}"
+                        class="btn-secondary">
+
+                        📦 Rastrear paquete
+
+                    </a>
+
+
+                    <a
+                        href="{{ url_for('calculadora') }}"
+                        class="btn-secondary">
+
+                        🧮 Calcular envío
+
+                    </a>
+
+
+                </div>
+
 
             </div>
+
 
         </div>
 
@@ -1306,6 +1895,7 @@
 
     <div class="container">
 
+
         <div class="services-grid">
 
 
@@ -1320,9 +1910,11 @@
                 </h3>
 
                 <p>
+
                     Recibe tus compras en nuestra dirección
                     en Estados Unidos y nosotros nos encargamos
                     de traerlas hasta Colombia.
+
                 </p>
 
             </div>
@@ -1339,8 +1931,10 @@
                 </h3>
 
                 <p>
+
                     Transportamos tus paquetes desde Estados Unidos
                     hasta Colombia de forma segura y con seguimiento.
+
                 </p>
 
             </div>
@@ -1357,8 +1951,10 @@
                 </h3>
 
                 <p>
+
                     Consulta el estado de tus pedidos y mantente
                     informado durante todo el proceso.
+
                 </p>
 
             </div>
@@ -1380,6 +1976,7 @@
 
     <div class="container">
 
+
         <div class="section-heading">
 
             <span>
@@ -1391,8 +1988,10 @@
             </h2>
 
             <p>
+
                 Utiliza nuestro casillero para comprar en algunas
                 de las principales tiendas y marcas internacionales.
+
             </p>
 
         </div>
@@ -1400,158 +1999,261 @@
 
         <div class="swiper brands-slider">
 
+
             <div class="swiper-wrapper">
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.nvidia.com" target="_blank">
+
+                    <a
+                        href="https://www.nvidia.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/nvidia_logo.png"
                             alt="NVIDIA">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.amd.com" target="_blank">
+
+                    <a
+                        href="https://www.amd.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/amd_logo.jpeg"
                             alt="AMD">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.gigabyte.com" target="_blank">
+
+                    <a
+                        href="https://www.gigabyte.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/gigabyte_882734.png"
                             alt="Gigabyte">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.amazon.com" target="_blank">
+
+                    <a
+                        href="https://www.amazon.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/amazon_logo.png"
                             alt="Amazon">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.ebay.com" target="_blank">
+
+                    <a
+                        href="https://www.ebay.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/ebay_888848.png"
                             alt="eBay">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.newegg.com" target="_blank">
+
+                    <a
+                        href="https://www.newegg.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/newegg_logo.png"
                             alt="Newegg">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.walmart.com" target="_blank">
+
+                    <a
+                        href="https://www.walmart.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/walmart_logo.png"
                             alt="Walmart">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.intel.com" target="_blank">
+
+                    <a
+                        href="https://www.intel.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/intel_logo.svg"
                             alt="Intel">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.asus.com" target="_blank">
+
+                    <a
+                        href="https://www.asus.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/asus_logo.png"
                             alt="ASUS">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.msi.com" target="_blank">
+
+                    <a
+                        href="https://www.msi.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/msi_logo.jpg"
                             alt="MSI">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.corsair.com" target="_blank">
+
+                    <a
+                        href="https://www.corsair.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/corsair_logo.png"
                             alt="Corsair">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.acer.com" target="_blank">
+
+                    <a
+                        href="https://www.acer.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/acer_logo.jpg"
                             alt="Acer">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.lenovo.com" target="_blank">
+
+                    <a
+                        href="https://www.lenovo.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/lenovo_logo.jpg"
                             alt="Lenovo">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.logitech.com" target="_blank">
+
+                    <a
+                        href="https://www.logitech.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/logitech_logo.png"
                             alt="Logitech">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.bose.com" target="_blank">
+
+                    <a
+                        href="https://www.bose.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/bose_logo.png"
                             alt="Bose">
+
                     </a>
+
                 </div>
 
 
                 <div class="swiper-slide brand-slide">
-                    <a href="https://www.sony.com" target="_blank">
+
+                    <a
+                        href="https://www.sony.com"
+                        target="_blank">
+
                         <img
                             src="/assets/img/sony_logo.png"
                             alt="Sony">
+
                     </a>
+
                 </div>
 
 
             </div>
 
 
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+            <div
+                class="swiper-button-prev">
+            </div>
+
+            <div
+                class="swiper-button-next">
+            </div>
+
 
         </div>
 
@@ -1569,11 +2271,15 @@
 
     <div class="container">
 
+
         <div class="stats-grid">
+
 
             <div class="stat">
 
-                <strong>🇺🇸</strong>
+                <strong>
+                    🇺🇸
+                </strong>
 
                 <span>
                     Centro de distribución en Miami
@@ -1584,7 +2290,9 @@
 
             <div class="stat">
 
-                <strong>24/7</strong>
+                <strong>
+                    24/7
+                </strong>
 
                 <span>
                     Consulta el estado de tus paquetes
@@ -1595,7 +2303,9 @@
 
             <div class="stat">
 
-                <strong>📦</strong>
+                <strong>
+                    📦
+                </strong>
 
                 <span>
                     Consolidación de paquetes
@@ -1606,13 +2316,16 @@
 
             <div class="stat">
 
-                <strong>🇨🇴</strong>
+                <strong>
+                    🇨🇴
+                </strong>
 
                 <span>
                     Entregas en Colombia
                 </span>
 
             </div>
+
 
         </div>
 
@@ -1629,6 +2342,7 @@
 <section class="testimonials">
 
     <div class="container">
+
 
         <div class="section-heading">
 
@@ -1657,9 +2371,12 @@
                 </div>
 
                 <p class="testimonial-text">
-                    "Servicio rápido y confiable. Me ayudan con todo;
-                    desde el pago a proveedores hasta recibir mis
-                    paquetes para mi negocio de radiología."
+
+                    "Servicio rápido y confiable.
+                    Me ayudan con todo; desde el pago
+                    a proveedores hasta recibir mis paquetes
+                    para mi negocio de radiología."
+
                 </p>
 
                 <div class="testimonial-author">
@@ -1692,8 +2409,10 @@
                 </div>
 
                 <p class="testimonial-text">
-                    "Excelente atención al cliente, muy amables
-                    y eficientes."
+
+                    "Excelente atención al cliente,
+                    muy amables y eficientes."
+
                 </p>
 
                 <div class="testimonial-author">
@@ -1726,8 +2445,11 @@
                 </div>
 
                 <p class="testimonial-text">
-                    "Casilleros seguros, rápidos y confiables.
+
+                    "Casilleros seguros,
+                    rápidos y confiables.
                     Muy recomendados."
+
                 </p>
 
                 <div class="testimonial-author">
@@ -1760,8 +2482,10 @@
                 </div>
 
                 <p class="testimonial-text">
+
                     "Precios justos y entregas sin problemas.
                     Muy satisfecho."
+
                 </p>
 
                 <div class="testimonial-author">
@@ -1794,8 +2518,10 @@
                 </div>
 
                 <p class="testimonial-text">
+
                     "El mejor servicio y las mejores tarifas.
                     Muy recomendados 100%."
+
                 </p>
 
                 <div class="testimonial-author">
@@ -1828,8 +2554,11 @@
                 </div>
 
                 <p class="testimonial-text">
+
                     "Excelente servicio para emprendedores.
-                    Se adaptan a mis necesidades, muy recomendados."
+                    Se adaptan a mis necesidades,
+                    muy recomendados."
+
                 </p>
 
                 <div class="testimonial-author">
@@ -1871,6 +2600,7 @@
 
     <div class="container">
 
+
         <div class="section-heading">
 
             <span>
@@ -1882,14 +2612,17 @@
             </h2>
 
             <p>
+
                 Algunos de los productos que puedes encontrar
                 en nuestro catálogo.
+
             </p>
 
         </div>
 
 
         <div class="swiper products-slider">
+
 
             <div class="swiper-wrapper">
 
@@ -1982,7 +2715,9 @@
 
 
             <div class="swiper-button-prev"></div>
+
             <div class="swiper-button-next"></div>
+
 
         </div>
 
@@ -1993,30 +2728,145 @@
 
 
 <!-- =========================================================
-     CTA
+     COMO FUNCIONA
+========================================================= -->
+
+<section class="how-it-works">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                Fácil y rápido
+            </span>
+
+            <h2>
+                ¿Cómo funciona PorEncargo?
+            </h2>
+
+            <p>
+
+                Comprar en Estados Unidos y recibir tus productos
+                en Colombia puede ser mucho más sencillo.
+
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+
+            <!-- PASO 1 -->
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <div class="step-icon">
+                    🛒
+                </div>
+
+                <h3>
+                    Compra
+                </h3>
+
+                <p>
+
+                    Compra en Amazon, eBay, Walmart o cualquier
+                    otra tienda de Estados Unidos utilizando
+                    tu dirección de PorEncargo.
+
+                </p>
+
+            </div>
+
+
+            <!-- PASO 2 -->
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <div class="step-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Recibimos
+                </h3>
+
+                <p>
+
+                    Recibimos tu paquete en nuestra bodega
+                    de Miami y lo registramos en tu cuenta.
+
+                </p>
+
+            </div>
+
+
+            <!-- PASO 3 -->
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <div class="step-icon">
+                    🚚
+                </div>
+
+                <h3>
+                    Recibe en Colombia
+                </h3>
+
+                <p>
+
+                    Gestionamos el envío internacional
+                    y llevamos tu compra hasta Colombia.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CTA FINAL
 ========================================================= -->
 
 <section class="cta">
 
     <div class="container">
 
+
         <h2>
-            ¿Listo para comprar en USA?
+            Compra en USA. Nosotros hacemos el resto.
         </h2>
 
+
         <p>
-            Crea tu casillero virtual y empieza a recibir
-            tus compras en Colombia.
+
+            Con PorEncargo tienes una forma sencilla de comprar
+            en Estados Unidos y recibir tus productos en Colombia.
+
         </p>
 
-
-        <a
-            href="{{ url_for('login_register') }}"
-            class="btn-primary">
-
-            Crear mi casillero →
-
-        </a>
 
     </div>
 
@@ -2030,6 +2880,7 @@
 
 <footer>
 
+
     <div class="footer-container">
 
 
@@ -2038,6 +2889,7 @@
             <span class="footer-title">
                 Soporte
             </span>
+
 
             <ul class="footer-list">
 
@@ -2067,6 +2919,7 @@
             <span class="footer-title">
                 PorEncargo
             </span>
+
 
             <ul class="footer-list">
 
@@ -2105,9 +2958,12 @@
                 Mantengámonos en contacto
             </span>
 
+
             <p>
+
                 Registra tu correo y recibe ofertas,
                 novedades y promociones especiales.
+
             </p>
 
 
@@ -2116,6 +2972,7 @@
                 <input
                     type="email"
                     placeholder="Ingresa tu correo">
+
 
                 <button>
                     →
@@ -2131,7 +2988,8 @@
 
     <div class="footer-bottom">
 
-        © 2026 PorEncargo. Todos los derechos reservados.
+        © 2026 PorEncargo.
+        Todos los derechos reservados.
 
     </div>
 
@@ -2149,9 +3007,11 @@
     class="whatsapp"
     aria-label="Contactar por WhatsApp">
 
+
     <img
         src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png"
         alt="WhatsApp">
+
 
 </a>
 
@@ -2166,6 +3026,7 @@
 
 <script>
 
+
     /* =========================================================
        MENU MOBILE
     ========================================================= */
@@ -2173,53 +3034,72 @@
     const menuToggle =
         document.getElementById("menuToggle");
 
+
     const navLinks =
         document.getElementById("navLinks");
 
 
-    menuToggle.addEventListener("click", () => {
+    menuToggle.addEventListener(
+        "click",
+        () => {
 
-        navLinks.classList.toggle("active");
+            navLinks.classList.toggle(
+                "active"
+            );
 
-    });
+        }
+    );
 
 
-    /* Cerrar menú al hacer click */
-
-    document.querySelectorAll(".nav-links a")
+    document
+        .querySelectorAll(".nav-links a")
         .forEach(link => {
 
-            link.addEventListener("click", () => {
+            link.addEventListener(
+                "click",
+                () => {
 
-                navLinks.classList.remove("active");
+                    navLinks.classList.remove(
+                        "active"
+                    );
 
-            });
+                }
+            );
 
         });
 
 
 
     /* =========================================================
-       HEADER AL HACER SCROLL
+       HEADER SCROLL
     ========================================================= */
 
     const header =
-        document.getElementById("main-header");
+        document.getElementById(
+            "main-header"
+        );
 
 
-    window.addEventListener("scroll", () => {
+    window.addEventListener(
+        "scroll",
+        () => {
 
-        if (window.scrollY > 30) {
+            if (window.scrollY > 30) {
 
-            header.classList.add("scrolled");
+                header.classList.add(
+                    "scrolled"
+                );
 
-        } else {
+            } else {
 
-            header.classList.remove("scrolled");
+                header.classList.remove(
+                    "scrolled"
+                );
+
+            }
 
         }
-
-    });
+    );
 
 
 
@@ -2227,47 +3107,52 @@
        MARCAS
     ========================================================= */
 
-    new Swiper(".brands-slider", {
+    new Swiper(
+        ".brands-slider",
+        {
 
-        slidesPerView: 2,
+            slidesPerView: 2,
 
-        spaceBetween: 20,
+            spaceBetween: 20,
 
-        loop: true,
+            loop: true,
 
-        autoplay: {
+            autoplay: {
 
-            delay: 2200,
+                delay: 2200,
 
-            disableOnInteraction: false
-
-        },
-
-        navigation: {
-
-            nextEl: ".brands-slider .swiper-button-next",
-
-            prevEl: ".brands-slider .swiper-button-prev"
-
-        },
-
-        breakpoints: {
-
-            600: {
-
-                slidesPerView: 3
+                disableOnInteraction: false
 
             },
 
-            900: {
+            navigation: {
 
-                slidesPerView: 5
+                nextEl:
+                    ".brands-slider .swiper-button-next",
+
+                prevEl:
+                    ".brands-slider .swiper-button-prev"
+
+            },
+
+            breakpoints: {
+
+                600: {
+
+                    slidesPerView: 3
+
+                },
+
+                900: {
+
+                    slidesPerView: 5
+
+                }
 
             }
 
         }
-
-    });
+    );
 
 
 
@@ -2275,53 +3160,59 @@
        PRODUCTOS
     ========================================================= */
 
-    new Swiper(".products-slider", {
+    new Swiper(
+        ".products-slider",
+        {
 
-        slidesPerView: 1,
+            slidesPerView: 1,
 
-        spaceBetween: 20,
+            spaceBetween: 20,
 
-        loop: true,
+            loop: true,
 
-        autoplay: {
+            autoplay: {
 
-            delay: 3000,
+                delay: 3000,
 
-            disableOnInteraction: false
-
-        },
-
-        navigation: {
-
-            nextEl: ".products-slider .swiper-button-next",
-
-            prevEl: ".products-slider .swiper-button-prev"
-
-        },
-
-        breakpoints: {
-
-            600: {
-
-                slidesPerView: 2
+                disableOnInteraction: false
 
             },
 
-            900: {
+            navigation: {
 
-                slidesPerView: 3
+                nextEl:
+                    ".products-slider .swiper-button-next",
+
+                prevEl:
+                    ".products-slider .swiper-button-prev"
 
             },
 
-            1150: {
+            breakpoints: {
 
-                slidesPerView: 4
+                600: {
+
+                    slidesPerView: 2
+
+                },
+
+                900: {
+
+                    slidesPerView: 3
+
+                },
+
+                1150: {
+
+                    slidesPerView: 4
+
+                }
 
             }
 
         }
+    );
 
-    });
 
 </script>
 
@@ -2330,4 +3221,6 @@
 
 
 </body>
+
 </html>
+```
