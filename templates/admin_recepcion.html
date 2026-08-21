@@ -113,6 +113,10 @@ dropZone.addEventListener("drop", (e) => {
 
 function mostrarImagenes(archivos){
 
+    const contador = document.getElementById("contadorFotos");
+    
+    contador.innerText =
+        `📷 ${archivos.length} fotografías listas para registrar`;
     preview.innerHTML = "";
 
     [...archivos].forEach((archivo) => {
