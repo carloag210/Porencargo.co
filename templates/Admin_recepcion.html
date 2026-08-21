@@ -14,17 +14,29 @@
     </button>
 </div>
 
-<div class="zona-upload">
+<div class="zona-upload" id="dropZone">
 
-    <div class="upload-icon">📦</div>
+    <input
+        type="file"
+        id="fileInput"
+        accept="image/*"
+        multiple
+        hidden
+    >
 
-    <h2>Arrastra aquí las fotografías</h2>
+    <div class="upload-icon">📸</div>
+
+    <h2>Arrastra las fotografías aquí</h2>
 
     <p>o haz clic para seleccionar varias imágenes</p>
 
-    <button>Seleccionar archivos</button>
+    <button type="button" id="btnSeleccionar">
+        Seleccionar archivos
+    </button>
 
 </div>
+
+<div class="preview-grid" id="previewGrid"></div>
 
 <div class="lista-pendientes">
 
