@@ -348,13 +348,12 @@ form .btn-del-producto:hover{
 }
 
 .btn-importar{
-    background:#2563EB;
-    color:white;
+    .btn-importar{
+    background:red !important;
+    color:white !important;
     border:none;
     padding:14px 22px;
     border-radius:12px;
-    font-weight:600;
-    cursor:pointer;
 }
 
 .zona-upload{
