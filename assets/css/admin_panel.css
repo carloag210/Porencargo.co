@@ -279,3 +279,48 @@ form .btn-del-producto{
 form .btn-del-producto:hover{
     background:#DC2626;
 }
+/* ===== MÉTRICAS HERO ===== */
+
+.admin-hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+}
+
+.hero-texto{
+    flex:1;
+}
+
+.hero-metricas{
+    display:grid;
+    grid-template-columns:repeat(2,120px);
+    gap:15px;
+}
+
+.metrica{
+    background:rgba(255,255,255,.10);
+    backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:15px;
+    text-align:center;
+}
+
+.metrica span{
+    font-size:1.5rem;
+    display:block;
+    margin-bottom:8px;
+}
+
+.metrica h3{
+    color:#fff;
+    font-size:1.6rem;
+    margin:0;
+}
+
+.metrica p{
+    color:#DBEAFE;
+    font-size:.8rem;
+    margin-top:5px;
+}
