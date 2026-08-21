@@ -417,3 +417,15 @@ form .btn-del-producto:hover{
     background:#EFF6FF;
     border-color:#2563EB !important;
 }
+
+.contador-fotos{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#DBEAFE;
+    color:#1D4ED8;
+    padding:10px 16px;
+    border-radius:999px;
+    font-weight:700;
+    margin:18px 0 25px;
+}
