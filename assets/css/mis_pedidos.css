@@ -269,3 +269,242 @@ nav{
 .page-title{
     display:none;
 }
+
+/* =========================================
+   TARJETAS DE PEDIDOS
+========================================= */
+
+.cards-pedidos{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+    margin-top:28px;
+}
+
+.pedido-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:26px;
+    box-shadow:var(--shadow);
+    transition:.25s;
+}
+
+.pedido-card:hover{
+    transform:translateY(-4px);
+}
+
+.pedido-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.tienda{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.logo-tienda{
+    width:54px;
+    height:54px;
+    border-radius:16px;
+    background:#FFF7ED;
+    display:grid;
+    place-items:center;
+    font-size:24px;
+}
+
+.tienda h3{
+    font-family:'Poppins',sans-serif;
+    font-size:20px;
+}
+
+.tienda span{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.estado{
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.estado.colombia{
+    background:#DBEAFE;
+    color:#1D4ED8;
+}
+
+.estado.vuelo{
+    background:#FEF3C7;
+    color:#92400E;
+}
+
+.estado.entregado{
+    background:#DCFCE7;
+    color:#166534;
+}
+
+.estado.proceso{
+    background:#E5E7EB;
+    color:#374151;
+}
+
+.datos{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    padding:18px 0;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+}
+
+.datos small{
+    color:var(--muted);
+    display:block;
+    margin-bottom:6px;
+}
+
+.datos strong{
+    font-size:17px;
+}
+
+.progreso{
+    margin:22px 0;
+}
+
+.progreso-info{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.barra{
+    width:100%;
+    height:10px;
+    border-radius:20px;
+    background:#E5E7EB;
+    overflow:hidden;
+}
+
+.relleno{
+    height:100%;
+    border-radius:20px;
+    background:linear-gradient(90deg,#2563EB,#3B82F6);
+}
+
+.p20{width:20%;}
+.p40{width:40%;}
+.p60{width:60%;}
+.p80{width:80%;}
+.p100{width:100%;}
+
+.timeline{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:18px;
+}
+
+.step{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    width:72px;
+}
+
+.dot{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#D1D5DB;
+    border:4px solid #fff;
+    box-shadow:0 0 0 2px #D1D5DB;
+}
+
+.step.activo .dot{
+    background:#2563EB;
+    box-shadow:0 0 0 2px #2563EB;
+}
+
+.step span{
+    font-size:12px;
+    color:var(--muted);
+    text-align:center;
+}
+
+.line{
+    flex:1;
+    height:2px;
+    background:#D1D5DB;
+    margin:0 6px;
+}
+
+.consolidacion{
+    margin-top:22px;
+    padding-top:18px;
+    border-top:1px solid var(--border);
+}
+
+.check{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:500;
+    cursor:pointer;
+}
+
+/* VACÍO */
+
+.empty{
+    background:#fff;
+    border-radius:22px;
+    padding:60px;
+    text-align:center;
+    box-shadow:var(--shadow);
+}
+
+.empty h2{
+    font-family:'Poppins',sans-serif;
+    margin-bottom:12px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:980px){
+
+.main-container{
+    grid-template-columns:1fr;
+}
+
+.sidebar{
+    min-height:auto;
+    position:relative;
+    top:0;
+}
+
+.stats{
+    grid-template-columns:repeat(2,1fr);
+}
+
+.datos{
+    grid-template-columns:1fr;
+}
+
+.timeline{
+    flex-wrap:wrap;
+    row-gap:18px;
+}
+
+.line{
+    display:none;
+}
+
+}
