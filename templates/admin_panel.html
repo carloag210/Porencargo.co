@@ -50,13 +50,44 @@
 
       <div class="container-productos">
         <aside class="sidebar">
-          <div class="filter-group">
-            <a href="{{ url_for('admin_panel_add_productos') }}" class="btn-sidebar">Agregar productos</a>
-            <a href="{{ url_for('admin_panel') }}" class="btn-sidebar">Productos</a>
-            <a href="{{ url_for('admin_panel_ver_usuarios' )}}" class="btn-sidebar">Usuarios</a>
-          </div>
-        </aside>
+
+    <div class="admin-profile">
+        <img src="/assets/img/svg_porencargo.svg" alt="PorEncargo.co">
+        <h3>Administrador</h3>
+        <p>Centro de operaciones</p>
+    </div>
+
+    <nav class="admin-menu">
+
+        <a href="{{ url_for('admin_panel') }}" class="btn-sidebar active">
+            📦 Catálogo
+        </a>
+
+        <a href="{{ url_for('admin_panel_add_productos') }}" class="btn-sidebar">
+            ➕ Nuevo producto
+        </a>
+
+        <a href="{{ url_for('admin_panel_ver_usuarios') }}" class="btn-sidebar">
+            👥 Clientes
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="btn-sidebar logout">
+            ↩ Cerrar sesión
+        </a>
+
+    </nav>
+
+</aside>
           <main class="main">
+              <div class="admin-hero">
+
+        <div>
+            <span>PorEncargo.co</span>
+            <h1>Centro de Operaciones</h1>
+            <p>Gestiona clientes, productos y recepción de paquetes desde un solo lugar.</p>
+        </div>
+
+    </div>
             <div class="contenido">
               {% block content %}
                 <h1>Productos</h1>
