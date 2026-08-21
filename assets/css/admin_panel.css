@@ -324,3 +324,7 @@ form .btn-del-producto:hover{
     font-size:.8rem;
     margin-top:5px;
 }
+
+<CodeBlock language=css editable> {`/* ===== PREVIEW DE IMÁGENES ===== */
+
+.preview-grid
