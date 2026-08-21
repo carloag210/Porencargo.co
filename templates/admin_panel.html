@@ -109,10 +109,6 @@
                       <form  action="{{ url_for('eliminar_producto', id=producto.id) }}" method="POST">
                       <button type="submit" class="btn-del-producto">Eliminar</button>
                     </form>
-
-
-                      <p>DEBUG ruta imagen cruda: {{ producto.imagen }}</p>
-                      <p>DEBUG ruta imagen final: {{ url_for('static', filename=producto.imagen) }}</p>
                       
                   </div>
                 {% endfor %}
