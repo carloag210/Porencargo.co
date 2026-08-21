@@ -606,4 +606,44 @@ nav {
         text-align: center;
     }
 }
+/* ===== HERO ADMIN ===== */
 
+.admin-hero{
+    background: linear-gradient(135deg,#0F172A,#2563EB);
+    border-radius:22px;
+    padding:35px;
+    color:white;
+    margin-bottom:30px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 20px 40px rgba(37,99,235,.18);
+}
+
+.admin-hero::after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    right:-60px;
+    top:-60px;
+}
+
+.admin-hero span{
+    color:#BFDBFE;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:.8rem;
+    font-weight:600;
+}
+
+.admin-hero h1{
+    margin:8px 0;
+    font-size:2.2rem;
+}
+
+.admin-hero p{
+    color:#DBEAFE;
+    max-width:520px;
+}
