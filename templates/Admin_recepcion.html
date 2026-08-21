@@ -10,7 +10,7 @@
     </div>
 
     <button class="btn-importar">
-        📁 Importar fotografías
+        📁 Importar Paquetes
     </button>
 </div>
 
@@ -70,4 +70,74 @@
 
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+const input = document.getElementById("fileInput");
+const boton = document.getElementById("btnSeleccionar");
+const dropZone = document.getElementById("dropZone");
+const preview = document.getElementById("previewGrid");
+
+boton.addEventListener("click", () => input.click());
+
+input.addEventListener("change", () => {
+    mostrarImagenes(input.files);
+});
+
+dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.classList.add("drag");
+});
+
+dropZone.addEventListener("dragleave", () => {
+    dropZone.classList.remove("drag");
+});
+
+dropZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+
+    dropZone.classList.remove("drag");
+
+    const archivos = e.dataTransfer.files;
+
+    input.files = archivos;
+
+    mostrarImagenes(archivos);
+});
+
+function mostrarImagenes(archivos){
+
+    preview.innerHTML = "";
+
+    [...archivos].forEach((archivo) => {
+
+        const lector = new FileReader();
+
+        lector.onload = (evento) => {
+
+            const card = document.createElement("div");
+
+            card.className = "preview-card";
+
+            card.innerHTML = `
+                <img src="${evento.target.result}">
+                <div class="preview-info">
+                    <strong>${archivo.name}</strong>
+                    <span>Lista para registrar</span>
+                </div>
+            `;
+
+            preview.appendChild(card);
+
+        };
+
+        lector.readAsDataURL(archivo);
+
+    });
+
+}
+
+</script>
 {% endblock %}
