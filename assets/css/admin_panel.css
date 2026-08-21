@@ -325,9 +325,7 @@ form .btn-del-producto:hover{
     margin-top:5px;
 }
 
-<CodeBlock language=css editable> {`/* ===== PREVIEW DE IMÁGENES ===== */
 
-.preview-grid
 
 /* ===========================
    RECEPCIÓN DE HOY
@@ -348,12 +346,22 @@ form .btn-del-producto:hover{
 }
 
 .btn-importar{
-    .btn-importar{
-    background:red !important;
-    color:white !important;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:linear-gradient(135deg,#2563EB,#1D4ED8);
+    color:#fff;
     border:none;
     padding:14px 22px;
     border-radius:12px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.25s;
+    box-shadow:0 8px 20px rgba(37,99,235,.25);
+}
+
+.btn-importar:hover{
+    transform:translateY(-2px);
 }
 
 .zona-upload{
@@ -368,4 +376,44 @@ form .btn-del-producto:hover{
 .upload-icon{
     font-size:3rem;
     margin-bottom:10px;
-}   
+}
+
+.preview-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+    gap:18px;
+    margin:25px 0;
+}
+
+.preview-card{
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(15,23,42,.08);
+}
+
+.preview-card img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+}
+
+.preview-info{
+    padding:12px;
+}
+
+.preview-info strong{
+    display:block;
+    font-size:.82rem;
+    margin-bottom:4px;
+}
+
+.preview-info span{
+    color:#64748B;
+    font-size:.75rem;
+}
+
+.drag{
+    background:#EFF6FF;
+    border-color:#2563EB !important;
+}
