@@ -52,26 +52,78 @@
     <div class="main-container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <div class="sidebar-item">
-                <a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a>
-            </div>
-            <div class="sidebar-item">
-                <a href="{{ url_for('direcciones') }}">Mis direcciones</a>
-            </div>
-            <div class="sidebar-item">
-                <a href="{{ url_for('info') }}">Mi información</a>
-            </div>
-            <div class="sidebar-item" >
-                <a href="{{ url_for('add_prealerta')}}">Prealertar</a>
-            </div>
-            <div class="sidebar-item">
-                <a href="{{ url_for('logout') }}">Cerrar sesión</a>
-            </div>
-        </div>
+
+    <div class="profile">
+        <img src="/assets/img/logo_porEncargo_sinLetras.jpg" alt="PorEncargo.co">
+        <h3>{{ current_user.nombre }}</h3>
+        <p>Cliente</p>
+    </div>
+
+    <a class="side-link active" href="{{ url_for('pedidos_del_usuario') }}">
+        <span>📦</span> Mis pedidos
+    </a>
+
+    <a class="side-link" href="{{ url_for('direcciones') }}">
+        <span>📍</span> Direcciones
+    </a>
+
+    <a class="side-link" href="{{ url_for('info') }}">
+        <span>👤</span> Mi información
+    </a>
+
+    <a class="side-link" href="{{ url_for('add_prealerta') }}">
+        <span>✈️</span> Prealertar
+    </a>
+
+    <div class="bottom-menu">
+        <a class="side-link logout" href="{{ url_for('logout') }}">
+            <span>↩</span> Cerrar sesión
+        </a>
+    </div>
+
+</div>
 
         <!-- Área de contenido -->
         <div class="content-area">
             <div id="content">
+                <div class="dashboard-hero">
+
+    <div>
+        <span>Bienvenido de nuevo 👋</span>
+        <h1>{{ current_user.nombre }}</h1>
+        <p>Consulta el estado de tus compras y el recorrido de cada paquete.</p>
+    </div>
+
+    <div class="hero-card">
+        <small>Casillero</small>
+        <strong>{{ current_user.casillero }}</strong>
+    </div>
+
+</div>
+
+<div class="stats">
+
+    <div class="stat-card">
+        <small>Paquetes</small>
+        <h2>3</h2>
+    </div>
+
+    <div class="stat-card">
+        <small>En tránsito</small>
+        <h2>2</h2>
+    </div>
+
+    <div class="stat-card">
+        <small>Entregados</small>
+        <h2>1</h2>
+    </div>
+
+    <div class="stat-card">
+        <small>Peso</small>
+        <h2>8.4 kg</h2>
+    </div>
+
+</div>
                 {% block content %}{% endblock %}
             </div>
         </div>
