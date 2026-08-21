@@ -201,7 +201,10 @@ def admin_panel_modificar_productos(id):
 
         db.session.commit()
         return redirect(url_for('admin_panel'))
-
+@app.route('/admin/recepcion')
+@admin_required
+def admin_recepcion():
+    return render_template('admin_recepcion.html')
     return render_template('admin_panel_modificar_productos.html', producto=producto)
 
 @app.route('/calculadora')  
