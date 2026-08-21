@@ -328,3 +328,45 @@ form .btn-del-producto:hover{
 <CodeBlock language=css editable> {`/* ===== PREVIEW DE IMÁGENES ===== */
 
 .preview-grid
+
+/* ===========================
+   RECEPCIÓN DE HOY
+=========================== */
+
+.recepcion-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.subtitulo{
+    color:#2563EB;
+    font-size:.8rem;
+    font-weight:700;
+    letter-spacing:2px;
+}
+
+.btn-importar{
+    background:#2563EB;
+    color:white;
+    border:none;
+    padding:14px 22px;
+    border-radius:12px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.zona-upload{
+    background:white;
+    border:2px dashed #93C5FD;
+    border-radius:22px;
+    padding:50px;
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.upload-icon{
+    font-size:3rem;
+    margin-bottom:10px;
+}   
