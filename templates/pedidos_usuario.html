@@ -1,80 +1,187 @@
 {% extends "mis_pedidos.html" %}
 
 {% block content %}
-<h1 class="page-title">Mis pedidos</h1>
+
+<div class="cliente-header">
+    <div>
+        <span class="saludo">Bienvenido de nuevo 👋</span>
+        <h1>Mis pedidos</h1>
+        <p>Haz seguimiento a todas tus compras desde un solo lugar.</p>
+    </div>
+</div>
 
 {% if paquetes %}
-    {% for paquete in paquetes %}
-        <div class="bloque">
-            <ul>
-                <li><strong>Fecha de recibido:</strong>
-                    {% if paquete.fecha_recibido %}
-                        {{ paquete.fecha_recibido.strftime('%d/%m/%Y') }}
-                    {% else %}
-                        No recibido aún
-                    {% endif %}
-                </li>
 
-                <li><strong>Nombre:</strong> {{ paquete.nombre }}</li>
-                <li><strong>Precio:</strong> {{ paquete.precio }}</li>
-                <li><strong>Número de guía:</strong> {{ paquete.numero_guia }}</li>
-                <li><strong>Peso:</strong> {{ paquete.peso }}</li>
+<div class="cards-pedidos">
 
-                <!-- ✅ Checkbox para consolidar -->
-                <li>
-                  <form class="form-consolidar" method="POST" action="{{ url_for('marcar_consolidar') }}">
-                    <input type="hidden" name="paquete_id" value="{{ paquete.id }}">
-                    <label>
-                      <input type="checkbox" name="consolidar" value="true"
-                             {% if paquete.consolidar %}checked{% endif %}>
-                      ✅ Marcar para consolidación
-                    </label>
-                  </form>
-                </li>
+{% for paquete in paquetes %}
 
-                {% if paquete.prealerta %}
-                  <li style="color: #e90303;">
-                    <strong style="color: #333;">Aviso:</strong> En prealerta
-                  </li>
-                {% endif %}
+<div class="pedido-card">
 
-                <li>
-                  <strong>Estado:</strong> 
-                  <span style="color: {% if paquete.estado.value == 'En prealerta' %}#e90303{% else %}#50c850{% endif %};">
-                    {{ paquete.estado.value }}
-                  </span>
-                </li>
-            </ul>
+    <div class="pedido-top">
+
+        <div class="tienda">
+
+            <div class="logo-tienda">
+                📦
+            </div>
+
+            <div>
+                <h3>{{ paquete.nombre }}</h3>
+                <span>Guía {{ paquete.numero_guia }}</span>
+            </div>
+
         </div>
-    {% endfor %}
+
+        <div class="estado
+            {% if paquete.estado.value == 'Entregado' %}
+                entregado
+            {% elif paquete.estado.value == 'En Colombia' %}
+                colombia
+            {% elif paquete.estado.value == 'En aeropuerto' %}
+                vuelo
+            {% else %}
+                proceso
+            {% endif %}">
+
+            {{ paquete.estado.value }}
+
+        </div>
+
+    </div>
+
+    <div class="datos">
+
+        <div>
+            <small>Precio</small>
+            <strong>${{ paquete.precio }}</strong>
+        </div>
+
+        <div>
+            <small>Peso</small>
+            <strong>{{ paquete.peso }} kg</strong>
+        </div>
+
+        <div>
+            <small>Recibido</small>
+            <strong>
+            {% if paquete.fecha_recibido %}
+                {{ paquete.fecha_recibido.strftime('%d/%m/%Y') }}
+            {% else %}
+                Pendiente
+            {% endif %}
+            </strong>
+        </div>
+
+    </div>
+
+    <div class="progreso">
+
+        <div class="progreso-info">
+            <span>Progreso del envío</span>
+        </div>
+
+        <div class="barra">
+            <div class="relleno
+            {% if paquete.estado.value == 'Entregado' %}
+                p100
+            {% elif paquete.estado.value == 'En Colombia' %}
+                p80
+            {% elif paquete.estado.value == 'En aeropuerto' %}
+                p60
+            {% elif paquete.estado.value == 'En bodega Miami' %}
+                p40
+            {% else %}
+                p20
+            {% endif %}"></div>
+        </div>
+
+    </div>
+
+    <div class="timeline">
+
+        <div class="step activo">
+            <div class="dot"></div>
+            <span>Miami</span>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="step {% if paquete.estado.value in ['En aeropuerto','En Colombia','Entregado'] %}activo{% endif %}">
+            <div class="dot"></div>
+            <span>Vuelo</span>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="step {% if paquete.estado.value in ['En Colombia','Entregado'] %}activo{% endif %}">
+            <div class="dot"></div>
+            <span>Colombia</span>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="step {% if paquete.estado.value == 'Entregado' %}activo{% endif %}">
+            <div class="dot"></div>
+            <span>Entrega</span>
+        </div>
+
+    </div>
+
+    <div class="consolidacion">
+
+        <form class="form-consolidar" method="POST" action="{{ url_for('marcar_consolidar') }}">
+
+            <input type="hidden" name="paquete_id" value="{{ paquete.id }}">
+
+            <label class="check">
+
+                <input type="checkbox"
+                       name="consolidar"
+                       value="true"
+                       {% if paquete.consolidar %}checked{% endif %}>
+
+                Consolidar este paquete
+
+            </label>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
 {% else %}
-    <p>No tienes paquetes registrados.</p>
+
+<div class="empty">
+
+    <h2>Aún no tienes paquetes</h2>
+    <p>Cuando realices una prealerta aparecerán aquí automáticamente.</p>
+
+</div>
+
 {% endif %}
 
-<!-- 🚀 Script AJAX justo al final -->
 <script>
 document.querySelectorAll(".form-consolidar input[type='checkbox']").forEach(checkbox => {
     checkbox.addEventListener("change", function() {
-        let form = this.closest("form");
-        let formData = new FormData(form);
 
-        if (!this.checked) {
-            formData.set("consolidar", "false");
+        let form = this.closest("form");
+        let data = new FormData(form);
+
+        if(!this.checked){
+            data.set("consolidar","false");
         }
 
-        fetch(form.action, {
-            method: "POST",
-            body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                console.log("Consolidación actualizada:", data.consolidar);
-            } else {
-                alert("Error: " + (data.error || "No se pudo actualizar"));
-            }
-        })
-        .catch(err => console.error("Error AJAX:", err));
+        fetch(form.action,{
+            method:"POST",
+            body:data
+        });
+
     });
 });
 </script>
