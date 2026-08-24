@@ -168,34 +168,70 @@ nav {
 }
 
 /* Título */
-.form-container h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
+.form-container h2{
+    text-align:center;
+
+    font-family:"Space Grotesk",sans-serif;
+
+    font-size:2.1rem;
+
+    color:#F8FAFC;
+
+    margin-bottom:28px;
+
+    letter-spacing:-1px;
 }
 
 /* Campos de entrada */
-.form-container form input {
-    width: 100%;
-    padding: 12px 14px;
-    margin-bottom: 18px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    font-size: 15px;
+.form-container form input{
+    width:100%;
+
+    padding:14px 16px;
+
+    margin-bottom:18px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.08);
+
+    color:#F8FAFC;
+
+    font-size:15px;
+}
+
+.form-container form input::placeholder{
+    color:#B8C7D3;
 }
 
 /* Botón */
-.form-container form button {
-    width: 100%;
-    padding: 12px;
-    background-color: #707070;
-    color: black;
-    border: none;
-    font-weight: bold;
-    border-radius: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color, color 0.3s;
+.form-container form button{
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#4FAF2D;
+
+    color:white;
+
+    font-weight:700;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.form-container form button:hover{
+    background:#63C93D;
+
+    transform:translateY(-2px);
 }
 .form-container form button:hover {
     transition: 0.5s;
