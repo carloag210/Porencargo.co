@@ -154,17 +154,17 @@ nav {
     height:540px;
 }
 
-.form-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;  /* ✅ Usamos height en vez de min-height */
-    top: 0;
-    left: 0;
-    padding: 30px 25px;
-    background-color: #ffffff;
-    border-radius: 20px;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+.form-container{
+    position:absolute;
+    inset:0;
+
+    padding:38px 30px;
+
+    background:transparent;
+
+    border-radius:28px;
+
+    transition:opacity .4s ease, transform .4s ease;
 }
 
 /* Título */
