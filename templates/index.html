@@ -464,18 +464,18 @@
 
 .hero-metrics{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin-top:18px;
+    grid-template-columns:1fr 1fr;
+
+    width:100%;
+    max-width:100%;
+
+    gap:12px;
+    margin-top:20px;
 }
 
 .hero-metrics div{
-    background:rgba(255,255,255,.08);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:16px;
-    padding:14px 10px;
-    text-align:center;
-    backdrop-filter:blur(8px);
+    width:100%;
+    box-sizing:border-box;
 }
 
 .hero-metrics strong{
