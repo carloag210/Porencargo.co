@@ -65,24 +65,18 @@ nav {
     margin-left: 30px;
 }
 .nav-links a{
-    text-decoration: none;
-    font-weight: 500;
-    color: black;
-    transition: color 0.3s;
+    text-decoration:none;
+    font-weight:600;
+    color:#EAF2F7;
+    transition:.25s;
 }
+
 .nav-links a:hover{
-    color: #fff;
+    color:#8BE25A;
 }
-.nav-links a::after {
-    content: "";
-    display: block;
-    height: 2px;
-    width: 0;
-    background: #50C878;
-    transition: width 0.3s ease;
-}
-.nav-links a:hover::after {
-    width: 100%;
+
+.nav-links a::after{
+    background:#4FAF2D;
 }
 /* contacto desplegable */
 /* Botón principal */
