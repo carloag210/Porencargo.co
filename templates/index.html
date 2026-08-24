@@ -144,22 +144,31 @@
 }
 
 
-        /* LOGO */
+       /* ==========================================
+   LOGO · ADN PorEncargo.co
+========================================== */
 
-        .logo_porEncargo img {
-            width: 58px;
-            height: 58px;
+.logo_porEncargo{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+}
 
-            object-fit: contain;
+.logo_porEncargo img{
+    width:60px;
+    height:60px;
 
-            border-radius: 14px;
+    object-fit:contain;
 
-            transition: 0.3s ease;
-        }
+    border-radius:18px;
 
-        .logo_porEncargo img:hover {
-            transform: scale(1.05);
-        }
+    transition:all .25s ease;
+}
+
+.logo_porEncargo img:hover{
+    transform:rotate(-4deg) scale(1.04);
+}
 
 
         /* MENU */
