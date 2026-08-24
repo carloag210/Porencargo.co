@@ -131,16 +131,27 @@ nav {
   background-color: #f1f1f1;
 }
 /* el bloque de login_ergistr */
-.auth-container {
-    position: relative;
-    width: 100%;
-    max-width: 450px;
-    margin: 100px auto;
-    border-radius: 25px;
-    background: linear-gradient(145deg, #707070, #5e5e5e);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
-    height: 520px; /* ✅ Altura fija para contener los formularios */
+.auth-container{
+    position:relative;
+
+    width:100%;
+    max-width:460px;
+
+    margin:70px auto;
+
+    border-radius:28px;
+
+    background:rgba(10,20,30,.72);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:0 30px 70px rgba(0,0,0,.45);
+
+    overflow:hidden;
+
+    height:540px;
 }
 
 .form-container {
