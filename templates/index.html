@@ -1945,9 +1945,37 @@
                   stroke-width="2.5"
                   stroke-linecap="round"/>
 
-            <!-- Mundo -->
-            <circle cx="35" cy="65" r="7" fill="#FFFFFF"/>
-            <text x="18" y="84" fill="#C7D4DF" font-size="10">ORIGEN</text>
+            <!-- Origen · Planeta -->
+<g transform="translate(35 65)">
+
+    <!-- Océano -->
+    <circle r="11" fill="#2563EB"/>
+
+    <!-- Continentes -->
+    <path d="M-6 -2
+             C-3 -7, 3 -5, 7 0
+             C4 5, -2 6, -6 2 Z"
+          fill="#4FAF2D"/>
+
+    <path d="M-1 -8
+             C2 -10, 5 -8, 4 -5
+             C1 -4, -2 -5, -1 -8 Z"
+          fill="#6EDB55"
+          opacity=".9"/>
+
+    <!-- Anillo -->
+    <ellipse rx="15" ry="4"
+             fill="none"
+             stroke="#93C5FD"
+             stroke-width="1"
+             opacity=".65"
+             transform="rotate(-18)"/>
+
+</g>
+
+<text x="12" y="84"
+      fill="#C7D4DF"
+      font-size="10">ORIGEN</text>
 
             <!-- Miami -->
             <circle cx="160" cy="65" r="9" fill="#4FAF2D"/>
@@ -1959,13 +1987,35 @@
             <text x="246" y="84" fill="#C7D4DF" font-size="10">COLOMBIA</text>
 
             <!-- Caja -->
-            <g transform="translate(144 42)">
-                <rect width="32" height="26" rx="5" fill="#7ED957"/>
-                <path d="M16 0 V26 M0 8 H32"
-                      stroke="#5C9F36"
-                      stroke-width="2"/>
-            </g>
+<!-- Caja Isométrica -->
+<g transform="translate(144 34)">
 
+    <!-- Tapa -->
+    <path d="M16 0 L32 8 L16 16 L0 8 Z"
+          fill="#D8B15F"/>
+
+    <!-- Izquierda -->
+    <path d="M0 8 V28 L16 36 V16 Z"
+          fill="#B98234"/>
+
+    <!-- Derecha -->
+    <path d="M32 8 V28 L16 36 V16 Z"
+          fill="#C89447"/>
+
+    <!-- Cinta -->
+    <path d="M16 0 V36"
+          stroke="#8B5A20"
+          stroke-width="1.5"
+          opacity=".75"/>
+
+    <!-- Pliegue -->
+    <path d="M0 8 L16 16 L32 8"
+          fill="none"
+          stroke="#F5E6C3"
+          stroke-width="1"
+          opacity=".55"/>
+
+</g>
         </svg>
 
     </div>
