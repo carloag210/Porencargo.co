@@ -297,37 +297,52 @@
            HERO
         ========================================================= */
 
-        .hero {
-            min-height: 760px;
+/* =========================================================
+   HERO · ADN PorEncargo.co
+========================================================= */
 
-            position: relative;
+.hero{
+    min-height:780px;
 
-            display: flex;
-            align-items: center;
+    position:relative;
 
-            overflow: hidden;
+    display:flex;
+    align-items:center;
 
-            background-image:
+    overflow:hidden;
+    isolation:isolate;
 
-                linear-gradient(
-                    90deg,
-                    rgba(5, 15, 35, 0.90) 0%,
-                    rgba(5, 15, 35, 0.72) 40%,
-                    rgba(5, 15, 35, 0.25) 75%,
-                    rgba(5, 15, 35, 0.15) 100%
-                ),
+    background-image:
+        linear-gradient(
+            105deg,
+            rgba(4,10,18,.96) 0%,
+            rgba(7,18,30,.88) 38%,
+            rgba(8,22,36,.45) 72%,
+            rgba(8,22,36,.18) 100%
+        ),
+        url("/assets/img/representacion-de-la-cadena-de-suministro-de-vehiculos-en-portatiles.jpg");
 
-                url("/assets/img/representacion-de-la-cadena-de-suministro-de-vehiculos-en-portatiles.jpg");
+    background-size:cover;
+    background-position:center;
+}
+.hero::before{
+    content:"";
 
-            background-size: cover;
+    position:absolute;
+    inset:0;
 
-            background-position: center;
-        }
+    background-image:
+        radial-gradient(circle at 78% 28%, rgba(79,175,45,.16), transparent 22%),
+        radial-gradient(circle at 86% 70%, rgba(79,175,45,.10), transparent 28%);
 
+    z-index:0;
+    pointer-events:none;
+}
 
         .hero-content {
             width: min(1180px, 92%);
-
+            position: relative;
+            z-index: 2;
             margin: auto;
 
             padding-top: 70px;
