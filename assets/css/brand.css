@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root{
 
@@ -14,28 +14,22 @@
   --pc-border:#E5E7EB;
 
   --radius:18px;
-
   --transition:.25s ease;
 }
 
-/* Base */
+/* ===== ADN POR ENCARGO ===== */
 
 html{
-  scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-  font-family:"Inter",sans-serif;
-  background:var(--pc-bg);
-  color:var(--pc-text);
+    font-family:"Inter", sans-serif;
+    color:var(--pc-text);
 }
 
 h1,h2,h3,h4{
-  font-family:"Space Grotesk",sans-serif;
-  color:var(--pc-dark);
-  letter-spacing:-0.03em;
-}
-
-section{
-  padding:80px 0;
+    font-family:"Space Grotesk", sans-serif;
+    color:var(--pc-dark);
+    letter-spacing:-0.03em;
 }
