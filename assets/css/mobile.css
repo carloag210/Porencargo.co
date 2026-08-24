@@ -1,1 +1,105 @@
+/* ==========================================
+   MÓVIL · PorEncargo.co
+========================================== */
 
+@media (max-width: 900px){
+
+    .hero{
+        min-height:auto;
+        padding:100px 0 50px;
+    }
+
+    .hero-content{
+        width:92%;
+        padding-top:0;
+    }
+
+    .hero-grid{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:28px;
+    }
+
+    .hero-text{
+        max-width:100%;
+        text-align:center;
+    }
+
+    .hero h1{
+        font-size:3rem;
+        line-height:1.05;
+    }
+
+    .hero p{
+        font-size:1rem;
+        line-height:1.7;
+        margin:0 auto;
+        max-width:340px;
+    }
+
+    .hero-badge{
+        margin:0 auto 18px;
+    }
+
+    .hero-buttons{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:14px;
+    }
+
+    .hero-secondary-buttons{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        width:100%;
+        gap:10px;
+    }
+
+    .btn-primary{
+        width:100%;
+        justify-content:center;
+    }
+
+    .btn-secondary{
+        width:100%;
+        justify-content:center;
+    }
+
+    .route-card{
+        width:100%;
+        padding:20px;
+        border-radius:22px;
+    }
+
+    .route-map{
+        height:130px;
+    }
+
+    .route-svg{
+        width:100%;
+        height:100%;
+    }
+
+    .route-info{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:14px;
+        text-align:center;
+    }
+
+    .hero-metrics{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+        margin-top:10px;
+    }
+
+    .hero-metrics div{
+        padding:18px 10px;
+    }
+
+    .hero-metrics strong{
+        font-size:1.4rem;
+    }
+
+}
