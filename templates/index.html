@@ -1726,84 +1726,255 @@
 
 
     <div class="hero-content">
+/* ==========================================
+   HERO GRID
+========================================== */
 
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    align-items:center;
+    gap:60px;
+}
+
+.route-card{
+    background:rgba(12,22,32,.78);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+    padding:24px;
+    backdrop-filter:blur(14px);
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
+}
+
+.route-header{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    margin-bottom:22px;
+}
+
+.route-header span{
+    color:#8FA3B5;
+    font-size:.85rem;
+}
+
+.route-header strong{
+    color:white;
+    font-size:1.2rem;
+    font-family:"Space Grotesk",sans-serif;
+}
+
+.route-map{
+    position:relative;
+    height:130px;
+}
+
+.route-line{
+    position:absolute;
+    left:40px;
+    right:40px;
+    top:50%;
+    border-top:2px dashed rgba(79,175,45,.8);
+}
+
+.box{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:52px;
+    height:52px;
+    border-radius:16px;
+    display:grid;
+    place-items:center;
+    background:#4FAF2D;
+    font-size:1.5rem;
+    box-shadow:0 10px 30px rgba(79,175,45,.35);
+}
+
+.point{
+    position:absolute;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    color:white;
+    font-size:.8rem;
+}
+
+.miami{left:0;top:50%;transform:translateY(-50%);}
+.colombia{right:0;top:50%;transform:translateY(-50%);}
+
+.dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#4FAF2D;
+    box-shadow:0 0 15px rgba(79,175,45,.6);
+}
+
+.route-info{
+    display:flex;
+    justify-content:space-between;
+    margin-top:18px;
+    padding-top:18px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.route-info small{
+    display:block;
+    color:#8FA3B5;
+    margin-bottom:4px;
+}
+
+.route-info strong{
+    color:white;
+}
+
+.hero-metrics{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-top:48px;
+}
+
+.hero-metrics div{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:18px;
+    text-align:center;
+}
+
+.hero-metrics strong{
+    display:block;
+    color:white;
+    font-size:1.3rem;
+    font-family:"Space Grotesk",sans-serif;
+}
+
+.hero-metrics span{
+    color:#9FB2C2;
+    font-size:.82rem;
+}
+    <div class="hero-grid">
+
+        <!-- COLUMNA IZQUIERDA -->
 
         <div class="hero-text">
 
-
             <div class="hero-badge">
-
                 🇺🇸 Casillero virtual en Miami
-
             </div>
 
-
             <h1>
-
                 Compra en USA.
-
-                <span>
-                    Recibe en Colombia.
-                </span>
-
+                <span>Recibe en Colombia.</span>
             </h1>
 
-
             <p>
-
-                Compra en tus tiendas favoritas de Estados Unidos,
-                recibe tus productos en nuestro centro de distribución
-                y nosotros nos encargamos del resto.
-
+                Tu casillero inteligente para comprar en Estados Unidos.
+                Consolidamos, transportamos y entregamos tus compras en Colombia
+                con total trazabilidad.
             </p>
-
 
             <div class="hero-buttons">
 
-
-                <!-- BOTÓN PRINCIPAL -->
-
-                <a
-                    href="{{ url_for('login_register') }}"
-                    class="btn-primary btn-casillero">
-
+                <a href="{{ url_for('login_register') }}"
+                   class="btn-primary btn-casillero">
                     🚀 Abrir mi Casillero
-
                 </a>
-
-
-                <!-- BOTONES SECUNDARIOS -->
 
                 <div class="hero-secondary-buttons">
 
-
-                    <a
-                        href="{{ url_for('rastrea_tu_orden') }}"
-                        class="btn-secondary">
-
-                        📦 Rastrear Paquete
-
+                    <a href="{{ url_for('rastrea_tu_orden') }}"
+                       class="btn-secondary">
+                        📦 Rastrear
                     </a>
 
-
-                    <a
-                        href="{{ url_for('calculadora') }}"
-                        class="btn-secondary">
-
-                        🧮 Calcular Envío
-
+                    <a href="{{ url_for('calculadora') }}"
+                       class="btn-secondary">
+                        🧮 Calcular
                     </a>
-
 
                 </div>
 
+            </div>
+
+        </div>
+
+        <!-- COLUMNA DERECHA -->
+
+        <div class="route-card">
+
+            <div class="route-header">
+                <span>Ruta principal</span>
+                <strong>Miami → Medellín</strong>
+            </div>
+
+            <div class="route-map">
+
+                <div class="point miami">
+                    <span class="dot"></span>
+                    <label>Miami</label>
+                </div>
+
+                <div class="route-line"></div>
+
+                <div class="box">📦</div>
+
+                <div class="point colombia">
+                    <span class="dot"></span>
+                    <label>Colombia</label>
+                </div>
 
             </div>
 
+            <div class="route-info">
+
+                <div>
+                    <small>Entrega estimada</small>
+                    <strong>5–8 días</strong>
+                </div>
+
+                <div>
+                    <small>Estado</small>
+                    <strong>En tránsito</strong>
+                </div>
+
+            </div>
 
         </div>
 
     </div>
+
+    <!-- MÉTRICAS -->
+
+    <div class="hero-metrics">
+
+        <div>
+            <strong>+12.000</strong>
+            <span>Paquetes</span>
+        </div>
+
+        <div>
+            <strong>98%</strong>
+            <span>Satisfacción</span>
+        </div>
+
+        <div>
+            <strong>Miami</strong>
+            <span>Centro logístico</span>
+        </div>
+
+        <div>
+            <strong>100%</strong>
+            <span>Trazabilidad</span>
+        </div>
+
+    </div>
+
+</div>
 
 </section>
 
