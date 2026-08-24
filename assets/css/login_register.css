@@ -9,16 +9,34 @@ html, body{
     padding: 0;
     color: black;
 }
-body {
-    background: linear-gradient(to bottom, #50C878, #ffffff);
+body{
+    margin:0;
+    min-height:100vh;
+
+    font-family:"Inter",sans-serif;
+    color:#fff;
+
+    background:
+        linear-gradient(
+            105deg,
+            rgba(4,10,18,.94) 0%,
+            rgba(8,22,36,.82) 55%,
+            rgba(8,22,36,.55) 100%
+        ),
+        url("/assets/img/representacion-de-la-cadena-de-suministro-de-vehiculos-en-portatiles.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
 }
-
 /* Header */
-header {
-    color: #50C878;
+header{
+    background: rgba(7,19,26,.72);
 
-    background-color: #707070	;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
     position: sticky;
     top: 0;
     z-index: 100;
