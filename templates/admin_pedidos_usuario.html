@@ -79,7 +79,10 @@
 
 <!-- Formulario para agregar nuevo paquete -->
 <div class="auth-container">
-    <form class="form-container" action="{{ url_for('crear_paquete', user_id=usuario.id) }}" method="POST">
+    <form class="form-container"
+      action="{{ url_for('crear_paquete', user_id=usuario.id) }}"
+      method="POST"
+      enctype="multipart/form-data">
         <h2>Agregar Nueva Guía o Paquete</h2>
         <input class="form-input" type="date" name="fecha_recibido" placeholder="Fecha de recibido">
         <input class="form-input" type="text" name="nombre" placeholder="Nombre" required><br>
@@ -93,8 +96,51 @@
               <option value="{{ estado.name }}">{{ estado.value }}</option>
             {% endfor %}
           </select>
+      
+      <label>Fotografías del paquete</label>
+      
+      <input
+          type="file"
+          id="imagenes"
+          name="imagenes"
+          accept="image/*"
+          multiple>
+
+<div id="preview" class="preview-grid"></div>
         <button class="btn-add-productos" type="submit">Guardar producto</button>
     </form>
 </div>
+<script>
+const input = document.getElementById("imagenes");
+const preview = document.getElementById("preview");
+
+if (input) {
+
+    input.addEventListener("change", () => {
+
+        preview.innerHTML = "";
+
+        [...input.files].forEach((archivo) => {
+
+            const lector = new FileReader();
+
+            lector.onload = (e) => {
+
+                const img = document.createElement("img");
+
+                img.src = e.target.result;
+
+                preview.appendChild(img);
+
+            };
+
+            lector.readAsDataURL(archivo);
+
+        });
+
+    });
+
+}
+</script>
 
 {% endblock %}
