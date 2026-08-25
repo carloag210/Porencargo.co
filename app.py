@@ -294,7 +294,8 @@ def crear_paquete(user_id):
         estado_str = request.form['estado']
         id_user = request.form['id_user']
         fecha_recibido = request.form.get('fecha_recibido') 
-
+        imagenes = request.files.getlist("imagenes")
+        
         estado = EstadoPaquete[estado_str]
 
         nuevo_paquete = Paquete(
@@ -309,6 +310,11 @@ def crear_paquete(user_id):
 
         db.session.add(nuevo_paquete)
         db.session.commit()
+       
+      # Aquí guardaremos las fotografías
+    for imagen in imagenes:
+    if imagen.filename != "":
+        pass
         flash("Paquete creado correctamente", "success")
         return redirect(request.referrer)
 
