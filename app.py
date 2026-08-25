@@ -286,16 +286,19 @@ def admin_ver_direcciones_usuario(user_id):
 @app.route('/admin/crear_paquete/<int:user_id>', methods=['GET', 'POST'])
 @admin_required
 def crear_paquete(user_id):
+
     if request.method == 'POST':
+
         nombre = request.form['nombre']
         precio = request.form['precio']
         numero_guia = request.form['numero_guia']
         peso = request.form['peso']
         estado_str = request.form['estado']
         id_user = request.form['id_user']
-        fecha_recibido = request.form.get('fecha_recibido') 
+        fecha_recibido = request.form.get('fecha_recibido')
+
         imagenes = request.files.getlist("imagenes")
-        
+
         estado = EstadoPaquete[estado_str]
 
         nuevo_paquete = Paquete(
@@ -312,25 +315,25 @@ def crear_paquete(user_id):
         db.session.commit()
 
         # Guardar fotografías en Cloudinary
-for i, imagen in enumerate(imagenes):
+        for i, imagen in enumerate(imagenes):
 
-    if imagen.filename == "":
-        continue
+            if imagen.filename == "":
+                continue
 
-    subida = cloudinary.uploader.upload(
-        imagen,
-        folder="porencargo/paquetes"
-    )
+            subida = cloudinary.uploader.upload(
+                imagen,
+                folder="porencargo/paquetes"
+            )
 
-    foto = FotoPaquete(
-        paquete_id=nuevo_paquete.id,
-        url=subida["secure_url"],
-        principal=(i == 0)   # La primera foto será la principal
-    )
+            foto = FotoPaquete(
+                paquete_id=nuevo_paquete.id,
+                url=subida["secure_url"],
+                principal=(i == 0)
+            )
 
-    db.session.add(foto)
+            db.session.add(foto)
 
-db.session.commit()
+        db.session.commit()
 
         flash("Paquete creado correctamente", "success")
         return redirect(request.referrer)
@@ -342,7 +345,7 @@ db.session.commit()
         "admin_pedidos_usuario.html",
         usuario=usuario,
         estados_posibles=estados_posibles
-    )    
+    )
     return render_template('admin_pedidos_usuario.html', usuario=usuario, estados_posibles=estados_posibles)
 
 @app.route('/admin/actualizar_estado', methods=['POST'])
