@@ -310,17 +310,23 @@ def crear_paquete(user_id):
 
         db.session.add(nuevo_paquete)
         db.session.commit()
-       
-      # Guardar fotografías
-for imagen in imagenes:
-    if imagen.filename != "":
-        pass
 
-flash("Paquete creado correctamente", "success")
-return redirect(request.referrer)
+        # Guardar fotografías (Cloudinary va aquí después)
+        for imagen in imagenes:
+            if imagen.filename != "":
+                pass
+
+        flash("Paquete creado correctamente", "success")
+        return redirect(request.referrer)
 
     usuario = User.query.get_or_404(user_id)
     estados_posibles = list(EstadoPaquete)
+
+    return render_template(
+        "admin_pedidos_usuario.html",
+        usuario=usuario,
+        estados_posibles=estados_posibles
+    )    
     return render_template('admin_pedidos_usuario.html', usuario=usuario, estados_posibles=estados_posibles)
 
 @app.route('/admin/actualizar_estado', methods=['POST'])
