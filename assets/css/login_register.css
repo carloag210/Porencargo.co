@@ -80,20 +80,16 @@ nav {
 }
 /* contacto desplegable */
 /* Botón principal */
-.contacto-btn {
-    /* background-color: #ffe600;	; */
-    background-color: #707070	;
-    color: black;
-    font-weight: 500;
-    font-size: 16px;
-    border: none;
-    transition: color 0.3s;
-
+.contacto-btn{
+    background:#4FAF2D;
+    color:#fff !important;
+    border-radius:10px;
+    padding:10px 16px;
 }
+
 .contacto-btn:hover{
-    color: #fff;
-
-
+    background:#63C93D;
+    color:#fff;
 }
 
 .contacto-opciones {
@@ -298,22 +294,15 @@ nav {
         background: none;
         border: none;
         font-size: 24px;
-        color: black;
+        color:#F8FAFC;
         cursor: pointer;
         order: 2;
     }
     
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background-color: #707070;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        padding: 15px 0;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    }
+    .nav-links{
+    background:rgba(7,19,26,.96);
+    backdrop-filter:blur(18px);
+}
     
     .nav-links.active {
         display: flex;
