@@ -311,12 +311,13 @@ def crear_paquete(user_id):
         db.session.add(nuevo_paquete)
         db.session.commit()
        
-      # Aquí guardaremos las fotografías
-    for imagen in imagenes:
+      # Guardar fotografías
+for imagen in imagenes:
     if imagen.filename != "":
         pass
-        flash("Paquete creado correctamente", "success")
-        return redirect(request.referrer)
+
+flash("Paquete creado correctamente", "success")
+return redirect(request.referrer)
 
     usuario = User.query.get_or_404(user_id)
     estados_posibles = list(EstadoPaquete)
