@@ -96,19 +96,22 @@
               <option value="{{ estado.name }}">{{ estado.value }}</option>
             {% endfor %}
           </select>
-      
-      <label>Fotografías del paquete</label>
-      
-      <input
-          type="file"
-          id="imagenes"
-          name="imagenes"
-          accept="image/*"
-          multiple>
+      <div class="grupo-fotos">
 
-<div id="preview" class="preview-grid"></div>
-        <button class="btn-add-productos" type="submit">Guardar producto</button>
-    </form>
+    <label>Fotografías del paquete</label>
+
+    <label for="imagenes" class="file-upload">
+        📷 Haz clic aquí o arrastra fotografías
+        <input
+            type="file"
+            id="imagenes"
+            name="imagenes"
+            accept="image/*"
+            multiple>
+    </label>
+
+    <div id="preview" class="preview-grid"></div>
+
 </div>
 <script>
 const input = document.getElementById("imagenes");
