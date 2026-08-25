@@ -2,7 +2,7 @@ import cloudinary
 import cloudinary.uploader
 from flask import flash, Flask, request, render_template, redirect, url_for, session, jsonify
 from extencions import db, init_extencions, login_manager
-from models import User, Paquete, EstadoPaquete, Direccion, Producto
+from models import User, Paquete, EstadoPaquete, FotoPaquete, Direccion, Producto
 from config import Config
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -311,10 +311,26 @@ def crear_paquete(user_id):
         db.session.add(nuevo_paquete)
         db.session.commit()
 
-        # Guardar fotografías (Cloudinary va aquí después)
-        for imagen in imagenes:
-            if imagen.filename != "":
-                pass
+        # Guardar fotografías en Cloudinary
+for i, imagen in enumerate(imagenes):
+
+    if imagen.filename == "":
+        continue
+
+    subida = cloudinary.uploader.upload(
+        imagen,
+        folder="porencargo/paquetes"
+    )
+
+    foto = FotoPaquete(
+        paquete_id=nuevo_paquete.id,
+        url=subida["secure_url"],
+        principal=(i == 0)   # La primera foto será la principal
+    )
+
+    db.session.add(foto)
+
+db.session.commit()
 
         flash("Paquete creado correctamente", "success")
         return redirect(request.referrer)
