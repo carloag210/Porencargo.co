@@ -602,6 +602,19 @@ def editar_usuario():
 
     return render_template('editar_usuario.html', user=current_user)
 
+@app.route("/mi_bodega")
+@login_required
+def mi_bodega():
+
+    paquetes = Paquete.query.filter_by(
+        id_user=current_user.id
+    ).all()
+
+    return render_template(
+        "mi_bodega.html",
+        paquetes=paquetes
+    )
+
 @app.route("/rastrear", methods=["GET", "POST"])
 def rastrear_pedido():
     paquete = None 
