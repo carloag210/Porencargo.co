@@ -1,1 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Mi Bodega | PorEncargo.co{% endblock %}
 
+{% block content %}
+
+<section class="bodega">
+
+    <div class="hero-bodega">
+        <div>
+            <span class="estado">● Casillero activo</span>
+            <h1>Hola, {{ current_user.user_first_name }}</h1>
+            <p>Bienvenido a tu bodega en Miami.</p>
+        </div>
+
+        <div class="casillero">
+            <small>Tu casillero</small>
+            <h2>PC-{{ current_user.id }}</h2>
+        </div>
+    </div>
+
+    <div class="cards">
+
+        {% for paquete in paquetes %}
+
+        <article class="paquete-card">
+
+            <div class="card-header">
+                <h3>{{ paquete.nombre }}</h3>
+                <span class="badge">{{ paquete.estado.value }}</span>
+            </div>
+
+            <div class="info">
+
+                <div class="foto">
+                    <img src="/assets/img/package_placeholder.jpg" alt="">
+                </div>
+
+                <div class="datos">
+                    <p><strong>Guía:</strong> {{ paquete.numero_guia }}</p>
+                    <p><strong>Peso:</strong> {{ paquete.peso }} kg</p>
+                    <p><strong>Valor:</strong> USD {{ paquete.precio }}</p>
+                </div>
+
+            </div>
+
+            <div class="progress">
+                <div class="barra">
+                    <div class="relleno" style="width:45%"></div>
+                </div>
+            </div>
+
+            <button>Ver detalles</button>
+
+        </article>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
