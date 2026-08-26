@@ -162,7 +162,7 @@ def ver_como_cliente(user_id):
     session["admin_original"] = current_user.id
 
     # Iniciar sesión como el cliente
-    login_user(usuario)
+    login_user(usuario, remember=False, force=True)
 
     flash(f"Ahora estás viendo la cuenta de {usuario.user_first_name}", "info")
 
