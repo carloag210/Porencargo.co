@@ -22,9 +22,15 @@
         <div class="tienda">
 
             <div class="logo-tienda">
-                📦
-            </div>
 
+    {% if paquete.fotos and paquete.fotos|length > 0 %}
+        <img src="{{ paquete.fotos[0].url }}"
+             alt="{{ paquete.nombre }}">
+    {% else %}
+        📦
+    {% endif %}
+
+</div>
             <div>
                 <h3>{{ paquete.nombre }}</h3>
                 <span>Guía {{ paquete.numero_guia }}</span>
