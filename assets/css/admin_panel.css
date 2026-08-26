@@ -516,3 +516,9 @@ form .btn-del-producto:hover{
     transform:translateY(-2px);
     box-shadow:0 10px 22px rgba(79,175,45,.28);
 }
+.grid-datos label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#334155;
+}
