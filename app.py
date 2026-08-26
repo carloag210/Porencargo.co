@@ -167,6 +167,22 @@ def ver_como_cliente(user_id):
     flash(f"Ahora estás viendo la cuenta de {usuario.user_first_name}", "info")
 
     return redirect(url_for("pedidos_del_usuario"))
+    
+@app.route('/admin/volver')
+def volver_admin():
+
+    if "admin_original" not in session:
+        return redirect(url_for("index"))
+
+    admin = User.query.get(session["admin_original"])
+
+    login_user(admin)
+
+    session.pop("admin_original")
+
+    flash("Has regresado al panel de administrador.", "success")
+
+    return redirect(url_for("admin_panel"))
 
 @app.route('/admin_panel_ver_usuarios')
 @admin_required
