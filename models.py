@@ -33,16 +33,14 @@ class Paquete(db.Model):
 
     def __repr__(self):
         return f"<Paquete(nombre='{self.nombre}', estado='{self.estado.name}', usuario_id={self.id_user})>"
-        
         class FotoPaquete(db.Model):
-    __tablename__ = "foto_paquetes"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-
-    paquete_id = Column(
-        Integer,
-        ForeignKey("paquetes.id"),
-        nullable=False
+            __tablename__ = "foto_paquetes"
+            
+            id = Column(Integer, primary_key=True, autoincrement=True)
+            paquete_id = Column(
+              Integer,
+              ForeignKey("paquetes.id"),
+              nullable=False
     )
 
     url = Column(Text, nullable=False)
