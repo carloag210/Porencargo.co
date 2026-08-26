@@ -39,6 +39,29 @@ body{
     right:20px;
     z-index:999;
 }
+.modo-admin{
+    background:#6D28D9;
+    color:#fff;
+    padding:12px 20px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    font-weight:600;
+}
+
+.modo-admin a{
+    color:white;
+    text-decoration:none;
+    background:rgba(255,255,255,.18);
+    padding:8px 14px;
+    border-radius:8px;
+}
+
+.modo-admin a:hover{
+    background:rgba(255,255,255,.28);
+}
 
 .flash{
     padding:14px 18px;
