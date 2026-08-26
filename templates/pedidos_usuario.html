@@ -138,7 +138,6 @@
 
     <div class="titulo-fotos">
         <span>📸 Fotos del paquete</span>
-        <span>{{ paquete.fotos|length }} foto(s)</span>
     </div>
 
     <div class="galeria">
@@ -167,33 +166,6 @@
         </label>
 
     </form>
-
-</div>
-
-</div>
-</div>
-{% endif %}
-
-    <div class="consolidacion">
-
-        <form class="form-consolidar" method="POST" action="{{ url_for('marcar_consolidar') }}">
-
-            <input type="hidden" name="paquete_id" value="{{ paquete.id }}">
-
-            <label class="check">
-
-                <input type="checkbox"
-                       name="consolidar"
-                       value="true"
-                       {% if paquete.consolidar %}checked{% endif %}>
-
-                Consolidar este paquete
-
-            </label>
-
-        </form>
-
-    </div>
 
 </div>
 
