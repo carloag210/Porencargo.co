@@ -310,11 +310,12 @@ def crear_paquete(user_id):
             id_user=id_user,
             fecha_recibido=fecha_recibido
         )
-
         db.session.add(nuevo_paquete)
         db.session.commit()
 
-        # Guardar fotografías en Cloudinary
+        # Subir fotografías a Cloudinary
+        imagenes = request.files.getlist("imagenes")
+
         for i, imagen in enumerate(imagenes):
 
             if imagen.filename == "":
