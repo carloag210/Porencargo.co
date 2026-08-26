@@ -349,7 +349,7 @@ def crear_paquete(user_id):
     )
     return render_template('admin_pedidos_usuario.html', usuario=usuario, estados_posibles=estados_posibles)
     
-    @app.route('/admin/subir_fotos/<int:paquete_id>', methods=['POST'])
+@app.route('/admin/subir_fotos/<int:paquete_id>', methods=['POST'])
 @admin_required
 def subir_fotos_paquete(paquete_id):
 
