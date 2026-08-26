@@ -1,5 +1,5 @@
 from extencions import db
-from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey, Enum, Date
+from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey, Enum, Date, Text
 # la clomuna de arriba solo hace que s epueda tranajar con clomun, etc sin mensionar db. al principio
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
@@ -33,6 +33,26 @@ class Paquete(db.Model):
 
     def __repr__(self):
         return f"<Paquete(nombre='{self.nombre}', estado='{self.estado.name}', usuario_id={self.id_user})>"
+        
+        class FotoPaquete(db.Model):
+    __tablename__ = "foto_paquetes"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+
+    paquete_id = Column(
+        Integer,
+        ForeignKey("paquetes.id"),
+        nullable=False
+    )
+
+    url = Column(Text, nullable=False)
+
+    principal = Column(Boolean, default=False)
+
+    paquete = relationship("Paquete", backref="fotos")
+
+    def __repr__(self):
+        return f"<FotoPaquete(paquete_id={self.paquete_id})>"
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
