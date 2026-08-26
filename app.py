@@ -176,20 +176,16 @@ def volver_admin():
     if admin_id is None:
         return redirect(url_for("index"))
 
-    # Recuperar el administrador ANTES de cerrar la sesión
     admin = User.query.get_or_404(admin_id)
 
     logout_user()
-
-    # Limpiar el modo "ver como"
     session.pop("admin_original", None)
 
-    # Entrar nuevamente como administrador
     login_user(admin, remember=False, force=True)
 
     flash("Has regresado al panel de administrador.", "success")
 
-    return redirect(url_for("admin_panel"))
+    return redirect(url_for("admin_panel_ver_usuarios"))
 
 @app.route('/admin_panel_ver_usuarios')
 @admin_required
