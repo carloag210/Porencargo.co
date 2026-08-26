@@ -78,48 +78,74 @@
 {% endif %}
 
 <!-- Formulario para agregar nuevo paquete -->
-<div class="auth-container">
-    <form class="form-container"
-      action="{{ url_for('crear_paquete', user_id=usuario.id) }}"
-      method="POST"
-      enctype="multipart/form-data">
+<div class="nuevo-paquete-card">
+
+    <form class="form-grid"
+          action="{{ url_for('crear_paquete', user_id=usuario.id) }}"
+          method="POST"
+          enctype="multipart/form-data">
+<!-- Formulario para agregar nuevo paquete -->
+<div class="nuevo-paquete-card">
+
+    <form class="form-grid"
+          action="{{ url_for('crear_paquete', user_id=usuario.id) }}"
+          method="POST"
+          enctype="multipart/form-data">
+
         <h2>Agregar Nueva Guía o Paquete</h2>
-        <input class="form-input" type="date" name="fecha_recibido" placeholder="Fecha de recibido">
-        <input class="form-input" type="text" name="nombre" placeholder="Nombre" required><br>
-        <input class="form-input" type="text" name="numero_guia" placeholder="Número de guía" required><br>
-        <input class="form-input" type="text" name="precio" placeholder="Precio" required><br>
-        <input class="form-input" type="text" name="peso" placeholder="Peso en kg o gramos" required><br>
-        <input type="hidden" name="id_user" value="{{ usuario.id }}">
-        <label>Categoría:</label>
-          <select class="form-input" name="estado">
-            {% for estado in estados_posibles %}
-              <option value="{{ estado.name }}">{{ estado.value }}</option>
-            {% endfor %}
-          </select>
-      <div class="grupo-fotos">
 
-    <label class="titulo-fotos">Fotografías del paquete</label>
+        <div class="grid-datos">
 
-    <label for="imagenes" class="file-upload">
-        📷 Haz clic aquí o arrastra fotografías
-        <input
-            type="file"
-            id="imagenes"
-            name="imagenes"
-            accept="image/*"
-            multiple>
-    </label>
+            <input class="form-input" type="date" name="fecha_recibido" placeholder="Fecha de recibido">
 
-    <div id="preview" class="preview-grid"></div>
+            <input class="form-input" type="text" name="nombre" placeholder="Nombre" required>
+
+            <input class="form-input" type="text" name="numero_guia" placeholder="Número de guía" required>
+
+            <input class="form-input" type="text" name="precio" placeholder="Precio" required>
+
+            <input class="form-input" type="text" name="peso" placeholder="Peso en kg o gramos" required>
+
+            <input type="hidden" name="id_user" value="{{ usuario.id }}">
+
+            <div>
+                <label>Categoría</label>
+                <select class="form-input" name="estado">
+                    {% for estado in estados_posibles %}
+                        <option value="{{ estado.name }}">{{ estado.value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <div class="grupo-fotos">
+
+            <label class="titulo-fotos">Fotografías del paquete</label>
+
+            <label for="imagenes" class="file-upload">
+                📷 Haz clic aquí o arrastra fotografías
+
+                <input
+                    type="file"
+                    id="imagenes"
+                    name="imagenes"
+                    accept="image/*"
+                    multiple>
+            </label>
+
+            <div id="preview" class="preview-grid"></div>
+
+        </div>
+
+        <button class="btn-add-productos" type="submit">
+            Guardar producto
+        </button>
+
+    </form>
 
 </div>
 
-<button class="btn-add-productos" type="submit">
-    Guardar producto
-      </button>
-      
-</form>
-  
 <script>
 const input = document.getElementById("imagenes");
 const preview = document.getElementById("preview");
