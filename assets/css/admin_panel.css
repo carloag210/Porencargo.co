@@ -466,3 +466,22 @@ form .btn-del-producto:hover{
     color:#64748B;
     font-weight:500;
 }
+
+.nuevo-paquete-card{
+    background:#fff;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.grid-datos{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+@media(max-width:768px){
+    .grid-datos{
+        grid-template-columns:1fr;
+    }
+}
