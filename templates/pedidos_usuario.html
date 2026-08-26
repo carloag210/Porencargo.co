@@ -105,48 +105,72 @@
 
     <div class="timeline">
 
-        <div class="step activo">
-            <div class="dot"></div>
-            <span>Miami</span>
-        </div>
-
-        <div class="line"></div>
-
-        <div class="step {% if paquete.estado.value in ['En aeropuerto','En Colombia','Entregado'] %}activo{% endif %}">
-            <div class="dot"></div>
-            <span>Vuelo</span>
-        </div>
-
-        <div class="line"></div>
-
-        <div class="step {% if paquete.estado.value in ['En Colombia','Entregado'] %}activo{% endif %}">
-            <div class="dot"></div>
-            <span>Colombia</span>
-        </div>
-
-        <div class="line"></div>
-
-        <div class="step {% if paquete.estado.value == 'Entregado' %}activo{% endif %}">
-            <div class="dot"></div>
-            <span>Entrega</span>
-        </div>
-
+    <div class="step activo">
+        <div class="dot"></div>
+        <span>Miami</span>
     </div>
+
+    <div class="line"></div>
+
+    <div class="step {% if paquete.estado.value in ['En aeropuerto','En Colombia','Entregado'] %}activo{% endif %}">
+        <div class="dot"></div>
+        <span>Vuelo</span>
     </div>
+
+    <div class="line"></div>
+
+    <div class="step {% if paquete.estado.value in ['En Colombia','Entregado'] %}activo{% endif %}">
+        <div class="dot"></div>
+        <span>Colombia</span>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step {% if paquete.estado.value == 'Entregado' %}activo{% endif %}">
+        <div class="dot"></div>
+        <span>Entrega</span>
+    </div>
+
+</div>
 
 {% if paquete.fotos and paquete.fotos|length > 0 %}
 <div class="fotos-paquete">
 
     <div class="titulo-fotos">
         <span>📸 Fotos del paquete</span>
+        <span>{{ paquete.fotos|length }} foto(s)</span>
     </div>
 
     <div class="galeria">
-    {% for foto in paquete.fotos %}
+        {% for foto in paquete.fotos %}
         <img src="{{ foto.url }}"
              alt="Foto del paquete"
              onclick="abrirLightbox('{{ foto.url }}')">
-    {% endfor %}
+        {% endfor %}
+    </div>
+
+</div>
+{% endif %}
+
+<div class="consolidacion">
+
+    <form class="form-consolidar" method="POST" action="{{ url_for('marcar_consolidar') }}">
+
+        <input type="hidden" name="paquete_id" value="{{ paquete.id }}">
+
+        <label class="check">
+            <input type="checkbox"
+                   name="consolidar"
+                   value="true"
+                   {% if paquete.consolidar %}checked{% endif %}>
+            Consolidar este paquete
+        </label>
+
+    </form>
+
+</div>
+
+</div>
 </div>
 {% endif %}
 
