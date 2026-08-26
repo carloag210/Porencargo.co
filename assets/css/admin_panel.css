@@ -448,23 +448,31 @@ form .btn-del-producto:hover{
 
 .file-upload{
     width:100%;
-    min-height:90px;
+    min-height:95px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    border:2px dashed #cbd5e1;
-    border-radius:14px;
-    background:#f8fafc;
+    border:2px dashed #CBD5E1;
+    border-radius:16px;
+    background:#F8FAFC;
 
     cursor:pointer;
     transition:.25s;
 
-    padding:18px;
-    text-align:center;
     color:#64748B;
-    font-weight:500;
+    font-weight:600;
+    font-size:17px;
+}
+
+.file-upload:hover{
+    border-color:#4FAF2D;
+    background:#F0FDF4;
+}
+
+.file-upload input{
+    display:none !important;
 }
 
 .nuevo-paquete-card{
@@ -484,4 +492,27 @@ form .btn-del-producto:hover{
     .grid-datos{
         grid-template-columns:1fr;
     }
+}
+.btn-add-productos{
+    width:100%;
+    margin-top:18px;
+
+    padding:15px 22px;
+
+    border:none;
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#4FAF2D,#63C93D);
+
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+
+    cursor:pointer;
+    transition:.25s;
+}
+
+.btn-add-productos:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(79,175,45,.28);
 }
