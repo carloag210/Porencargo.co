@@ -142,13 +142,12 @@
     </div>
 
     <div class="galeria">
-        {% for foto in paquete.fotos %}
-            <img src="{{ foto.url }}"
-                 alt="Foto del paquete"
-                 onclick="abrirLightbox('{{ foto.url }}')">
-        {% endfor %}
-    </div>
-
+    {% for foto in paquete.fotos %}
+        <img src="{{ foto.url }}"
+             alt="Foto del paquete"
+             onclick="abrirLightbox('{{ foto.url }}')">
+    {% endfor %}
+</div>
 </div>
 {% endif %}
 
@@ -209,5 +208,21 @@ document.querySelectorAll(".form-consolidar input[type='checkbox']").forEach(che
     });
 });
 </script>
+<div id="lightbox" class="lightbox" onclick="cerrarLightbox()">
+    <span class="cerrar">✕</span>
+    <img id="imagenGrande" src="" alt="Foto ampliada">
+</div>
+
+<script>
+function abrirLightbox(url){
+    document.getElementById("imagenGrande").src = url;
+    document.getElementById("lightbox").classList.add("activo");
+}
+
+function cerrarLightbox(){
+    document.getElementById("lightbox").classList.remove("activo");
+}
+</script>
 
 {% endblock %}
+
