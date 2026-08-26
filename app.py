@@ -348,6 +348,35 @@ def crear_paquete(user_id):
         estados_posibles=estados_posibles
     )
     return render_template('admin_pedidos_usuario.html', usuario=usuario, estados_posibles=estados_posibles)
+    
+    @app.route('/admin/subir_fotos/<int:paquete_id>', methods=['POST'])
+    @admin_required
+    def subir_fotos_paquete(paquete_id):
+
+    paquete = Paquete.query.get_or_404(paquete_id)
+    imagenes = request.files.getlist("imagenes")
+
+    for imagen in imagenes:
+        if imagen.filename == "":
+            continue
+
+        subida = cloudinary.uploader.upload(
+            imagen,
+            folder="porencargo/paquetes"
+        )
+
+        foto = FotoPaquete(
+            paquete_id=paquete.id,
+            url=subida["secure_url"],
+            principal=False
+        )
+
+        db.session.add(foto)
+
+    db.session.commit()
+
+    flash("Fotografías agregadas correctamente", "success")
+    return redirect(request.referrer)
 
 @app.route('/admin/actualizar_estado', methods=['POST'])
 def actualizar_estado():
