@@ -70,19 +70,23 @@
     📸 Fotos
 </button>
 
-<div id="fotos-{{ p.id }}" class="panel-fotos">
+<form id="fotos-{{ p.id }}"
+      class="panel-fotos"
+      method="POST"
+      action="{{ url_for('subir_fotos_paquete', paquete_id=p.id) }}"
+      enctype="multipart/form-data">
 
     <input type="file"
-           id="input-{{ p.id }}"
+           name="imagenes"
            multiple
-           accept="image/*">
+           accept="image/*"
+           required>
 
-    <button type="button" class="btn-subir">
-        Subir fotografías
+    <button type="submit" class="btn-subir">
+        📸 Subir fotografías
     </button>
 
-</div>
-        </form>
+</form>
 
         <form action="{{ url_for('eliminar_paquete', id=p.id) }}" method="POST">
           <button style="position: absolute; top: 75px; right: 35px; width: 90px; background-color: rgb(218, 69, 69);" class="btn-add-productos">Eliminar</button>
