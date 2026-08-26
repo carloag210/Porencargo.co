@@ -152,6 +152,22 @@ def producto_detalle(id):
 def admin_panel_add_productos():
     return render_template("admin_panel_add_productos.html")
 
+@app.route('/admin/ver-como/<int:user_id>')
+@admin_required
+def ver_como_cliente(user_id):
+
+    usuario = User.query.get_or_404(user_id)
+
+    # Guardar quién era el administrador
+    session["admin_original"] = current_user.id
+
+    # Iniciar sesión como el cliente
+    login_user(usuario)
+
+    flash(f"Ahora estás viendo la cuenta de {usuario.user_first_name}", "info")
+
+    return redirect(url_for("pedidos_del_usuario"))
+
 @app.route('/admin_panel_ver_usuarios')
 @admin_required
 def admin_panel_ver_usuarios():
