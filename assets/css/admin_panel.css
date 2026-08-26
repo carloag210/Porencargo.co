@@ -563,3 +563,44 @@ form .btn-del-producto:hover{
     font-weight:700;
     cursor:pointer;
 }
+/* ===== Panel de fotografías ===== */
+
+.btn-fotos{
+    background:#2563EB;
+    color:#fff;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    font-weight:600;
+    cursor:pointer;
+    margin-left:8px;
+}
+
+.btn-fotos:hover{
+    background:#1D4ED8;
+}
+
+.panel-fotos{
+    display:none;
+    margin-top:15px;
+    padding:16px;
+    background:#F8FAFC;
+    border:1px dashed #CBD5E1;
+    border-radius:12px;
+}
+
+.panel-fotos.activo{
+    display:block;
+}
+
+.btn-subir{
+    margin-top:12px;
+    width:100%;
+    background:#4FAF2D;
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
