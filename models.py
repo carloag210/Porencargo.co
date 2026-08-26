@@ -23,18 +23,17 @@ class Paquete(db.Model):
     nombre = Column(String(100), nullable=False)
     precio = Column(String(50), nullable=False)
     numero_guia = Column(String(100), unique=True, nullable=False)
-    peso = Column(String(50), unique=False, nullable=False)
-    estado = Column(Enum(EstadoPaquete), default=EstadoPaquete.DESPACHADO_A_COLOMBIA, nullable=False)
+    peso = Column(String(50), nullable=False)
+    estado = Column(Enum(EstadoPaquete),
+                    default=EstadoPaquete.DESPACHADO_A_COLOMBIA,
+                    nullable=False)
     prealerta = Column(Boolean, default=False, nullable=False)
-
     fecha_recibido = Column(Date, nullable=True)
 
     usuario = relationship('User', back_populates='paquetes')
 
-        def __repr__(self):
+    def __repr__(self):
         return f"<Paquete(nombre='{self.nombre}', estado='{self.estado.name}', usuario_id={self.id_user})>"
-
-
 class FotoPaquete(db.Model):
     __tablename__ = "foto_paquetes"
 
