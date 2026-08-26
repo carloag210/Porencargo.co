@@ -12,11 +12,18 @@
         <p>Correo: {{ u.email }}</p>
       </div>
       <div class="usuario-actions">
-        <a href="{{ url_for('admin_ver_direcciones_usuario', user_id=u.id) }}"  class="btn-accion" >Direcciones </a>
-        <a href="{{ url_for('admin_editar_usuario', id=u.id) }}" class="btn-accion">Editar</a>
-        <a href="{{ url_for('admin_ver_pedidos_usuario', user_id=u.id) }}" class="btn-accion">Ver</a>
-        <a href="{{ url_for('admin_eliminar_usuario', id=u.id)}}" class="btn-accion-eli">Eliminar</a>
-      </div>
+    <a href="{{ url_for('admin_ver_direcciones_usuario', user_id=u.id) }}" class="btn-accion">Direcciones</a>
+
+    <a href="{{ url_for('admin_editar_usuario', id=u.id) }}" class="btn-accion">Editar</a>
+
+    <a href="{{ url_for('admin_ver_pedidos_usuario', user_id=u.id) }}" class="btn-accion">Ver</a>
+
+    <a href="{{ url_for('ver_como_cliente', user_id=u.id) }}" class="btn-ver-como">
+        👁 Ver como
+    </a>
+
+    <a href="{{ url_for('admin_eliminar_usuario', id=u.id) }}" class="btn-accion-eli">Eliminar</a>
+</div>
     </li>
     {% endif %}
   {% endfor %}
