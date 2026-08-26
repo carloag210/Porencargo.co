@@ -7,6 +7,27 @@
     <link rel="stylesheet" href="/assets/css/mis_pedidos.css">
 </head>
 <body>
+<body>
+
+{% if session.get("admin_original") %}
+<div class="modo-admin">
+    <span>👁 Modo Administrador: estás viendo esta cuenta como cliente</span>
+
+    <a href="{{ url_for('volver_admin') }}">
+        ↩ Volver al Panel Admin
+    </a>
+</div>
+{% endif %}
+
+<div class="mensaje-flash">
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+      {% if mensajes %}
+        {% for categoria, mensaje in mensajes %}
+          <div id="mensaje-flash-directo" class="flash {{ categoria }}">{{ mensaje }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+</div>
     <div class="mensaje-flash">
         {% with mensajes = get_flashed_messages(with_categories=true) %}
           {% if mensajes %}
