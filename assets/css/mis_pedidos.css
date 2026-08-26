@@ -518,3 +518,76 @@ nav{
 }
 
 }
+
+/* ===== Fotos del paquete ===== */
+
+.fotos-paquete{
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px solid #E5E7EB;
+}
+
+.titulo-fotos{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+    font-weight:600;
+    color:#334155;
+}
+
+.titulo-fotos span:last-child{
+    font-size:.85rem;
+    color:#64748B;
+}
+
+.galeria{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.galeria img{
+    width:78px !important;
+    height:78px !important;
+    object-fit:cover;
+    border-radius:12px;
+    cursor:pointer;
+    border:2px solid #E5E7EB;
+    transition:.25s;
+}
+
+.galeria img:hover{
+    transform:scale(1.05);
+    border-color:#4FAF2D;
+}
+.lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.88);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.lightbox.activo{
+    display:flex;
+}
+
+.lightbox img{
+    max-width:90%;
+    max-height:90%;
+    object-fit:contain;
+    border-radius:16px;
+}
+
+.cerrar{
+    position:absolute;
+    top:25px;
+    right:35px;
+    color:#fff;
+    font-size:34px;
+    cursor:pointer;
+}
+
