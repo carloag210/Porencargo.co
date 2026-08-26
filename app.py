@@ -171,14 +171,21 @@ def ver_como_cliente(user_id):
 @app.route('/admin/volver')
 def volver_admin():
 
-    if "admin_original" not in session:
+    admin_id = session.get("admin_original")
+
+    if admin_id is None:
         return redirect(url_for("index"))
 
-    admin = User.query.get(session["admin_original"])
+    # Recuperar el administrador ANTES de cerrar la sesión
+    admin = User.query.get_or_404(admin_id)
 
-    login_user(admin)
+    logout_user()
 
-    session.pop("admin_original")
+    # Limpiar el modo "ver como"
+    session.pop("admin_original", None)
+
+    # Entrar nuevamente como administrador
+    login_user(admin, remember=False, force=True)
 
     flash("Has regresado al panel de administrador.", "success")
 
