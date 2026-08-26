@@ -604,3 +604,16 @@ form .btn-del-producto:hover{
     font-weight:700;
     cursor:pointer;
 }
+.btn-ver-como{
+    background:#7C3AED;
+    color:white;
+    padding:10px 14px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.25s;
+}
+
+.btn-ver-como:hover{
+    background:#6D28D9;
+}
