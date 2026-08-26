@@ -31,26 +31,23 @@ class Paquete(db.Model):
 
     usuario = relationship('User', back_populates='paquetes')
 
-    def __repr__(self):
+        def __repr__(self):
         return f"<Paquete(nombre='{self.nombre}', estado='{self.estado.name}', usuario_id={self.id_user})>"
-        class FotoPaquete(db.Model):
-            __tablename__ = "foto_paquetes"
-            
-            id = Column(Integer, primary_key=True, autoincrement=True)
-            paquete_id = Column(
-              Integer,
-              ForeignKey("paquetes.id"),
-              nullable=False
-    )
 
+
+class FotoPaquete(db.Model):
+    __tablename__ = "foto_paquetes"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    paquete_id = Column(Integer, ForeignKey("paquetes.id"), nullable=False)
     url = Column(Text, nullable=False)
-
     principal = Column(Boolean, default=False)
 
     paquete = relationship("Paquete", backref="fotos")
 
     def __repr__(self):
         return f"<FotoPaquete(paquete_id={self.paquete_id})>"
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
