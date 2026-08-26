@@ -350,13 +350,14 @@ def crear_paquete(user_id):
     return render_template('admin_pedidos_usuario.html', usuario=usuario, estados_posibles=estados_posibles)
     
     @app.route('/admin/subir_fotos/<int:paquete_id>', methods=['POST'])
-    @admin_required
-    def subir_fotos_paquete(paquete_id):
+@admin_required
+def subir_fotos_paquete(paquete_id):
 
     paquete = Paquete.query.get_or_404(paquete_id)
     imagenes = request.files.getlist("imagenes")
 
     for imagen in imagenes:
+
         if imagen.filename == "":
             continue
 
