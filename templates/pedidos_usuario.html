@@ -132,6 +132,25 @@
         </div>
 
     </div>
+    </div>
+
+{% if paquete.fotos and paquete.fotos|length > 0 %}
+<div class="fotos-paquete">
+
+    <div class="titulo-fotos">
+        <span>📸 Fotos del paquete</span>
+    </div>
+
+    <div class="galeria">
+        {% for foto in paquete.fotos %}
+            <img src="{{ foto.url }}"
+                 alt="Foto del paquete"
+                 onclick="abrirLightbox('{{ foto.url }}')">
+        {% endfor %}
+    </div>
+
+</div>
+{% endif %}
 
     <div class="consolidacion">
 
