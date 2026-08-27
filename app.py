@@ -370,10 +370,11 @@ def crear_paquete(user_id):
 
             db.session.add(foto)
 
-        db.session.commit()
-
         flash("Paquete creado correctamente", "success")
-        return redirect(request.referrer)
+
+    return redirect(
+    url_for("admin_ver_pedidos_usuario", user_id=id_user)
+)
 
     usuario = User.query.get_or_404(user_id)
     estados_posibles = list(EstadoPaquete)
