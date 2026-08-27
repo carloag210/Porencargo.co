@@ -349,33 +349,32 @@ def crear_paquete(user_id):
         print("NOMBRE:", nombre)
         db.session.commit()
 
-       # Subir fotografías a Cloudinary
-for i, imagen in enumerate(imagenes):
+               # Subir fotografías a Cloudinary
+        for i, imagen in enumerate(imagenes):
 
-    if imagen.filename == "":
-        continue
+            if imagen.filename == "":
+                continue
 
-    subida = cloudinary.uploader.upload(
-        imagen,
-        folder="porencargo/paquetes"
-    )
+            subida = cloudinary.uploader.upload(
+                imagen,
+                folder="porencargo/paquetes"
+            )
 
-    foto = FotoPaquete(
-        paquete_id=nuevo_paquete.id,
-        url=subida["secure_url"],
-        principal=(i == 0)
-    )
+            foto = FotoPaquete(
+                paquete_id=nuevo_paquete.id,
+                url=subida["secure_url"],
+                principal=(i == 0)
+            )
 
-    db.session.add(foto)
+            db.session.add(foto)
 
-# 👇 ESTA LÍNEA FALTABA
-db.session.commit()
+        db.session.commit()
 
-flash("Paquete creado correctamente", "success")
+        flash("Paquete creado correctamente", "success")
 
-return redirect(
-    url_for("admin_ver_pedidos_usuario", user_id=id_user)
-)
+        return redirect(
+            url_for("admin_ver_pedidos_usuario", user_id=id_user)
+        )
 
     usuario = User.query.get_or_404(user_id)
     estados_posibles = list(EstadoPaquete)
