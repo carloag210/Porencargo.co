@@ -329,7 +329,7 @@ def crear_paquete(user_id):
         numero_guia = request.form['numero_guia']
         peso = request.form['peso']
         estado_str = request.form['estado']
-        id_user = request.form['id_user']
+        id_user = int(request.form['id_user'])
         fecha_recibido = request.form.get('fecha_recibido')
 
         imagenes = request.files.getlist("imagenes")
@@ -382,7 +382,6 @@ def crear_paquete(user_id):
         usuario=usuario,
         estados_posibles=estados_posibles
     )
-    return render_template('admin_pedidos_usuario.html', usuario=usuario, estados_posibles=estados_posibles)
     
 @app.route('/admin/subir_fotos/<int:paquete_id>', methods=['POST'])
 @admin_required
