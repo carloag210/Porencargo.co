@@ -346,6 +346,8 @@ def crear_paquete(user_id):
             fecha_recibido=fecha_recibido
         )
         db.session.add(nuevo_paquete)
+        print("ID USER:", id_user)
+        print("NOMBRE:", nombre)
         db.session.commit()
 
         # Subir fotografías a Cloudinary
