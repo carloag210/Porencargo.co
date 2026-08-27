@@ -330,8 +330,7 @@ def crear_paquete(user_id):
         peso = request.form['peso']
         estado_str = request.form['estado']
         id_user = int(request.form['id_user'])
-        fecha_recibido = request.form.get('fecha_recibido')
-
+        fecha_recibido = request.form.get('fecha_recibido') or None
         imagenes = request.files.getlist("imagenes")
 
         estado = EstadoPaquete[estado_str]
