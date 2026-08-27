@@ -392,7 +392,7 @@ def subir_fotos_paquete(paquete_id):
     paquete = Paquete.query.get_or_404(paquete_id)
     imagenes = request.files.getlist("imagenes")
 
-    for imagen in imagenes:
+    for i, imagen in enumerate(imagenes):
 
         if imagen.filename == "":
             continue
@@ -405,7 +405,7 @@ def subir_fotos_paquete(paquete_id):
         foto = FotoPaquete(
             paquete_id=paquete.id,
             url=subida["secure_url"],
-            principal=False
+            principal=(i == 0)
         )
 
         db.session.add(foto)
@@ -413,7 +413,10 @@ def subir_fotos_paquete(paquete_id):
     db.session.commit()
 
     flash("Fotografías agregadas correctamente", "success")
-    return redirect(request.referrer)
+
+    return redirect(
+        url_for("admin_ver_pedidos_usuario", user_id=paquete.id_user)
+    )
 
 @app.route('/admin/actualizar_estado', methods=['POST'])
 def actualizar_estado():
