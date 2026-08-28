@@ -1,26 +1,38 @@
 {% extends "mis_pedidos.html" %}
 {% block content %}
 <div class="auth-container">
-    <form class="form-container"  action="{{ url_for('crear_paquete_usuario') }}" method="POST">
+    <form class="form-container" action="{{ url_for('crear_paquete_usuario') }}" method="POST">
         <h2>Prealertar</h2>
-        <input class="form-input" type="text" name="nombre" placeholder="Contenido" required><br>
-        <input class="form-input" type="text" name="numero_guia" step="0.01" placeholder="numero_guia" required><br>
-        <input class="form-input" type="text" name="precio" placeholder="Precio" required><br>
-        <input class="form-input" type="text" name="peso" placeholder="Peso en kg o gramos" required><br>
-        <input type="hidden" name="id_user" >
+
+        <input class="form-input" type="text" name="nombre" placeholder="Contenido" required>
+
+        <input class="form-input" type="text" name="numero_guia" placeholder="Número de guía" required>
+
+        <input class="form-input" type="text" name="precio" placeholder="Precio" required>
+
+        <!-- NUEVO CAMPO DE PESO -->
+        <div class="peso-group">
+            <input
+                class="form-input"
+                type="number"
+                name="peso"
+                step="0.01"
+                min="0.01"
+                placeholder="Peso"
+                required>
+
+            <select class="form-input" name="unidad_peso">
+                <option value="lb" selected>Libra</option>
+                <option value="kg">Kg</option>
+            </select>
+        </div>
+
+        <input type="hidden" name="id_user">
         <input type="hidden" name="estado" value="COMPRADO">
-        <button class="btn-add-productos" type="submit">Prealertar</button>
+
+        <button class="btn-add-productos" type="submit">
+            Prealertar
+        </button>
     </form>
 </div>
-
-{% endblock %} 
-
-
-
-   <label>Categoría:</label>
-          <select class="form-input" name="estado">
-            {% for estado in estados_posibles %}
-              <option value="{{ estado.name }}">{{ estado.value }}</option>
-            {% endfor %}
-
-          </select>
+{% endblock %}
