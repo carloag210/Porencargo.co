@@ -129,9 +129,6 @@ app.permanent_session_lifetime = timedelta(days=7)
 def index():
     return render_template('index.html')
 
-   user = User.query.filter_by(email=email).first()
-
-
 @app.route('/rastrea_tu_orden')
 def rastrea_tu_orden():
     return render_template('rastrea_tu_orden.html')
