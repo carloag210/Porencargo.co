@@ -64,7 +64,8 @@
 
     <main >
       <div class="auth-container">
-        <div class="form-container" id="register">
+        <div class="form-container" id="register"
+             style="display: {{ 'block' if modo == 'registro' else 'none' }};">
             <!-- Formulario de Registro (oculto por defecto) -->
             <h2>Registro</h2>
             <form method="POST" action="registro">
@@ -87,7 +88,8 @@
         </div>
         
         <!-- Formulario de Login (visible por defecto) -->
-        <div class="form-container" id="login">
+        <div class="form-container" id="login"
+     style="display: {{ 'block' if modo == 'login' else 'none' }};">
             <h2>Login</h2>
             <form method="POST" action="login">
                 <input type="email" name="email" placeholder="Email" required>
