@@ -681,7 +681,7 @@ def login():
 def logout():
     logout_user()
     flash("Hasta Pronto","success")
-    return redirect(url_for("login")))
+    return redirect(url_for("login"))
 
 @app.route('/pedidos_del_usuario')
 @login_required
