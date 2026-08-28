@@ -679,3 +679,25 @@ nav{
     background:#1D4ED8;
     transform:translateY(-2px);
 }
+/* Estilo de los campos del formulario */
+
+.form-input{
+    width:100%;
+    padding:15px 18px;
+    border:1px solid #D9E2EC;
+    border-radius:14px;
+    background:#FFFFFF;
+    font-size:15px;
+    color:#0F172A;
+    outline:none;
+    transition:all .25s ease;
+}
+
+.form-input::placeholder{
+    color:#94A3B8;
+}
+
+.form-input:focus{
+    border-color:#2563EB;
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
