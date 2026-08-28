@@ -681,9 +681,31 @@ def logout():
 @app.route('/pedidos_del_usuario')
 @login_required
 def pedidos_del_usuario():
-    paquetes_usuario = current_user.paquetes
-    return render_template('pedidos_usuario.html', paquetes=paquetes_usuario)
 
+    paquetes_usuario = current_user.paquetes
+
+    total = len(paquetes_usuario)
+
+    entregados = sum(
+        1 for p in paquetes_usuario
+        if p.estado.value == "Entregado"
+    )
+
+    en_transito = sum(
+        1 for p in paquetes_usuario
+        if p.estado.value != "Entregado"
+    )
+
+    peso_total = sum(float(p.peso or 0) for p in paquetes_usuario)
+
+    return render_template(
+        'pedidos_usuario.html',
+        paquetes=paquetes_usuario,
+        total=total,
+        entregados=entregados,
+        en_transito=en_transito,
+        peso_total=peso_total
+    )
 @app.route('/direcciones')
 @login_required
 def direcciones():
