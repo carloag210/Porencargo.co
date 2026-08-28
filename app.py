@@ -129,18 +129,7 @@ app.permanent_session_lifetime = timedelta(days=7)
 def index():
     return render_template('index.html')
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-
-    # Si alguien entra a /login desde el navegador
-    if request.method == 'GET':
-        return render_template("login_register.html", modo="login")
-
-    # ---------- LOGIN ----------
-    email = request.form['email']
-    password = request.form['password']
-
-    user = User.query.filter_by(email=email).first()
+   user = User.query.filter_by(email=email).first()
 
 
 @app.route('/rastrea_tu_orden')
@@ -670,20 +659,26 @@ PorEncargo, LLC assumes no responsibility for any package or items shipped to us
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    if request.method=='POST':
-        email = request.form['email']
-        password = request.form['password']
-        user = User.query.filter_by(email=email).first()
 
-        if user and check_password_hash(user.password, password):
-            session.permanent = True
-            login_user(user)
-            if user.is_admin:
-                return redirect('/admin')
-            flash("Bienvenido a su Cuenta","success")
-            return redirect('/pedidos_del_usuario')
-        flash("contraseña incorrecta","error")
-    return redirect('/login_register')
+    if request.method == 'GET':
+        return render_template("login_register.html", modo="login")
+
+    email = request.form['email']
+    password = request.form['password']
+    user = User.query.filter_by(email=email).first()
+
+    if user and check_password_hash(user.password, password):
+        session.permanent = True
+        login_user(user)
+
+        if user.is_admin:
+            return redirect('/admin')
+
+        flash("Bienvenido a su Cuenta", "success")
+        return redirect('/pedidos_del_usuario')
+
+    flash("Contraseña incorrecta", "error")
+    return redirect(url_for("login"))
 
 @app.route('/logout')
 def logout():
