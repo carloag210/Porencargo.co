@@ -129,8 +129,8 @@ app.permanent_session_lifetime = timedelta(days=7)
 def index():
     return render_template('index.html')
 
-@app.route('/login')
-def login():
+@app.route('/login', methods=['GET', 'POST'])
+def login_page():
     return render_template("login_register.html", modo="login")
 
 @app.route('/rastrea_tu_orden')
