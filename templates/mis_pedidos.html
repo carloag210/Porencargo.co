@@ -125,26 +125,25 @@
 
     <div class="stat-card">
         <small>Paquetes</small>
-        <h2>3</h2>
+        <h2>{{ total }}</h2>
     </div>
 
     <div class="stat-card">
         <small>En tránsito</small>
-        <h2>2</h2>
+        <h2>{{ en_transito }}</h2>
     </div>
 
     <div class="stat-card">
         <small>Entregados</small>
-        <h2>1</h2>
+        <h2>{{ entregados }}</h2>
     </div>
 
     <div class="stat-card">
         <small>Peso</small>
-        <h2>8.4 kg</h2>
+        <h2>{{ peso_total }} kg</h2>
     </div>
 
-</div>
-                {% block content %}{% endblock %}
+</div>                {% block content %}{% endblock %}
             </div>
         </div>
     </div>
