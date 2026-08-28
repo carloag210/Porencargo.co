@@ -133,11 +133,6 @@ def index():
 def rastrea_tu_orden():
     return render_template('rastrea_tu_orden.html')
 
-@app.route('/productos')
-def productos():
-    productos = Producto.query.all()
-    return render_template('productos.html', productos=productos)
-
 @app.route('/producto/<int:id>')
 def producto_detalle(id):
     producto = Producto.query.get_or_404(id)
