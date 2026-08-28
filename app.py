@@ -696,7 +696,13 @@ def pedidos_del_usuario():
         if p.estado.value != "Entregado"
     )
 
-    peso_total = sum(float(p.peso or 0) for p in paquetes_usuario)
+    peso_total = 0
+
+for p in paquetes_usuario:
+    try:
+        peso_total += float(p.peso or 0)
+    except:
+        pass
 
     return render_template(
         'pedidos_usuario.html',
