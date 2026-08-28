@@ -238,31 +238,6 @@ nav {
     text-decoration: underline;
 }
 
-/* Visibilidad por defecto */
-#login {
-    padding-top: 100px;
-    z-index: 2;
-    opacity: 1;
-    pointer-events: auto;
-}
-
-#register {
-    z-index: 1;
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* Mostrar registro si se accede con #register */
-:target#register {
-    z-index: 2;
-    opacity: 1;
-    pointer-events: auto;
-}
-:target#register ~ #login {
-    z-index: 1;
-    opacity: 0;
-    pointer-events: none;
-}
 .menu-toggle{
     display: none;
 }
