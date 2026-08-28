@@ -130,8 +130,18 @@ def index():
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
-def login_page():
-    return render_template("login_register.html", modo="login")
+def login():
+
+    # Si alguien entra a /login desde el navegador
+    if request.method == 'GET':
+        return render_template("login_register.html", modo="login")
+
+    # ---------- LOGIN ----------
+    email = request.form['email']
+    password = request.form['password']
+
+    user = User.query.filter_by(email=email).first()
+
 
 @app.route('/rastrea_tu_orden')
 def rastrea_tu_orden():
