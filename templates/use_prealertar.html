@@ -1,37 +1,38 @@
 {% extends "mis_pedidos.html" %}
 {% block content %}
-<div class="auth-container">
-    <form class="form-container" action="{{ url_for('crear_paquete_usuario') }}" method="POST">
-        <h2>Prealertar</h2>
+
+<div class="prealerta-card">
+
+    <div class="card-header">
+        <h2>✈️ Prealertar paquete</h2>
+        <p>Registra una compra para que podamos identificarla cuando llegue a Miami.</p>
+    </div>
+
+    <form class="prealerta-form" action="{{ url_for('crear_paquete_usuario') }}" method="POST">
 
         <input class="form-input" type="text" name="nombre" placeholder="Contenido" required>
 
-        <input class="form-input" type="text" name="numero_guia" placeholder="Número de guía" required>
+        <div class="grid-2">
+            <input class="form-input" type="text" name="numero_guia" placeholder="Número de guía" required>
+            <input class="form-input" type="text" name="precio" placeholder="Valor (USD)" required>
+        </div>
 
-        <input class="form-input" type="text" name="precio" placeholder="Precio" required>
-
-        <!-- NUEVO CAMPO DE PESO -->
         <div class="peso-group">
-            <input
-               class="form-input"
-               type="number"
-               name="peso"
-               step="0.01"
-               min="0.01"
-               placeholder="Peso (libras)"
-               required>
+            <input class="form-input" type="number" name="peso" step="0.01" min="0.01" placeholder="Peso" required>
 
-            <select class="form-input" name="unidad_peso">
-                <option value="lb" selected>Libra</option>
-            </select>
+            <div class="unidad-fija">
+                LB
+            </div>
         </div>
 
         <input type="hidden" name="id_user">
         <input type="hidden" name="estado" value="COMPRADO">
 
-        <button class="btn-add-productos" type="submit">
-            Prealertar
+        <button class="btn-prealerta" type="submit">
+            📦 Crear prealerta
         </button>
+
     </form>
 </div>
+
 {% endblock %}
