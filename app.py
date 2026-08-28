@@ -535,8 +535,14 @@ def eliminar_direccion(id):
     db.session.commit()
     return redirect(url_for('direcciones'))
 
-@app.route('/registro', methods=['POST'])
+@app.route('/registro', methods=['GET', 'POST'])
 def registro():
+
+    # Si alguien entra por https://porencargo.co/registro
+    if request.method == "GET":
+        return redirect(url_for("login_register") + "#register")
+
+    # ===== Registro del formulario =====
     turnstile_token = request.form.get("cf-turnstile-response")
 
     if not turnstile_token:
@@ -546,6 +552,8 @@ def registro():
     if not verify_turnstile(turnstile_token, request.remote_addr):
         flash("Verificación de seguridad inválida", "error")
         return redirect('/login_register')
+
+    # ... aquí continúa todo tu código actual de registro
         
     user_first_name = request.form['user_first_name']
     user_last_name = request.form['user_last_name']
