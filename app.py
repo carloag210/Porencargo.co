@@ -536,18 +536,18 @@ def registro():
 
     # Si alguien entra por https://porencargo.co/registro
     if request.method == "GET":
-        return redirect(url_for("login_register") + "#register")
+        return render_template("login_register.html", modo="registro")
 
     # ===== Registro del formulario =====
     turnstile_token = request.form.get("cf-turnstile-response")
 
     if not turnstile_token:
         flash("Completa la verificación de seguridad", "error")
-        return redirect('/login_register')
+        return redirect(url_for("registro"))
 
     if not verify_turnstile(turnstile_token, request.remote_addr):
         flash("Verificación de seguridad inválida", "error")
-        return redirect('/login_register')
+        return redirect(url_for("registro"))
 
     # ... aquí continúa todo tu código actual de registro
         
@@ -561,12 +561,12 @@ def registro():
     usuario_existente_email = User.query.filter_by(email=email).first()
     if usuario_existente_email :
         flash('este correo ya ha sido registrado','error')
-        return redirect ('/login_register')
+        return redirect(url_for("registro"))
     
     usuario_existente_number = User.query.filter_by(number=number).first()
     if usuario_existente_number:
         flash('este numero ya ha sido registrado','error')
-        return redirect ('/login_register')
+        return redirect(url_for("registro"))
     
     nuevo_usuario = User(
         user_first_name=user_first_name, 
@@ -652,7 +652,7 @@ PorEncargo, LLC assumes no responsibility for any package or items shipped to us
         flash("Usuario creado, pero hubo un problema enviando el correo de bienvenida", "warning")
 
     flash('Usuario registrado con éxito', 'success')
-    return redirect('/login_register')
+    return redirect(url_for("login"))
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -681,7 +681,7 @@ def login():
 def logout():
     logout_user()
     flash("Hasta Pronto","success")
-    return redirect('/login_register')
+    return redirect(url_for("login")))
 
 @app.route('/pedidos_del_usuario')
 @login_required
