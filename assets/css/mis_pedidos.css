@@ -641,13 +641,13 @@ nav{
 
 .grid-2{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr;
     gap:16px;
 }
 
 .peso-group{
     display:grid;
-    grid-template-columns:2fr 90px;
+    grid-template-columns:1.5fr 90px;
     gap:12px;
 }
 
