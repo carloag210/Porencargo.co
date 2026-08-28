@@ -81,7 +81,9 @@
     <button type="submit">Registrarse</button>
 </form>
             <!-- Botón para volver a Login -->
-            <a href="#login" class="toggle-btn">¿Ya tienes cuenta? Inicia sesión</a></p>
+            <a href="{{ url_for('login') }}" class="toggle-btn">
+                ¿Ya tienes cuenta? Inicia sesión
+            </a>
         </div>
         
         <!-- Formulario de Login (visible por defecto) -->
@@ -93,7 +95,9 @@
                 <button type="submit">Ingresar</button>
             </form>
             <!-- Botón para cambiar a Registro -->
-            <a href="#register" class="toggle-btn">¿No tienes cuenta? Regístrarte</a>
+            <a href="{{ url_for('registro') }}" class="toggle-btn">
+                ¿No tienes cuenta? Regístrate
+             </a>
         </div>
         
     </div>
