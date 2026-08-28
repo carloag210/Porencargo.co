@@ -613,4 +613,69 @@ nav{
     font-size:34px;
     cursor:pointer;
 }
+/* ---------- PREALERTA ---------- */
 
+.prealerta-card{
+    background:#fff;
+    border-radius:22px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(15,23,42,.08);
+}
+
+.card-header h2{
+    color:#0F172A;
+    margin-bottom:6px;
+    font-size:30px;
+}
+
+.card-header p{
+    color:#64748B;
+    margin-bottom:24px;
+}
+
+.prealerta-form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.peso-group{
+    display:grid;
+    grid-template-columns:2fr 90px;
+    gap:12px;
+}
+
+.unidad-fija{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    background:#F8FAFC;
+    border:1px solid #D9E2EC;
+    font-weight:700;
+    color:#2563EB;
+}
+
+.btn-prealerta{
+    width:100%;
+    border:none;
+    border-radius:14px;
+    padding:16px;
+    background:#2563EB;
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.btn-prealerta:hover{
+    background:#1D4ED8;
+    transform:translateY(-2px);
+}
