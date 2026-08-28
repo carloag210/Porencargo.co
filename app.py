@@ -691,26 +691,23 @@ def pedidos_del_usuario():
         if p.estado.value == "Entregado"
     )
 
-    en_transito = sum(
-        1 for p in paquetes_usuario
-        if p.estado.value != "Entregado"
-    )
+    en_transito = total - entregados
 
     peso_total = 0
 
-for p in paquetes_usuario:
-    try:
-        peso_total += float(p.peso or 0)
-    except:
-        pass
+    for p in paquetes_usuario:
+        try:
+            peso_total += float(p.peso or 0)
+        except:
+            pass
 
     return render_template(
-        'pedidos_usuario.html',
+        "pedidos_usuario.html",
         paquetes=paquetes_usuario,
         total=total,
         entregados=entregados,
         en_transito=en_transito,
-        peso_total=peso_total
+        peso_total=round(peso_total, 2)
     )
 @app.route('/direcciones')
 @login_required
