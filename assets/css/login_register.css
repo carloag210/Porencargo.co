@@ -291,3 +291,16 @@ nav {
 .cf-turnstile{
     margin: 10px 0 18px;
 }
+.forgot-password{
+    display:block;
+    text-align:center;
+    margin-top:16px;
+    color:#2563EB;
+    font-weight:600;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.forgot-password:hover{
+    color:#1D4ED8;
+}
