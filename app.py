@@ -752,10 +752,13 @@ def reset_password(token):
 
     if request.method == "POST":
 
-        nueva_password = request.form["password"]
+    nueva_password = request.form.get("password")
 
-        usuario.password = generate_password_hash(nueva_password)
+    if not nueva_password:
+        return render_template("reset_password.html")
 
+    usuario.password = generate_password_hash(nueva_password)
+    
         db.session.commit()
 
         flash("Tu contraseña fue actualizada correctamente.", "success")
