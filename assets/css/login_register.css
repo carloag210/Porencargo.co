@@ -304,3 +304,20 @@ nav {
 .forgot-password:hover{
     color:#1D4ED8;
 }
+.alerta{
+    padding:12px;
+    border-radius:10px;
+    margin:12px 0;
+    font-size:14px;
+    text-align:center;
+}
+
+.alerta.success{
+    background:#DCFCE7;
+    color:#166534;
+}
+
+.alerta.danger{
+    background:#FEE2E2;
+    color:#991B1B;
+}
