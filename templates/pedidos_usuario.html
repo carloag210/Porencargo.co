@@ -86,6 +86,47 @@
             <span>Progreso del envío</span>
         </div>
 
+        <div class="mensaje-estado
+{% if paquete.estado.value == 'Despachado a tú Dirección' %}
+    verde
+{% endif %}">
+
+    {% if paquete.estado.value == 'Comprado en Tienda' %}
+        <strong>🛒 Compra confirmada</strong><br>
+        Tu pedido fue registrado correctamente y el vendedor está preparando el despacho.
+
+    {% elif paquete.estado.value == 'Despachado por Tienda' %}
+        <strong>📦 Camino a Miami</strong><br>
+        El vendedor ya despachó tu paquete hacia nuestra bodega en Miami.
+
+    {% elif paquete.estado.value == 'Despachado Bodega Miami' %}
+        <strong>✈️ Preparando el viaje</strong><br>
+        Estamos organizando tu paquete para su salida hacia Colombia.
+
+    {% elif paquete.estado.value == 'Llegó a Bodega Miami' %}
+        <strong>🏢 ¡Llegó a Miami!</strong><br>
+        Ya recibimos tu paquete en nuestra bodega y pronto iniciará su viaje.
+
+    {% elif paquete.estado.value == 'Llegó Aeropuerto Bogotá' %}
+        <strong>🇨🇴 ¡Tu paquete ya llegó a Colombia!</strong><br>
+        Ha aterrizado en Bogotá y comenzará el proceso de ingreso al país.
+
+    {% elif paquete.estado.value == 'En Aduana Bogotá' %}
+        <strong>🛃 En proceso de nacionalización</strong><br>
+        Tu paquete está siendo procesado por la autoridad aduanera en Bogotá.
+
+    {% elif paquete.estado.value == 'En Bodega Medellín' %}
+        <strong>📦 Listo para despacho nacional</strong><br>
+        Tu paquete ya fue liberado y está listo para salir hacia su ciudad de destino.
+
+    {% elif paquete.estado.value == 'Despachado a tú Dirección' %}
+        <strong>🚚 ¡Va en camino!</strong><br>
+        Nuestro aliado logístico ya despachó tu paquete a la dirección registrada.
+
+    {% endif %}
+
+</div>
+
         <div class="relleno
 {% if paquete.estado.value in ['Comprado en Tienda','Despachado por Tienda'] %}
     p20
