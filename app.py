@@ -672,8 +672,11 @@ def login():
     flash("Contraseña incorrecta", "error")
     return redirect(url_for("login"))
     
-    @app.route('/olvide_password', methods=['GET', 'POST'])
-    def olvide_password():
+    flash("Contraseña incorrecta", "error")
+return redirect(url_for("login"))
+
+@app.route('/olvide_password', methods=['GET', 'POST'])
+def olvide_password():
 
     if request.method == 'POST':
 
@@ -681,20 +684,17 @@ def login():
         usuario = User.query.filter_by(email=email).first()
 
         if usuario:
-            flash(
-                "Hemos enviado un enlace de recuperación a tu correo.",
-                "success"
-            )
+            flash("Hemos enviado un enlace de recuperación a tu correo.", "success")
         else:
-            flash(
-                "No encontramos una cuenta con ese correo.",
-                "danger"
-            )
+            flash("No encontramos una cuenta con ese correo.", "danger")
 
         return redirect(url_for('olvide_password'))
 
     return render_template('olvide_password.html')
 
+
+@app.route('/logout')
+def logout():
 @app.route('/logout')
 def logout():
     logout_user()
