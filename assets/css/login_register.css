@@ -557,3 +557,22 @@ nav {
     text-decoration:none;
     font-weight:600;
 }
+/* ===== Estado contraseña ===== */
+
+.password-status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:-8px 0 22px;
+    font-size:14px;
+    color:#94A3B8;
+}
+
+.password-status.ok{
+    color:#22C55E;
+}
+
+.password-status.error{
+    color:#EF4444;
+}
+
