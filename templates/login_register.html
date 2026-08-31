@@ -96,27 +96,27 @@
 
         <!-- FORMULARIO LOGIN -->
         <div class="form-container" id="login"
-             style="display: {{ 'block' if modo == 'login' else 'none' }};">
+     style="display: {{ 'block' if modo == 'login' else 'none' }};">
 
-            <h2>Login</h2>
+    <h2>Login</h2>
 
-            <form method="POST" action="login">
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Contraseña" required>
-                <button type="submit">Ingresar</button>
-            </form>
+    <form method="POST" action="login">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit">Ingresar</button>
+    </form>
 
-            <a href="{{ url_for('olvide_password') }}" class="forgot-password">
-                ¿Olvidaste tu contraseña?
-            </a>
+    <!-- Primero Registro -->
+    <a href="{{ url_for('registro') }}" class="toggle-btn">
+        ¿No tienes cuenta? Regístrate
+    </a>
 
-            <a href="{{ url_for('registro') }}" class="toggle-btn">
-                ¿No tienes cuenta? Regístrate
-            </a>
+    <!-- Después Recuperar -->
+    <a href="{{ url_for('olvide_password') }}" class="forgot-password">
+        ¿Olvidaste tu contraseña?
+    </a>
 
-        </div>
-
-    </div>
+</div>
 
 
 </main>
