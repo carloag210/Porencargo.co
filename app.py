@@ -101,6 +101,9 @@ def verify_turnstile(token, remote_ip):
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 app.config.from_object(Config)
 
+# 👇 AQUÍ
+serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
+
 # --- Config DB Railway ---
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_LINK")
 
@@ -121,7 +124,7 @@ login_manager.init_app(app)
 with app.app_context():
     db.create_all()
 
-app.secret_key = os.urandom(24)
+app.secret_key = app.config["SECRET_KEY"]
 app.permanent_session_lifetime = timedelta(days=7) 
 
 # ----------------- Rutas -----------------
