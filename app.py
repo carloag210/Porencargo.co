@@ -687,9 +687,9 @@ def pedidos_del_usuario():
     total = len(paquetes_usuario)
 
     entregados = sum(
-        1 for p in paquetes_usuario
-        if p.estado.value == "Entregado"
-    )
+    1 for p in paquetes_usuario
+    if p.estado.value == "Despachado a tú Dirección"
+)
 
     en_transito = total - entregados
 
