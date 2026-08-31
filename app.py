@@ -649,7 +649,7 @@ PorEncargo, LLC assumes no responsibility for any package or items shipped to us
     flash('Usuario registrado con éxito', 'success')
     return redirect(url_for("login"))
 
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 
     if request.method == 'GET':
@@ -657,6 +657,7 @@ def login():
 
     email = request.form['email']
     password = request.form['password']
+
     user = User.query.filter_by(email=email).first()
 
     if user and check_password_hash(user.password, password):
@@ -671,9 +672,6 @@ def login():
 
     flash("Contraseña incorrecta", "error")
     return redirect(url_for("login"))
-    
-    flash("Contraseña incorrecta", "error")
-return redirect(url_for("login"))
 
 @app.route('/olvide_password', methods=['GET', 'POST'])
 def olvide_password():
