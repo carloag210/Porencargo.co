@@ -199,7 +199,7 @@ nav {
 }
 
 /* Botón */
-.form-container form button{
+.form-container form button:not(.toggle-eye){
     width:100%;
 
     padding:14px;
@@ -221,7 +221,7 @@ nav {
     transition:.25s;
 }
 
-.form-container form button:hover{
+.form-container form button:not(.toggle-eye):hover{
     background:#63C93D;
 
     transform:translateY(-2px);
@@ -958,4 +958,17 @@ nav {
     font-weight:700;
     cursor:pointer;
     margin-bottom:22px;
+}
+.toggle-eye{
+    width:52px !important;
+    min-width:52px;
+    padding:0 !important;
+    background:transparent !important;
+    color:#94A3B8 !important;
+    border:none;
+    flex-shrink:0;
+}
+
+.input-password input{
+    margin-bottom:0 !important;
 }
