@@ -126,27 +126,7 @@
             </a>
         </div>
         
-        <!-- Formulario de Login (visible por defecto) -->
-        <div class="form-container" id="login"
-     style="display: {{ 'block' if modo == 'login' else 'none' }};">
-            <h2>Login</h2>
-            <form method="POST" action="login">
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Contraseña" required>
-                <button type="submit">Ingresar</button>
-            </form>
-           <a href="{{ url_for('olvide_password') }}" class="forgot-password">
-    ¿Olvidaste tu contraseña?
-</a>
-            <!-- Botón para cambiar a Registro -->
-            <a href="{{ url_for('registro') }}" class="toggle-btn">
-                ¿No tienes cuenta? Regístrate
-             </a>
-        </div>
-        
-    </div>
-  </main>
-      <a href="https://wa.me/573186505475" target="_blank" style="position:fixed;bottom:20px;right:20px;z-index:9999;"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" style="width:50px;height:50px;"></a>
+              <a href="https://wa.me/573186505475" target="_blank" style="position:fixed;bottom:20px;right:20px;z-index:9999;"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" style="width:50px;height:50px;"></a>
     
   </body>
     <script src="/assets/js/animacion_contact.js"></script>
