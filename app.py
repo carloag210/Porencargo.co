@@ -752,23 +752,23 @@ def reset_password(token):
 
     if request.method == "POST":
 
-    nueva_password = request.form.get("password")
+        nueva_password = request.form.get("password")
 
-    if not nueva_password:
-        return render_template("reset_password.html")
+        if not nueva_password:
+            return render_template("reset_password.html")
 
-    usuario.password = generate_password_hash(nueva_password)
+        usuario.password = generate_password_hash(nueva_password)
 
-    db.session.commit()
+        db.session.commit()
 
-    flash(
-        "Tu contraseña fue actualizada correctamente.",
-        "success"
-    )
+        flash(
+            "Tu contraseña fue actualizada correctamente.",
+            "success"
+        )
 
-    return redirect(url_for("login"))
+        return redirect(url_for("login"))
 
-return render_template("reset_password.html")
+    return render_template("reset_password.html")
 
 @app.route('/logout')
 def logout():
