@@ -685,53 +685,54 @@ def olvide_password():
         email = request.form.get('email')
         usuario = User.query.filter_by(email=email).first()
 
-       if usuario:
+        if usuario:
 
-    token = serializer.dumps(usuario.email, salt="reset-password")
+            token = serializer.dumps(usuario.email, salt="reset-password")
 
-    enlace = url_for(
-        "reset_password",
-        token=token,
-        _external=True
-    )
+            enlace = url_for(
+                "reset_password",
+                token=token,
+                _external=True
+            )
 
-    html_body = f"""
-    <h2>Recuperar contraseña</h2>
+            html_body = f"""
+            <h2>Recuperar contraseña</h2>
 
-    <p>Hola {usuario.user_first_name},</p>
+            <p>Hola {usuario.user_first_name},</p>
 
-    <p>Recibimos una solicitud para restablecer la contraseña de tu cuenta en <b>PorEncargo.co</b>.</p>
+            <p>Recibimos una solicitud para restablecer la contraseña de tu cuenta en <b>PorEncargo.co</b>.</p>
 
-    <p>
-        <a href="{enlace}"
-           style="
-             background:#2563EB;
-             color:#FFFFFF;
-             padding:14px 22px;
-             border-radius:8px;
-             text-decoration:none;
-             font-weight:bold;
-             display:inline-block;">
-            Restablecer contraseña
-        </a>
-    </p>
+            <p>
+                <a href="{enlace}"
+                   style="background:#2563EB;color:#FFFFFF;padding:14px 22px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;">
+                    Restablecer contraseña
+                </a>
+            </p>
 
-    <p>Este enlace será válido durante <b>30 minutos</b>.</p>
+            <p>Este enlace será válido durante <b>30 minutos</b>.</p>
+            """
 
-    <p>Si no solicitaste este cambio, puedes ignorar este correo.</p>
-    """
+            send_email(
+                subject="Recuperación de contraseña | PorEncargo.co",
+                recipient=usuario.email,
+                body=html_body,
+                html=True
+            )
 
-    send_email(
-        subject="Recuperación de contraseña | PorEncargo.co",
-        recipient=usuario.email,
-        body=html_body,
-        html=True
-    )
+            flash(
+                "Revisa tu correo. Hemos enviado el enlace de recuperación.",
+                "success"
+            )
 
-    flash(
-        "Revisa tu correo. Hemos enviado un enlace de recuperación.",
-        "success"
-    )
+        else:
+            flash(
+                "No encontramos una cuenta con ese correo.",
+                "danger"
+            )
+
+        return redirect(url_for('olvide_password'))
+
+    return render_template('olvide_password.html')
 
 @app.route('/logout')
 def logout():
