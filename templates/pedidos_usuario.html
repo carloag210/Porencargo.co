@@ -142,50 +142,62 @@
 
     </div>
 
-    <div class="timeline">
+    <div class="timeline-v2">
 
-    <div class="step {% if paquete.estado.value in [
+    <!-- TIENDA -->
+    <div class="etapa {% if paquete.estado.value in [
         'Comprado en Tienda','Despachado por Tienda',
         'Despachado Bodega Miami','Llegó a Bodega Miami',
         'Llegó Aeropuerto Bogotá','En Aduana Bogotá',
         'En Bodega Medellín','Despachado a tú Dirección'
-    ] %}activo{% endif %}">
-        <div class="dot"></div>
-        <span>Tienda</span>
+    ] %}activa{% endif %}">
+        <div class="icono">🛒</div>
+        <h4>Tienda</h4>
+        <small>Prealerta registrada</small>
     </div>
 
-    <div class="line"></div>
+    <div class="linea {% if paquete.estado.value not in ['Comprado en Tienda','Despachado por Tienda'] %}activa{% endif %}"></div>
 
-    <div class="step {% if paquete.estado.value in [
+    <!-- MIAMI -->
+    <div class="etapa {% if paquete.estado.value in [
         'Despachado Bodega Miami','Llegó a Bodega Miami',
         'Llegó Aeropuerto Bogotá','En Aduana Bogotá',
         'En Bodega Medellín','Despachado a tú Dirección'
-    ] %}activo{% endif %}">
-        <div class="dot"></div>
-        <span>Miami</span>
+    ] %}activa{% endif %}">
+        <div class="icono">🏢</div>
+        <h4>Miami</h4>
+        <small>En nuestra bodega</small>
     </div>
 
-    <div class="line"></div>
-
-    <div class="step {% if paquete.estado.value in [
+    <div class="linea {% if paquete.estado.value in [
         'Llegó Aeropuerto Bogotá','En Aduana Bogotá',
         'En Bodega Medellín','Despachado a tú Dirección'
-    ] %}activo{% endif %}">
-        <div class="dot"></div>
-        <span>Bogotá</span>
+    ] %}activa{% endif %}"></div>
+
+    <!-- BOGOTÁ -->
+    <div class="etapa {% if paquete.estado.value in [
+        'Llegó Aeropuerto Bogotá','En Aduana Bogotá',
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activa{% endif %}">
+        <div class="icono">🛬</div>
+        <h4>Bogotá</h4>
+        <small>En proceso de ingreso</small>
     </div>
 
-    <div class="line"></div>
-
-    <div class="step {% if paquete.estado.value in [
+    <div class="linea {% if paquete.estado.value in [
         'En Bodega Medellín','Despachado a tú Dirección'
-    ] %}activo{% endif %}">
-        <div class="dot"></div>
-        <span>Entrega</span>
+    ] %}activa{% endif %}"></div>
+
+    <!-- ENTREGA -->
+    <div class="etapa {% if paquete.estado.value in [
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activa{% endif %}">
+        <div class="icono">🚚</div>
+        <h4>Entrega</h4>
+        <small>En camino a tu dirección</small>
     </div>
 
 </div>
-
 {% if paquete.fotos and paquete.fotos|length > 0 %}
 <div class="fotos-paquete">
 
