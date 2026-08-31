@@ -62,25 +62,66 @@
 
 
 
-    <main >
-      <div class="auth-container">
+   <main>
+
+    {% block content %}
+
+    <div class="auth-container">
+
+        <!-- FORMULARIO REGISTRO -->
         <div class="form-container" id="register"
              style="display: {{ 'block' if modo == 'registro' else 'none' }};">
-            <!-- Formulario de Registro (oculto por defecto) -->
-            <h2>Registro</h2>
-            <form method="POST" action="registro">
-    <input type="text" name="user_first_name" placeholder="Nombre" required>
-    <input type="text" name="user_last_name" placeholder="Apellido" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="number" name="number" placeholder="Numero de celular" required>
-    <input type="password" name="password" placeholder="Contraseña" required>
 
-    <div class="cf-turnstile"
-         data-sitekey="0x4AAAAAADhXJogQ20-ymeKq">
+            <h2>Registro</h2>
+
+            <form method="POST" action="registro">
+                <input type="text" name="user_first_name" placeholder="Nombre" required>
+                <input type="text" name="user_last_name" placeholder="Apellido" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="number" name="number" placeholder="Numero de celular" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+
+                <div class="cf-turnstile"
+                     data-sitekey="0x4AAAAAADhXJogQ20-ymeKq">
+                </div>
+
+                <button type="submit">Registrarse</button>
+            </form>
+
+            <a href="{{ url_for('login') }}" class="toggle-btn">
+                ¿Ya tienes cuenta? Inicia sesión
+            </a>
+
+        </div>
+
+
+        <!-- FORMULARIO LOGIN -->
+        <div class="form-container" id="login"
+             style="display: {{ 'block' if modo == 'login' else 'none' }};">
+
+            <h2>Login</h2>
+
+            <form method="POST" action="login">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <button type="submit">Ingresar</button>
+            </form>
+
+            <a href="{{ url_for('olvide_password') }}" class="forgot-password">
+                ¿Olvidaste tu contraseña?
+            </a>
+
+            <a href="{{ url_for('registro') }}" class="toggle-btn">
+                ¿No tienes cuenta? Regístrate
+            </a>
+
+        </div>
+
     </div>
 
-    <button type="submit">Registrarse</button>
-</form>
+    {% endblock %}
+
+</main>
             <!-- Botón para volver a Login -->
             <a href="{{ url_for('login') }}" class="toggle-btn">
                 ¿Ya tienes cuenta? Inicia sesión
