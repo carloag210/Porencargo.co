@@ -8,6 +8,7 @@ from itsdangerous import URLSafeTimedSerializer
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from auth.decorators import admin_required
+from flask import send_from_directory
 from werkzeug.utils import secure_filename
 from datetime import timedelta
 import requests
@@ -128,6 +129,14 @@ app.secret_key = app.config["SECRET_KEY"]
 app.permanent_session_lifetime = timedelta(days=7) 
 
 # ----------------- Rutas -----------------
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(
+        app.root_path,
+        'favicon.ico',
+        mimetype='image/vnd.microsoft.icon'
+    )
 
 @app.route('/')
 def index():
