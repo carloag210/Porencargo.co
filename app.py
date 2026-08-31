@@ -758,14 +758,17 @@ def reset_password(token):
         return render_template("reset_password.html")
 
     usuario.password = generate_password_hash(nueva_password)
-    
-        db.session.commit()
 
-        flash("Tu contraseña fue actualizada correctamente.", "success")
+    db.session.commit()
 
-        return redirect(url_for("login"))
+    flash(
+        "Tu contraseña fue actualizada correctamente.",
+        "success"
+    )
 
-    return render_template("reset_password.html")
+    return redirect(url_for("login"))
+
+return render_template("reset_password.html")
 
 @app.route('/logout')
 def logout():
