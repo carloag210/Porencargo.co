@@ -320,3 +320,114 @@ nav {
     background:#FEE2E2;
     color:#991B1B;
 }
+/* ========= RECUPERAR CONTRASEÑA ========= */
+
+.recovery-form{
+    max-width:580px;
+    width:100%;
+    padding:42px;
+    text-align:center;
+}
+
+.lock-icon{
+    width:90px;
+    height:90px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    background:rgba(37,99,235,.12);
+    border:1px solid rgba(59,130,246,.35);
+    box-shadow:0 0 30px rgba(37,99,235,.12);
+}
+
+.recovery-form h2{
+    font-size:46px;
+    margin-bottom:8px;
+}
+
+.linea-color{
+    width:110px;
+    height:4px;
+    margin:0 auto 28px;
+    border-radius:20px;
+    background:linear-gradient(90deg,#22C55E,#2563EB);
+}
+
+.recovery-form .subtitulo{
+    font-size:18px;
+    color:#CBD5E1;
+    line-height:1.6;
+    margin-bottom:28px;
+}
+
+.recovery-form label{
+    display:block;
+    text-align:left;
+    color:#E2E8F0;
+    margin-bottom:10px;
+    font-weight:600;
+}
+
+.input-icon{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(34,197,94,.45);
+    border-radius:16px;
+    padding:0 18px;
+    margin-bottom:22px;
+}
+
+.input-icon span{
+    font-size:22px;
+}
+
+.input-icon input{
+    flex:1;
+    background:transparent;
+    border:none;
+    color:white;
+    font-size:17px;
+    padding:18px 0;
+    outline:none;
+}
+
+.btn-gradient{
+    width:100%;
+    border:none;
+    border-radius:16px;
+    padding:18px;
+    color:white;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+    background:linear-gradient(90deg,#22C55E,#2563EB);
+    transition:.25s;
+}
+
+.btn-gradient:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+}
+
+.security-note{
+    margin-top:28px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.08);
+    color:#94A3B8;
+    font-size:15px;
+}
+
+.security-note strong{
+    color:#22C55E;
+}
+
+.volver-login{
+    display:inline-block;
+    margin-top:26px;
+    font-size:16px;
+}
