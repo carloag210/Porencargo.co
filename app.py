@@ -692,9 +692,6 @@ def olvide_password():
 
     return render_template('olvide_password.html')
 
-
-@app.route('/logout')
-def logout():
 @app.route('/logout')
 def logout():
     logout_user()
