@@ -141,16 +141,23 @@ nav {
     height: auto;
 }
 .form-container{
-    position:absolute;
-    inset:0;
+    width:100%;
+    max-width:560px;
 
     padding:38px 30px;
 
-    background:transparent;
+    background:rgba(4,23,42,.88);
+    border:1px solid rgba(59,130,246,.25);
+    backdrop-filter:blur(16px);
 
     border-radius:28px;
 
     transition:opacity .4s ease, transform .4s ease;
+
+    position:relative;   /* antes: absolute */
+    inset:auto;          /* elimina el inset:0 */
+    height:auto;
+    margin:40px auto;
 }
 
 /* Título */
