@@ -734,6 +734,36 @@ def olvide_password():
 
     return render_template('olvide_password.html')
 
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+
+    try:
+        email = serializer.loads(
+            token,
+            salt="reset-password",
+            max_age=1800
+        )
+
+    except Exception:
+        flash("El enlace expiró o no es válido.", "danger")
+        return redirect(url_for("login"))
+
+    usuario = User.query.filter_by(email=email).first()
+
+    if request.method == "POST":
+
+        nueva_password = request.form["password"]
+
+        usuario.password = generate_password_hash(nueva_password)
+
+        db.session.commit()
+
+        flash("Tu contraseña fue actualizada correctamente.", "success")
+
+        return redirect(url_for("login"))
+
+    return render_template("reset_password.html")
+
 @app.route('/logout')
 def logout():
     logout_user()
