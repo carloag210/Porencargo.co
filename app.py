@@ -688,7 +688,10 @@ def olvide_password():
 
         return redirect(url_for('olvide_password'))
 
-    return render_template('olvide_password.html')
+    return render_template(
+    "olvide_password.html",
+    modo="login"
+)
 
 @app.route('/logout')
 def logout():
