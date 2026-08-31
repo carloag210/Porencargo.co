@@ -4,6 +4,7 @@ from flask import flash, Flask, request, render_template, redirect, url_for, ses
 from extencions import db, init_extencions, login_manager
 from models import User, Paquete, EstadoPaquete, FotoPaquete, Direccion, Producto
 from config import Config
+from itsdangerous import URLSafeTimedSerializer
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from auth.decorators import admin_required
