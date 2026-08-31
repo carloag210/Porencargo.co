@@ -673,7 +673,7 @@ def login():
     return redirect(url_for("login"))
     
     @app.route('/olvide_password', methods=['GET', 'POST'])
-def olvide_password():
+    def olvide_password():
 
     if request.method == 'POST':
 
