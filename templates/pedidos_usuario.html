@@ -86,47 +86,59 @@
             <span>Progreso del envío</span>
         </div>
 
-        <div class="barra">
-            <div class="relleno
-            {% if paquete.estado.value == 'Entregado' %}
-                p100
-            {% elif paquete.estado.value == 'En Colombia' %}
-                p80
-            {% elif paquete.estado.value == 'En aeropuerto' %}
-                p60
-            {% elif paquete.estado.value == 'En bodega Miami' %}
-                p40
-            {% else %}
-                p20
-            {% endif %}"></div>
-        </div>
+        <div class="relleno
+{% if paquete.estado.value in ['Comprado en Tienda','Despachado por Tienda'] %}
+    p20
+{% elif paquete.estado.value in ['Despachado Bodega Miami','Llegó a Bodega Miami'] %}
+    p40
+{% elif paquete.estado.value in ['Llegó Aeropuerto Bogotá','En Aduana Bogotá'] %}
+    p60
+{% elif paquete.estado.value == 'En Bodega Medellín' %}
+    p80
+{% elif paquete.estado.value == 'Despachado a tú Dirección' %}
+    p100
+{% endif %}"></div
 
     </div>
 
     <div class="timeline">
 
-    <div class="step activo">
+    <div class="step {% if paquete.estado.value in [
+        'Comprado en Tienda','Despachado por Tienda',
+        'Despachado Bodega Miami','Llegó a Bodega Miami',
+        'Llegó Aeropuerto Bogotá','En Aduana Bogotá',
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activo{% endif %}">
+        <div class="dot"></div>
+        <span>Tienda</span>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step {% if paquete.estado.value in [
+        'Despachado Bodega Miami','Llegó a Bodega Miami',
+        'Llegó Aeropuerto Bogotá','En Aduana Bogotá',
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activo{% endif %}">
         <div class="dot"></div>
         <span>Miami</span>
     </div>
 
     <div class="line"></div>
 
-    <div class="step {% if paquete.estado.value in ['En aeropuerto','En Colombia','Entregado'] %}activo{% endif %}">
+    <div class="step {% if paquete.estado.value in [
+        'Llegó Aeropuerto Bogotá','En Aduana Bogotá',
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activo{% endif %}">
         <div class="dot"></div>
-        <span>Vuelo</span>
+        <span>Bogotá</span>
     </div>
 
     <div class="line"></div>
 
-    <div class="step {% if paquete.estado.value in ['En Colombia','Entregado'] %}activo{% endif %}">
-        <div class="dot"></div>
-        <span>Colombia</span>
-    </div>
-
-    <div class="line"></div>
-
-    <div class="step {% if paquete.estado.value == 'Entregado' %}activo{% endif %}">
+    <div class="step {% if paquete.estado.value in [
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activo{% endif %}">
         <div class="dot"></div>
         <span>Entrega</span>
     </div>
