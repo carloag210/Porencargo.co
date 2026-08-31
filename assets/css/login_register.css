@@ -422,3 +422,138 @@ nav {
     display:inline-block;
     margin-top:22px;
 }
+/* ===== RECOVERY PASSWORD ===== */
+
+.recovery-card{
+    max-width:650px;
+    width:100%;
+    padding:50px;
+    border-radius:28px;
+    background:rgba(7,18,36,.88);
+    border:1px solid rgba(59,130,246,.25);
+    backdrop-filter: blur(18px);
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.lock-circle{
+    width:95px;
+    height:95px;
+    margin:auto;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+    border:2px solid #2563EB;
+    background:rgba(37,99,235,.12);
+    margin-bottom:20px;
+}
+
+.recovery-card h1{
+    color:#fff;
+    font-size:54px;
+    line-height:1.05;
+    margin-bottom:15px;
+}
+
+.gradient-line{
+    width:120px;
+    height:5px;
+    margin:0 auto 28px;
+    border-radius:30px;
+    background:linear-gradient(90deg,#22C55E,#2563EB);
+}
+
+.recovery-card .subtitulo{
+    color:#CBD5E1;
+    font-size:20px;
+    line-height:1.7;
+    margin-bottom:35px;
+}
+
+.recovery-card label{
+    display:block;
+    text-align:left;
+    color:#fff;
+    margin-bottom:12px;
+    font-weight:600;
+}
+
+.input-mail{
+    display:flex;
+    align-items:center;
+    border:1px solid #0EA5A5;
+    border-radius:18px;
+    overflow:hidden;
+    background:rgba(255,255,255,.03);
+    margin-bottom:28px;
+}
+
+.input-mail .icon{
+    padding:18px 22px;
+    font-size:22px;
+    border-right:1px solid rgba(255,255,255,.08);
+}
+
+.input-mail input{
+    flex:1;
+    background:none;
+    border:none;
+    color:white;
+    font-size:18px;
+    padding:18px;
+    outline:none;
+}
+
+.btn-recovery{
+    width:100%;
+    padding:20px;
+    border:none;
+    border-radius:18px;
+    color:#fff;
+    font-size:22px;
+    font-weight:700;
+    cursor:pointer;
+    background:linear-gradient(90deg,#22C55E,#2563EB);
+    transition:.25s;
+}
+
+.btn-recovery:hover{
+    transform:translateY(-2px);
+    box-shadow:0 15px 35px rgba(37,99,235,.30);
+}
+
+.security-box{
+    margin-top:30px;
+    display:flex;
+    gap:18px;
+    align-items:center;
+    padding:22px;
+    border-radius:18px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(59,130,246,.15);
+    text-align:left;
+}
+
+.shield{
+    font-size:34px;
+}
+
+.security-box strong{
+    color:#fff;
+}
+
+.security-box p{
+    color:#94A3B8;
+    margin-top:4px;
+    font-size:15px;
+}
+
+.back-link{
+    display:inline-block;
+    margin-top:28px;
+    color:#3B82F6;
+    text-decoration:none;
+    font-weight:600;
+}
