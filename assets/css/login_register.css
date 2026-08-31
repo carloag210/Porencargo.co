@@ -294,11 +294,10 @@ nav {
 .forgot-password{
     display:block;
     text-align:center;
-    margin-top:16px;
-    color:#2563EB;
-    font-weight:600;
+    margin-top:18px;
+    color:#3B82F6;
+    font-weight:500;
     text-decoration:none;
-    transition:.2s;
 }
 
 .forgot-password:hover{
