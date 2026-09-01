@@ -55,163 +55,82 @@
 </header>
   <main class="tracking-page">
 
-    <section class="tracking-header">
+    <div class="tracking-card premium">
 
-        <span>POR ENCARGO</span>
+        <div class="lock-circle">📦</div>
 
         <h1>Rastrea tu orden</h1>
 
-        <p>
-            Consulta el estado de tu paquete y conoce
-            en qué parte del proceso se encuentra.
+        <div class="gradient-line"></div>
+
+        <p class="subtitulo">
+            Consulta el estado de tu paquete y conoce en qué parte del proceso se encuentra.
         </p>
 
-    </section>
+        <form method="POST" action="/rastrear">
 
+            <label>Correo electrónico</label>
+            <input
+                type="email"
+                name="email"
+                placeholder="correo@ejemplo.com"
+                required>
 
-    <section class="tracking-content">
+            <label>Número de guía</label>
+            <input
+                type="text"
+                name="numero_guia"
+                placeholder="PE-4589123"
+                required>
 
-        <!-- BUSCADOR -->
+            <button type="submit" class="tracking-button">
+                🔎 Buscar mi paquete
+            </button>
 
-        <div class="tracking-card">
-
-            <div class="tracking-icon">
-                📦
-            </div>
-
-            <h2>Encuentra tu paquete</h2>
-
-            <p class="tracking-description">
-                Ingresa el correo asociado a tu cuenta
-                y el número de guía de tu pedido.
-            </p>
-
-            <form method="POST" action="/rastrear">
-
-                <div class="input-group">
-
-                    <label>Correo electrónico</label>
-
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="correo@ejemplo.com"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label>Número de guía</label>
-
-                    <input
-                        type="text"
-                        name="numero_guia"
-                        placeholder="Ingresa tu número de guía"
-                        required
-                    >
-
-                </div>
-
-
-                <button type="submit" class="tracking-button">
-                    🔍 Buscar mi paquete
-                </button>
-
-            </form>
-
-        </div>
-
-
-        <!-- RESULTADO -->
+        </form>
 
         {% if paquete %}
 
         <div class="tracking-result">
 
-            <div class="result-header">
-
-                <span class="result-label">
-                    INFORMACIÓN DEL PEDIDO
-                </span>
-
-                <h2>{{ paquete.nombre }}</h2>
-
-            </div>
-
+            <h3>{{ paquete.nombre }}</h3>
 
             <div class="result-grid">
 
                 <div class="result-item">
-
-                    <span>Estado actual</span>
-
-                    <strong class="status">
-                        {{ paquete.estado.value }}
-                    </strong>
-
+                    <span>Estado</span>
+                    <strong class="status">{{ paquete.estado.value }}</strong>
                 </div>
 
-
                 <div class="result-item">
-
                     <span>Precio</span>
-
-                    <strong>
-                        ${{ paquete.precio }}
-                    </strong>
-
+                    <strong>${{ paquete.precio }}</strong>
                 </div>
 
-
                 <div class="result-item">
-
                     <span>Peso</span>
-
-                    <strong>
-                        {{ paquete.peso }}
-                    </strong>
-
+                    <strong>{{ paquete.peso }}</strong>
                 </div>
 
-
                 <div class="result-item">
-
                     <span>Destinatario</span>
-
-                    <strong>
-                        {{ paquete.nombre }}
-                    </strong>
-
+                    <strong>{{ paquete.nombre }}</strong>
                 </div>
 
             </div>
 
         </div>
-
 
         {% elif request.method == 'POST' %}
 
         <div class="tracking-error">
-
-            <div>
-                🔎
-            </div>
-
-            <h2>No encontramos tu pedido</h2>
-
-            <p>
-                Verifica que el correo electrónico y el número
-                de guía sean correctos e inténtalo nuevamente.
-            </p>
-
+            <h3>No encontramos tu pedido</h3>
+            <p>Verifica el correo y el número de guía e inténtalo nuevamente.</p>
         </div>
 
         {% endif %}
 
-    </section>
+    </div>
 
 </main>
     <a href="https://wa.me/573186505475" target="_blank" style="position:fixed;bottom:20px;right:20px;z-index:9999;"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" style="width:50px;height:50px;"></a>
