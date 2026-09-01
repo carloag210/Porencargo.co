@@ -1173,7 +1173,7 @@ body > a[href*="wa.me"]:hover {
 
 .tracking-card.premium{
     width:100%;
-    max-width:560px;
+    max-width:460px;
 
     background:rgba(4,23,42,.88);
     backdrop-filter:blur(18px);
