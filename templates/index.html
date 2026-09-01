@@ -1773,13 +1773,31 @@
                 </li>
 
 
-                <li>
+               {% if current_user.is_authenticated %}
 
-                    <a href="{{ url_for('login') }}">
-                         Mi Casillero
-                    </a>
+    {% if current_user.is_admin %}
+        <li>
+            <a href="{{ url_for('admin_panel') }}">
+                Mi Casillero
+            </a>
+        </li>
+    {% else %}
+        <li>
+            <a href="{{ url_for('pedidos_del_usuario') }}">
+                Mi Casillero
+            </a>
+        </li>
+    {% endif %}
 
-                </li>
+{% else %}
+
+    <li>
+        <a href="{{ url_for('login') }}">
+            Mi Casillero
+        </a>
+    </li>
+
+{% endif %}
             
                 <li><a href="{{ url_for('calculadora') }}">Calculadora</a></li>
 
