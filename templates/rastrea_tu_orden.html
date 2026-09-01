@@ -57,19 +57,23 @@
 
     <div class="tracking-card premium">
 
-        <div class="lock-circle">📦</div>
+        <div class="lock-circle">
+            📦
+        </div>
 
         <h1>Rastrea tu orden</h1>
 
         <div class="gradient-line"></div>
 
         <p class="subtitulo">
-            Consulta el estado de tu paquete y conoce en qué parte del proceso se encuentra.
+            Consulta el estado de tu paquete ingresando el correo
+            y el número de guía asociado a tu pedido.
         </p>
 
         <form method="POST" action="/rastrear">
 
             <label>Correo electrónico</label>
+
             <input
                 type="email"
                 name="email"
@@ -77,14 +81,15 @@
                 required>
 
             <label>Número de guía</label>
+
             <input
                 type="text"
                 name="numero_guia"
                 placeholder="PE-4589123"
                 required>
 
-            <button type="submit" class="tracking-button">
-                🔎 Buscar mi paquete
+            <button class="tracking-button" type="submit">
+                Buscar mi paquete
             </button>
 
         </form>
@@ -124,8 +129,13 @@
         {% elif request.method == 'POST' %}
 
         <div class="tracking-error">
-            <h3>No encontramos tu pedido</h3>
-            <p>Verifica el correo y el número de guía e inténtalo nuevamente.</p>
+
+            <h3>Pedido no encontrado</h3>
+
+            <p>
+                Verifica el correo y el número de guía e inténtalo nuevamente.
+            </p>
+
         </div>
 
         {% endif %}
