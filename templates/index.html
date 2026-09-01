@@ -1807,22 +1807,8 @@
 
                 </li>
 
-                {% endif %}
-
-
-                {% if current_user.is_authenticated and not current_user.is_admin %}
-
-                <li>
-
-                    <a href="{{ url_for('pedidos_del_usuario') }}">
-
-                        Mis pedidos
-
-                    </a>
-
-                </li>
-
-                {% endif %}
+                {% endif %}}
+                
 
 
             </ul>
