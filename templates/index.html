@@ -1867,10 +1867,28 @@
 
             <div class="hero-buttons">
 
-                <a href="{{ url_for('login') }}"
-                   class="btn-primary btn-casillero">
-                    🚀 Abrir mi Casillero
-                </a>
+                {% if current_user.is_authenticated %}
+
+    {% if current_user.is_admin %}
+        <a href="{{ url_for('admin_panel') }}"
+           class="btn-primary btn-casillero">
+            🚀 Abrir mi Casillero
+        </a>
+    {% else %}
+        <a href="{{ url_for('pedidos_del_usuario') }}"
+           class="btn-primary btn-casillero">
+            🚀 Abrir mi Casillero
+        </a>
+    {% endif %}
+
+{% else %}
+
+    <a href="{{ url_for('login') }}"
+       class="btn-primary btn-casillero">
+        🚀 Abrir mi Casillero
+    </a>
+
+{% endif %}
 
                 <div class="hero-secondary-buttons">
 
