@@ -44,9 +44,7 @@
         {% if current_user.is_authenticated and current_user.is_admin %}
           <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
         {% endif %}
-        {% if current_user.is_authenticated and not current_user.is_admin %}
-          <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
-        {% endif %}
+        
       </ul>
       <!-- Dólar Hoy TRM -->
       <style>#dolar_wpc1 a { font-size:1.2rem; font-weight:500; text-decoration:none;} #widget_usd_cop1 {font-size:1.1rem; color:#000;}</style>
