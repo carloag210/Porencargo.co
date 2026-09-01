@@ -11,8 +11,10 @@
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+   <link rel="stylesheet" href="/assets/css/login_register.css">
+   <link rel="stylesheet" href="/assets/css/rastrea_tu_orden.css">
    
-   <link rel="stylesheet" href="assets/css/rastrea_tu_orden.css">
     <!-- esta conectado al css de login_register ara ahorrar codigo  -->
   </head>
   <body>
@@ -53,43 +55,38 @@
     </nav>
   </div>
 </header>
-  <main class="tracking-page">
+  <main>
 
-    <div class="tracking-card premium">
+<div class="auth-container">
 
-        <div class="lock-circle">
-            📦
-        </div>
+    <div class="form-container">
 
-        <h1>Rastrea tu orden</h1>
+        <div class="lock-circle">📦</div>
 
-        <div class="gradient-line"></div>
+        <h2>Rastrea tu orden</h2>
 
         <p class="subtitulo">
-            Consulta el estado de tu paquete ingresando el correo
-            y el número de guía asociado a tu pedido.
+            Consulta el estado de tu paquete ingresando el correo y el número de guía.
         </p>
 
         <form method="POST" action="/rastrear">
 
-            <label>Correo electrónico</label>
-
             <input
+                class="form-input"
                 type="email"
                 name="email"
-                placeholder="correo@ejemplo.com"
+                placeholder="Correo electrónico"
                 required>
-
-            <label>Número de guía</label>
 
             <input
+                class="form-input"
                 type="text"
                 name="numero_guia"
-                placeholder="PE-4589123"
+                placeholder="Número de guía"
                 required>
 
-            <button class="tracking-button" type="submit">
-                Buscar mi paquete
+            <button class="btn-login" type="submit">
+                🔍 Buscar mi paquete
             </button>
 
         </form>
@@ -130,7 +127,7 @@
 
         <div class="tracking-error">
 
-            <h3>Pedido no encontrado</h3>
+            <strong>No encontramos tu pedido</strong>
 
             <p>
                 Verifica el correo y el número de guía e inténtalo nuevamente.
@@ -141,6 +138,8 @@
         {% endif %}
 
     </div>
+
+</div>
 
 </main>
     <a href="https://wa.me/573186505475" target="_blank" style="position:fixed;bottom:20px;right:20px;z-index:9999;"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" style="width:50px;height:50px;"></a>
