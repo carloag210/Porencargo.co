@@ -49,23 +49,27 @@ html {
 }
 
 
-body {
+body{
+    margin:0;
+    min-height:100vh;
 
-    font-family: "Inter", sans-serif;
+    font-family:"Inter",sans-serif;
+    color:#F8FAFC;
+    line-height:1.6;
 
     background:
-        var(--light);
+        linear-gradient(
+            105deg,
+            rgba(4,10,18,.94) 0%,
+            rgba(8,22,36,.82) 55%,
+            rgba(8,22,36,.55) 100%
+        ),
+        url("/assets/img/representacion-de-la-cadena-de-suministro-de-vehiculos-en-portatiles.jpg");
 
-    color:
-        var(--text);
-
-    line-height:
-        1.6;
-
-    min-height:
-        100vh;
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
 }
-
 
 button,
 input {
