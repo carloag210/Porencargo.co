@@ -675,7 +675,7 @@ def login():
 
     if user and check_password_hash(user.password, password):
         session.permanent = True
-        login_user(user)
+        login_user(user, remember=True)
 
         if user.is_admin:
             return redirect('/admin')
