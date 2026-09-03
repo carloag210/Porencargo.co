@@ -586,7 +586,7 @@ def registro():
     db.session.add(nuevo_usuario)
     db.session.commit()
 
-        subject_admin = "Nuevo usuario registrado"
+    subject_admin = "Nuevo usuario registrado"
 
     body_admin = render_template(
         "mails/nuevo_registro_admin.html",
