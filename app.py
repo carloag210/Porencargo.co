@@ -906,13 +906,18 @@ def crear_paquete_usuario():
         numero_guia = request.form['numero_guia']
         precio = request.form['precio']
         peso = request.form['peso']
-        estado = request.form['estado']
+        estado = EstadoPaquete[request.form['estado']]
 
-        numero_guia_existente = Paquete.query.filter_by(numero_guia=numero_guia).first()
+        # Evitar guías duplicadas
+        numero_guia_existente = Paquete.query.filter_by(
+            numero_guia=numero_guia
+        ).first()
+
         if numero_guia_existente:
-            flash('Este numero de guia ya ha sido utilizado','error')
+            flash('Este número de guía ya ha sido utilizado', 'error')
             return redirect('/add_prealerta')
 
+        # Crear prealerta
         nuevo_paquete = Paquete(
             nombre=nombre,
             numero_guia=numero_guia,
@@ -926,8 +931,12 @@ def crear_paquete_usuario():
         db.session.add(nuevo_paquete)
         db.session.commit()
 
-        subject_paquete = 'Nueva prealerta registrada'
-        
+        # ==========================================
+        # CORREO AL ADMINISTRADOR
+        # ==========================================
+
+        subject_paquete = "Nueva prealerta registrada"
+
         body_paquete = f"""
 📦 NUEVA PREALERTA REGISTRADA
 
@@ -953,40 +962,46 @@ Mensaje automático del sistema
         ok3, resp3 = send_email(
             subject_paquete,
             "carloag210@hotmail.com",
-            body_paquete,
-            html=False
+            body_paquete
         )
 
         if not ok3:
-            print("Error notificando admin de prealerta:", resp3)
-            flash("Prealerta creada, pero hubo un problema notificando al administrador", "warning")
+            print("Error notificando admin:", resp3)
+            flash(
+                "Prealerta creada, pero hubo un problema notificando al administrador",
+                "warning"
+            )
 
-    # ==========================================
-    # CORREO AL CLIENTE (HTML)
-    # ==========================================
+        # ==========================================
+        # CORREO AL CLIENTE (HTML)
+        # ==========================================
 
-    html_prealerta = render_template(
-        "emails/prealerta.html",
-        usuario=user,
-        paquete=nuevo_paquete
-    )
+        html_prealerta = render_template(
+            "emails/prealerta.html",
+            usuario=user,
+            paquete=nuevo_paquete
+        )
 
-    ok_user, resp_user = send_email(
-        "Tu prealerta fue registrada correctamente 📦",
-        user.email,
-        html_prealerta,
-        html=True
-    )
+        ok_user, resp_user = send_email(
+            "Tu prealerta fue registrada correctamente 📦",
+            user.email,
+            html_prealerta,
+            html=True
+        )
 
-    if not ok_user:
-        print("Error notificando usuario:", resp_user)
+        if not ok_user:
+            print("Error notificando usuario:", resp_user)
 
-    return redirect(url_for('pedidos_del_usuario'))
+        flash("Prealerta registrada correctamente", "success")
+        return redirect(url_for('pedidos_del_usuario'))
+
+    # GET → mostrar formulario
     estados_posibles = list(EstadoPaquete)
+
     return render_template(
         'formulario_paquete_usuario.html',
         estados_posibles=estados_posibles,
-        usuario=current_user
+        usuario=user
     )
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
