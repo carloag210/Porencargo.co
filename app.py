@@ -940,16 +940,17 @@ def crear_paquete_usuario():
             paquete=nuevo_paquete
         )
 
-        ok_user, resp_user = send_email(
-            "Tu prealerta fue registrada correctamente 📦",
-            user.email,
-            html_prealerta,
-            html=True
-        )
+            ok_user, resp_user = send_email(
+        "Tu prealerta fue registrada correctamente 📦",
+        user.email,
+        html_prealerta,
+        html=True
+    )
 
-        if not ok_user:
-            print("Error notificando usuario:", resp_user)
+    print("ENVÍO CLIENTE:", user.email, "|", ok_user, "|", resp_user)
 
+    if not ok_user:
+        print("Error notificando usuario:", resp_user)
         flash("Prealerta registrada correctamente", "success")
         return redirect(url_for('pedidos_del_usuario'))
 
