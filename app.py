@@ -923,11 +923,11 @@ ok3, resp3 = send_email(
  html=True,
 )
 
-    if not ok3:
-        print("Error notificando admin:", resp3)
-        flash(
-            "Prealerta creada, pero hubo un problema notificando al administrador",
-            "warning"
+       if not ok3:
+           print("Error notificando admin:", resp3)
+           flash(
+               "Prealerta creada, pero hubo un problema notificando al administrador",
+               "warning"
         )
 
         # ==========================================
