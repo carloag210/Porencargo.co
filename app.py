@@ -930,29 +930,30 @@ def crear_paquete_usuario():
             "warning"
         )
 
-        # ==========================================
-        # CORREO AL CLIENTE (HTML)
-        # ==========================================
+            # ==========================================
+    # CORREO AL CLIENTE (HTML)
+    # ==========================================
 
-        html_prealerta = render_template(
-            "mails/prealerta.html",
-            usuario=user,
-            paquete=nuevo_paquete
-        )
+    html_prealerta = render_template(
+        "mails/prealerta.html",
+        usuario=user,
+        paquete=nuevo_paquete,
+    )
 
-        ok_user, resp_user = send_email(
+    ok_user, resp_user = send_email(
         "Tu prealerta fue registrada correctamente 📦",
         user.email,
         html_prealerta,
-        html=True
+        html=True,
     )
 
     print("ENVÍO CLIENTE:", user.email, "|", ok_user, "|", resp_user)
 
     if not ok_user:
         print("Error notificando usuario:", resp_user)
-        flash("Prealerta registrada correctamente", "success")
-        return redirect(url_for('pedidos_del_usuario'))
+
+    flash("Prealerta registrada correctamente", "success")
+    return redirect(url_for("pedidos_del_usuario"))
 
     # GET → mostrar formulario
     estados_posibles = list(EstadoPaquete)
