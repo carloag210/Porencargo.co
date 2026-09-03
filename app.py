@@ -977,7 +977,7 @@ Mensaje automático del sistema
         # ==========================================
 
         html_prealerta = render_template(
-            "emails/prealerta.html",
+            "mails/prealerta.html",
             usuario=user,
             paquete=nuevo_paquete
         )
