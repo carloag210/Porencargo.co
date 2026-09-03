@@ -1,1 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prealerta registrada</title>
+</head>
 
+<body style="margin:0;padding:0;background:#F4F7FB;font-family:Arial,Helvetica,sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F4F7FB;padding:30px 15px;">
+<tr>
+<td align="center">
+
+<table width="600" cellpadding="0" cellspacing="0" style="background:#FFFFFF;border-radius:22px;overflow:hidden;">
+
+  <!-- HEADER -->
+  <tr>
+    <td align="center" style="background:#081634;padding:32px 25px;">
+      <img src="https://porencargo.co/assets/img/logo_porEncargo_sinLetras.jpg"
+           width="85"
+           alt="PorEncargo.co"
+           style="display:block;border-radius:12px;">
+
+      <h1 style="margin:18px 0 8px;color:#FFFFFF;font-size:34px;font-weight:bold;">
+        PorEncargo.co
+      </h1>
+
+      <p style="margin:0;color:#BFDBFE;font-size:20px;">
+        Tu prealerta fue recibida correctamente
+      </p>
+    </td>
+  </tr>
+
+  <!-- CONTENIDO -->
+  <tr>
+    <td style="padding:42px 40px;">
+
+      <h2 style="margin:0 0 18px;color:#111827;font-size:32px;">
+        ¡Hola {{ usuario.user_first_name }}! 👋
+      </h2>
+
+      <p style="margin:0 0 28px;color:#475569;font-size:20px;line-height:1.7;">
+        Hemos registrado tu compra exitosamente. A partir de este momento podrás seguir el recorrido de tu paquete desde tu cuenta de PorEncargo.co.
+      </p>
+
+      <!-- TARJETA -->
+      <table width="100%" cellpadding="12" cellspacing="0" style="background:#F8FAFC;border-radius:16px;border:1px solid #E5E7EB;">
+
+        <tr>
+          <td style="color:#64748B;font-size:18px;"><b>📦 Producto</b></td>
+          <td align="right" style="color:#111827;font-size:18px;">
+            {{ paquete.nombre }}
+          </td>
+        </tr>
+
+        <tr>
+          <td style="color:#64748B;font-size:18px;"><b>🔖 Guía</b></td>
+          <td align="right" style="color:#111827;font-size:18px;">
+            {{ paquete.numero_guia }}
+          </td>
+        </tr>
+
+        <tr>
+          <td style="color:#64748B;font-size:18px;"><b>💵 Precio</b></td>
+          <td align="right" style="color:#111827;font-size:18px;font-weight:bold;">
+            ${{ paquete.precio }}
+          </td>
+        </tr>
+
+        <tr>
+          <td style="color:#64748B;font-size:18px;"><b>⚖️ Peso</b></td>
+          <td align="right" style="color:#111827;font-size:18px;font-weight:bold;">
+            {{ paquete.peso }} LB
+          </td>
+        </tr>
+
+      </table>
+
+      <!-- BOTÓN -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin:34px 0;">
+        <tr>
+          <td align="center">
+            <a href="https://porencargo.co/login"
+               style="background:#2563EB;color:#FFFFFF;text-decoration:none;padding:18px 34px;border-radius:14px;font-weight:bold;font-size:18px;display:inline-block;">
+              Rastrear mi pedido
+            </a>
+          </td>
+        </tr>
+      </table>
+
+      <p style="margin:0;color:#64748B;font-size:16px;line-height:1.7;">
+        Este es un correo automático de <strong>PorEncargo.co</strong>. Si tienes alguna duda puedes responder este mensaje o comunicarte con nuestro equipo de logística.
+      </p>
+
+    </td>
+  </tr>
+
+  <!-- FOOTER -->
+  <tr>
+    <td align="center" style="background:#F8FAFC;padding:24px;color:#64748B;font-size:15px;">
+      © 2026 <strong>PorEncargo.co</strong><br>
+      Medellín · Colombia
+    </td>
+  </tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>
