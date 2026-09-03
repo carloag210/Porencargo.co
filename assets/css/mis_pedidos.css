@@ -822,3 +822,276 @@ nav{
 .linea.activa{
     background:#2563EB;
 }
+/* =========================================
+   MÓVIL · Panel PorEncargo
+========================================= */
+@media (max-width: 700px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .container,
+    .main-container {
+        width: min(100% - 28px, 600px);
+    }
+
+    nav {
+        height: auto;
+        min-height: 64px;
+        padding: 10px 0;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .logo_porEncargo img {
+        height: 46px;
+    }
+
+    .nav-links {
+        width: 100%;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        white-space: nowrap;
+    }
+
+    .nav-links a {
+        display: inline-block;
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .main-container {
+        margin: 18px auto 28px;
+        gap: 16px;
+    }
+
+    /* Menú lateral convertido en accesos horizontales */
+    .sidebar {
+        min-height: auto;
+        padding: 12px;
+        border-radius: 18px;
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+        overflow-x: auto;
+    }
+
+    .profile {
+        display: none;
+    }
+
+    .side-link {
+        flex: 0 0 auto;
+        margin: 0;
+        padding: 11px 13px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .bottom-menu {
+        display: flex;
+        margin: 0;
+        gap: 6px;
+    }
+
+    .cliente-header {
+        padding: 24px 20px;
+        border-radius: 19px;
+    }
+
+    .cliente-header h1 {
+        font-size: 27px;
+        line-height: 34px;
+    }
+
+    .cliente-header p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    .stat-card {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .stat-card h2 {
+        font-size: 24px;
+    }
+
+    .cards-pedidos {
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .pedido-card {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .pedido-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .tienda {
+        width: 100%;
+        gap: 12px;
+    }
+
+    .logo-tienda {
+        width: 52px;
+        height: 52px;
+        flex: 0 0 52px;
+    }
+
+    .tienda h3 {
+        font-size: 16px;
+        line-height: 21px;
+        overflow-wrap: anywhere;
+    }
+
+    .estado {
+        align-self: flex-start;
+    }
+
+    .datos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        padding: 14px 0;
+    }
+
+    .datos > div {
+        min-width: 0;
+    }
+
+    .datos > div:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .datos strong {
+        font-size: 15px;
+    }
+
+    .mensaje-estado {
+        padding: 14px;
+        font-size: 13px;
+        line-height: 20px;
+    }
+
+    /* Línea de seguimiento desplazable con el dedo */
+    .timeline-v2 {
+        justify-content: flex-start;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 8px 2px 14px;
+        margin: 18px 0;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .etapa {
+        flex: 0 0 88px;
+    }
+
+    .icono {
+        width: 52px;
+        height: 52px;
+        font-size: 23px;
+        margin-bottom: 8px;
+    }
+
+    .etapa h4 {
+        font-size: 14px;
+    }
+
+    .etapa small {
+        font-size: 11px;
+    }
+
+    .linea {
+        flex: 0 0 24px;
+        margin-top: 25px;
+    }
+
+    .galeria {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .galeria img {
+        width: 100% !important;
+        height: 130px !important;
+        border-radius: 12px;
+    }
+
+    .check {
+        min-height: 44px;
+        font-size: 14px;
+    }
+
+    .check input {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 20px;
+    }
+
+    .prealerta-card {
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .card-header h2 {
+        font-size: 24px;
+    }
+
+    .form-input {
+        min-height: 48px;
+        padding: 13px 15px;
+        font-size: 16px; /* Evita zoom automático en iPhone */
+    }
+
+    .peso-group {
+        grid-template-columns: 1fr 74px;
+    }
+
+    .btn-prealerta {
+        min-height: 52px;
+    }
+
+    .lightbox img {
+        max-width: 92vw;
+        max-height: 78vh;
+        border-radius: 12px;
+    }
+
+    .cerrar {
+        top: 16px;
+        right: 18px;
+    }
+
+    .mensaje-flash {
+        top: 12px;
+        right: 12px;
+        left: 12px;
+    }
+}
+
+@media (max-width: 380px) {
+    .stats,
+    .datos {
+        grid-template-columns: 1fr;
+    }
+
+    .datos > div:last-child {
+        grid-column: auto;
+    }
+}
