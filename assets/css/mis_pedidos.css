@@ -310,7 +310,7 @@ nav{
     border:1px solid var(--border);
     border-radius:22px;
     padding:26px;
-    box-shadow:var(--shadow);
+    box-shadow:none;
     transition:.25s;
 }
 
