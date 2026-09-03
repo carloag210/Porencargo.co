@@ -910,17 +910,17 @@ def crear_paquete_usuario():
 
         subject_paquete = "Nueva prealerta registrada"
 
-   body_paquete = render_template(
-    "mails/nueva_prealerta_admin.html",
-    user=user,
-    paquete=nuevo_paquete,
+        body_paquete = render_template(
+            "mails/nueva_prealerta_admin.html",
+            user=user,
+            paquete=nuevo_paquete,
 )
 
 ok3, resp3 = send_email(
-    subject_paquete,
-    "carloag210@hotmail.com",
-    body_paquete,
-    html=True,
+     subject_paquete,
+     "carloag210@hotmail.com",
+     body_paquete,
+     html=True,
 )
 
         if not ok3:
