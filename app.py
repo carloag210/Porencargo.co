@@ -597,7 +597,7 @@ def registro():
     subject_user = "¡Tu casillero internacional ya está listo!"
 
     mensaje_bienvenida = render_template(
-        "emails/bienvenida.html",
+        "mails/bienvenida.html",
         usuario=nuevo_usuario,
     )
 
