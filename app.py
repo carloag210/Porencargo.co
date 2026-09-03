@@ -940,7 +940,7 @@ def crear_paquete_usuario():
             paquete=nuevo_paquete
         )
 
-            ok_user, resp_user = send_email(
+        ok_user, resp_user = send_email(
         "Tu prealerta fue registrada correctamente 📦",
         user.email,
         html_prealerta,
