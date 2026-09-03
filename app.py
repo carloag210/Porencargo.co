@@ -961,25 +961,27 @@ Mensaje automático del sistema
             print("Error notificando admin de prealerta:", resp3)
             flash("Prealerta creada, pero hubo un problema notificando al administrador", "warning")
 
-        # 👇 Generar el correo HTML
-html_prealerta = render_template(
-    "emails/prealerta.html",
-    usuario=user,
-    paquete=nuevo_paquete
-)
+    # ==========================================
+    # CORREO AL CLIENTE (HTML)
+    # ==========================================
 
-# 👇 Enviar el correo al cliente
-ok_user, resp_user = send_email(
-    "Tu prealerta fue registrada correctamente 📦",
-    user.email,
-    html_prealerta,
-    html=True
-)
-      if not ok_user:
-            print("Error notificando usuario:", resp_user)
+    html_prealerta = render_template(
+        "emails/prealerta.html",
+        usuario=user,
+        paquete=nuevo_paquete
+    )
 
-        return redirect(url_for('pedidos_del_usuario'))
+    ok_user, resp_user = send_email(
+        "Tu prealerta fue registrada correctamente 📦",
+        user.email,
+        html_prealerta,
+        html=True
+    )
 
+    if not ok_user:
+        print("Error notificando usuario:", resp_user)
+
+    return redirect(url_for('pedidos_del_usuario'))
     estados_posibles = list(EstadoPaquete)
     return render_template(
         'formulario_paquete_usuario.html',
