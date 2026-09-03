@@ -586,12 +586,28 @@ def registro():
     db.session.add(nuevo_usuario)
     db.session.commit()
 
-    subject_admin = 'Nuevo usuario registrado'
-    body_admin = f'Se ha registrado un nuevo usuario:\n\nNombre del usuario: {user_first_name}\n Apellido del usuario:{user_last_name}\nCorreo: {email}'
-    ok, resp = send_email(subject_admin, "carloag210@hotmail.com", body_admin)
+        subject_admin = "Nuevo usuario registrado"
+
+    body_admin = render_template(
+        "mails/nuevo_registro_admin.html",
+        user_first_name=user_first_name,
+        user_last_name=user_last_name,
+        email=email,
+    )
+
+    ok, resp = send_email(
+        subject_admin,
+        "carloag210@hotmail.com",
+        body_admin,
+        html=True,
+    )
+
     if not ok:
         print("Error notificando admin:", resp)
-        flash("Usuario creado, pero hubo un problema notificando al administrador", "warning")
+        flash(
+            "Usuario creado, pero hubo un problema notificando al administrador",
+            "warning",
+        )
 
         # --- Correo HTML de bienvenida ---
     subject_user = "¡Tu casillero internacional ya está listo!"
