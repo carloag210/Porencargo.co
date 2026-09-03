@@ -593,27 +593,27 @@ def registro():
         print("Error notificando admin:", resp)
         flash("Usuario creado, pero hubo un problema notificando al administrador", "warning")
 
-    # --- Correo HTML de bienvenida ---
-subject_user = "¡Tu casillero internacional ya está listo!"
+        # --- Correo HTML de bienvenida ---
+    subject_user = "¡Tu casillero internacional ya está listo!"
 
-mensaje_bienvenida = render_template(
-    "emails/bienvenida.html",
-    usuario=nuevo_usuario,
-)
-
-ok2, resp2 = send_email(
-    subject_user,
-    nuevo_usuario.email,
-    mensaje_bienvenida,
-    html=True,
-)
-
-if not ok2:
-    print("Error enviando bienvenida al usuario:", resp2)
-    flash(
-        "Usuario creado, pero hubo un problema enviando el correo de bienvenida",
-        "warning",
+    mensaje_bienvenida = render_template(
+        "emails/bienvenida.html",
+        usuario=nuevo_usuario,
     )
+
+    ok2, resp2 = send_email(
+        subject_user,
+        nuevo_usuario.email,
+        mensaje_bienvenida,
+        html=True,
+    )
+
+    if not ok2:
+        print("Error enviando bienvenida al usuario:", resp2)
+        flash(
+            "Usuario creado, pero hubo un problema enviando el correo de bienvenida",
+            "warning",
+        )
 
     flash("Usuario registrado con éxito", "success")
     return redirect(url_for("login"))
