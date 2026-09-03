@@ -975,7 +975,7 @@ ok_user, resp_user = send_email(
     html_prealerta,
     html=True
 )
-        if not ok_user:
+      if not ok_user:
             print("Error notificando usuario:", resp_user)
 
         return redirect(url_for('pedidos_del_usuario'))
