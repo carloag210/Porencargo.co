@@ -961,14 +961,20 @@ Mensaje automático del sistema
             print("Error notificando admin de prealerta:", resp3)
             flash("Prealerta creada, pero hubo un problema notificando al administrador", "warning")
 
-        # 👇 AQUÍ va el correo del usuario
-        ok_user, resp_user = send_email(
-            "Tu prealerta fue registrada correctamente 📦",
-            user.email,
-            body_paquete,
-            html=False
-        )
+        # 👇 Generar el correo HTML
+html_prealerta = render_template(
+    "emails/prealerta.html",
+    usuario=user,
+    paquete=nuevo_paquete
+)
 
+# 👇 Enviar el correo al cliente
+ok_user, resp_user = send_email(
+    "Tu prealerta fue registrada correctamente 📦",
+    user.email,
+    html_prealerta,
+    html=True
+)
         if not ok_user:
             print("Error notificando usuario:", resp_user)
 
