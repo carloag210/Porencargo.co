@@ -957,7 +957,7 @@ def crear_paquete_usuario():
     estados_posibles = list(EstadoPaquete)
 
     return render_template(
-        'formulario_paquete_usuario.html',
+        'pedidos_usuario.html',
         estados_posibles=estados_posibles,
         usuario=user
     )
