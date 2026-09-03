@@ -910,33 +910,18 @@ def crear_paquete_usuario():
 
         subject_paquete = "Nueva prealerta registrada"
 
-        body_paquete = f"""
-📦 NUEVA PREALERTA REGISTRADA
+   body_paquete = render_template(
+    "mails/nueva_prealerta_admin.html",
+    user=user,
+    paquete=nuevo_paquete,
+)
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-👤 USUARIO
-Nombre : {user.user_first_name} {user.user_last_name}
-Correo : {user.email}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📦 INFORMACIÓN DEL PAQUETE
-Contenido      : {nuevo_paquete.nombre}
-Número de guía : {nuevo_paquete.numero_guia}
-Precio         : ${nuevo_paquete.precio}
-Peso           : {nuevo_paquete.peso}
-Estado         : {nuevo_paquete.estado.value}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━
-Mensaje automático del sistema
-"""
-
-        ok3, resp3 = send_email(
-            subject_paquete,
-            "carloag210@hotmail.com",
-            body_paquete
-        )
+ok3, resp3 = send_email(
+    subject_paquete,
+    "carloag210@hotmail.com",
+    body_paquete,
+    html=True,
+)
 
         if not ok3:
             print("Error notificando admin:", resp3)
