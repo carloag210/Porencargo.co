@@ -617,7 +617,7 @@ if not ok2:
 
 flash("Usuario registrado con éxito", "success")
 return redirect(url_for("login"))
-    return redirect(url_for("login"))
+ 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
