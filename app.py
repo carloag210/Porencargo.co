@@ -615,8 +615,8 @@ if not ok2:
         "warning",
     )
 
-flash("Usuario registrado con éxito", "success")
-return redirect(url_for("login"))
+    flash("Usuario registrado con éxito", "success")
+    return redirect(url_for("login"))
  
 
 @app.route('/login', methods=['GET', 'POST'])
