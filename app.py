@@ -448,8 +448,8 @@ def actualizar_estado():
     if fecha_recibido:
         paquete.fecha_recibido = fecha_recibido
 
-    try:
-        db.session.commit()
+try:
+    db.session.commit()
 
     # ---------- Correo al usuario ----------
     try:
@@ -483,6 +483,7 @@ def actualizar_estado():
 except Exception as e:
     db.session.rollback()
     return f"Error al actualizar el paquete: {str(e)}", 500
+    
 @app.route('/marcar_consolidar', methods=['POST'])
 @login_required
 def marcar_consolidar():
