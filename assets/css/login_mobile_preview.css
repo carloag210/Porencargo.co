@@ -1,244 +1,208 @@
 /* ==========================================
-   LOGIN MOBILE PREVIEW · PorEncargo.co
+   POR ENCARGO · LOGIN APP MOBILE
 ========================================== */
 
 @media (max-width:900px){
 
-  /* ===== Fondo ===== */
-
   body{
-    min-height:100vh;
+    margin:0;
     background:linear-gradient(180deg,#081534 0%,#12356A 100%);
-    background-attachment:scroll;
+    font-family:"Inter",sans-serif;
   }
 
-  main{
-    padding:18px 16px 40px;
-  }
-
-  /* ===== Header ===== */
+  /* HEADER */
 
   header{
-    background:transparent;
-    border:none;
-    box-shadow:none;
     position:absolute;
-    width:100%;
-    z-index:20;
+    inset:0 0 auto 0;
+    background:transparent;
+    box-shadow:none;
+    z-index:100;
   }
 
   nav{
-    position:relative;
     display:flex;
+    justify-content:flex-start;
     align-items:center;
-    justify-content:space-between;
-    padding:16px 0;
+    padding:18px;
   }
 
-  /* Ocultar logo y menú de escritorio */
-
   .logo_porEncargo,
-  .nav-links{
+  #dolar_wpc1{
     display:none !important;
   }
 
-  .nav-links.active{
-    display:flex !important;
-    flex-direction:column;
-  }
+  /* Botón hamburguesa */
 
   .menu-toggle{
+    width:44px;
+    height:44px;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.12);
+    color:#FFF;
+    font-size:22px;
     display:flex;
-    color:#FFF;
-    font-size:28px;
-    z-index:5;
+    align-items:center;
+    justify-content:center;
   }
 
-  /* TRM centrado */
+  /* Menú lateral */
 
-  #dolar_wpc1{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-    display:block !important;
-    white-space:nowrap;
+  .nav-links{
+    position:fixed;
+    top:0;
+    left:-260px;
+    width:230px;
+    height:100vh;
+    background:#071A34;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+    padding:90px 28px;
+    transition:.35s;
+    z-index:999;
   }
 
-  #dolar_wpc1 a{
+  .nav-links.active{
+    left:0;
+  }
+
+  .nav-links li{
+    list-style:none;
+  }
+
+  .nav-links a{
     color:#FFF;
-    font-weight:700;
-    font-size:1.15rem;
+    font-size:18px;
+    font-weight:600;
     text-decoration:none;
   }
 
-  /* ===== Contenedor ===== */
+  /* CONTENEDOR */
 
   .auth-container{
-    width:100%;
-    max-width:390px;
-    margin:0 auto;
-    padding:72px 18px 30px;
-
+    min-height:100vh;
     display:flex;
+    align-items:center;
     justify-content:center;
-    align-items:flex-start;
-
-    background:transparent;
-    border:none;
-    box-shadow:none;
-    overflow:visible;
+    padding:70px 18px 30px;
   }
 
-  /* ===== Tarjeta ===== */
+  /* TARJETA */
 
   .form-container{
     width:100%;
-    position:relative;
-
-    margin-top:38px;
-
-    padding:34px 22px 28px;
-
+    max-width:390px;
     background:#FFF;
-
-    border:none;
     border-radius:28px;
-
-    box-shadow:0 22px 55px rgba(0,0,0,.28);
+    padding:34px 24px 28px;
+    position:relative;
+    box-shadow:0 24px 60px rgba(0,0,0,.25);
   }
 
-  /* ===== Logo flotante ===== */
+  /* Logo */
 
   .form-container::before{
     content:"";
-
     position:absolute;
+    top:-52px;
     left:50%;
-    top:-46px;
-
     transform:translateX(-50%);
-
-    width:92px;
-    height:92px;
-
+    width:96px;
+    height:96px;
     border-radius:22px;
-
     background:#FFF url("/assets/img/logo_porEncargo_sinLetras.jpg")
-               center/68px no-repeat;
-
-    box-shadow:0 15px 35px rgba(0,0,0,.18);
+      center/70px no-repeat;
+    box-shadow:0 16px 35px rgba(0,0,0,.18);
   }
 
-  /* ===== Título ===== */
-
-  .form-container h2{
-    margin-top:34px;
-    margin-bottom:22px;
-
+  h2{
     text-align:center;
-
+    margin:34px 0 10px;
     color:#081534;
-
     font-family:"Space Grotesk",sans-serif;
-    font-size:2.15rem;
+    font-size:46px;
   }
 
-  /* ===== Formulario ===== */
+  /* TRM */
 
-  .form-container form{
+  .trm-mobile{
+    background:#F8FAFC;
+    border:1px solid #E5E7EB;
+    border-radius:18px;
+    padding:10px;
+    text-align:center;
+    margin:0 0 22px;
+  }
+
+  .trm-mobile span{
+    display:block;
+    color:#64748B;
+    font-size:12px;
+  }
+
+  .trm-mobile strong{
+    color:#111827;
+    font-size:20px;
+  }
+
+  /* FORM */
+
+  form{
     display:flex;
     flex-direction:column;
     gap:14px;
   }
 
-  .form-container input{
-    width:100%;
-    height:56px;
-
-    padding:0 18px;
-
-    border-radius:15px;
-
+  input{
+    height:54px;
+    border-radius:14px;
+    border:1px solid #D7E3F4;
     background:#F8FAFC;
-    border:1.5px solid #D6DEEA;
-
-    color:#111827;
+    padding:0 16px;
     font-size:15px;
   }
 
-  .form-container input::placeholder{
-    color:#94A3B8;
-  }
-
-  .form-container input:focus{
+  input:focus{
     outline:none;
     border-color:#2563EB;
     background:#FFF;
   }
 
-  /* ===== Botón ===== */
-
-  .form-container button{
-    width:100%;
-    height:56px;
-
+  button{
+    height:54px;
     border:none;
-    border-radius:15px;
-
-    background:linear-gradient(180deg,#3478F6,#2563EB);
-
+    border-radius:14px;
+    background:#2563EB;
     color:#FFF;
-    font-size:17px;
+    font-size:16px;
     font-weight:700;
-
-    box-shadow:0 10px 24px rgba(37,99,235,.28);
+    margin-top:4px;
   }
 
-  /* ===== Turnstile ===== */
+  .toggle-btn,
+  .forgot-password{
+    display:block;
+    text-align:center;
+    text-decoration:none;
+  }
+
+  .toggle-btn{
+    margin-top:18px;
+    color:#2563EB;
+    font-weight:600;
+  }
+
+  .forgot-password{
+    margin-top:10px;
+    color:#64748B;
+    font-size:14px;
+  }
 
   .cf-turnstile{
     display:flex;
     justify-content:center;
-    margin:6px 0;
   }
 
-  /* ===== Links ===== */
-
-  .toggle-btn{
-    display:block;
-    text-align:center;
-    margin-top:18px;
-
-    color:#2563EB;
-    font-weight:600;
-    text-decoration:none;
-    font-size:15px;
-  }
-
-  .forgot-password{
-    display:block;
-    text-align:center;
-    margin-top:12px;
-
-    color:#64748B;
-    text-decoration:none;
-    font-size:14px;
-  }
 }
-@media (max-width:900px){
-
-  .trm-mobile{
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-
-    display:flex;
-    align-items:center;
-    gap:6px;
-
-    color:#FFF;
-    font-size:18px;
-    font-weight:700;
-    white-space:nowrap;
-  }
