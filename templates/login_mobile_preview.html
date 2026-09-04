@@ -67,7 +67,6 @@
         {% if modo == "registro" %}
 
         <!-- REGISTRO -->
-
         <div class="form-container">
 
             <h2>Registro</h2>
@@ -76,7 +75,7 @@
 
                 <input type="text" name="user_first_name" placeholder="Nombre" required>
                 <input type="text" name="user_last_name" placeholder="Apellido" required>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" placeholder="Correo electrónico" required>
                 <input type="number" name="number" placeholder="Número de celular" required>
                 <input type="password" name="password" placeholder="Contraseña" required>
 
@@ -97,15 +96,9 @@
         {% else %}
 
         <!-- LOGIN -->
-
         <div class="form-container">
 
-            <h2>Login</h2>
-
-            <div class="trm-mobile">
-                <span>TRM de hoy</span>
-                <strong>$ 3.141,36</strong>
-            </div>
+            <h2>Bienvenido</h2>
 
             <form method="POST" action="login">
 
@@ -137,6 +130,12 @@
 
         {% endif %}
 
+    </div>
+
+    <!-- TRM FUERA DE LA TARJETA -->
+    <div class="trm-mobile">
+        <span>TRM de hoy</span>
+        <strong>$ 3.141,36</strong>
     </div>
 
 </main>
