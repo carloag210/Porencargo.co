@@ -34,7 +34,10 @@ BREVO_SENDER_NAME = os.getenv("BREVO_SENDER_NAME", "PorEncargo")
 BREVO_URL = "https://api.brevo.com/v3/smtp/email"
 
 
-def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO_SENDER_NAME, sender_email: str = BREVO_SENDER_EMAIL, html: bool = False):
+def send_email(subject: str, recipient: str, body: str = "",
+               sender_name: str = BREVO_SENDER_NAME,
+               sender_email: str = BREVO_SENDER_EMAIL,
+               html_content: str = None):
     """
     Envía un correo usando la API de Brevo vía http.client.
     """
@@ -47,16 +50,20 @@ def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO
 
     payload_dict = {
         "sender": {"name": sender_name, "email": sender_email},
-        "to": [{"email": recipient}, {"email": "logistica@porencargo.co"}],
+        "to": [
+            {"email": recipient},
+            {"email": "logistica@porencargo.co"}
+        ],
         "subject": subject
     }
 
-    if html:
-        payload_dict["htmlContent"] = body
+    # 👇 ESTA ES LA PARTE IMPORTANTE
+    if html_content:
+        payload_dict["htmlContent"] = html_content
     else:
         payload_dict["textContent"] = body
 
-    payload = json.dumps(payload_dict, ensure_ascii=False).encode('utf-8')
+    payload = json.dumps(payload_dict, ensure_ascii=False).encode("utf-8")
 
     headers = {
         "accept": "application/json",
@@ -68,14 +75,17 @@ def send_email(subject: str, recipient: str, body: str, sender_name: str = BREVO
         conn.request("POST", "/v3/smtp/email", body=payload, headers=headers)
         res = conn.getresponse()
         data = res.read().decode("utf-8")
+
         if res.status in (200, 201):
             return True, data
         else:
-            print(f"❌ Error enviando email: status {res.status} - {data}")
+            print(f"❌ Error enviando email: {res.status} - {data}")
             return False, data
+
     except Exception as e:
         print("⚠️ Excepción enviando email:", str(e))
         return False, str(e)
+
     finally:
         conn.close()
         
@@ -467,11 +477,10 @@ def actualizar_estado():
             )
 
             ok, resp = send_email(
-                subject_user,
-                paquete.usuario.email,
-                "",
-                html_content=html_user
-            )
+    subject=subject_user,
+    recipient=paquete.usuario.email,
+    html_content=html_user
+)
 
             if not ok:
                 print("❌ Error enviando correo:", resp)
