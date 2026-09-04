@@ -33,7 +33,7 @@
 <header>
     <nav>
 
-        <button class="menu-toggle">☰</button>
+        <button type="button" class="menu-toggle">☰</button>
 
         <ul class="nav-links">
             <li><a href="{{ url_for('index') }}">🏠 Inicio</a></li>
@@ -153,17 +153,18 @@
 const menuBtn = document.querySelector(".menu-toggle");
 const menu = document.querySelector(".nav-links");
 
-menuBtn.onclick = () => {
+menuBtn.addEventListener("click", function () {
     menu.classList.toggle("active");
-};
+});
 
 document.querySelectorAll(".nav-links a").forEach(link=>{
-    link.onclick = ()=> menu.classList.remove("active");
+    link.addEventListener("click", function(){
+        menu.classList.remove("active");
+    });
 });
 </script>
 
 <script src="/assets/js/animacion_contact.js"></script>
-
 </body>
 </html>
 
