@@ -452,21 +452,144 @@ def actualizar_estado():
         db.session.commit()
         # Enviar correo al usuario
         try:
-            subject_user = f"Actualización de tu paquete: {paquete.nombre}"
-            body_user = f"""
-Hola {paquete.usuario.user_first_name},
+            subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
 
-Tu paquete "{paquete.nombre}" (Guía: {paquete.numero_guia or 'N/A'}) ha cambiado de estado:
+html_user = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
 
-📦 Estado anterior: {estado_anterior}
-➡️ Nuevo estado: {paquete.estado.value}
+<body style="margin:0;padding:0;background:#F3F6FB;font-family:Arial,Helvetica,sans-serif;">
 
-Puedes ingresar a tu cuenta en PorEncargo.co para ver más detalles.
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F3F6FB;padding:30px 15px;">
+<tr>
+<td align="center">
 
-Saludos,  
-Equipo PorEncargo
+<table width="620" cellpadding="0" cellspacing="0"
+style="background:#FFFFFF;border-radius:18px;overflow:hidden;">
+
+<!-- Header -->
+<tr>
+<td style="background:#0F172A;padding:30px;text-align:center;">
+<h1 style="color:#FFFFFF;margin:0;font-size:28px;">
+PorEncargo.co
+</h1>
+<p style="color:#CBD5E1;margin:8px 0 0;">
+Actualización de tu envío
+</p>
+</td>
+</tr>
+
+<!-- Saludo -->
+<tr>
+<td style="padding:35px 35px 15px;">
+<h2 style="margin:0;color:#111827;">
+¡Hola {paquete.usuario.user_first_name}!
+</h2>
+
+<p style="color:#4B5563;font-size:15px;line-height:24px;">
+Tu paquete ha cambiado su estado. 
+</p>
+</td>
+</tr>
+
+<!-- Producto -->
+<tr>
+<td style="padding:0 35px;">
+<table width="100%" style="background:#F8FAFC;border-radius:14px;">
+<tr>
+<td style="padding:20px;">
+
+<p style="margin:0;color:#64748B;font-size:12px;">
+PRODUCTO
+</p>
+
+<h3 style="margin:6px 0;color:#0F172A;">
+{paquete.nombre}
+</h3>
+
+<p style="margin:0;color:#475569;font-size:14px;">
+Guía: <b>{paquete.numero_guia or "N/A"}</b>
+</p>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<!-- Estados -->
+<tr>
+<td style="padding:22px 35px 8px;">
+
+<table width="100%">
+<tr>
+
+<td width="48%" style="background:#F8FAFC;border-radius:12px;padding:14px;">
+<p style="margin:0;font-size:11px;color:#64748B;">ESTADO ANTERIOR</p>
+
+<p style="margin:8px 0 0;font-weight:bold;color:#334155;">
+📦 {estado_anterior.replace("_"," ").title()}
+</p>
+</td>
+
+<td width="4%"></td>
+
+<td width="48%" style="background:#ECFDF5;border-radius:12px;padding:14px;">
+<p style="margin:0;font-size:11px;color:#047857;">NUEVO ESTADO</p>
+
+<p style="margin:8px 0 0;font-weight:bold;color:#047857;">
+🚚 {paquete.estado.value}
+</p>
+</td>
+
+</tr>
+</table>
+
+</td>
+</tr>
+
+<!-- Botón -->
+<tr>
+<td style="padding:28px 35px 10px;" align="center">
+
+<a href="https://porencargo.co/login"
+style="background:#2563EB;color:white;text-decoration:none;
+padding:14px 28px;border-radius:12px;
+font-weight:bold;display:inline-block;">
+Ver mi paquete
+</a>
+
+</td>
+</tr>
+
+<!-- Footer -->
+<tr>
+<td style="padding:30px;text-align:center;
+font-size:12px;color:#94A3B8;">
+
+Gracias por confiar en **PorEncargo.co**
+
+</td>
+</tr>
+
+</table>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
 """
-            ok, resp = send_email(subject_user, paquete.usuario.email, body_user)
+
+ok, resp = send_email(
+    subject_user,
+    paquete.usuario.email,
+    html_user,
+    html_content=html_user
+)
             if not ok:
                 print("❌ Error enviando notificación al usuario:", resp)
         except Exception as e:
