@@ -1,5 +1,6 @@
 /* ==========================================
-   POR ENCARGO · LOGIN APP
+   POR ENCARGO · LOGIN APP V2
+   Mobile First
 ========================================== */
 
 @media (max-width:900px){
@@ -10,61 +11,89 @@
     box-sizing:border-box;
 }
 
+/* =========================
+   PANTALLA COMPLETA
+========================= */
+
 html,
 body{
     width:100%;
     height:100dvh;
     overflow:hidden;
+    position:fixed;
+    inset:0;
+
+    background:linear-gradient(180deg,#071736 0%,#123A77 100%);
     font-family:"Inter",sans-serif;
-    background:linear-gradient(180deg,#081534 0%,#12356A 100%);
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 header{
     position:fixed;
     top:0;
+    left:0;
     width:100%;
-    z-index:100;
+    z-index:200;
 }
 
 nav{
-    padding:16px;
+    height:70px;
     display:flex;
-    justify-content:flex-start;
     align-items:center;
+    justify-content:flex-start;
+    padding:0 18px;
 }
 
-.menu-toggle{
-    width:44px;
-    height:44px;
-    border:none;
-    border-radius:12px;
-    background:rgba(255,255,255,.12);
-    color:white;
-    font-size:22px;
-    backdrop-filter:blur(8px);
-}
-
-/* MENU */
+/* Logo escritorio oculto */
 
 .logo_porEncargo{
     display:none;
 }
 
+/* Botón menú */
+
+.menu-toggle{
+    width:42px;
+    height:42px;
+
+    border:none;
+    border-radius:14px;
+
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(12px);
+
+    color:#FFF;
+    font-size:21px;
+    cursor:pointer;
+}
+
+/* =========================
+   MENÚ LATERAL
+========================= */
+
 .nav-links{
     position:fixed;
+
     top:0;
     left:-230px;
+
     width:210px;
     height:100dvh;
-    padding:82px 22px;
-    background:#071A34;
+
+    padding:86px 22px;
+
+    background:#081B35;
+
     display:flex;
     flex-direction:column;
     gap:18px;
-    transition:.35s;
+
     list-style:none;
+
+    transition:left .35s ease;
 }
 
 .nav-links.active{
@@ -74,19 +103,25 @@ nav{
 .nav-links a{
     color:#EAF2F7;
     text-decoration:none;
-    font-size:16px;
+
+    font-size:15px;
     font-weight:500;
+    letter-spacing:.2px;
 }
 
-/* CONTENIDO */
+/* =========================
+   CONTENIDO
+========================= */
 
 main{
     width:100%;
     height:100dvh;
+
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:74px 18px 18px;
+
+    padding:54px 18px 12px;
 }
 
 .login-wrapper{
@@ -94,122 +129,212 @@ main{
     max-width:390px;
 }
 
-/* TARJETA */
+/* =========================
+   TARJETA
+========================= */
 
 .form-container{
-    width:100%;
-    background:white;
-    border-radius:28px;
-    padding:26px 22px 22px;
+
     position:relative;
-    box-shadow:0 22px 60px rgba(0,0,0,.22);
+
+    width:100%;
+
+    background:#FFF;
+
+    border-radius:30px;
+
+    padding:30px 22px 22px;
+
+    box-shadow:0 25px 70px rgba(0,0,0,.25);
 }
+
+/* Logo flotante */
 
 .form-container::before{
+
     content:"";
+
     position:absolute;
+
     left:50%;
-    top:-42px;
+    top:-40px;
+
     transform:translateX(-50%);
-    width:84px;
-    height:84px;
-    border-radius:20px;
-    background:white url("/assets/img/logo_porEncargo_sinLetras.jpg")
-              center/62px no-repeat;
-    box-shadow:0 14px 32px rgba(0,0,0,.18);
+
+    width:82px;
+    height:82px;
+
+    border-radius:22px;
+
+    background:#FFF url("/assets/img/logo_porEncargo_sinLetras.jpg")
+               center/60px no-repeat;
+
+    box-shadow:0 14px 30px rgba(0,0,0,.18);
 }
 
-h2{
-    margin-top:24px;
-    margin-bottom:18px;
+/* =========================
+   TITULO
+========================= */
+
+.form-container h2{
+
+    margin-top:22px;
+    margin-bottom:22px;
+
     text-align:center;
-    color:#081534;
-    font-size:32px;
+
+    color:#071736;
+
+    font-size:2rem;
     font-family:"Space Grotesk",sans-serif;
+    font-weight:700;
 }
 
-form{
+/* =========================
+   FORMULARIO
+========================= */
+
+.form-container form{
+
     display:flex;
     flex-direction:column;
     gap:12px;
 }
 
-input{
+.form-container input{
+
+    width:100%;
     height:52px;
+
     border-radius:14px;
-    border:1px solid #D7E3F4;
+
+    border:1px solid #D8E4F2;
+
     background:#F8FAFC;
+
     padding:0 16px;
+
     font-size:15px;
 }
 
-input:focus{
-    outline:none;
-    border-color:#2563EB;
-    background:white;
+.form-container input::placeholder{
+    color:#9AA9BD;
 }
 
-button[type="submit"]{
+.form-container input:focus{
+
+    outline:none;
+
+    border-color:#2563EB;
+
+    background:#FFF;
+}
+
+/* Botón */
+
+.form-container button{
+
+    width:100%;
     height:52px;
+
     border:none;
     border-radius:14px;
-    background:#2563EB;
+
+    background:#48B524;
+
     color:white;
-    font-size:16px;
+
+    font-size:17px;
     font-weight:700;
+
     margin-top:4px;
 }
 
-.toggle-btn{
-    display:block;
-    margin-top:18px;
-    text-align:center;
-    color:#2563EB;
-    text-decoration:none;
-    font-weight:600;
-    font-size:14px;
-}
-
-.forgot-password{
-    display:block;
-    margin-top:10px;
-    text-align:center;
-    color:#64748B;
-    text-decoration:none;
-    font-size:13px;
-}
+/* =========================
+   TURNSTILE
+========================= */
 
 .cf-turnstile{
     display:flex;
     justify-content:center;
 }
 
-/* TRM */
+/* =========================
+   LINKS
+========================= */
+
+.toggle-btn{
+
+    display:block;
+
+    margin-top:18px;
+
+    text-align:center;
+
+    color:#2563EB;
+
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:600;
+}
+
+.forgot-password{
+
+    display:block;
+
+    margin-top:10px;
+
+    text-align:center;
+
+    color:#64748B;
+
+    text-decoration:none;
+
+    font-size:13px;
+}
+
+/* =========================
+   TRM (FUERA DE TARJETA)
+========================= */
 
 .trm-mobile{
+
     margin-top:16px;
-    padding:14px 18px;
-    border-radius:16px;
-    background:rgba(255,255,255,.10);
-    border:1px solid rgba(255,255,255,.14);
+
     display:flex;
     justify-content:space-between;
     align-items:center;
-    backdrop-filter:blur(10px);
+
+    padding:14px 18px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.10);
+
+    border:1px solid rgba(255,255,255,.14);
+
+    backdrop-filter:blur(12px);
 }
 
 .trm-mobile span{
+
     color:rgba(255,255,255,.75);
+
     font-size:13px;
 }
 
 .trm-mobile strong{
+
     color:white;
+
     font-size:20px;
     font-weight:800;
 }
 
-/* WHATSAPP */
+/* =========================
+   WHATSAPP
+========================= */
 
 .whatsapp-btn{
     display:none;
