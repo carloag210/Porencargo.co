@@ -457,7 +457,7 @@ def actualizar_estado():
             subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
 
             html_user = render_template(
-                "emails/estado_paquete.html",
+                "mails/estado_paquete.html",
                 nombre_usuario=paquete.usuario.user_first_name,
                 nombre_paquete=paquete.nombre,
                 guia=paquete.numero_guia or "N/A",
