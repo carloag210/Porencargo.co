@@ -182,3 +182,64 @@
   }
 
 }
+/* ==========================================
+   LOGIN PREVIEW · MÓVIL
+========================================== */
+
+@media (max-width:900px){
+
+  /* Ocultar menú horizontal */
+  .nav-links{
+    display:none;
+  }
+
+  .menu-toggle{
+    display:flex;
+    color:#fff;
+  }
+
+  #dolar_wpc1{
+    display:none;
+  }
+
+  /* Header */
+  nav{
+    padding:14px 0;
+  }
+
+  .logo_porEncargo img{
+    width:62px;
+  }
+
+  /* Tarjeta */
+  .auth-container{
+    margin-top:10px;
+    padding:90px 18px 30px;
+  }
+
+  .form-container{
+    border-radius:26px;
+    padding:32px 22px;
+  }
+
+  .form-container h2{
+    font-size:2.1rem;
+    margin-bottom:24px;
+  }
+
+  .form-container input{
+    height:56px;
+    font-size:15px;
+  }
+
+  .form-container button{
+    height:56px;
+    border-radius:14px;
+    background:#2563EB !important;
+  }
+
+  .toggle-btn,
+  .forgot-password{
+    font-size:14px;
+  }
+}
