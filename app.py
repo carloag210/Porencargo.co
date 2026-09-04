@@ -449,7 +449,7 @@ def actualizar_estado():
         paquete.fecha_recibido = fecha_recibido
 
     try:
-    db.session.commit()
+        db.session.commit()
 
     # ---------- Correo al usuario ----------
     try:
