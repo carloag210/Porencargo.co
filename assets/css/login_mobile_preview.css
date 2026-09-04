@@ -1,129 +1,111 @@
 /* ==========================================
-   PorEncargo.co · LOGIN APP MOBILE
-   Reemplaza TODO este archivo
+   POR ENCARGO · LOGIN APP
 ========================================== */
 
 @media (max-width:900px){
 
-  *{
-    box-sizing:border-box;
-  }
-
-  html,body{
+*{
     margin:0;
     padding:0;
-    height:100%;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100dvh;
     overflow:hidden;
     font-family:"Inter",sans-serif;
     background:linear-gradient(180deg,#081534 0%,#12356A 100%);
-  }
+}
 
-  body{
-    display:flex;
-    flex-direction:column;
-  }
+/* HEADER */
 
-  /* ===== HEADER ===== */
-
-  header{
+header{
     position:fixed;
     top:0;
-    left:0;
     width:100%;
-    background:transparent;
     z-index:100;
-  }
+}
 
-  nav{
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
+nav{
     padding:16px;
-  }
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+}
 
-  .logo_porEncargo,
-  #dolar_wpc1{
-    display:none !important;
-  }
-
-  /* Botón hamburguesa */
-
-  .menu-toggle{
+.menu-toggle{
     width:44px;
     height:44px;
     border:none;
     border-radius:12px;
     background:rgba(255,255,255,.12);
-    color:#FFF;
+    color:white;
     font-size:22px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    backdrop-filter:blur(10px);
-  }
+    backdrop-filter:blur(8px);
+}
 
-  /* Menú lateral */
+/* MENU */
 
-  .nav-links{
+.logo_porEncargo{
+    display:none;
+}
+
+.nav-links{
     position:fixed;
     top:0;
-    left:-250px;
-    width:220px;
+    left:-230px;
+    width:210px;
     height:100dvh;
+    padding:82px 22px;
     background:#071A34;
     display:flex;
     flex-direction:column;
     gap:18px;
-    padding:84px 24px;
     transition:.35s;
-    z-index:999;
-  }
-
-  .nav-links.active{
-    left:0;
-  }
-
-  .nav-links li{
     list-style:none;
-  }
+}
 
-  .nav-links a{
+.nav-links.active{
+    left:0;
+}
+
+.nav-links a{
     color:#EAF2F7;
+    text-decoration:none;
     font-size:16px;
     font-weight:500;
-    text-decoration:none;
-  }
+}
 
-  /* ===== CONTENIDO ===== */
+/* CONTENIDO */
 
-  main{
-    flex:1;
+main{
+    width:100%;
+    height:100dvh;
     display:flex;
-    align-items:center;
     justify-content:center;
-    padding:64px 18px 10px;
-  }
+    align-items:center;
+    padding:74px 18px 18px;
+}
 
-  .auth-container{
+.login-wrapper{
     width:100%;
     max-width:390px;
-  }
+}
 
-  /* ===== TARJETA ===== */
+/* TARJETA */
 
-  .form-container{
+.form-container{
     width:100%;
-    background:#FFF;
+    background:white;
     border-radius:28px;
-    padding:26px 22px 20px;
+    padding:26px 22px 22px;
     position:relative;
-    box-shadow:0 20px 55px rgba(0,0,0,.22);
-  }
+    box-shadow:0 22px 60px rgba(0,0,0,.22);
+}
 
-  /* Logo */
-
-  .form-container::before{
+.form-container::before{
     content:"";
     position:absolute;
     left:50%;
@@ -132,115 +114,105 @@
     width:84px;
     height:84px;
     border-radius:20px;
-    background:#FFF url("/assets/img/logo_porEncargo_sinLetras.jpg")
+    background:white url("/assets/img/logo_porEncargo_sinLetras.jpg")
               center/62px no-repeat;
-    box-shadow:0 14px 30px rgba(0,0,0,.18);
-  }
+    box-shadow:0 14px 32px rgba(0,0,0,.18);
+}
 
-  h2{
-    margin:22px 0 6px;
+h2{
+    margin-top:24px;
+    margin-bottom:18px;
     text-align:center;
-    font-family:"Space Grotesk",sans-serif;
     color:#081534;
-    font-size:34px;
-  }
+    font-size:32px;
+    font-family:"Space Grotesk",sans-serif;
+}
 
-  /* Inputs */
-
-  form{
+form{
     display:flex;
     flex-direction:column;
     gap:12px;
-    margin-top:18px;
-  }
+}
 
-  input{
+input{
     height:52px;
     border-radius:14px;
-    border:1.5px solid #D8E2F0;
+    border:1px solid #D7E3F4;
     background:#F8FAFC;
     padding:0 16px;
     font-size:15px;
-  }
+}
 
-  input:focus{
+input:focus{
     outline:none;
     border-color:#2563EB;
-    background:#FFF;
-  }
+    background:white;
+}
 
-  /* Botón */
-
-  button[type="submit"]{
+button[type="submit"]{
     height:52px;
     border:none;
     border-radius:14px;
-    background:linear-gradient(180deg,#3478F6,#2563EB);
-    color:#FFF;
+    background:#2563EB;
+    color:white;
     font-size:16px;
     font-weight:700;
-    box-shadow:0 10px 24px rgba(37,99,235,.28);
-  }
+    margin-top:4px;
+}
 
-  /* Turnstile */
+.toggle-btn{
+    display:block;
+    margin-top:18px;
+    text-align:center;
+    color:#2563EB;
+    text-decoration:none;
+    font-weight:600;
+    font-size:14px;
+}
 
-  .cf-turnstile{
+.forgot-password{
+    display:block;
+    margin-top:10px;
+    text-align:center;
+    color:#64748B;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.cf-turnstile{
     display:flex;
     justify-content:center;
-    margin:4px 0;
-  }
+}
 
-  /* Links */
+/* TRM */
 
-  .toggle-btn{
-    display:block;
-    text-align:center;
+.trm-mobile{
     margin-top:16px;
-    color:#2563EB;
-    font-size:14px;
-    font-weight:600;
-    text-decoration:none;
-  }
-
-  .forgot-password{
-    display:block;
-    text-align:center;
-    margin-top:8px;
-    color:#64748B;
-    font-size:13px;
-    text-decoration:none;
-  }
-
-  /* ===== TRM ABAJO ===== */
-
-  .trm-mobile{
-    width:100%;
-    margin:14px auto 0;
     padding:14px 18px;
+    border-radius:16px;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.14);
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:rgba(255,255,255,.10);
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:16px;
     backdrop-filter:blur(10px);
-  }
+}
 
-  .trm-mobile span{
+.trm-mobile span{
     color:rgba(255,255,255,.75);
     font-size:13px;
-  }
+}
 
-  .trm-mobile strong{
-    color:#FFF;
+.trm-mobile strong{
+    color:white;
     font-size:20px;
     font-weight:800;
-  }
+}
 
-  /* Ocultar WhatsApp en preview */
+/* WHATSAPP */
 
-  a[href*="wa.me"]{
+.whatsapp-btn{
     display:none;
-  }
+}
 
 }
