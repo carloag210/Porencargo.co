@@ -137,16 +137,24 @@
 
 </main>
 
-<a href="https://wa.me/573186505475"
-   class="whatsapp-btn"
-   target="_blank">
+<script>
+const menuBtn = document.querySelector(".menu-toggle");
+const menu = document.querySelector(".nav-links");
 
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png"
-         alt="WhatsApp">
+menuBtn.addEventListener("click", () => {
+    menu.classList.toggle("active");
+});
 
-</a>
+// Cerrar al tocar una opción
+menu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        menu.classList.remove("active");
+    });
+});
+</script>
 
 <script src="/assets/js/animacion_contact.js"></script>
 
 </body>
 </html>
+
