@@ -243,3 +243,39 @@
     font-size:14px;
   }
 }
+@media (max-width:900px){
+
+  /* Quitar el logo del header */
+  .logo_porEncargo{
+      display:none;
+  }
+
+  /* Centrar TRM */
+  nav{
+      display:grid;
+      grid-template-columns:40px 1fr 40px;
+      align-items:center;
+  }
+
+  #dolar_wpc1{
+      display:flex !important;
+      justify-content:center;
+      font-weight:700;
+  }
+
+  /* Subir la tarjeta */
+  .auth-container{
+      padding-top:55px;
+  }
+
+  /* Inputs */
+  .form-container input{
+      border:1.5px solid #D6DEEA;
+  }
+
+  /* Botón */
+  .form-container button{
+      background:linear-gradient(180deg,#3478F6,#2563EB) !important;
+      box-shadow:0 10px 24px rgba(37,99,235,.28);
+  }
+}
