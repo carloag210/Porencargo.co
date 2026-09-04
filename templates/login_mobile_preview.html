@@ -137,19 +137,28 @@
 
 </main>
 
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/573186505475"
+   class="whatsapp-btn"
+   target="_blank"
+   aria-label="WhatsApp">
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png"
+         alt="WhatsApp">
+
+</a>
+
+<!-- Menú móvil -->
 <script>
 const menuBtn = document.querySelector(".menu-toggle");
 const menu = document.querySelector(".nav-links");
 
-menuBtn.addEventListener("click", () => {
+menuBtn.onclick = () => {
     menu.classList.toggle("active");
-});
+};
 
-// Cerrar al tocar una opción
-menu.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-        menu.classList.remove("active");
-    });
+document.querySelectorAll(".nav-links a").forEach(link=>{
+    link.onclick = ()=> menu.classList.remove("active");
 });
 </script>
 
