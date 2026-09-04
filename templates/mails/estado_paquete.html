@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualización de paquete</title>
+</head>
+
+<body style="margin:0;padding:0;background:#F3F6FB;font-family:Arial,Helvetica,sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F3F6FB;padding:30px 15px;">
+<tr>
+<td align="center">
+
+<table width="620" cellpadding="0" cellspacing="0" style="background:#FFFFFF;border-radius:18px;overflow:hidden;">
+
+    <!-- HEADER -->
+    <tr>
+        <td style="background:#0F172A;padding:32px;text-align:center;">
+            <h1 style="margin:0;color:#FFFFFF;font-size:30px;">
+                PorEncargo.co
+            </h1>
+
+            <p style="margin:8px 0 0;color:#CBD5E1;font-size:14px;">
+                Actualización de tu envío
+            </p>
+        </td>
+    </tr>
+
+    <!-- SALUDO -->
+    <tr>
+        <td style="padding:34px 35px 10px;">
+            <h2 style="margin:0;color:#111827;font-size:24px;">
+                ¡Hola {{ nombre_usuario }}! 👋
+            </h2>
+
+            <p style="margin-top:12px;color:#475569;line-height:24px;font-size:15px;">
+                Tenemos novedades sobre tu paquete. Su proceso logístico ha avanzado y este es su nuevo estado.
+            </p>
+        </td>
+    </tr>
+
+    <!-- TARJETA PRODUCTO -->
+    <tr>
+        <td style="padding:0 35px;">
+            <table width="100%" cellpadding="0" cellspacing="0" style="background:#F8FAFC;border-radius:14px;">
+                <tr>
+                    <td style="padding:20px;">
+                        <p style="margin:0;color:#64748B;font-size:11px;font-weight:bold;letter-spacing:1px;">
+                            PAQUETE
+                        </p>
+
+                        <h3 style="margin:8px 0;color:#0F172A;font-size:22px;">
+                            {{ nombre_paquete }}
+                        </h3>
+
+                        <p style="margin:0;color:#475569;font-size:14px;">
+                            Guía: <strong>{{ guia }}</strong>
+                        </p>
+
+                        {% if peso %}
+                        <p style="margin:6px 0 0;color:#475569;font-size:14px;">
+                            Peso: {{ peso }} lb
+                        </p>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <!-- ESTADOS -->
+    <tr>
+        <td style="padding:22px 35px 5px;">
+
+            <table width="100%">
+                <tr>
+
+                    <td width="48%" style="background:#F8FAFC;border-radius:12px;padding:15px;">
+                        <p style="margin:0;font-size:11px;color:#64748B;font-weight:bold;">
+                            ESTADO ANTERIOR
+                        </p>
+
+                        <p style="margin:8px 0 0;font-size:15px;font-weight:bold;color:#334155;">
+                            📦 {{ estado_anterior }}
+                        </p>
+                    </td>
+
+                    <td width="4%"></td>
+
+                    <td width="48%" style="background:#ECFDF5;border-radius:12px;padding:15px;">
+                        <p style="margin:0;font-size:11px;color:#047857;font-weight:bold;">
+                            NUEVO ESTADO
+                        </p>
+
+                        <p style="margin:8px 0 0;font-size:15px;font-weight:bold;color:#047857;">
+                            🚚 {{ estado_nuevo }}
+                        </p>
+                    </td>
+
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+
+    <!-- BOTÓN -->
+    <tr>
+        <td align="center" style="padding:28px 35px 18px;">
+
+            <a href="https://porencargo.co/login"
+               style="background:#2563EB;color:#FFFFFF;text-decoration:none;
+                      padding:14px 30px;border-radius:12px;
+                      font-weight:bold;font-size:15px;display:inline-block;">
+                Ver mi paquete
+            </a>
+
+        </td>
+    </tr>
+
+    <!-- FOOTER -->
+    <tr>
+        <td style="padding:28px;text-align:center;border-top:1px solid #E5E7EB;">
+
+            <p style="margin:0;color:#64748B;font-size:13px;">
+                Gracias por confiar en <strong>PorEncargo.co</strong>
+            </p>
+
+            <p style="margin:8px 0 0;color:#94A3B8;font-size:12px;">
+                Tu casillero virtual entre Miami y Colombia 🇺🇸✈🇨🇴
+            </p>
+
+        </td>
+    </tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>
