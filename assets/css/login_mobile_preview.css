@@ -1,3 +1,6 @@
+/* ==========================================
+   LOGIN MOBILE PREVIEW · PorEncargo.co
+========================================== */
 
 @media (max-width:900px){
 
@@ -10,7 +13,7 @@
   }
 
   main{
-    padding:20px 16px 40px;
+    padding:18px 16px 40px;
   }
 
   /* ===== Header ===== */
@@ -24,16 +27,48 @@
     z-index:20;
   }
 
-  #dolar_wpc1{
-    display:none;
+  nav{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 0;
   }
 
+  /* Ocultar logo y menú de escritorio */
+
+  .logo_porEncargo,
   .nav-links{
-    display:none;
+    display:none !important;
+  }
+
+  .nav-links.active{
+    display:flex !important;
+    flex-direction:column;
   }
 
   .menu-toggle{
-    color:#FFFFFF;
+    display:flex;
+    color:#FFF;
+    font-size:28px;
+    z-index:5;
+  }
+
+  /* TRM centrado */
+
+  #dolar_wpc1{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    display:block !important;
+    white-space:nowrap;
+  }
+
+  #dolar_wpc1 a{
+    color:#FFF;
+    font-weight:700;
+    font-size:1.15rem;
+    text-decoration:none;
   }
 
   /* ===== Contenedor ===== */
@@ -41,7 +76,8 @@
   .auth-container{
     width:100%;
     max-width:390px;
-    margin:35px auto 0;
+    margin:0 auto;
+    padding:72px 18px 30px;
 
     display:flex;
     justify-content:center;
@@ -50,7 +86,6 @@
     background:transparent;
     border:none;
     box-shadow:none;
-    backdrop-filter:none;
     overflow:visible;
   }
 
@@ -58,14 +93,17 @@
 
   .form-container{
     width:100%;
-    background:#FFFFFF;
-    border-radius:28px;
-    padding:30px 22px;
-    margin-top:60px;
-
     position:relative;
 
+    margin-top:38px;
+
+    padding:34px 22px 28px;
+
+    background:#FFF;
+
     border:none;
+    border-radius:28px;
+
     box-shadow:0 22px 55px rgba(0,0,0,.28);
   }
 
@@ -76,7 +114,7 @@
 
     position:absolute;
     left:50%;
-    top:-48px;
+    top:-46px;
 
     transform:translateX(-50%);
 
@@ -86,9 +124,9 @@
     border-radius:22px;
 
     background:#FFF url("/assets/img/logo_porEncargo_sinLetras.jpg")
-              center/68px no-repeat;
+               center/68px no-repeat;
 
-    box-shadow:0 15px 35px rgba(0,0,0,.20);
+    box-shadow:0 15px 35px rgba(0,0,0,.18);
   }
 
   /* ===== Título ===== */
@@ -99,13 +137,13 @@
 
     text-align:center;
 
-    color:#0F172A;
+    color:#081534;
 
     font-family:"Space Grotesk",sans-serif;
-    font-size:2rem;
+    font-size:2.15rem;
   }
 
-  /* ===== Inputs ===== */
+  /* ===== Formulario ===== */
 
   .form-container form{
     display:flex;
@@ -113,42 +151,55 @@
     gap:14px;
   }
 
-  .form-container form input{
-    height:54px;
-    padding:0 16px;
+  .form-container input{
+    width:100%;
+    height:56px;
 
-    border-radius:14px;
+    padding:0 18px;
+
+    border-radius:15px;
 
     background:#F8FAFC;
-    border:1px solid #E2E8F0;
+    border:1.5px solid #D6DEEA;
 
     color:#111827;
     font-size:15px;
   }
 
-  .form-container form input::placeholder{
+  .form-container input::placeholder{
     color:#94A3B8;
   }
 
-  .form-container form input:focus{
+  .form-container input:focus{
     outline:none;
     border-color:#2563EB;
-    background:#FFFFFF;
+    background:#FFF;
   }
 
   /* ===== Botón ===== */
 
-  .form-container form button{
-    height:54px;
+  .form-container button{
+    width:100%;
+    height:56px;
 
     border:none;
-    border-radius:14px;
+    border-radius:15px;
 
-    background:#2563EB;
+    background:linear-gradient(180deg,#3478F6,#2563EB);
 
     color:#FFF;
-    font-size:16px;
+    font-size:17px;
     font-weight:700;
+
+    box-shadow:0 10px 24px rgba(37,99,235,.28);
+  }
+
+  /* ===== Turnstile ===== */
+
+  .cf-turnstile{
+    display:flex;
+    justify-content:center;
+    margin:6px 0;
   }
 
   /* ===== Links ===== */
@@ -161,6 +212,7 @@
     color:#2563EB;
     font-weight:600;
     text-decoration:none;
+    font-size:15px;
   }
 
   .forgot-password{
@@ -170,112 +222,7 @@
 
     color:#64748B;
     text-decoration:none;
-    font-size:.92rem;
-  }
-
-  /* ===== Turnstile ===== */
-
-  .cf-turnstile{
-    display:flex;
-    justify-content:center;
-    margin:6px 0;
-  }
-
-}
-/* ==========================================
-   LOGIN PREVIEW · MÓVIL
-========================================== */
-
-@media (max-width:900px){
-
-  /* Ocultar menú horizontal */
-  .nav-links{
-    display:none;
-  }
-
-  .menu-toggle{
-    display:flex;
-    color:#fff;
-  }
-
-  #dolar_wpc1{
-    display:none;
-  }
-
-  /* Header */
-  nav{
-    padding:14px 0;
-  }
-
-  .logo_porEncargo img{
-    width:62px;
-  }
-
-  /* Tarjeta */
-  .auth-container{
-    margin-top:10px;
-    padding:90px 18px 30px;
-  }
-
-  .form-container{
-    border-radius:26px;
-    padding:32px 22px;
-  }
-
-  .form-container h2{
-    font-size:2.1rem;
-    margin-bottom:24px;
-  }
-
-  .form-container input{
-    height:56px;
-    font-size:15px;
-  }
-
-  .form-container button{
-    height:56px;
-    border-radius:14px;
-    background:#2563EB !important;
-  }
-
-  .toggle-btn,
-  .forgot-password{
     font-size:14px;
   }
-}
-@media (max-width:900px){
 
-  /* Quitar el logo del header */
-  .logo_porEncargo{
-      display:none;
-  }
-
-  /* Centrar TRM */
-  nav{
-      display:grid;
-      grid-template-columns:40px 1fr 40px;
-      align-items:center;
-  }
-
-  #dolar_wpc1{
-      display:flex !important;
-      justify-content:center;
-      font-weight:700;
-  }
-
-  /* Subir la tarjeta */
-  .auth-container{
-      padding-top:55px;
-  }
-
-  /* Inputs */
-  .form-container input{
-      border:1.5px solid #D6DEEA;
-  }
-
-  /* Botón */
-  .form-container button{
-      background:linear-gradient(180deg,#3478F6,#2563EB) !important;
-      box-shadow:0 10px 24px rgba(37,99,235,.28);
-  }
 }
