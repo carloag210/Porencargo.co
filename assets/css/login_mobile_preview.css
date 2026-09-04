@@ -1,30 +1,44 @@
 /* ==========================================
-   POR ENCARGO · LOGIN APP MOBILE
+   PorEncargo.co · LOGIN APP MOBILE
+   Reemplaza TODO este archivo
 ========================================== */
 
 @media (max-width:900px){
 
-  body{
-    margin:0;
-    background:linear-gradient(180deg,#081534 0%,#12356A 100%);
-    font-family:"Inter",sans-serif;
+  *{
+    box-sizing:border-box;
   }
 
-  /* HEADER */
+  html,body{
+    margin:0;
+    padding:0;
+    height:100%;
+    overflow:hidden;
+    font-family:"Inter",sans-serif;
+    background:linear-gradient(180deg,#081534 0%,#12356A 100%);
+  }
+
+  body{
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* ===== HEADER ===== */
 
   header{
-    position:absolute;
-    inset:0 0 auto 0;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
     background:transparent;
-    box-shadow:none;
     z-index:100;
   }
 
   nav{
     display:flex;
-    justify-content:flex-start;
     align-items:center;
-    padding:18px;
+    justify-content:flex-start;
+    padding:16px;
   }
 
   .logo_porEncargo,
@@ -45,6 +59,8 @@
     display:flex;
     align-items:center;
     justify-content:center;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
   }
 
   /* Menú lateral */
@@ -52,14 +68,14 @@
   .nav-links{
     position:fixed;
     top:0;
-    left:-260px;
-    width:230px;
-    height:100vh;
+    left:-250px;
+    width:220px;
+    height:100dvh;
     background:#071A34;
     display:flex;
     flex-direction:column;
-    gap:22px;
-    padding:90px 28px;
+    gap:18px;
+    padding:84px 24px;
     transition:.35s;
     z-index:999;
   }
@@ -73,32 +89,36 @@
   }
 
   .nav-links a{
-    color:#FFF;
-    font-size:18px;
-    font-weight:600;
+    color:#EAF2F7;
+    font-size:16px;
+    font-weight:500;
     text-decoration:none;
   }
 
-  /* CONTENEDOR */
+  /* ===== CONTENIDO ===== */
 
-  .auth-container{
-    min-height:100vh;
+  main{
+    flex:1;
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:70px 18px 30px;
+    padding:64px 18px 10px;
   }
 
-  /* TARJETA */
+  .auth-container{
+    width:100%;
+    max-width:390px;
+  }
+
+  /* ===== TARJETA ===== */
 
   .form-container{
     width:100%;
-    max-width:390px;
     background:#FFF;
     border-radius:28px;
-    padding:34px 24px 28px;
+    padding:26px 22px 20px;
     position:relative;
-    box-shadow:0 24px 60px rgba(0,0,0,.25);
+    box-shadow:0 20px 55px rgba(0,0,0,.22);
   }
 
   /* Logo */
@@ -106,59 +126,38 @@
   .form-container::before{
     content:"";
     position:absolute;
-    top:-52px;
     left:50%;
+    top:-42px;
     transform:translateX(-50%);
-    width:96px;
-    height:96px;
-    border-radius:22px;
+    width:84px;
+    height:84px;
+    border-radius:20px;
     background:#FFF url("/assets/img/logo_porEncargo_sinLetras.jpg")
-      center/70px no-repeat;
-    box-shadow:0 16px 35px rgba(0,0,0,.18);
+              center/62px no-repeat;
+    box-shadow:0 14px 30px rgba(0,0,0,.18);
   }
 
   h2{
+    margin:22px 0 6px;
     text-align:center;
-    margin:34px 0 10px;
-    color:#081534;
     font-family:"Space Grotesk",sans-serif;
-    font-size:46px;
+    color:#081534;
+    font-size:34px;
   }
 
-  /* TRM */
-
-  .trm-mobile{
-    background:#F8FAFC;
-    border:1px solid #E5E7EB;
-    border-radius:18px;
-    padding:10px;
-    text-align:center;
-    margin:0 0 22px;
-  }
-
-  .trm-mobile span{
-    display:block;
-    color:#64748B;
-    font-size:12px;
-  }
-
-  .trm-mobile strong{
-    color:#111827;
-    font-size:20px;
-  }
-
-  /* FORM */
+  /* Inputs */
 
   form{
     display:flex;
     flex-direction:column;
-    gap:14px;
+    gap:12px;
+    margin-top:18px;
   }
 
   input{
-    height:54px;
+    height:52px;
     border-radius:14px;
-    border:1px solid #D7E3F4;
+    border:1.5px solid #D8E2F0;
     background:#F8FAFC;
     padding:0 16px;
     font-size:15px;
@@ -170,39 +169,78 @@
     background:#FFF;
   }
 
-  button{
-    height:54px;
+  /* Botón */
+
+  button[type="submit"]{
+    height:52px;
     border:none;
     border-radius:14px;
-    background:#2563EB;
+    background:linear-gradient(180deg,#3478F6,#2563EB);
     color:#FFF;
     font-size:16px;
     font-weight:700;
-    margin-top:4px;
+    box-shadow:0 10px 24px rgba(37,99,235,.28);
   }
 
-  .toggle-btn,
-  .forgot-password{
-    display:block;
-    text-align:center;
-    text-decoration:none;
-  }
-
-  .toggle-btn{
-    margin-top:18px;
-    color:#2563EB;
-    font-weight:600;
-  }
-
-  .forgot-password{
-    margin-top:10px;
-    color:#64748B;
-    font-size:14px;
-  }
+  /* Turnstile */
 
   .cf-turnstile{
     display:flex;
     justify-content:center;
+    margin:4px 0;
+  }
+
+  /* Links */
+
+  .toggle-btn{
+    display:block;
+    text-align:center;
+    margin-top:16px;
+    color:#2563EB;
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+  }
+
+  .forgot-password{
+    display:block;
+    text-align:center;
+    margin-top:8px;
+    color:#64748B;
+    font-size:13px;
+    text-decoration:none;
+  }
+
+  /* ===== TRM ABAJO ===== */
+
+  .trm-mobile{
+    width:100%;
+    margin:14px auto 0;
+    padding:14px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:16px;
+    backdrop-filter:blur(10px);
+  }
+
+  .trm-mobile span{
+    color:rgba(255,255,255,.75);
+    font-size:13px;
+  }
+
+  .trm-mobile strong{
+    color:#FFF;
+    font-size:20px;
+    font-weight:800;
+  }
+
+  /* Ocultar WhatsApp en preview */
+
+  a[href*="wa.me"]{
+    display:none;
   }
 
 }
