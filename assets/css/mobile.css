@@ -1,5 +1,8 @@
 @media (max-width:900px){
-    body{
-        background:red !important;
-    }
+
+  .form-container{
+      background:red !important;
+      border:5px solid yellow !important;
+  }
+
 }
