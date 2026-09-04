@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>porencargo</title>
-    <link rel="stylesheet" href="/assets/css/mis_pedidos.css">
-</head>
-<body>
-<body>
+    <title>PorEncargo</title>
 
+    <link rel="stylesheet" href="/assets/css/mis_pedidos.css">
+    <link rel="stylesheet" href="/assets/css/mis_pedidos_mobile.css">
+</head>
+
+<body>
 {% if session.get("admin_original") %}
 <div class="modo-admin">
     <span>👁 Modo Administrador: estás viendo esta cuenta como cliente</span>
