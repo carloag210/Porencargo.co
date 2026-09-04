@@ -113,3 +113,40 @@
         flex-direction:column;
     }
 }
+/* ===== Tarjetas de beneficios (Móvil) ===== */
+
+@media (max-width:900px){
+
+  .feature-card{
+      text-align:center;
+      align-items:center;
+  }
+
+  .feature-icon{
+      margin:0 auto 18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+  }
+
+}
+/* ===== Testimonios (Móvil) ===== */
+
+@media (max-width:900px){
+
+  .testimonial-card{
+      text-align:center;
+      padding:26px 22px;
+  }
+
+  .testimonial-avatar{
+      margin:0 auto 14px;
+  }
+
+  .testimonial-stars{
+      justify-content:center;
+      display:flex;
+      margin-bottom:10px;
+  }
+
+}
