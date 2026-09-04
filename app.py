@@ -452,21 +452,24 @@ def actualizar_estado():
         db.session.commit()
         # Enviar correo al usuario
         try:
-            subject_user = f"Actualización de tu paquete: {paquete.nombre}"
-            body_user = f"""
-Hola {paquete.usuario.user_first_name},
+            subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
 
-Tu paquete "{paquete.nombre}" (Guía: {paquete.numero_guia or 'N/A'}) ha cambiado de estado:
+html_user = render_template(
+    "emails/estado_paquete.html",
+    nombre_usuario=paquete.usuario.user_first_name,
+    nombre_paquete=paquete.nombre,
+    guia=paquete.numero_guia or "N/A",
+    peso=paquete.peso,
+    estado_anterior=estado_anterior.replace("_", " ").title(),
+    estado_nuevo=paquete.estado.value
+)
 
-📦 Estado anterior: {estado_anterior}
-➡️ Nuevo estado: {paquete.estado.value}
-
-Puedes ingresar a tu cuenta en PorEncargo.co para ver más detalles.
-
-Saludos,  
-Equipo PorEncargo
-"""
-            ok, resp = send_email(subject_user, paquete.usuario.email, body_user)
+ok, resp = send_email(
+    subject_user,
+    paquete.usuario.email,
+    "",
+    html_content=html_user
+)
             if not ok:
                 print("❌ Error enviando notificación al usuario:", resp)
         except Exception as e:
