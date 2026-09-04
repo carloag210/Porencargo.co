@@ -6,7 +6,37 @@
 
     .hero{
     min-height:auto;
-    padding:72px 0 36px;
+    padding:70px 0 40px;
+}
+
+.hero-content{
+    width:92%;
+    margin:auto;
+}
+.hero-grid{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+.hero-text{
+    order:1;
+    max-width:100%;
+    text-align:left;
+}
+
+.hero-buttons{
+    order:2;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.route-card{
+    order:3;
+    width:100%;
+    margin:0;
+    padding:18px;
+    border-radius:22px;
 }
 
     .hero-content{
@@ -26,8 +56,9 @@
     }
 
     .hero h1{
-    font-size:2.25rem;
-    line-height:1.1;
+    font-size:2.45rem;
+    line-height:1.05;
+    margin-bottom:14px;
 }
 
     .hero p{
