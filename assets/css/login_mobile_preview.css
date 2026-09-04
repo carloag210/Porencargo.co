@@ -1,1 +1,28 @@
+/* ==========================================
+   LOGIN PREVIEW · BASE
+========================================== */
 
+@media (max-width:900px){
+
+  body{
+    background:#081534;
+    background-attachment:scroll;
+  }
+
+  main{
+    padding:20px 16px 40px;
+  }
+
+  header{
+    background:transparent;
+    border:none;
+    box-shadow:none;
+    position:absolute;
+    width:100%;
+  }
+
+  #dolar_wpc1{
+    display:none;
+  }
+
+}
