@@ -449,38 +449,40 @@ def actualizar_estado():
         paquete.fecha_recibido = fecha_recibido
 
     try:
-        db.session.commit()
-        # Enviar correo al usuario
-        try:
-            subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
+    db.session.commit()
 
-html_user = render_template(
-    "emails/estado_paquete.html",
-    nombre_usuario=paquete.usuario.user_first_name,
-    nombre_paquete=paquete.nombre,
-    guia=paquete.numero_guia or "N/A",
-    peso=paquete.peso,
-    estado_anterior=estado_anterior.replace("_", " ").title(),
-    estado_nuevo=paquete.estado.value
-)
+    # ---------- Correo al usuario ----------
+    try:
+        subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
 
-ok, resp = send_email(
-    subject_user,
-    paquete.usuario.email,
-    "",
-    html_content=html_user
-)
-            if not ok:
-                print("❌ Error enviando notificación al usuario:", resp)
-        except Exception as e:
-            print("⚠️ Excepción enviando correo:", str(e))
+        html_user = render_template(
+            "emails/estado_paquete.html",
+            nombre_usuario=paquete.usuario.user_first_name,
+            nombre_paquete=paquete.nombre,
+            guia=paquete.numero_guia or "N/A",
+            peso=paquete.peso,
+            estado_anterior=estado_anterior.replace("_", " ").title(),
+            estado_nuevo=paquete.estado.value
+        )
 
-        return redirect(request.referrer)
+        ok, resp = send_email(
+            subject_user,
+            paquete.usuario.email,
+            "",
+            html_content=html_user
+        )
+
+        if not ok:
+            print("❌ Error enviando correo:", resp)
 
     except Exception as e:
-        db.session.rollback()
-        return f"Error al actualizar el paquete: {str(e)}", 500
+        print("⚠️ Excepción enviando correo:", str(e))
 
+    return redirect(request.referrer)
+
+except Exception as e:
+    db.session.rollback()
+    return f"Error al actualizar el paquete: {str(e)}", 500
 @app.route('/marcar_consolidar', methods=['POST'])
 @login_required
 def marcar_consolidar():
