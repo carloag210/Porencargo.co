@@ -675,6 +675,10 @@ def login():
     flash("Contraseña incorrecta", "error")
     return redirect(url_for("login"))
 
+@app.route("/login-preview")
+def login_preview():
+    return render_template("login_mobile_preview.html", modo="login")
+
 @app.route('/olvide_password', methods=['GET', 'POST'])
 def olvide_password():
 
