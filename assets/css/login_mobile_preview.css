@@ -1,11 +1,11 @@
-/* ==========================================
-   LOGIN PREVIEW · BASE
-========================================== */
 
 @media (max-width:900px){
 
+  /* ===== Fondo ===== */
+
   body{
-    background:#081534;
+    min-height:100vh;
+    background:linear-gradient(180deg,#081534 0%,#12356A 100%);
     background-attachment:scroll;
   }
 
@@ -13,16 +13,172 @@
     padding:20px 16px 40px;
   }
 
+  /* ===== Header ===== */
+
   header{
     background:transparent;
     border:none;
     box-shadow:none;
     position:absolute;
     width:100%;
+    z-index:20;
   }
 
   #dolar_wpc1{
     display:none;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .menu-toggle{
+    color:#FFFFFF;
+  }
+
+  /* ===== Contenedor ===== */
+
+  .auth-container{
+    width:100%;
+    max-width:390px;
+    margin:35px auto 0;
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+
+    background:transparent;
+    border:none;
+    box-shadow:none;
+    backdrop-filter:none;
+    overflow:visible;
+  }
+
+  /* ===== Tarjeta ===== */
+
+  .form-container{
+    width:100%;
+    background:#FFFFFF;
+    border-radius:28px;
+    padding:30px 22px;
+    margin-top:60px;
+
+    position:relative;
+
+    border:none;
+    box-shadow:0 22px 55px rgba(0,0,0,.28);
+  }
+
+  /* ===== Logo flotante ===== */
+
+  .form-container::before{
+    content:"";
+
+    position:absolute;
+    left:50%;
+    top:-48px;
+
+    transform:translateX(-50%);
+
+    width:92px;
+    height:92px;
+
+    border-radius:22px;
+
+    background:#FFF url("/assets/img/logo_porEncargo_sinLetras.jpg")
+              center/68px no-repeat;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.20);
+  }
+
+  /* ===== Título ===== */
+
+  .form-container h2{
+    margin-top:34px;
+    margin-bottom:22px;
+
+    text-align:center;
+
+    color:#0F172A;
+
+    font-family:"Space Grotesk",sans-serif;
+    font-size:2rem;
+  }
+
+  /* ===== Inputs ===== */
+
+  .form-container form{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .form-container form input{
+    height:54px;
+    padding:0 16px;
+
+    border-radius:14px;
+
+    background:#F8FAFC;
+    border:1px solid #E2E8F0;
+
+    color:#111827;
+    font-size:15px;
+  }
+
+  .form-container form input::placeholder{
+    color:#94A3B8;
+  }
+
+  .form-container form input:focus{
+    outline:none;
+    border-color:#2563EB;
+    background:#FFFFFF;
+  }
+
+  /* ===== Botón ===== */
+
+  .form-container form button{
+    height:54px;
+
+    border:none;
+    border-radius:14px;
+
+    background:#2563EB;
+
+    color:#FFF;
+    font-size:16px;
+    font-weight:700;
+  }
+
+  /* ===== Links ===== */
+
+  .toggle-btn{
+    display:block;
+    text-align:center;
+    margin-top:18px;
+
+    color:#2563EB;
+    font-weight:600;
+    text-decoration:none;
+  }
+
+  .forgot-password{
+    display:block;
+    text-align:center;
+    margin-top:12px;
+
+    color:#64748B;
+    text-decoration:none;
+    font-size:.92rem;
+  }
+
+  /* ===== Turnstile ===== */
+
+  .cf-turnstile{
+    display:flex;
+    justify-content:center;
+    margin:6px 0;
   }
 
 }
