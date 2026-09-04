@@ -139,14 +139,19 @@
       padding:26px 22px;
   }
 
-  .testimonial-avatar{
-      margin:0 auto 14px;
+  .stars{
+      text-align:center;
+      margin-bottom:12px;
   }
 
-  .testimonial-stars{
+  .testimonial-author{
       justify-content:center;
-      display:flex;
-      margin-bottom:10px;
+      text-align:center;
+      gap:10px;
+  }
+
+  .author-info{
+      text-align:center;
   }
 
 }
