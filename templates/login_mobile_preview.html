@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PorEncargo | Login Preview</title>
+    <title>PorEncargo | Mi Casillero</title>
 
     <link rel="stylesheet" href="/assets/css/login_register.css">
     <link rel="stylesheet" href="/assets/css/login_mobile_preview.css">
@@ -20,135 +20,170 @@
 
 <body>
 
-<div class="mensaje-flash">
-    {% with mensajes = get_flashed_messages(with_categories=true) %}
-      {% if mensajes %}
-        {% for categoria, mensaje in mensajes %}
-          <div id="mensaje-flash-directo" class="flash {{ categoria }}">{{ mensaje }}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-</div>
-
-<header>
-    <div class="container">
-        <nav>
-            <button class="menu-toggle" aria-label="Abrir menú">☰</button>
-
-            <div class="logo_porEncargo">
-                <a href="{{ url_for('index') }}">
-                    <img src="assets/img/logo_porEncargo_sinLetras.jpg" alt="PorEncargo">
-                </a>
-            </div>
-
-            <ul class="nav-links">
-                <li><a href="{{ url_for('index') }}">Inicio</a></li>
-                <li><a href="{{ url_for('login') }}">Mi Casillero</a></li>
-                <li><a href="{{ url_for('calculadora') }}">Calculadora</a></li>
-                <li><a href="{{ url_for('rastrea_tu_orden') }}">Rastrea tu orden</a></li>
-
-                {% if current_user.is_authenticated and current_user.is_admin %}
-                <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
-                {% endif %}
-
-                {% if current_user.is_authenticated and not current_user.is_admin %}
-                <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
-                {% endif %}
-            </ul>
-
-        </nav>
+    <!-- Mensajes Flash -->
+    <div class="mensaje-flash">
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% if mensajes %}
+                {% for categoria, mensaje in mensajes %}
+                    <div class="flash {{ categoria }}">
+                        {{ mensaje }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
-</header>
 
-<main>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
 
-    <div class="auth-container">
-
-        {% if modo == "registro" %}
-
-        <!-- REGISTRO -->
-        <div class="form-container">
-
-            <h2>Registro</h2>
-
-            <form method="POST" action="registro">
-
-                <input type="text" name="user_first_name" placeholder="Nombre" required>
-                <input type="text" name="user_last_name" placeholder="Apellido" required>
-                <input type="email" name="email" placeholder="Correo electrónico" required>
-                <input type="number" name="number" placeholder="Número de celular" required>
-                <input type="password" name="password" placeholder="Contraseña" required>
-
-                <div class="cf-turnstile"
-                     data-sitekey="0x4AAAAAADhXJogQ20-ymeKq">
-                </div>
-
-                <button type="submit">Registrarse</button>
-
-            </form>
-
-            <a href="{{ url_for('login') }}" class="toggle-btn">
-                ¿Ya tienes cuenta? Inicia sesión
-            </a>
-
-        </div>
-
-        {% else %}
-
-        <!-- LOGIN -->
-        <div class="form-container">
-
-            <h2>Bienvenido</h2>
-
-            <form method="POST" action="login">
-
-                <input type="email"
-                       name="email"
-                       placeholder="Correo electrónico"
-                       required>
-
-                <input type="password"
-                       name="password"
-                       placeholder="Contraseña"
-                       required>
-
-                <button type="submit">
-                    Ingresar
+                <button class="menu-toggle" aria-label="Abrir menú">
+                    ☰
                 </button>
 
-            </form>
+                <div class="logo_porEncargo">
+                    <a href="{{ url_for('index') }}">
+                        <img src="assets/img/logo_porEncargo_sinLetras.jpg" alt="PorEncargo.co">
+                    </a>
+                </div>
 
-            <a href="{{ url_for('registro') }}" class="toggle-btn">
-                ¿No tienes cuenta? Regístrate
-            </a>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                    <li><a href="{{ url_for('login') }}">Mi Casillero</a></li>
+                    <li><a href="{{ url_for('calculadora') }}">Calculadora</a></li>
+                    <li><a href="{{ url_for('rastrea_tu_orden') }}">Rastrea tu orden</a></li>
 
-            <a href="{{ url_for('olvide_password') }}" class="forgot-password">
-                ¿Olvidaste tu contraseña?
-            </a>
+                    {% if current_user.is_authenticated and current_user.is_admin %}
+                        <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
+                    {% endif %}
+
+                    {% if current_user.is_authenticated and not current_user.is_admin %}
+                        <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
+                    {% endif %}
+                </ul>
+
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main>
+
+        <div class="login-wrapper">
+
+            {% if modo == "registro" %}
+
+            <!-- REGISTRO -->
+
+            <div class="form-container">
+
+                <h2>Crear cuenta</h2>
+
+                <form method="POST" action="registro">
+
+                    <input type="text"
+                           name="user_first_name"
+                           placeholder="Nombre"
+                           required>
+
+                    <input type="text"
+                           name="user_last_name"
+                           placeholder="Apellido"
+                           required>
+
+                    <input type="email"
+                           name="email"
+                           placeholder="Correo electrónico"
+                           required>
+
+                    <input type="number"
+                           name="number"
+                           placeholder="Número de celular"
+                           required>
+
+                    <input type="password"
+                           name="password"
+                           placeholder="Contraseña"
+                           required>
+
+                    <div class="cf-turnstile"
+                         data-sitekey="0x4AAAAAADhXJogQ20-ymeKq">
+                    </div>
+
+                    <button type="submit">
+                        Registrarme
+                    </button>
+
+                </form>
+
+                <a href="{{ url_for('login') }}" class="toggle-btn">
+                    Ya tengo una cuenta
+                </a>
+
+            </div>
+
+            {% else %}
+
+            <!-- LOGIN -->
+
+            <div class="form-container">
+
+                <h2>Bienvenido</h2>
+
+                <form method="POST" action="login">
+
+                    <input type="email"
+                           name="email"
+                           placeholder="Correo electrónico"
+                           required>
+
+                    <input type="password"
+                           name="password"
+                           placeholder="Contraseña"
+                           required>
+
+                    <button type="submit">
+                        Ingresar
+                    </button>
+
+                </form>
+
+                <a href="{{ url_for('registro') }}" class="toggle-btn">
+                    ¿No tienes cuenta? Regístrate
+                </a>
+
+                <a href="{{ url_for('olvide_password') }}" class="forgot-password">
+                    ¿Olvidaste tu contraseña?
+                </a>
+
+            </div>
+
+            {% endif %}
+
+            <!-- TRM FUERA DE LA TARJETA -->
+
+            <div class="trm-mobile">
+                <span>TRM de hoy</span>
+                <strong>$ 3.141,36</strong>
+            </div>
 
         </div>
 
-        {% endif %}
+    </main>
 
-    </div>
+    <!-- WhatsApp -->
 
-    <!-- TRM FUERA DE LA TARJETA -->
-    <div class="trm-mobile">
-        <span>TRM de hoy</span>
-        <strong>$ 3.141,36</strong>
-    </div>
+    <a href="https://wa.me/573186505475"
+       target="_blank"
+       class="whatsapp-btn">
 
-</main>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png"
+             alt="WhatsApp">
 
-<a href="https://wa.me/573186505475"
-   target="_blank"
-   style="position:fixed;bottom:20px;right:20px;z-index:9999;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png"
-         alt="WhatsApp"
-         style="width:50px;height:50px;">
-</a>
+    </a>
 
-<script src="/assets/js/animacion_contact.js"></script>
+    <script src="/assets/js/animacion_contact.js"></script>
 
 </body>
 </html>
