@@ -424,6 +424,7 @@ def subir_fotos_paquete(paquete_id):
 
 @app.route('/admin/actualizar_estado', methods=['POST'])
 def actualizar_estado():
+
     paquete_id = request.form.get('paquete_id')
     nuevo_estado_str = request.form.get('nuevo_estado')
     p_nombre = request.form.get('nombre')
@@ -448,42 +449,42 @@ def actualizar_estado():
     if fecha_recibido:
         paquete.fecha_recibido = fecha_recibido
 
-try:
-    db.session.commit()
-
-    # ---------- Correo al usuario ----------
     try:
-        subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
+        db.session.commit()
 
-        html_user = render_template(
-            "emails/estado_paquete.html",
-            nombre_usuario=paquete.usuario.user_first_name,
-            nombre_paquete=paquete.nombre,
-            guia=paquete.numero_guia or "N/A",
-            peso=paquete.peso,
-            estado_anterior=estado_anterior.replace("_", " ").title(),
-            estado_nuevo=paquete.estado.value
-        )
+        # ========= CORREO =========
+        try:
+            subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
 
-        ok, resp = send_email(
-            subject_user,
-            paquete.usuario.email,
-            "",
-            html_content=html_user
-        )
+            html_user = render_template(
+                "emails/estado_paquete.html",
+                nombre_usuario=paquete.usuario.user_first_name,
+                nombre_paquete=paquete.nombre,
+                guia=paquete.numero_guia or "N/A",
+                peso=paquete.peso,
+                estado_anterior=estado_anterior.replace("_", " ").title(),
+                estado_nuevo=paquete.estado.value
+            )
 
-        if not ok:
-            print("❌ Error enviando correo:", resp)
+            ok, resp = send_email(
+                subject_user,
+                paquete.usuario.email,
+                "",
+                html_content=html_user
+            )
+
+            if not ok:
+                print("❌ Error enviando correo:", resp)
+
+        except Exception as e:
+            print("⚠️ Error correo:", str(e))
+
+        return redirect(request.referrer)
 
     except Exception as e:
-        print("⚠️ Excepción enviando correo:", str(e))
-
-    return redirect(request.referrer)
-
-except Exception as e:
-    db.session.rollback()
-    return f"Error al actualizar el paquete: {str(e)}", 500
-    
+        db.session.rollback()
+        return f"Error al actualizar el paquete: {str(e)}", 500
+        
 @app.route('/marcar_consolidar', methods=['POST'])
 @login_required
 def marcar_consolidar():
