@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PorEncargo | Mi Casillero</title>
+
+   <link rel="stylesheet" href="/assets/css/login_register.css">
+<link rel="stylesheet" href="/assets/css/login_mobile_preview.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+    <link rel="icon" href="/assets/img/favicon.ico?v=1" type="image/x-icon">
+
+</head>
+<body>
+     <div class="mensaje-flash">
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+          {% if mensajes %}
+            {% for categoria, mensaje in mensajes %}
+              <div id="mensaje-flash-directo" class="flash {{ categoria }}">{{ mensaje }}</div>
+            {% endfor %}
+          {% endif %}   
+        {% endwith %}
+    </div>
+    <header>
+      <div class="container">
+    <nav>
+      <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+      <div class="logo_porEncargo">
+    <a href="{{ url_for('index') }}"> <!-- Agrega este enlace -->
+        <img src="assets/img/logo_porEncargo_sinLetras.jpg" alt="logo">
+    </a>
+</div>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('index')}}">Inicio</a></li>
+        <li><a href="{{ url_for('login')}}">Mi Casillero</a></li>
+        <li><a href="{{ url_for('calculadora') }}">Calculadora</a></li>
+        <li><a href="{{ url_for('rastrea_tu_orden')}}">Rastrea tu orden</a></li>
+        {% if current_user.is_authenticated and current_user.is_admin %}
+          <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
+        {% endif %}
+        {% if current_user.is_authenticated and not current_user.is_admin %}
+          <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
+        {% endif %}
+      </ul>
+      <!-- Dólar Hoy TRM -->
+      <style>
+#dolar_wpc1 a{
+    font-size:1.2rem;
+    font-weight:500;
+    text-decoration:none;
+    color:#EAF2F7;
+}
+
+#widget_usd_cop1{
+    font-size:1.1rem;
+    color:#EAF2F7;
+}
+</style>
+      <div id="dolar_wpc1"><a href="https://dolar.wilkinsonpc.com.co/" target="_new">Dólar Hoy TRM</a></div>
+      <script src="https://widgets.wilkinsonpc.com.co/curr/curr-usd-cop1.js"></script>
+    </nav>
+  </div>
+</header>
+
+
+
+   <main>
+
+
+    <div class="auth-container">
+
+        <!-- FORMULARIO REGISTRO -->
+        <div class="form-container" id="register"
+             style="display: {{ 'block' if modo == 'registro' else 'none' }};">
+
+            <h2>Registro</h2>
+
+            <form method="POST" action="registro">
+                <input type="text" name="user_first_name" placeholder="Nombre" required>
+                <input type="text" name="user_last_name" placeholder="Apellido" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="number" name="number" placeholder="Numero de celular" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+
+                <div class="cf-turnstile"
+                     data-sitekey="0x4AAAAAADhXJogQ20-ymeKq">
+                </div>
+
+                <button type="submit">Registrarse</button>
+            </form>
+
+        </div>
+
+
+        <!-- FORMULARIO LOGIN -->
+        <div class="form-container" id="login"
+     style="display: {{ 'block' if modo == 'login' else 'none' }};">
+
+    <h2>Login</h2>
+
+    <form method="POST" action="login">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit">Ingresar</button>
+    </form>
+
+    <!-- Primero Registro -->
+    <a href="{{ url_for('registro') }}" class="toggle-btn">
+        ¿No tienes cuenta? Regístrate
+    </a>
+
+    <!-- Después Recuperar -->
+    <a href="{{ url_for('olvide_password') }}" class="forgot-password">
+        ¿Olvidaste tu contraseña?
+    </a>
+
+</div>
+
+
+</main>
+         
+        
+              <a href="https://wa.me/573186505475" target="_blank" style="position:fixed;bottom:20px;right:20px;z-index:9999;"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" style="width:50px;height:50px;"></a>
+    
+  </body>
+    <script src="/assets/js/animacion_contact.js"></script>
+
+</html>
 
