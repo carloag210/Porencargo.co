@@ -150,17 +150,32 @@
 
 <!-- Menú móvil -->
 <script>
-const menuBtn = document.querySelector(".menu-toggle");
-const menu = document.querySelector(".nav-links");
+document.addEventListener("DOMContentLoaded", function () {
 
-menuBtn.addEventListener("click", function () {
-    menu.classList.toggle("active");
-});
+    const btn = document.querySelector(".menu-toggle");
+    const menu = document.querySelector(".nav-links");
 
-document.querySelectorAll(".nav-links a").forEach(link=>{
-    link.addEventListener("click", function(){
-        menu.classList.remove("active");
-    });
+    if(btn && menu){
+
+        btn.addEventListener("click", function(e){
+            e.stopPropagation();
+            menu.classList.toggle("active");
+        });
+
+        document.addEventListener("click", function(e){
+            if(!menu.contains(e.target) && !btn.contains(e.target)){
+                menu.classList.remove("active");
+            }
+        });
+
+        menu.querySelectorAll("a").forEach(link=>{
+            link.addEventListener("click", ()=>{
+                menu.classList.remove("active");
+            });
+        });
+
+    }
+
 });
 </script>
 
