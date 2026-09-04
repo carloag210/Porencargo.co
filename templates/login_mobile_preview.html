@@ -20,170 +20,133 @@
 
 <body>
 
-    <!-- Mensajes Flash -->
-    <div class="mensaje-flash">
-        {% with mensajes = get_flashed_messages(with_categories=true) %}
-            {% if mensajes %}
-                {% for categoria, mensaje in mensajes %}
-                    <div class="flash {{ categoria }}">
-                        {{ mensaje }}
-                    </div>
-                {% endfor %}
+<div class="mensaje-flash">
+{% with mensajes = get_flashed_messages(with_categories=true) %}
+{% if mensajes %}
+{% for categoria, mensaje in mensajes %}
+<div class="flash {{ categoria }}">{{ mensaje }}</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+</div>
+
+<header>
+    <nav>
+
+        <button class="menu-toggle">☰</button>
+
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">🏠 Inicio</a></li>
+            <li><a href="{{ url_for('login') }}">📦 Mi Casillero</a></li>
+            <li><a href="{{ url_for('calculadora') }}">🧮 Calculadora</a></li>
+            <li><a href="{{ url_for('rastrea_tu_orden') }}">🔎 Rastrear</a></li>
+
+            {% if current_user.is_authenticated and not current_user.is_admin %}
+            <li><a href="{{ url_for('pedidos_del_usuario') }}">📋 Mis pedidos</a></li>
             {% endif %}
-        {% endwith %}
-    </div>
+        </ul>
 
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
+    </nav>
+</header>
 
-                <button class="menu-toggle" aria-label="Abrir menú">
-                    ☰
-                </button>
+<main>
 
-                <div class="logo_porEncargo">
-                    <a href="{{ url_for('index') }}">
-                        <img src="assets/img/logo_porEncargo_sinLetras.jpg" alt="PorEncargo.co">
-                    </a>
-                </div>
+<div class="login-wrapper">
 
-                <ul class="nav-links">
-                    <li><a href="{{ url_for('index') }}">Inicio</a></li>
-                    <li><a href="{{ url_for('login') }}">Mi Casillero</a></li>
-                    <li><a href="{{ url_for('calculadora') }}">Calculadora</a></li>
-                    <li><a href="{{ url_for('rastrea_tu_orden') }}">Rastrea tu orden</a></li>
+{% if modo == "registro" %}
 
-                    {% if current_user.is_authenticated and current_user.is_admin %}
-                        <li><a href="{{ url_for('admin_panel') }}">Panel Admin</a></li>
-                    {% endif %}
+<div class="form-container">
 
-                    {% if current_user.is_authenticated and not current_user.is_admin %}
-                        <li><a href="{{ url_for('pedidos_del_usuario') }}">Mis pedidos</a></li>
-                    {% endif %}
-                </ul>
+    <h2>Crear cuenta</h2>
 
-            </nav>
-        </div>
-    </header>
+    <form method="POST" action="registro">
 
-    <!-- CONTENIDO -->
-    <main>
+        <input type="text" name="user_first_name" placeholder="Nombre" required>
 
-        <div class="login-wrapper">
+        <input type="text" name="user_last_name" placeholder="Apellido" required>
 
-            {% if modo == "registro" %}
+        <input type="email" name="email" placeholder="Correo electrónico" required>
 
-            <!-- REGISTRO -->
+        <input type="number" name="number" placeholder="Número de celular" required>
 
-            <div class="form-container">
+        <input type="password" name="password" placeholder="Contraseña" required>
 
-                <h2>Crear cuenta</h2>
-
-                <form method="POST" action="registro">
-
-                    <input type="text"
-                           name="user_first_name"
-                           placeholder="Nombre"
-                           required>
-
-                    <input type="text"
-                           name="user_last_name"
-                           placeholder="Apellido"
-                           required>
-
-                    <input type="email"
-                           name="email"
-                           placeholder="Correo electrónico"
-                           required>
-
-                    <input type="number"
-                           name="number"
-                           placeholder="Número de celular"
-                           required>
-
-                    <input type="password"
-                           name="password"
-                           placeholder="Contraseña"
-                           required>
-
-                    <div class="cf-turnstile"
-                         data-sitekey="0x4AAAAAADhXJogQ20-ymeKq">
-                    </div>
-
-                    <button type="submit">
-                        Registrarme
-                    </button>
-
-                </form>
-
-                <a href="{{ url_for('login') }}" class="toggle-btn">
-                    Ya tengo una cuenta
-                </a>
-
-            </div>
-
-            {% else %}
-
-            <!-- LOGIN -->
-
-            <div class="form-container">
-
-                <h2>Bienvenido</h2>
-
-                <form method="POST" action="login">
-
-                    <input type="email"
-                           name="email"
-                           placeholder="Correo electrónico"
-                           required>
-
-                    <input type="password"
-                           name="password"
-                           placeholder="Contraseña"
-                           required>
-
-                    <button type="submit">
-                        Ingresar
-                    </button>
-
-                </form>
-
-                <a href="{{ url_for('registro') }}" class="toggle-btn">
-                    ¿No tienes cuenta? Regístrate
-                </a>
-
-                <a href="{{ url_for('olvide_password') }}" class="forgot-password">
-                    ¿Olvidaste tu contraseña?
-                </a>
-
-            </div>
-
-            {% endif %}
-
-            <!-- TRM FUERA DE LA TARJETA -->
-
-            <div class="trm-mobile">
-                <span>TRM de hoy</span>
-                <strong>$ 3.141,36</strong>
-            </div>
-
+        <div class="cf-turnstile"
+             data-sitekey="0x4AAAAAADhXJogQ20-ymeKq">
         </div>
 
-    </main>
+        <button type="submit">Registrarme</button>
 
-    <!-- WhatsApp -->
+    </form>
 
-    <a href="https://wa.me/573186505475"
-       target="_blank"
-       class="whatsapp-btn">
+    <a class="toggle-btn" href="{{ url_for('login') }}">
+        Ya tengo una cuenta
+    </a>
 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png"
-             alt="WhatsApp">
+</div>
+
+{% else %}
+
+<div class="form-container">
+
+    <h2>Bienvenido</h2>
+
+    <form method="POST" action="login">
+
+        <input type="email"
+               name="email"
+               placeholder="Correo electrónico"
+               required>
+
+        <input type="password"
+               name="password"
+               placeholder="Contraseña"
+               required>
+
+        <button type="submit">Ingresar</button>
+
+    </form>
+
+    <a class="toggle-btn"
+       href="{{ url_for('registro') }}">
+
+        ¿No tienes cuenta? Regístrate
 
     </a>
 
-    <script src="/assets/js/animacion_contact.js"></script>
+    <a class="forgot-password"
+       href="{{ url_for('olvide_password') }}">
+
+        Recuperar contraseña
+
+    </a>
+
+</div>
+
+{% endif %}
+
+<div class="trm-mobile">
+
+    <span>TRM de hoy</span>
+
+    <strong>$ 3.141,36</strong>
+
+</div>
+
+</div>
+
+</main>
+
+<a href="https://wa.me/573186505475"
+   class="whatsapp-btn"
+   target="_blank">
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png"
+         alt="WhatsApp">
+
+</a>
+
+<script src="/assets/js/animacion_contact.js"></script>
 
 </body>
 </html>
