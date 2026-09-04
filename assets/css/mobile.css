@@ -5,14 +5,14 @@
 @media (max-width: 900px){
 
     .hero{
-        min-height:auto;
-        padding:100px 0 50px;
-    }
+    min-height:auto;
+    padding:72px 0 36px;
+}
 
     .hero-content{
-        width:92%;
-        padding-top:0;
-    }
+    width:92%;
+    padding-top:8px;
+}
 
     .hero-grid{
         display:grid;
@@ -26,17 +26,14 @@
     }
 
     .hero h1{
-        font-size:3rem;
-        line-height:1.05;
-    }
+    font-size:2.25rem;
+    line-height:1.1;
+}
 
     .hero p{
-        font-size:1rem;
-        line-height:1.7;
-        margin:0 auto;
-        max-width:340px;
-    }
-
+    font-size:.95rem;
+    line-height:1.6;
+}
     .hero-badge{
         margin:0 auto 18px;
     }
