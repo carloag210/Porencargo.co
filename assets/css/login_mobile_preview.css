@@ -85,6 +85,7 @@ nav{
 
 .nav-links{
     position:fixed !important;
+
     top:0;
     left:-240px;
 
@@ -94,14 +95,13 @@ nav{
     margin:0;
     padding:88px 22px;
 
+    background:#081B35;
+
     display:flex !important;
     flex-direction:column;
     gap:18px;
 
     list-style:none;
-
-    background:#081B35;
-    box-shadow:8px 0 30px rgba(0,0,0,.35);
 
     transition:left .35s ease;
 
@@ -109,7 +109,7 @@ nav{
 }
 
 .nav-links.active{
-    left:0;
+    left:0 !important;
 }
 
 .nav-links li{
@@ -125,10 +125,9 @@ nav{
 
 .menu-toggle{
     position:relative;
-    z-index:1001;
+    z-index:1000;
     cursor:pointer;
 }
-
 /* =========================
    CONTENIDO
 ========================= */
