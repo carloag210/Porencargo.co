@@ -466,17 +466,18 @@ def actualizar_estado():
         try:
             subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
 
-            html_user = render_template(
-                "mails/estado_paquete.html",
-                nombre_usuario=paquete.usuario.user_first_name,
-                nombre_paquete=paquete.nombre,
-                guia=paquete.numero_guia or "N/A",
-                peso=paquete.peso,
-                estado_anterior=estado_anterior.replace("_", " ").title(),
-                estado_nuevo=paquete.estado.value
-                fecha_notificacion = paquete.fecha_recibido.strftime("%d de %B de %Y")
-            )
+fecha_notificacion = paquete.fecha_recibido.strftime("%d de %B de %Y")
 
+html_user = render_template(
+    "mails/estado_paquete.html",
+    nombre_usuario=paquete.usuario.user_first_name,
+    nombre_paquete=paquete.nombre,
+    guia=paquete.numero_guia or "N/A",
+    peso=paquete.peso,
+    estado_anterior=estado_anterior.replace("_", " ").title(),
+    estado_nuevo=paquete.estado.value,
+    fecha_notificacion=fecha_notificacion
+)
             ok, resp = send_email(
     subject=subject_user,
     recipient=paquete.usuario.email,
