@@ -464,11 +464,11 @@ def actualizar_estado():
 
         # ========= CORREO =========
         try:
-    subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
+        subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
 
-    fecha_notificacion = paquete.fecha_recibido.strftime("%d de %B de %Y")
+        fecha_notificacion = paquete.fecha_recibido.strftime("%d de %B de %Y")
 
-    html_user = render_template(
+        html_user = render_template(
         "mails/estado_paquete.html",
         nombre_usuario=paquete.usuario.user_first_name,
         nombre_paquete=paquete.nombre,
