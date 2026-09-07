@@ -491,9 +491,6 @@ def actualizar_estado():
         print("Error:", e)
 
     return redirect(request.referrer)
-    except Exception as e:
-        db.session.rollback()
-        return f"Error al actualizar el paquete: {str(e)}", 500
         
 @app.route('/marcar_consolidar', methods=['POST'])
 @login_required
