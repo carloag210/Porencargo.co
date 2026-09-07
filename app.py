@@ -459,11 +459,10 @@ def actualizar_estado():
     if fecha_recibido:
         paquete.fecha_recibido = fecha_recibido
 
-    try:
-        db.session.commit()
-
-# ========= CORREO =========
 try:
+    db.session.commit()
+
+    # ========= CORREO =========
     subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
 
     fecha_notificacion = paquete.fecha_recibido.strftime("%d de %B de %Y")
@@ -487,7 +486,6 @@ try:
 
     if not ok:
         print("❌ Error enviando correo:", resp)
-
 except Exception as e:
     print("⚠️ Error correo:", str(e))
 
