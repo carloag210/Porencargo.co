@@ -462,7 +462,7 @@ def actualizar_estado():
     try:
         db.session.commit()
 
-       # ========= CORREO =========
+# ========= CORREO =========
 try:
     subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
 
