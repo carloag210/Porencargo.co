@@ -432,6 +432,8 @@ def subir_fotos_paquete(paquete_id):
         url_for("admin_ver_pedidos_usuario", user_id=paquete.id_user)
     )
 
+from datetime import datetime
+
 @app.route('/admin/actualizar_estado', methods=['POST'])
 def actualizar_estado():
 
@@ -457,39 +459,38 @@ def actualizar_estado():
     paquete.peso = p_peso
 
     if fecha_recibido:
-        paquete.fecha_recibido = fecha_recibido
+        paquete.fecha_recibido = datetime.strptime(fecha_recibido, "%Y-%m-%d").date()
 
-try:
-    db.session.commit()
+    try:
+        db.session.commit()
 
-    # ========= CORREO =========
-    subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
+        fecha_notificacion = paquete.fecha_recibido.strftime("%d/%m/%Y")
 
-    fecha_notificacion = paquete.fecha_recibido.strftime("%d de %B de %Y")
+        html_user = render_template(
+            "mails/estado_paquete.html",
+            nombre_usuario=paquete.usuario.user_first_name,
+            nombre_paquete=paquete.nombre,
+            guia=paquete.numero_guia or "N/A",
+            peso=paquete.peso,
+            estado_anterior=estado_anterior.replace("_", " ").title(),
+            estado_nuevo=paquete.estado.value,
+            fecha_notificacion=fecha_notificacion
+        )
 
-    html_user = render_template(
-        "mails/estado_paquete.html",
-        nombre_usuario=paquete.usuario.user_first_name,
-        nombre_paquete=paquete.nombre,
-        guia=paquete.numero_guia or "N/A",
-        peso=paquete.peso,
-        estado_anterior=estado_anterior.replace("_", " ").title(),
-        estado_nuevo=paquete.estado.value,
-        fecha_notificacion=fecha_notificacion
-    )
+        ok, resp = send_email(
+            subject=f"📦 Tu paquete ahora está en {paquete.estado.value}",
+            recipient=paquete.usuario.email,
+            html_content=html_user
+        )
 
-    ok, resp = send_email(
-        subject=subject_user,
-        recipient=paquete.usuario.email,
-        html_content=html_user
-    )
+        if not ok:
+            print("Error correo:", resp)
 
-    if not ok:
-        print("❌ Error enviando correo:", resp)
-except Exception as e:
-    print("⚠️ Error correo:", str(e))
+    except Exception as e:
+        db.session.rollback()
+        print("Error:", e)
 
-return redirect(request.referrer)
+    return redirect(request.referrer)
     except Exception as e:
         db.session.rollback()
         return f"Error al actualizar el paquete: {str(e)}", 500
