@@ -464,27 +464,26 @@ def actualizar_estado():
 
         # ========= CORREO =========
         try:
-            subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
+    subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
 
-fecha_notificacion = paquete.fecha_recibido.strftime("%d de %B de %Y")
+    fecha_notificacion = paquete.fecha_recibido.strftime("%d de %B de %Y")
 
-html_user = render_template(
-    "mails/estado_paquete.html",
-    nombre_usuario=paquete.usuario.user_first_name,
-    nombre_paquete=paquete.nombre,
-    guia=paquete.numero_guia or "N/A",
-    peso=paquete.peso,
-    estado_anterior=estado_anterior.replace("_", " ").title(),
-    estado_nuevo=paquete.estado.value,
-    fecha_notificacion=fecha_notificacion
-)
-            ok, resp = send_email(
-    subject=subject_user,
-    recipient=paquete.usuario.email,
-    html_content=html_user
-)
+    html_user = render_template(
+        "mails/estado_paquete.html",
+        nombre_usuario=paquete.usuario.user_first_name,
+        nombre_paquete=paquete.nombre,
+        guia=paquete.numero_guia or "N/A",
+        peso=paquete.peso,
+        estado_anterior=estado_anterior.replace("_", " ").title(),
+        estado_nuevo=paquete.estado.value,
+        fecha_notificacion=fecha_notificacion
+    )
 
-            if not ok:
+    ok, resp = send_email(
+        subject=subject_user,
+        recipient=paquete.usuario.email,
+        html_content=html_user
+    )            if not ok:
                 print("❌ Error enviando correo:", resp)
 
         except Exception as e:
