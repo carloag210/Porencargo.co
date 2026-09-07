@@ -462,13 +462,13 @@ def actualizar_estado():
     try:
         db.session.commit()
 
-        # ========= CORREO =========
-        try:
-        subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
+       # ========= CORREO =========
+try:
+    subject_user = f"📦 Tu paquete ahora está en {paquete.estado.value}"
 
-        fecha_notificacion = paquete.fecha_recibido.strftime("%d de %B de %Y")
+    fecha_notificacion = paquete.fecha_recibido.strftime("%d de %B de %Y")
 
-        html_user = render_template(
+    html_user = render_template(
         "mails/estado_paquete.html",
         nombre_usuario=paquete.usuario.user_first_name,
         nombre_paquete=paquete.nombre,
@@ -483,14 +483,15 @@ def actualizar_estado():
         subject=subject_user,
         recipient=paquete.usuario.email,
         html_content=html_user
-    )            if not ok:
-                print("❌ Error enviando correo:", resp)
+    )
 
-        except Exception as e:
-            print("⚠️ Error correo:", str(e))
+    if not ok:
+        print("❌ Error enviando correo:", resp)
 
-        return redirect(request.referrer)
+except Exception as e:
+    print("⚠️ Error correo:", str(e))
 
+return redirect(request.referrer)
     except Exception as e:
         db.session.rollback()
         return f"Error al actualizar el paquete: {str(e)}", 500
