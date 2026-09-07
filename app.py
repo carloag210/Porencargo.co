@@ -474,6 +474,7 @@ def actualizar_estado():
                 peso=paquete.peso,
                 estado_anterior=estado_anterior.replace("_", " ").title(),
                 estado_nuevo=paquete.estado.value
+                fecha_notificacion = paquete.fecha_recibido.strftime("%d de %B de %Y")
             )
 
             ok, resp = send_email(
