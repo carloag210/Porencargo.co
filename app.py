@@ -612,11 +612,10 @@ def registro():
     )
 
     ok, resp = send_email(
-        subject_admin,
-        "carloag210@hotmail.com",
-        body_admin,
-        html=True,
-    )
+    subject_admin,
+    "carloag210@hotmail.com",
+    body_admin,
+)
 
     if not ok:
         print("Error notificando admin:", resp)
@@ -634,12 +633,10 @@ def registro():
     )
 
     ok2, resp2 = send_email(
-        subject_user,
-        nuevo_usuario.email,
-        mensaje_bienvenida,
-        html=True,
-    )
-
+    subject_user,
+    nuevo_usuario.email,
+    mensaje_bienvenida,
+)
     if not ok2:
         print("Error enviando bienvenida al usuario:", resp2)
         flash(
