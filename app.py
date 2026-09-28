@@ -709,10 +709,10 @@ def olvide_password():
             """
 
             send_email(
-            subject,
-            user.email,
-            body=texto_plano,
-            html_content=html
+               subject,
+               user.email,
+               html,
+               html=True
 )
             flash(
                 "Revisa tu correo. Hemos enviado el enlace de recuperación.",
