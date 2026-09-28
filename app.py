@@ -709,12 +709,11 @@ def olvide_password():
             """
 
             send_email(
-                subject="Recuperación de contraseña | PorEncargo.co",
-                recipient=usuario.email,
-                body=html_body,
-                html=True
-            )
-
+            subject,
+            user.email,
+            body=texto_plano,
+            html_content=html
+)
             flash(
                 "Revisa tu correo. Hemos enviado el enlace de recuperación.",
                 "success"
