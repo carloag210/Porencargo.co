@@ -1,0 +1,1340 @@
+/* =========================================================
+   POR ENCARGO — RASTREA TU ORDEN
+   Identidad visual basada en index.html
+========================================================= */
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+
+    --secondary: #0f172a;
+
+    --text: #334155;
+    --muted: #64748b;
+
+    --light: #f8fafc;
+    --white: #ffffff;
+
+    --border: rgba(15, 23, 42, 0.08);
+
+    --shadow-sm:
+        0 8px 30px rgba(15, 23, 42, 0.06);
+
+    --shadow-md:
+        0 20px 50px rgba(15, 23, 42, 0.10);
+
+    --radius: 22px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body{
+    margin:0;
+    min-height:100vh;
+
+    font-family:"Inter",sans-serif;
+    color:#F8FAFC;
+    line-height:1.6;
+
+    background:
+        linear-gradient(
+            105deg,
+            rgba(4,10,18,.94) 0%,
+            rgba(8,22,36,.82) 55%,
+            rgba(8,22,36,.55) 100%
+        ),
+        url("/assets/img/representacion-de-la-cadena-de-suministro-de-vehiculos-en-portatiles.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+button,
+input {
+    font-family:
+        inherit;
+}
+
+
+a {
+    text-decoration:
+        none;
+
+    color:
+        inherit;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container {
+
+    width:
+        min(1180px, 92%);
+
+    margin:
+        auto;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+
+    background: rgba(7,19,26,.72);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    transition: .3s ease;
+}
+
+
+header.scrolled {
+
+    box-shadow:
+        var(--shadow-sm);
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+nav {
+
+    min-height:
+        78px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        25px;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo_porEncargo img {
+
+    width:
+        58px;
+
+    height:
+        58px;
+
+    object-fit:
+        contain;
+
+    border-radius:
+        14px;
+
+    transition:
+        0.3s ease;
+}
+
+
+.logo_porEncargo img:hover {
+
+    transform:
+        scale(1.05);
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.nav-links {
+
+    list-style:
+        none;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+}
+
+
+.nav-links li {
+
+    margin:
+        0;
+}
+
+
+.nav-links a {
+
+    display:
+        block;
+
+    padding:
+        10px 14px;
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+
+    color:
+        #475569;
+
+    border-radius:
+        10px;
+
+    transition:
+        0.25s ease;
+}
+
+
+.nav-links a:hover {
+
+    color:
+        var(--primary);
+
+    background:
+        #eff6ff;
+}
+
+
+/* =========================================================
+   DÓLAR
+========================================================= */
+
+#dolar_wpc1 {
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+
+    white-space:
+        nowrap;
+}
+
+
+#dolar_wpc1 a {
+
+    color:
+        #475569;
+}
+
+
+#widget_usd_cop1 {
+
+    color:
+        var(--primary);
+
+    font-size:
+        14px;
+}
+
+
+/* =========================================================
+   MENU MOBILE
+========================================================= */
+
+.menu-toggle {
+
+    display:
+        none;
+
+    border:
+        none;
+
+    background:
+        #eff6ff;
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    border-radius:
+        12px;
+
+    font-size:
+        20px;
+
+    cursor:
+        pointer;
+
+    color:
+        var(--secondary);
+}
+
+
+/* =========================================================
+   PAGINA DE RASTREO
+========================================================= */
+
+.tracking-page {
+
+    min-height:
+        100vh;
+
+    padding:
+        150px 20px 100px;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(37, 99, 235, 0.10),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 90% 30%,
+            rgba(96, 165, 250, 0.10),
+            transparent 30%
+        ),
+
+        var(--light);
+}
+
+
+/* =========================================================
+   ENCABEZADO
+========================================================= */
+
+.tracking-header {
+
+    max-width:
+        720px;
+
+    margin:
+        0 auto 45px;
+
+    text-align:
+        center;
+}
+
+
+.tracking-header span {
+
+    display:
+        inline-block;
+
+    color:
+        var(--primary);
+
+    font-size:
+        13px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.5px;
+
+    margin-bottom:
+        10px;
+}
+
+
+.tracking-header h1 {
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    font-size:
+        clamp(36px, 5vw, 56px);
+
+    line-height:
+        1.15;
+
+    letter-spacing:
+        -1.5px;
+
+    color:
+        var(--secondary);
+
+    margin-bottom:
+        14px;
+}
+
+
+.tracking-header p {
+
+    color:
+        var(--muted);
+
+    font-size:
+        17px;
+
+    max-width:
+        600px;
+
+    margin:
+        auto;
+}
+
+
+/* =========================================================
+   CONTENIDO
+========================================================= */
+
+.tracking-content {
+
+    width:
+        min(760px, 100%);
+
+    margin:
+        auto;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        25px;
+}
+
+
+/* =========================================================
+   TARJETA PRINCIPAL
+========================================================= */
+
+.tracking-card {
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        var(--radius);
+
+    padding:
+        40px;
+
+    box-shadow:
+        var(--shadow-md);
+
+    text-align:
+        center;
+
+    transition:
+        0.3s ease;
+}
+
+
+.tracking-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 25px 60px
+        rgba(15, 23, 42, 0.12);
+}
+
+
+/* =========================================================
+   ICONO
+========================================================= */
+
+.tracking-icon {
+
+    width:
+        64px;
+
+    height:
+        64px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    margin:
+        0 auto 20px;
+
+    border-radius:
+        18px;
+
+    background:
+        #eff6ff;
+
+    font-size:
+        30px;
+
+    box-shadow:
+        0 8px 20px
+        rgba(37, 99, 235, 0.10);
+}
+
+
+.tracking-card h2 {
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    color:
+        var(--secondary);
+
+    font-size:
+        25px;
+
+    margin-bottom:
+        8px;
+}
+
+
+.tracking-description {
+
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
+
+    margin-bottom:
+        30px;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.input-group {
+
+    text-align:
+        left;
+
+    margin-bottom:
+        18px;
+}
+
+
+.input-group label {
+
+    display:
+        block;
+
+    margin-bottom:
+        7px;
+
+    color:
+        var(--secondary);
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+}
+
+
+.input-group input {
+
+    width:
+        100%;
+
+    padding:
+        15px 16px;
+
+    border:
+        1px solid
+        #e2e8f0;
+
+    border-radius:
+        13px;
+
+    background:
+        #f8fafc;
+
+    color:
+        var(--secondary);
+
+    font-size:
+        15px;
+
+    outline:
+        none;
+
+    transition:
+        0.25s ease;
+}
+
+
+.input-group input::placeholder {
+
+    color:
+        #94a3b8;
+}
+
+
+.input-group input:focus {
+
+    border-color:
+        var(--primary);
+
+    background:
+        white;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   BOTON
+========================================================= */
+
+.tracking-button{
+    width:100%;
+    padding:16px;
+
+    border:none;
+    border-radius:14px;
+
+    background:linear-gradient(90deg,#22C55E,#2563EB);
+
+    color:#fff;
+    font-size:17px;
+    font-weight:700;
+
+    cursor:pointer;
+    transition:.25s;
+}
+
+.tracking-button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 24px rgba(37,99,235,.30);
+}
+
+.tracking-button:active {
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   RESULTADO
+========================================================= */
+
+.tracking-result {
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        var(--radius);
+
+    padding:
+        35px;
+
+    box-shadow:
+        var(--shadow-md);
+
+    animation:
+        resultAppear 0.5s ease forwards;
+}
+
+
+@keyframes resultAppear {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(15px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+}
+
+
+.result-header {
+
+    margin-bottom:
+        28px;
+}
+
+
+.result-label {
+
+    display:
+        block;
+
+    color:
+        var(--primary);
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.3px;
+
+    margin-bottom:
+        6px;
+}
+
+
+.result-header h2 {
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    color:
+        var(--secondary);
+
+    font-size:
+        27px;
+}
+
+
+/* =========================================================
+   GRID RESULTADO
+========================================================= */
+
+.result-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap:
+        15px;
+}
+
+
+.result-item {
+
+    padding:
+        20px;
+
+    background:
+        #f8fafc;
+
+    border:
+        1px solid
+        #eef2f7;
+
+    border-radius:
+        16px;
+}
+
+
+.result-item span {
+
+    display:
+        block;
+
+    color:
+        var(--muted);
+
+    font-size:
+        12px;
+
+    margin-bottom:
+        5px;
+}
+
+
+.result-item strong {
+
+    display:
+        block;
+
+    color:
+        var(--secondary);
+
+    font-size:
+        16px;
+}
+
+
+.result-item .status {
+
+    color:
+        var(--primary);
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.tracking-error {
+
+    background:
+        white;
+
+    border:
+        1px solid
+        rgba(220, 38, 38, 0.10);
+
+    border-radius:
+        var(--radius);
+
+    padding:
+        40px;
+
+    text-align:
+        center;
+
+    box-shadow:
+        var(--shadow-md);
+
+    animation:
+        resultAppear 0.5s ease forwards;
+}
+
+
+.tracking-error > div {
+
+    font-size:
+        42px;
+
+    margin-bottom:
+        12px;
+}
+
+
+.tracking-error h2 {
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    color:
+        var(--secondary);
+
+    margin-bottom:
+        8px;
+}
+
+
+.tracking-error p {
+
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
+
+    max-width:
+        500px;
+
+    margin:
+        auto;
+}
+
+
+/* =========================================================
+   FLASH MESSAGE
+========================================================= */
+
+.mensaje-flash {
+
+    position:
+        fixed;
+
+    top:
+        95px;
+
+    left:
+        50%;
+
+    transform:
+        translateX(-50%);
+
+    z-index:
+        2000;
+
+    width:
+        min(500px, 90%);
+}
+
+
+.flash {
+
+    padding:
+        14px 18px;
+
+    border-radius:
+        12px;
+
+    background:
+        white;
+
+    box-shadow:
+        var(--shadow-md);
+
+    border:
+        1px solid
+        var(--border);
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+}
+
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+body > a[href*="wa.me"] {
+
+    width:
+        58px;
+
+    height:
+        58px;
+
+    border-radius:
+        50%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        #25d366;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.20);
+
+    transition:
+        0.3s ease;
+}
+
+
+body > a[href*="wa.me"]:hover {
+
+    transform:
+        scale(1.08);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .nav-links {
+
+        position:
+            fixed;
+
+        top:
+            78px;
+
+        left:
+            4%;
+
+        right:
+            4%;
+
+        display:
+            none;
+
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+        background:
+            white;
+
+        padding:
+            15px;
+
+        border-radius:
+            18px;
+
+        box-shadow:
+            var(--shadow-md);
+
+        gap:
+            5px;
+    }
+
+
+    .nav-links.active {
+
+        display:
+            flex;
+    }
+
+
+    .menu-toggle {
+
+        display:
+            block;
+    }
+
+
+    nav {
+
+        flex-wrap:
+            wrap;
+    }
+
+
+    #dolar_wpc1 {
+
+        margin-left:
+            auto;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    nav {
+
+        min-height:
+            68px;
+    }
+
+
+    .logo_porEncargo img {
+
+        width:
+            48px;
+
+        height:
+            48px;
+    }
+
+
+    #dolar_wpc1 {
+
+        display:
+            none;
+    }
+
+
+    .tracking-page {
+
+        padding:
+            125px 15px 70px;
+    }
+
+
+    .tracking-header {
+
+        margin-bottom:
+            30px;
+    }
+
+
+    .tracking-header h1 {
+
+        font-size:
+            38px;
+    }
+
+
+    .tracking-header p {
+
+        font-size:
+            15px;
+    }
+
+
+    .tracking-card {
+
+        padding:
+            28px 20px;
+    }
+
+
+    .tracking-result {
+
+        padding:
+            25px 20px;
+    }
+
+
+    .result-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .tracking-error {
+
+        padding:
+            30px 20px;
+    }
+
+}
+/* ========= NUEVA IDENTIDAD ========= */
+
+.tracking-page{
+    min-height:calc(100vh - 110px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:60px 20px;
+}
+
+.tracking-card.premium{
+    width:100%;
+    max-width:460px;
+
+    background:rgba(4,23,42,.88);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(59,130,246,.25);
+    border-radius:28px;
+
+    padding:36px;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
+}
+
+.lock-circle{
+    width:84px;
+    height:84px;
+
+    margin:0 auto 22px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:36px;
+
+    background:linear-gradient(135deg,#2563EB,#22C55E);
+}
+
+.tracking-card h1{
+    text-align:center;
+    font-family:"Space Grotesk",sans-serif;
+    font-size:2.1rem;
+    color:#F8FAFC;
+    margin-bottom:8px;
+}
+
+.gradient-line{
+    width:90px;
+    height:4px;
+
+    margin:0 auto 22px;
+
+    border-radius:999px;
+
+    background:linear-gradient(90deg,#22C55E,#2563EB);
+}
+
+.subtitulo{
+    text-align:center;
+    color:#C7D5E3;
+    line-height:1.6;
+    margin-bottom:28px;
+}
+
+.tracking-card label{
+    display:block;
+    margin:14px 0 8px;
+    color:#EAF2F7;
+    font-weight:600;
+}
+
+.tracking-card input{
+    width:100%;
+    padding:15px 16px;
+    margin-bottom:18px;
+
+    border:none;
+    border-radius:14px;
+
+    background:rgba(255,255,255,.08);
+
+    color:#fff;
+}
+
+.tracking-card input::placeholder{
+    color:#A9BED2;
+}
+
+.tracking-button{
+    width:100%;
+    padding:16px;
+
+    border:none;
+    border-radius:14px;
+
+    background:linear-gradient(90deg,#22C55E,#2563EB);
+
+    color:#fff;
+
+    font-size:17px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.tracking-button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 24px rgba(37,99,235,.30);
+}
+
+.tracking-result{
+    margin-top:30px;
+    padding-top:25px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.tracking-result h3{
+    color:#fff;
+    margin-bottom:18px;
+}
+
+.result-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.result-item{
+    background:rgba(255,255,255,.05);
+    padding:16px;
+    border-radius:14px;
+}
+
+.result-item span{
+    display:block;
+    color:#9DB4C8;
+    font-size:13px;
+    margin-bottom:6px;
+}
+
+.status{
+    color:#22C55E;
+    font-weight:700;
+}
+
+.tracking-error{
+    margin-top:25px;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    background:rgba(239,68,68,.10);
+
+    border:1px solid rgba(239,68,68,.30);
+
+    text-align:center;
+}
+
+@media(max-width:600px){
+
+    .tracking-card.premium{
+        padding:28px;
+    }
+
+    .result-grid{
+        grid-template-columns:1fr;
+    }
+
+}

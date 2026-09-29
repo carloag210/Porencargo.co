@@ -1,0 +1,112 @@
+/* === Layout general === */
+.container-productos {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Sidebar fijo a la izquierda */
+.sidebar {
+  width: 250px;
+  margin-left: 0;  /* elimina espacio extra */
+  background-color: #f9f9f9; /* opcional: mismo estilo de las otras cajas */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.sidebar h2 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: var(--color-primario, #333);
+}
+
+.filter-group {
+  margin-bottom: 1.2rem;
+}
+
+.filter-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.filter-group input,
+.filter-group select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Main ocupa el resto */
+.main {
+  flex: 1; /* hace que los productos usen el espacio restante */
+}
+
+.main h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  text-align: center;
+  color: var(--color-primario, #222);
+}
+
+/* === Grid productos === */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+/* === Card producto === */
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.product-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.product-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-card p {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #27ae60;
+}
+
+/* === Botón comprar === */
+.btn-productos {
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  background: var(--color-secundario, #ff6600);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-productos:hover {
+  background: #e65c00;
+}
