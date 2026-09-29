@@ -1,0 +1,15 @@
+{% extends "admin_panel.html" %}
+{% block content %}
+<link rel="stylesheet" href='/assets/css/admin_panel.css'>
+<div class="auth-container" style="height: 400px;">
+  
+  <form method="POST" class="form-container">
+    <h2>Editar Usuario</h2>
+    <input class="form-input" type="text" name="nombre" value="{{ usuario.user_first_name }}" required><br>
+    <input class="form-input" type="text" name="apellido" value="{{ usuario.user_last_name }}" required><br>
+    <input class="form-input" type="email" name="email" value="{{ usuario.email }}" required><br>
+    <input class="form-input" type="text" name="numero" value="{{ usuario.number }}" required><br>
+    <button class="btn-add-productos" type="submit">Guardar cambios</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends "admin_panel.html" %}
+
+{% block content %}
+
+<div class="recepcion-header">
+    <div>
+        <span class="subtitulo">OPERACIÓN MIAMI</span>
+        <h1>📸 Recepción de Hoy</h1>
+        <p>Importa las fotografías enviadas por el operador y registra los paquetes del día.</p>
+    </div>
+    
+<div class="contador-fotos" id="contadorFotos">
+    📷 0 fotografías listas para registrar
+</div>
+    
+    <button class="btn-importar">
+        📁 Importar Paquetes
+    </button>
+</div>
+
+<div class="zona-upload" id="dropZone">
+
+    <input
+        type="file"
+        id="fileInput"
+        accept="image/*"
+        multiple
+        hidden
+    >
+
+    <div class="upload-icon">📸</div>
+
+    <h2>Arrastra las fotografías aquí</h2>
+
+    <p>o haz clic para seleccionar varias imágenes</p>
+
+    <button type="button" id="btnSeleccionar">
+        Seleccionar archivos
+    </button>
+
+</div>
+
+<div class="preview-grid" id="previewGrid"></div>
+
+<div class="lista-pendientes">
+
+    <h2>Paquetes pendientes</h2>
+
+    <div class="paquete-item">
+        <div class="miniatura"></div>
+
+        <div class="info">
+            <h3>Carlos Aguado</h3>
+            <span>Guía: TBA333045432617</span>
+        </div>
+
+        <div class="estado pendiente">
+            Pendiente
+        </div>
+    </div>
+
+    <div class="paquete-item">
+        <div class="miniatura"></div>
+
+        <div class="info">
+            <h3>Laura Gómez</h3>
+            <span>Guía: 1Z999AA123456</span>
+        </div>
+
+        <div class="estado pendiente">
+            Pendiente
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+const input = document.getElementById("fileInput");
+const boton = document.getElementById("btnSeleccionar");
+const dropZone = document.getElementById("dropZone");
+const preview = document.getElementById("previewGrid");
+
+boton.addEventListener("click", () => input.click());
+
+input.addEventListener("change", () => {
+    mostrarImagenes(input.files);
+});
+
+dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.classList.add("drag");
+});
+
+dropZone.addEventListener("dragleave", () => {
+    dropZone.classList.remove("drag");
+});
+
+dropZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+
+    dropZone.classList.remove("drag");
+
+    const archivos = e.dataTransfer.files;
+
+    input.files = archivos;
+
+    mostrarImagenes(archivos);
+});
+
+function mostrarImagenes(archivos){
+
+    const contador = document.getElementById("contadorFotos");
+    
+    contador.innerText =
+        `📷 ${archivos.length} fotografías listas para registrar`;
+    preview.innerHTML = "";
+
+    [...archivos].forEach((archivo) => {
+
+        const lector = new FileReader();
+
+        lector.onload = (evento) => {
+
+            const card = document.createElement("div");
+
+            card.className = "preview-card";
+
+            card.innerHTML = `
+                <img src="${evento.target.result}">
+                <div class="preview-info">
+                    <strong>${archivo.name}</strong>
+                    <span>Lista para registrar</span>
+                </div>
+            `;
+
+            preview.appendChild(card);
+
+        };
+
+        lector.readAsDataURL(archivo);
+
+    });
+
+}
+
+</script>
+{% endblock %}

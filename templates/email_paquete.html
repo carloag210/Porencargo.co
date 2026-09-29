@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Actualización de Paquete</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color:#f5f7fa; padding:20px; margin:0;">
+    <table align="center" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px; background:#ffffff; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); overflow:hidden;">
+        <tr>
+            <td style="background:#2563eb; padding:20px; text-align:center; color:white; font-size:22px; font-weight:bold;">
+                📦 PorEncargo - Actualización de tu Paquete
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:20px; color:#333333; font-size:15px; line-height:1.6;">
+                <p>Hola <strong>{{ user_nombre }}</strong>,</p>
+
+                <p>Tu paquete <strong>{{ paquete_nombre }}</strong> 
+                (Guía: <strong>{{ paquete_guia }}</strong>) ha cambiado de estado:</p>
+
+                <p style="background:#f3f4f6; padding:12px; border-radius:8px; border-left:5px solid #2563eb;">
+                    <strong>Estado anterior:</strong> {{ estado_anterior }}<br>
+                    <strong>Nuevo estado:</strong> {{ estado_nuevo }}
+                </p>
+
+                <p>Puedes ingresar a tu cuenta en 
+                    <a href="https://porencargo.co" style="color:#2563eb; text-decoration:none; font-weight:bold;">
+                        PorEncargo.co
+                    </a> para ver más detalles.
+                </p>
+
+                <div style="text-align:center; margin:30px 0;">
+                    <a href="https://porencargo.co" 
+                       style="background:#2563eb; color:white; padding:12px 24px; border-radius:6px; text-decoration:none; font-weight:bold;">
+                        Ver mi paquete
+                    </a>
+                </div>
+
+                <p style="font-size:13px; color:#555;">
+                    Saludos,<br>
+                    <strong>Equipo PorEncargo</strong>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="background:#f3f4f6; padding:15px; text-align:center; font-size:12px; color:#777;">
+                © {{ year }} PorEncargo.co - Todos los derechos reservados
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends "mis_pedidos.html" %}
+{% block content %}
+<h1 class="page-title">Mi información</h1>
+
+{% if user %}
+<div class="bloque">
+    <ul>
+        <li><strong>Nombre:</strong> {{ user.user_first_name }} {{ user.user_last_name }}</li>
+        <li><strong>Email:</strong> {{ user.email }}</li>
+        <li><strong>Teléfono:</strong> {{ user.number }}</li>
+    </ul>
+    <a href="{{ url_for('editar_usuario') }}">
+        <button>Editar información</button>
+    </a>
+</div>
+{% endif %}
+{% endblock %}
