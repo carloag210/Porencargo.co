@@ -56,7 +56,7 @@ class User(db.Model, UserMixin):
     user_first_name = Column(String(100), nullable=False)
     user_last_name = Column(String(100), nullable=False)
     email = Column(String(255), nullable=False, unique=True)
-    number = Column(Float, nullable=False, unique=True)
+    number = Column(String(20), nullable=False, unique=True)
     password = Column(String(255), nullable=False)
 
     paquetes = relationship('Paquete', cascade="all, delete-orphan", back_populates='usuario', lazy=True)
