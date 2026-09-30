@@ -1095,3 +1095,197 @@ nav{
         grid-column: auto;
     }
 }
+/* =========================================================
+   MÉTRICAS DEL DASHBOARD
+   ========================================================= */
+
+.stats .stat-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    min-height: 108px;
+    padding: 20px;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+
+    box-shadow: var(--shadow);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+
+/* Hover */
+
+.stats .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(15,23,42,.11);
+}
+
+
+/* Icono */
+
+.stats .stat-icon {
+    width: 52px;
+    height: 52px;
+
+    min-width: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+}
+
+
+.stats .stat-icon svg {
+    width: 26px;
+    height: 26px;
+
+    stroke-width: 2;
+}
+
+
+/* Información */
+
+.stats .stat-info {
+    min-width: 0;
+}
+
+
+.stats .stat-info small {
+    display: block;
+
+    margin: 0 0 3px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+.stats .stat-info h2 {
+    margin: 0;
+
+    color: var(--navy);
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+
+.stats .stat-info h2 b {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+.stats .stat-info span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   COLORES DE LOS ICONOS
+   ========================================================= */
+
+.stat-paquetes .stat-icon {
+    background: #DBEAFE;
+    color: #2563EB;
+}
+
+
+.stat-transito .stat-icon {
+    background: #E0F2FE;
+    color: #0284C7;
+}
+
+
+.stat-entregados .stat-icon {
+    background: #DCFCE7;
+    color: #16A34A;
+}
+
+
+.stat-peso .stat-icon {
+    background: #F3E8FF;
+    color: #9333EA;
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .stats .stat-card {
+        min-height: 90px;
+        padding: 15px;
+
+        gap: 12px;
+
+        border-radius: 16px;
+    }
+
+
+    .stats .stat-icon {
+        width: 44px;
+        height: 44px;
+
+        min-width: 44px;
+
+        border-radius: 13px;
+    }
+
+
+    .stats .stat-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+
+    .stats .stat-info small {
+        font-size: 12px;
+    }
+
+
+    .stats .stat-info h2 {
+        font-size: 24px;
+    }
+
+
+    .stats .stat-info span {
+        font-size: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   PANTALLAS MUY PEQUEÑAS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .stats .stat-card {
+        min-height: 86px;
+    }
+
+}
