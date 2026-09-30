@@ -232,6 +232,13 @@ with app.app_context():
 app.secret_key = app.config["SECRET_KEY"]
 app.permanent_session_lifetime = timedelta(days=7) 
 
+@app.route('/debug/calculo')
+@login_required
+def debug_calculo():
+    resultado = calcular_importacion_estimada(5, 300)
+
+    return resultado
+
 
 # ----------------- Rutas -----------------
 
