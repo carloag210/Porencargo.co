@@ -129,6 +129,79 @@ def obtener_trm():
 
     return None
 
+def calcular_importacion_estimada(peso_total, valor_total_usd):
+    """
+    Calcula el costo estimado de importación de un conjunto de paquetes.
+
+    Reglas:
+    - Servicio: 14.000 COP por libra.
+    - Impuesto de aduana: 10% si el valor total supera USD 200.
+    - Envío: según tabla de peso.
+    - Desde 10 LB: envío incluido.
+    """
+
+    # Convertir valores de forma segura
+    peso_total = float(peso_total or 0)
+    valor_total_usd = float(valor_total_usd or 0)
+
+    # TRM actual
+    trm = obtener_trm()
+
+    if not trm:
+        return None
+
+    # Servicio por peso
+    servicio = peso_total * 14000
+
+    # Impuesto de aduana
+    impuesto_usd = 0
+
+    if valor_total_usd > 200:
+        impuesto_usd = valor_total_usd * 0.10
+
+    impuesto_cop = impuesto_usd * trm
+
+    # Tarifa de envío
+    envio = 0
+
+    if peso_total >= 10:
+        envio = 0
+
+    elif peso_total >= 9:
+        envio = 37500
+
+    elif peso_total >= 8:
+        envio = 36500
+
+    elif peso_total >= 7:
+        envio = 35000
+
+    elif peso_total >= 6:
+        envio = 33500
+
+    elif peso_total >= 5:
+        envio = 32000
+
+    elif peso_total >= 4:
+        envio = 25000
+
+    elif peso_total >= 1:
+        envio = 22000
+
+    # Total
+    total_cop = servicio + impuesto_cop + envio
+
+    return {
+        "peso_total": round(peso_total, 2),
+        "valor_total_usd": round(valor_total_usd, 2),
+        "trm": round(trm, 2),
+        "servicio": round(servicio, 2),
+        "impuesto_usd": round(impuesto_usd, 2),
+        "impuesto_cop": round(impuesto_cop, 2),
+        "envio": round(envio, 2),
+        "total_cop": round(total_cop, 2)
+    }
+
 # ---------------- Config Flask ----------------
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 app.config.from_object(Config)
