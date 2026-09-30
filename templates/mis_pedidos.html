@@ -138,6 +138,7 @@
 
         <div class="stat-info">
             <small>Paquetes</small>
+
             <h2>{{ total }}</h2>
 
             {% if total == 0 %}
@@ -159,12 +160,13 @@
 
         <div class="stat-info">
             <small>En tránsito</small>
+
             <h2>{{ en_transito }}</h2>
 
             {% if en_transito == 0 %}
-                <span>Sin paquetes en tránsito</span>
+                <span>Sin envíos en tránsito</span>
             {% else %}
-                <span>Paquetes en camino</span>
+                <span>En camino</span>
             {% endif %}
         </div>
 
@@ -180,12 +182,13 @@
 
         <div class="stat-info">
             <small>Entregados</small>
+
             <h2>{{ entregados }}</h2>
 
             {% if entregados == 0 %}
                 <span>Sin paquetes entregados</span>
             {% else %}
-                <span>Paquetes entregados</span>
+                <span>Entregas completadas</span>
             {% endif %}
         </div>
 
@@ -201,10 +204,11 @@
 
         <div class="stat-info">
             <small>Peso total</small>
-            <h2>{{ peso_total }} LB</h2>
+
+            <h2>{{ peso_total }} <b>LB</b></h2>
 
             {% if peso_total == 0 %}
-                <span>Sin paquetes registrados</span>
+                <span>Sin peso registrado</span>
             {% else %}
                 <span>Peso acumulado</span>
             {% endif %}
@@ -213,11 +217,6 @@
     </div>
 
 </div>
-
-</div>                {% block content %}{% endblock %}
-            </div>
-        </div>
-    </div>
 
     <!-- SCRIPTS -->
     <!-- <script src="{{ url_for('static', filename='js/animacion_contact.js') }}"></script> -->
