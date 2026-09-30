@@ -9,11 +9,7 @@
     <link rel="stylesheet" href="/assets/css/mis_pedidos.css">
     <link rel="stylesheet" href="/assets/css/mis_pedidos_mobile.css">
 </head>
-<script src="https://unpkg.com/lucide@latest"></script>
-
-<script>
-    lucide.createIcons();
-</script>
+    
 <body>
 {% if session.get("admin_original") %}
 <div class="modo-admin">
@@ -223,8 +219,18 @@
     <!-- <script src="/assets/js/animacion_contact.js"></script> -->
 
     {% block scripts %}{% endblock %}
+               
+<script src="https://unpkg.com/lucide@latest"></script>
+                
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        lucide.createIcons();
+    });
+</script>
+
 </body>
 </html>
+
 
 
 
