@@ -159,15 +159,6 @@ with app.app_context():
 app.secret_key = app.config["SECRET_KEY"]
 app.permanent_session_lifetime = timedelta(days=7) 
 
-@app.route('/debug/trm')
-@login_required
-def debug_trm():
-    trm = obtener_trm()
-
-    return {
-        "trm": trm,
-        "mensaje": "TRM obtenida correctamente" if trm else "No se pudo obtener la TRM"
-    }
 
 # ----------------- Rutas -----------------
 
