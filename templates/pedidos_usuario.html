@@ -259,23 +259,67 @@
 {% endif %}
 
 <script>
-document.querySelectorAll(".form-consolidar input[type='checkbox']").forEach(checkbox => {
+
+function actualizarImportacion() {
+
+    let seleccionados = document.querySelectorAll(
+        ".form-consolidar input[type='checkbox']:checked"
+    );
+
+    let cantidad = seleccionados.length;
+    let valorTotal = 0;
+    let pesoTotal = 0;
+
+    seleccionados.forEach(checkbox => {
+
+        let datos = checkbox.closest(".pedido-card").querySelector(".datos");
+
+        if (!datos) return;
+
+        let precio = parseFloat(datos.dataset.precio) || 0;
+        let peso = parseFloat(datos.dataset.peso) || 0;
+
+        valorTotal += precio;
+        pesoTotal += peso;
+    });
+
+    document.getElementById("cantidad-consolidar").textContent = cantidad;
+
+    document.getElementById("valor-consolidado").textContent =
+        "$" + valorTotal.toFixed(2) + " USD";
+
+    document.getElementById("peso-consolidado").textContent =
+        pesoTotal.toFixed(2) + " LB";
+}
+
+
+document.querySelectorAll(
+    ".form-consolidar input[type='checkbox']"
+).forEach(checkbox => {
+
     checkbox.addEventListener("change", function() {
 
         let form = this.closest("form");
         let data = new FormData(form);
 
-        if(!this.checked){
-            data.set("consolidar","false");
+        if (!this.checked) {
+            data.set("consolidar", "false");
         }
 
-        fetch(form.action,{
-            method:"POST",
-            body:data
+        fetch(form.action, {
+            method: "POST",
+            body: data
         });
 
+        actualizarImportacion();
+
     });
+
 });
+
+
+actualizarImportacion();
+
 </script>
 <div id="lightbox" class="lightbox" onclick="cerrarLightbox()">
     <span class="cerrar">✕</span>
