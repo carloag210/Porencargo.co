@@ -48,30 +48,32 @@
 
     </div>
 
-    <div class="datos">
+    <div class="datos"
+     data-precio="{{ paquete.precio }}"
+     data-peso="{{ paquete.peso }}">
 
-        <div>
-            <small>Precio</small>
-            <strong>${{ paquete.precio }}</strong>
-        </div>
-
-        <div>
-            <small>Peso</small>
-            <strong>{{ paquete.peso }} LB</strong>
-        </div>
-
-        <div>
-            <small>Recibido</small>
-            <strong>
-            {% if paquete.fecha_recibido %}
-                {{ paquete.fecha_recibido.strftime('%d/%m/%Y') }}
-            {% else %}
-                Pendiente
-            {% endif %}
-            </strong>
-        </div>
-
+    <div>
+        <small>Precio</small>
+        <strong>${{ paquete.precio }}</strong>
     </div>
+
+    <div>
+        <small>Peso</small>
+        <strong>{{ paquete.peso }} LB</strong>
+    </div>
+
+    <div>
+        <small>Recibido</small>
+        <strong>
+        {% if paquete.fecha_recibido %}
+            {{ paquete.fecha_recibido.strftime('%d/%m/%Y') }}
+        {% else %}
+            Pendiente
+        {% endif %}
+        </strong>
+    </div>
+
+</div>
 
     <div class="progreso">
 
