@@ -107,6 +107,28 @@ def verify_turnstile(token, remote_ip):
         print("Error validando Turnstile:", e)
         return False  
 
+def obtener_trm():
+    url = "https://www.datos.gov.co/resource/32sa-8pi3.json"
+
+    params = {
+        "$limit": 1,
+        "$order": "vigenciadesde DESC"
+    }
+
+    try:
+        respuesta = requests.get(url, params=params, timeout=5)
+        respuesta.raise_for_status()
+
+        datos = respuesta.json()
+
+        if datos:
+            return float(datos[0]["valor"])
+
+    except Exception as e:
+        print(f"Error obteniendo TRM: {e}")
+
+    return None
+
 
 # ---------------- Config Flask ----------------
 app = Flask(__name__, static_folder='assets', template_folder='templates')
