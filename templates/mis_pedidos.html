@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="/assets/css/mis_pedidos.css">
     <link rel="stylesheet" href="/assets/css/mis_pedidos_mobile.css">
 </head>
+<script src="https://unpkg.com/lucide@latest"></script>
 
+<script>
+    lucide.createIcons();
+</script>
 <body>
 {% if session.get("admin_original") %}
 <div class="modo-admin">
@@ -125,25 +129,90 @@
 
 <div class="stats">
 
-    <div class="stat-card">
-        <small>Paquetes</small>
-        <h2>{{ total }}</h2>
+    <!-- PAQUETES -->
+    <div class="stat-card stat-paquetes">
+
+        <div class="stat-icon">
+            <i data-lucide="package"></i>
+        </div>
+
+        <div class="stat-info">
+            <small>Paquetes</small>
+            <h2>{{ total }}</h2>
+
+            {% if total == 0 %}
+                <span>Sin paquetes activos</span>
+            {% else %}
+                <span>Paquetes registrados</span>
+            {% endif %}
+        </div>
+
     </div>
 
-    <div class="stat-card">
-        <small>En tránsito</small>
-        <h2>{{ en_transito }}</h2>
+
+    <!-- EN TRÁNSITO -->
+    <div class="stat-card stat-transito">
+
+        <div class="stat-icon">
+            <i data-lucide="plane"></i>
+        </div>
+
+        <div class="stat-info">
+            <small>En tránsito</small>
+            <h2>{{ en_transito }}</h2>
+
+            {% if en_transito == 0 %}
+                <span>Sin paquetes en tránsito</span>
+            {% else %}
+                <span>Paquetes en camino</span>
+            {% endif %}
+        </div>
+
     </div>
 
-    <div class="stat-card">
-        <small>Entregados</small>
-        <h2>{{ entregados }}</h2>
+
+    <!-- ENTREGADOS -->
+    <div class="stat-card stat-entregados">
+
+        <div class="stat-icon">
+            <i data-lucide="circle-check"></i>
+        </div>
+
+        <div class="stat-info">
+            <small>Entregados</small>
+            <h2>{{ entregados }}</h2>
+
+            {% if entregados == 0 %}
+                <span>Sin paquetes entregados</span>
+            {% else %}
+                <span>Paquetes entregados</span>
+            {% endif %}
+        </div>
+
     </div>
 
-    <div class="stat-card">
-        <small>Peso</small>
-        <h2>{{ peso_total }} LB</h2>
+
+    <!-- PESO -->
+    <div class="stat-card stat-peso">
+
+        <div class="stat-icon">
+            <i data-lucide="weight"></i>
+        </div>
+
+        <div class="stat-info">
+            <small>Peso total</small>
+            <h2>{{ peso_total }} LB</h2>
+
+            {% if peso_total == 0 %}
+                <span>Sin paquetes registrados</span>
+            {% else %}
+                <span>Peso acumulado</span>
+            {% endif %}
+        </div>
+
     </div>
+
+</div>
 
 </div>                {% block content %}{% endblock %}
             </div>
