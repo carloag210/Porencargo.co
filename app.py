@@ -129,16 +129,6 @@ def obtener_trm():
 
     return None
 
-@app.route('/debug/trm')
-@login_required
-def debug_trm():
-    trm = obtener_trm()
-
-    return {
-        "trm": trm,
-        "mensaje": "TRM obtenida correctamente" if trm else "No se pudo obtener la TRM"
-    }
-
 # ---------------- Config Flask ----------------
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 app.config.from_object(Config)
