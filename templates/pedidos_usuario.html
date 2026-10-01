@@ -269,15 +269,54 @@ function actualizarImportacion() {
         pesoTotal += peso;
     });
 
-    document.getElementById("cantidad-consolidar").textContent = cantidad;
+    document.getElementById("cantidad-consolidar").textContent =
+        cantidad;
 
     document.getElementById("valor-consolidado").textContent =
         "$" + valorTotal.toFixed(2) + " USD";
 
     document.getElementById("peso-consolidado").textContent =
         pesoTotal.toFixed(2) + " LB";
-}
 
+
+    // ==========================================
+    // CALCULAR IMPORTACIÓN ESTIMADA
+    // ==========================================
+
+    let formData = new FormData();
+
+    formData.append("peso_total", pesoTotal);
+    formData.append("valor_total_usd", valorTotal);
+
+    fetch("/calcular_importacion", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        if (!data.success) {
+            console.error(
+                "Error calculando importación:",
+                data.error
+            );
+            return;
+        }
+
+        let resultado = data.resultado;
+
+        document.getElementById("total-importacion").textContent =
+            "$" +
+            Math.round(resultado.total_cop).toLocaleString("es-CO") +
+            " COP";
+    })
+    .catch(error => {
+        console.error(
+            "Error en cálculo de importación:",
+            error
+        );
+    });
+}
 
 document.querySelectorAll(
     ".form-consolidar input[type='checkbox']"
