@@ -1431,4 +1431,6 @@ nav{
     }
 
 }
-
+.dashboard-hero {
+    background: red !important;
+}
