@@ -598,6 +598,28 @@ def marcar_consolidar():
     db.session.commit()
     return {"success": True, "consolidar": paquete.consolidar}
 
+@app.route('/calcular_importacion', methods=['POST'])
+@login_required
+def calcular_importacion():
+    peso_total = request.form.get("peso_total", 0)
+    valor_total_usd = request.form.get("valor_total_usd", 0)
+
+    resultado = calcular_importacion_estimada(
+        peso_total,
+        valor_total_usd
+    )
+
+    if resultado is None:
+        return {
+            "success": False,
+            "error": "No fue posible obtener la TRM"
+        }, 500
+
+    return {
+        "success": True,
+        "resultado": resultado
+    }
+
 @app.route('/nueva_direccion', methods=['POST'])
 @login_required
 def nueva_direccion():
