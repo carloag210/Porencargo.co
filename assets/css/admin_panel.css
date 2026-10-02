@@ -856,3 +856,381 @@ form .btn-del-producto:hover{
     }
 
 }
+/* =========================================
+   PEDIDOS DEL CLIENTE
+========================================= */
+
+.lista-pedidos {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+}
+
+.pedido-card {
+    list-style: none;
+}
+
+.pedido-card .bloque {
+    position: relative;
+
+    padding: 24px 26px;
+
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 18px;
+
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.pedido-card .bloque:hover {
+    transform: translateY(-2px);
+
+    border-color: #BFDBFE;
+
+    box-shadow:
+        0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================================
+   INFORMACIÓN DEL PAQUETE
+========================================= */
+
+.pedido-card .bloque > ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px 24px;
+
+    padding: 0;
+    margin: 0 0 20px;
+
+    list-style: none;
+}
+
+.pedido-card .bloque > ul li {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    color: #64748B;
+    font-size: 13px;
+}
+
+.pedido-card .bloque > ul li strong {
+    color: #64748B;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CAMPOS
+========================================= */
+
+.pedido-card .bloque input[type="text"],
+.pedido-card .bloque input[type="date"] {
+    width: 100%;
+    min-height: 38px;
+
+    padding: 8px 10px;
+
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+
+    color: #0F172A;
+    font-family: inherit;
+    font-size: 13px;
+
+    box-sizing: border-box;
+
+    outline: none;
+}
+
+.pedido-card .bloque input:focus {
+    border-color: #93C5FD;
+
+    background: #ffffff;
+
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.10);
+}
+
+
+/* =========================================
+   ESTADO
+========================================= */
+
+.pedido-card .bloque > ul li:nth-child(6) {
+    justify-content: center;
+}
+
+.pedido-card .bloque > ul li:nth-child(6) strong {
+    margin-bottom: 2px;
+}
+
+
+/* =========================================
+   PREALERTA
+========================================= */
+
+.pedido-card .bloque.prealerta {
+    border-left: 4px solid #F59E0B;
+}
+
+.pedido-card .bloque.prealerta::before {
+    content: "Prealerta pendiente";
+
+    position: absolute;
+    top: 18px;
+    right: 24px;
+
+    padding: 5px 10px;
+
+    background: #FEF3C7;
+    color: #92400E;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CONSOLIDACIÓN
+========================================= */
+
+.badge-consolidar {
+    position: absolute;
+
+    top: 18px;
+    right: 24px;
+
+    padding: 6px 11px;
+
+    background: #EFF6FF;
+    color: #1D4ED8;
+
+    border: 1px solid #BFDBFE;
+    border-radius: 9px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   SELECT + BOTONES
+========================================= */
+
+.pedido-card .bloque > select {
+    min-height: 38px;
+
+    padding: 7px 10px;
+
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+
+    color: #334155;
+    font-family: inherit;
+    font-size: 13px;
+
+    outline: none;
+}
+
+.pedido-card .bloque > select:focus {
+    border-color: #93C5FD;
+}
+
+
+/* Botón actualizar */
+
+.pedido-card .bloque > button[type="submit"] {
+    min-height: 38px;
+
+    margin-left: 8px;
+    padding: 0 15px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #2563EB;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.pedido-card .bloque > button[type="submit"]:hover {
+    background: #1D4ED8;
+}
+
+
+/* =========================================
+   FOTOS
+========================================= */
+
+.btn-fotos {
+    min-height: 38px;
+
+    margin-left: 8px;
+    padding: 0 15px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #EFF6FF;
+    color: #1D4ED8;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.btn-fotos:hover {
+    background: #DBEAFE;
+}
+
+
+/* =========================================
+   SUBIR FOTOS
+========================================= */
+
+.panel-fotos {
+    display: none;
+
+    margin-top: 14px;
+    padding: 16px;
+
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+}
+
+.panel-fotos.activo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-subir {
+    min-height: 36px;
+
+    padding: 0 14px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #2563EB;
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   ELIMINAR
+========================================= */
+
+.btn-eliminar-paquete {
+    position: absolute;
+
+    right: 24px;
+    bottom: 24px;
+
+    min-height: 36px;
+
+    padding: 0 14px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #FEF2F2;
+    color: #DC2626;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.btn-eliminar-paquete:hover {
+    background: #FEE2E2;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .pedido-card .bloque > ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .pedido-card .bloque {
+        padding: 18px;
+    }
+
+    .pedido-card .bloque > ul {
+        grid-template-columns: 1fr;
+    }
+
+    .badge-consolidar,
+    .pedido-card .bloque.prealerta::before {
+        position: static;
+        display: inline-block;
+        width: fit-content;
+        margin-bottom: 12px;
+    }
+
+    .pedido-card .bloque > select,
+    .pedido-card .bloque > button[type="submit"],
+    .btn-fotos {
+        width: 100%;
+        margin: 6px 0 0;
+    }
+
+    .btn-eliminar-paquete {
+        position: static;
+        width: 100%;
+        margin-top: 14px;
+    }
+
+    .panel-fotos.activo {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+}
