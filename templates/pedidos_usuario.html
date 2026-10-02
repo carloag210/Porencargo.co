@@ -305,10 +305,33 @@ function actualizarImportacion() {
 
         let resultado = data.resultado;
 
-        document.getElementById("total-importacion").textContent =
-            "$" +
-            Math.round(resultado.total_cop).toLocaleString("es-CO") +
-            " COP";
+document.getElementById("servicio-importacion").textContent =
+    "$" +
+    Math.round(resultado.servicio).toLocaleString("es-CO") +
+    " COP";
+
+document.getElementById("impuesto-importacion").textContent =
+    "$" +
+    Math.round(resultado.impuesto_cop).toLocaleString("es-CO") +
+    " COP";
+
+if (resultado.peso_total >= 10) {
+
+    document.getElementById("envio-importacion").textContent =
+        "Incluido";
+
+} else {
+
+    document.getElementById("envio-importacion").textContent =
+        "$" +
+        Math.round(resultado.envio).toLocaleString("es-CO") +
+        " COP";
+}
+
+document.getElementById("total-importacion").textContent =
+    "$" +
+    Math.round(resultado.total_cop).toLocaleString("es-CO") +
+    " COP";
     })
     .catch(error => {
         console.error(
