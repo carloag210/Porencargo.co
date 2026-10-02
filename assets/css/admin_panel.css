@@ -617,3 +617,242 @@ form .btn-del-producto:hover{
 .btn-ver-como:hover{
     background:#6D28D9;
 }
+/* =========================================
+   CLIENTES - PANEL ADMINISTRATIVO
+========================================= */
+
+.clientes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.clientes-header h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    color: #0F172A;
+}
+
+.clientes-header p {
+    margin: 6px 0 0;
+    color: #64748B;
+    font-size: 14px;
+}
+
+.clientes-busqueda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 320px;
+    height: 46px;
+
+    padding: 0 16px;
+
+    background: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+
+    color: #64748B;
+}
+
+.clientes-busqueda input {
+    width: 100%;
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    font-family: inherit;
+    font-size: 14px;
+    color: #0F172A;
+}
+
+.clientes-busqueda input::placeholder {
+    color: #94A3B8;
+}
+
+
+/* LISTA */
+
+.lista-usuarios {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+}
+
+
+/* TARJETA */
+
+.usuario-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    padding: 20px 22px;
+
+    background: #fff;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 18px;
+
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.usuario-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #BFDBFE;
+
+    box-shadow:
+        0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+
+/* INFORMACIÓN */
+
+.usuario-info {
+    min-width: 0;
+}
+
+.usuario-info p {
+    margin: 4px 0;
+
+    color: #64748B;
+    font-size: 13px;
+}
+
+.usuario-info p:first-child {
+    color: #94A3B8;
+    font-size: 12px;
+}
+
+.usuario-info p:nth-child(2) {
+    color: #0F172A;
+    font-size: 18px;
+}
+
+.usuario-info strong {
+    font-weight: 700;
+}
+
+.usuario-info p:last-child {
+    color: #64748B;
+}
+
+
+/* BOTONES */
+
+.usuario-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.usuario-actions a {
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn-accion,
+.btn-ver-como,
+.btn-accion-eli {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 36px;
+    padding: 0 13px;
+
+    border-radius: 10px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+.btn-accion {
+    background: #EFF6FF;
+    color: #1D4ED8;
+}
+
+.btn-accion:hover {
+    background: #DBEAFE;
+}
+
+.btn-ver-como {
+    background: #F1F5F9;
+    color: #334155;
+}
+
+.btn-ver-como:hover {
+    background: #E2E8F0;
+}
+
+.btn-accion-eli {
+    background: #FEF2F2;
+    color: #DC2626;
+}
+
+.btn-accion-eli:hover {
+    background: #FEE2E2;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+    .usuario-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .usuario-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .clientes-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .clientes-busqueda {
+        width: auto;
+    }
+
+    .usuario-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+    }
+
+    .usuario-actions a {
+        width: 100%;
+    }
+
+}
