@@ -1,0 +1,55 @@
+{% extends "mis_pedidos.html" %}
+
+{% block content %}
+
+<h1 class="page-title">Editar dirección</h1>
+
+<link rel="stylesheet" href="assets/css/mis_pedidos.css">
+
+<form method="POST" action="{{ url_for('editar_direccion', id=direccion.id) }}">
+
+    <input
+        type="text"
+        name="name"
+        value="{{ direccion.name }}"
+        placeholder="Nombre y apellido completo"
+        required
+    >
+
+    <input
+        type="text"
+        name="pais"
+        value="{{ direccion.pais }}"
+        placeholder="País"
+        required
+    >
+
+    <input
+        type="text"
+        name="ciudad"
+        value="{{ direccion.ciudad }}"
+        placeholder="Ciudad"
+        required
+    >
+
+    <input
+        type="text"
+        name="direccion"
+        value="{{ direccion.direccion }}"
+        placeholder="Dirección completa"
+        required
+    >
+
+    <input
+        type="text"
+        name="codigo_postal"
+        value="{{ direccion.codigo_postal }}"
+        placeholder="Código postal"
+        required
+    >
+
+    <button type="submit">Guardar cambios</button>
+
+</form>
+
+{% endblock %}
