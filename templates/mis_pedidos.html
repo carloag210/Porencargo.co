@@ -157,9 +157,52 @@
         </div>
 
         <div>
-            <small>Envío</small>
-            <strong id="envio-importacion">$0 COP</strong>
-        </div>
+    <small>Envío</small>
+    <strong id="envio-importacion">$0 COP</strong>
+</div>
+
+<!-- OPCIONES DE ENTREGA -->
+<div id="opciones-entrega" style="display: none; margin-top: 16px;">
+
+    <small style="display: block; margin-bottom: 10px;">
+        ¿Cómo deseas recibir tu pedido?
+    </small>
+
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+
+        <button
+            type="button"
+            id="btn-domicilio"
+            class="opcion-entrega"
+            onclick="seleccionarEntrega('domicilio')">
+
+            <span style="font-size: 20px;">🚚</span>
+
+            <span>
+                <strong>Domicilio</strong>
+                <small>+$15.000 COP</small>
+            </span>
+
+        </button>
+
+        <button
+            type="button"
+            id="btn-recoger"
+            class="opcion-entrega"
+            onclick="seleccionarEntrega('recoger')">
+
+            <span style="font-size: 20px;">📦</span>
+
+            <span>
+                <strong>Recoger</strong>
+                <small>Gratis</small>
+            </span>
+
+        </button>
+
+    </div>
+
+</div>
 
     </div>
 
