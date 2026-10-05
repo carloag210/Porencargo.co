@@ -1,0 +1,502 @@
+{% extends "mis_pedidos.html" %}
+
+{% block content %}
+
+{% if paquetes %}
+
+<div class="cards-pedidos">
+
+{% for paquete in paquetes %}
+
+<div class="pedido-card">
+
+    <div class="pedido-top">
+
+        <div class="tienda">
+
+            <div class="logo-tienda">
+
+    {% if paquete.fotos and paquete.fotos|length > 0 %}
+        <img src="{{ paquete.fotos[0].url }}"
+             alt="{{ paquete.nombre }}">
+    {% else %}
+        📦
+    {% endif %}
+
+</div>
+            <div>
+                <h3>{{ paquete.nombre }}</h3>
+                <span>Guía {{ paquete.numero_guia }}</span>
+            </div>
+
+        </div>
+
+        <div class="estado
+            {% if paquete.estado.value == 'Entregado' %}
+                entregado
+            {% elif paquete.estado.value == 'En Colombia' %}
+                colombia
+            {% elif paquete.estado.value == 'En aeropuerto' %}
+                vuelo
+            {% else %}
+                proceso
+            {% endif %}">
+
+            {{ paquete.estado.value }}
+
+        </div>
+
+    </div>
+
+    <div class="datos"
+     data-precio="{{ paquete.precio }}"
+     data-peso="{{ paquete.peso }}">
+
+    <div>
+        <small>Precio</small>
+        <strong>${{ paquete.precio }}</strong>
+    </div>
+
+    <div>
+        <small>Peso</small>
+        <strong>{{ paquete.peso }} LB</strong>
+    </div>
+
+    <div>
+        <small>Recibido</small>
+        <strong>
+        {% if paquete.fecha_recibido %}
+            {{ paquete.fecha_recibido.strftime('%d/%m/%Y') }}
+        {% else %}
+            Pendiente
+        {% endif %}
+        </strong>
+    </div>
+
+</div>
+
+    <div class="progreso">
+
+        <div class="progreso-info">
+            <span>Progreso del envío</span>
+        </div>
+
+        <div class="mensaje-estado
+{% if paquete.estado.value == 'Despachado a tú Dirección' %}
+    verde
+{% endif %}">
+
+    {% if paquete.estado.value == 'Comprado en Tienda' %}
+        <strong>🛒 Compra confirmada</strong><br>
+        Tu pedido y su seguimiento sé registró correctamente 
+
+    {% elif paquete.estado.value == 'Despachado por Tienda' %}
+        <strong>📦 Camino a Miami</strong><br>
+        El vendedor ya despachó tu paquete hacia nuestra bodega en Miami.
+
+    {% elif paquete.estado.value == 'Despachado Bodega Miami' %}
+        <strong>✈️ Preparando el viaje</strong><br>
+        Estamos organizando tu paquete para su salida hacia Colombia.
+
+    {% elif paquete.estado.value == 'Llegó a Bodega Miami' %}
+        <strong>🏢 ¡Llegó a Miami!</strong><br>
+        Ya recibimos tu paquete en nuestra bodega y pronto iniciará su viaje.
+
+    {% elif paquete.estado.value == 'Llegó Aeropuerto Bogotá' %}
+        <strong>🇨🇴 ¡Tu paquete ya llegó a Colombia!</strong><br>
+        Ha aterrizado en Bogotá y comenzará el proceso de ingreso al país.
+
+    {% elif paquete.estado.value == 'En Aduana Bogotá' %}
+        <strong>🛃 En proceso de nacionalización</strong><br>
+        Tu paquete está siendo procesado por la autoridad aduanera en Bogotá.
+
+    {% elif paquete.estado.value == 'En Bodega Medellín' %}
+        <strong>📦 Listo para despacho nacional</strong><br>
+        Tu paquete ya fue liberado y está listo para salir hacia su ciudad de destino.
+
+    {% elif paquete.estado.value == 'Despachado a tú Dirección' %}
+        <strong>🚚 ¡Va en camino!</strong><br>
+        Nuestro aliado logístico ya despachó tu paquete a la dirección registrada.
+
+    {% endif %}
+
+</div>
+
+        <div class="relleno
+{% if paquete.estado.value in ['Comprado en Tienda','Despachado por Tienda'] %}
+    p20
+{% elif paquete.estado.value in ['Despachado Bodega Miami','Llegó a Bodega Miami'] %}
+    p40
+{% elif paquete.estado.value in ['Llegó Aeropuerto Bogotá','En Aduana Bogotá'] %}
+    p60
+{% elif paquete.estado.value == 'En Bodega Medellín' %}
+    p80
+{% elif paquete.estado.value == 'Despachado a tú Dirección' %}
+    p100
+{% endif %}"></div>
+
+    </div>
+
+    <div class="timeline-v2">
+
+    <!-- TIENDA -->
+    <div class="etapa {% if paquete.estado.value in [
+        'Comprado en Tienda','Despachado por Tienda',
+        'Despachado Bodega Miami','Llegó a Bodega Miami',
+        'Llegó Aeropuerto Bogotá','En Aduana Bogotá',
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activa{% endif %}">
+        <div class="icono">🛒</div>
+        <h4>Tienda</h4>
+        <small>Prealerta registrada</small>
+    </div>
+
+    <div class="linea {% if paquete.estado.value not in ['Comprado en Tienda','Despachado por Tienda'] %}activa{% endif %}"></div>
+
+    <!-- MIAMI -->
+    <div class="etapa {% if paquete.estado.value in [
+        'Despachado Bodega Miami','Llegó a Bodega Miami',
+        'Llegó Aeropuerto Bogotá','En Aduana Bogotá',
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activa{% endif %}">
+        <div class="icono">🏢</div>
+        <h4>Miami</h4>
+        <small>En nuestra bodega</small>
+    </div>
+
+    <div class="linea {% if paquete.estado.value in [
+        'Llegó Aeropuerto Bogotá','En Aduana Bogotá',
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activa{% endif %}"></div>
+
+    <!-- BOGOTÁ -->
+    <div class="etapa {% if paquete.estado.value in [
+        'Llegó Aeropuerto Bogotá','En Aduana Bogotá',
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activa{% endif %}">
+        <div class="icono">🛬</div>
+        <h4>Bogotá</h4>
+        <small>En proceso de ingreso</small>
+    </div>
+
+    <div class="linea {% if paquete.estado.value in [
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activa{% endif %}"></div>
+
+    <!-- ENTREGA -->
+    <div class="etapa {% if paquete.estado.value in [
+        'En Bodega Medellín','Despachado a tú Dirección'
+    ] %}activa{% endif %}">
+        <div class="icono">🚚</div>
+        <h4>Entrega</h4>
+        <small>En camino a tu dirección</small>
+    </div>
+
+</div>
+{% if paquete.fotos and paquete.fotos|length > 0 %}
+<div class="fotos-paquete">
+
+    <div class="titulo-fotos">
+        <span>📸 Fotos del paquete</span>
+    </div>
+
+    <div class="galeria">
+        {% for foto in paquete.fotos %}
+        <img src="{{ foto.url }}"
+             alt="Foto del paquete"
+             onclick="abrirLightbox('{{ foto.url }}')">
+        {% endfor %}
+    </div>
+
+</div>
+{% endif %}
+
+<div class="consolidacion">
+
+    <form class="form-consolidar" method="POST" action="{{ url_for('marcar_consolidar') }}">
+
+        <input type="hidden" name="paquete_id" value="{{ paquete.id }}">
+
+        <label class="check">
+            <input type="checkbox"
+                   name="consolidar"
+                   value="true"
+                   {% if paquete.consolidar %}checked{% endif %}>
+            Consolidar Paquete o Totalizar Valor a Pagar
+        </label>
+
+    </form>
+
+</div>
+
+{% endfor %}
+
+</div>
+    
+{% else %}
+
+<div class="empty">
+
+    <h2>Aún no tienes paquetes</h2>
+    <p>Cuando realices una prealerta aparecerán aquí automáticamente.</p>
+
+</div>
+
+{% endif %}
+
+<script>
+
+// ==========================================
+// OPCIÓN DE ENTREGA SELECCIONADA
+// ==========================================
+
+let tipoEntregaSeleccionada = null;
+
+
+// ==========================================
+// SELECCIONAR TIPO DE ENTREGA
+// ==========================================
+
+function seleccionarEntrega(tipo) {
+
+    tipoEntregaSeleccionada = tipo;
+
+    actualizarImportacion();
+}
+
+
+// ==========================================
+// CALCULAR IMPORTACIÓN ESTIMADA
+// ==========================================
+
+function actualizarImportacion() {
+
+    let seleccionados = document.querySelectorAll(
+        ".form-consolidar input[type='checkbox']:checked"
+    );
+
+    let cantidad = seleccionados.length;
+    let valorTotal = 0;
+    let pesoTotal = 0;
+
+    seleccionados.forEach(checkbox => {
+
+        let datos = checkbox.closest(".pedido-card").querySelector(".datos");
+
+        if (!datos) return;
+
+        let precio = parseFloat(datos.dataset.precio) || 0;
+        let peso = parseFloat(datos.dataset.peso) || 0;
+
+        valorTotal += precio;
+        pesoTotal += peso;
+    });
+
+    document.getElementById("cantidad-consolidar").textContent =
+        cantidad;
+
+    document.getElementById("valor-consolidado").textContent =
+        "$" + valorTotal.toFixed(2) + " USD";
+
+    document.getElementById("peso-consolidado").textContent =
+        pesoTotal.toFixed(2) + " LB";
+
+
+    // ==========================================
+    // CALCULAR IMPORTACIÓN
+    // ==========================================
+
+    let formData = new FormData();
+
+    formData.append("peso_total", pesoTotal);
+    formData.append("valor_total_usd", valorTotal);
+
+    // Solo enviamos la modalidad si el cliente
+    // ya seleccionó una.
+    if (tipoEntregaSeleccionada) {
+        formData.append(
+            "tipo_entrega",
+            tipoEntregaSeleccionada
+        );
+    }
+
+    fetch("/calcular_importacion", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        if (!data.success) {
+            console.error(
+                "Error calculando importación:",
+                data.error
+            );
+            return;
+        }
+
+        let resultado = data.resultado;
+
+
+        // ==========================================
+        // SERVICIO
+        // ==========================================
+
+        document.getElementById("servicio-importacion").textContent =
+            "$" +
+            Math.round(resultado.servicio).toLocaleString("es-CO") +
+            " COP";
+
+
+        // ==========================================
+        // IMPUESTO
+        // ==========================================
+
+        document.getElementById("impuesto-importacion").textContent =
+            "$" +
+            Math.round(resultado.impuesto_cop).toLocaleString("es-CO") +
+            " COP";
+
+
+        // ==========================================
+        // OPCIONES DE ENTREGA
+        // ==========================================
+
+        let opcionesEntrega =
+            document.getElementById("opciones-entrega");
+
+        if (resultado.es_valle_aburra) {
+
+            // Mostrar opciones para clientes
+            // del Valle de Aburrá.
+            opcionesEntrega.style.display = "block";
+
+            // Mostrar el costo correspondiente
+            // según la selección.
+            if (tipoEntregaSeleccionada) {
+
+                document.getElementById("envio-importacion").textContent =
+                    "$" +
+                    Math.round(resultado.envio).toLocaleString("es-CO") +
+                    " COP";
+
+            } else {
+
+                document.getElementById("envio-importacion").textContent =
+                    "Selecciona una opción";
+            }
+
+        } else {
+
+            // Fuera del Valle de Aburrá:
+            // no se muestran las opciones.
+            opcionesEntrega.style.display = "none";
+
+            // Se mantiene la tarifa normal
+            // de envío según peso.
+
+            if (resultado.peso_total >= 10) {
+
+                document.getElementById("envio-importacion").textContent =
+                    "Incluido";
+
+            } else {
+
+                document.getElementById("envio-importacion").textContent =
+                    "$" +
+                    Math.round(resultado.envio).toLocaleString("es-CO") +
+                    " COP";
+            }
+        }
+
+
+        // ==========================================
+        // TOTAL
+        // ==========================================
+
+        document.getElementById("total-importacion").textContent =
+            "$" +
+            Math.round(resultado.total_cop).toLocaleString("es-CO") +
+            " COP";
+
+
+        // ==========================================
+        // MARCAR OPCIÓN SELECCIONADA
+        // ==========================================
+
+        let btnDomicilio =
+            document.getElementById("btn-domicilio");
+
+        let btnRecoger =
+            document.getElementById("btn-recoger");
+
+        if (btnDomicilio) {
+            btnDomicilio.classList.toggle(
+                "seleccionado",
+                tipoEntregaSeleccionada === "domicilio"
+            );
+        }
+
+        if (btnRecoger) {
+            btnRecoger.classList.toggle(
+                "seleccionado",
+                tipoEntregaSeleccionada === "recoger"
+            );
+        }
+
+    })
+    .catch(error => {
+
+        console.error(
+            "Error en cálculo de importación:",
+            error
+        );
+
+    });
+}
+document.querySelectorAll(
+    ".form-consolidar input[type='checkbox']"
+).forEach(checkbox => {
+
+    checkbox.addEventListener("change", function() {
+
+        let form = this.closest("form");
+        let data = new FormData(form);
+
+        if (!this.checked) {
+            data.set("consolidar", "false");
+        }
+
+        fetch(form.action, {
+            method: "POST",
+            body: data
+        });
+
+        actualizarImportacion();
+
+    });
+
+});
+
+
+actualizarImportacion();
+
+</script>
+<div id="lightbox" class="lightbox" onclick="cerrarLightbox()">
+    <span class="cerrar">✕</span>
+    <img id="imagenGrande" src="" alt="Foto ampliada">
+</div>
+
+<script>
+function abrirLightbox(url){
+    document.getElementById("imagenGrande").src = url;
+    document.getElementById("lightbox").classList.add("activo");
+}
+
+function cerrarLightbox(){
+    document.getElementById("lightbox").classList.remove("activo");
+}
+</script>
+
+{% endblock %}
+
