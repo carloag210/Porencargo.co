@@ -160,7 +160,54 @@
     <small>Envío</small>
     <strong id="envio-importacion">$0 COP</strong>
 </div>
+<style>
+.opcion-entrega {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
 
+    min-width: 185px;
+    padding: 11px 14px;
+
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 10px;
+
+    background: #ffffff !important;
+    color: #1f2937 !important;
+
+    cursor: pointer;
+    text-align: left;
+}
+
+.opcion-entrega span,
+.opcion-entrega strong,
+.opcion-entrega small {
+    opacity: 1 !important;
+    color: #1f2937 !important;
+}
+
+.opcion-entrega small {
+    color: #64748b !important;
+    font-size: 12px;
+}
+
+.opcion-entrega:hover {
+    border-color: #2563eb !important;
+    background: #f8fafc !important;
+}
+
+.opcion-entrega.seleccionado {
+    border-color: #2563eb !important;
+    background: #eff6ff !important;
+}
+
+.opcion-entrega.seleccionado strong,
+.opcion-entrega.seleccionado small {
+    color: #2563eb !important;
+}
+    
+</style>
+        
 <!-- OPCIONES DE ENTREGA -->
 <div id="opciones-entrega" style="display: none; margin-top: 16px;">
 
