@@ -14,6 +14,7 @@ class EstadoPaquete(enum.Enum):
     EN_ADUANA_BOGOTA = "En Aduana Bogotá"
     EN_COLOMBIA = "En Bodega Medellín"
     LLEGO = "Despachado a tú Dirección"
+    ENTREGADO = "Entregado"
 
 class Paquete(db.Model):
     __tablename__ = 'paquetes'
