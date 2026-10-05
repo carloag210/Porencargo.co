@@ -720,6 +720,7 @@ def nueva_direccion():
     db.session.add(new_direccion)
     db.session.commit()
     return redirect('/direcciones')
+    
 @app.route('/editar_direccion/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editar_direccion(id):
@@ -742,7 +743,7 @@ def editar_direccion(id):
 
         return redirect(url_for('direcciones'))
 
-        return render_template(
+    return render_template(
         'editar_direccion.html',
         direccion=direccion
     )
