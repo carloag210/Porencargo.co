@@ -11,10 +11,23 @@
                 <li><strong>Dirección:</strong> {{ direccion.direccion }}</li>
             </ul>
             <div class="boton-eliminar">
-                <form  method="POST" action="{{ url_for('eliminar_direccion', id=direccion.id) }}" style="display:inline;">
-                    <button type="submit" onclick="return confirm('¿Seguro que quieres eliminar esta dirección?')">Eliminar</button>
-                </form>
-            </div>
+
+    <a href="{{ url_for('editar_direccion', id=direccion.id) }}">
+        <button type="button">✏️ Editar</button>
+    </a>
+
+    <form method="POST"
+          action="{{ url_for('eliminar_direccion', id=direccion.id) }}"
+          style="display:inline;">
+
+        <button type="submit"
+                onclick="return confirm('¿Seguro que quieres eliminar esta dirección?')">
+            🗑️ Eliminar
+        </button>
+
+    </form>
+
+</div>
 
         
         </div>
