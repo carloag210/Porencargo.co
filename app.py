@@ -129,15 +129,25 @@ def obtener_trm():
 
     return None
 
-def calcular_importacion_estimada(peso_total, valor_total_usd):
+def calcular_importacion_estimada(
+    peso_total,
+    valor_total_usd,
+    es_valle_aburra=False,
+    tipo_entrega=None
+):
     """
-    Calcula el costo estimado de importación de un conjunto de paquetes.
+    Calcula el costo estimado de importación.
 
     Reglas:
     - Servicio: 14.000 COP por libra.
     - Impuesto de aduana: 10% si el valor total supera USD 200.
-    - Envío: según tabla de peso.
-    - Desde 10 LB: envío incluido.
+    - Valle de Aburrá:
+        - Domicilio: 15.000 COP
+        - Recoger: 0 COP
+    - Fuera del Valle de Aburrá:
+        - Envío según tabla de peso.
+    - Sin dirección:
+        - Se utiliza la tarifa normal según peso.
     """
 
     # Convertir valores de forma segura
@@ -161,32 +171,52 @@ def calcular_importacion_estimada(peso_total, valor_total_usd):
 
     impuesto_cop = impuesto_usd * trm
 
-    # Tarifa de envío
+    # ==========================================
+    # TARIFA DE ENVÍO
+    # ==========================================
+
     envio = 0
 
-    if peso_total >= 10:
-        envio = 0
+    # Cliente del Valle de Aburrá
+    if es_valle_aburra:
 
-    elif peso_total >= 9:
-        envio = 37500
+        if tipo_entrega == "domicilio":
+            envio = 15000
 
-    elif peso_total >= 8:
-        envio = 36500
+        elif tipo_entrega == "recoger":
+            envio = 0
 
-    elif peso_total >= 7:
-        envio = 35000
+        else:
+            # Antes de que el cliente seleccione una modalidad,
+            # no agregamos ningún costo de envío.
+            envio = 0
 
-    elif peso_total >= 6:
-        envio = 33500
+    # Cliente fuera del Valle de Aburrá
+    else:
 
-    elif peso_total >= 5:
-        envio = 32000
+        if peso_total >= 10:
+            envio = 0
 
-    elif peso_total >= 4:
-        envio = 25000
+        elif peso_total >= 9:
+            envio = 37500
 
-    elif peso_total >= 1:
-        envio = 22000
+        elif peso_total >= 8:
+            envio = 36500
+
+        elif peso_total >= 7:
+            envio = 35000
+
+        elif peso_total >= 6:
+            envio = 33500
+
+        elif peso_total >= 5:
+            envio = 32000
+
+        elif peso_total >= 4:
+            envio = 25000
+
+        elif peso_total >= 1:
+            envio = 22000
 
     # Total
     total_cop = servicio + impuesto_cop + envio
@@ -199,7 +229,11 @@ def calcular_importacion_estimada(peso_total, valor_total_usd):
         "impuesto_usd": round(impuesto_usd, 2),
         "impuesto_cop": round(impuesto_cop, 2),
         "envio": round(envio, 2),
-        "total_cop": round(total_cop, 2)
+        "total_cop": round(total_cop, 2),
+
+        # Información que utilizaremos en el frontend
+        "es_valle_aburra": es_valle_aburra,
+        "tipo_entrega": tipo_entrega
     }
 
 # ---------------- Config Flask ----------------
