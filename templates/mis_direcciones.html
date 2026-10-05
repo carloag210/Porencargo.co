@@ -1,47 +1,267 @@
 {% extends "mis_pedidos.html" %}
+
 {% block content %}
-<h1 class="page-title">Mis direcciones</h1>
+
 <link rel="stylesheet" href="assets/css/mis_pedidos.css">
-{% if direccioness %}
-    {% for direccion in direccioness %}
-        <div class="bloque bloque-con-boton">
-            <ul>
-                <li><strong>Nombre:</strong> {{ direccion.name }}</li>
-                <li><strong>Ciudad:</strong> {{ direccion.ciudad }}</li>
-                <li><strong>Dirección:</strong> {{ direccion.direccion }}</li>
-            </ul>
-            <div class="boton-eliminar">
 
-    <a href="{{ url_for('editar_direccion', id=direccion.id) }}">
-        <button type="button">✏️ Editar</button>
-    </a>
+<div class="direcciones-contenedor">
 
-    <form method="POST"
-          action="{{ url_for('eliminar_direccion', id=direccion.id) }}"
-          style="display:inline;">
+    <div class="direcciones-header">
 
-        <button type="submit"
-                onclick="return confirm('¿Seguro que quieres eliminar esta dirección?')">
-            🗑️ Eliminar
-        </button>
+        <h1 class="page-title">
+            Mis direcciones
+        </h1>
 
-    </form>
+        <p class="direcciones-subtitulo">
+            Administra las direcciones donde deseas recibir tus pedidos.
+        </p>
+
+    </div>
+
+
+    {% if direccioness %}
+
+        <div class="lista-direcciones">
+
+            {% for direccion in direccioness %}
+
+                <div class="tarjeta-direccion">
+
+                    <div class="tarjeta-direccion-header">
+
+                        <div class="direccion-icono">
+                            📍
+                        </div>
+
+                        <div>
+                            <h3>Dirección de entrega</h3>
+                            <span>Dirección registrada</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="direccion-datos">
+
+                        <div class="dato-direccion">
+
+                            <span class="dato-icono">
+                                👤
+                            </span>
+
+                            <div>
+                                <small>Nombre</small>
+                                <strong>{{ direccion.name }}</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="dato-direccion">
+
+                            <span class="dato-icono">
+                                📍
+                            </span>
+
+                            <div>
+                                <small>Ciudad</small>
+                                <strong>{{ direccion.ciudad }}</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="dato-direccion">
+
+                            <span class="dato-icono">
+                                🏠
+                            </span>
+
+                            <div>
+                                <small>Dirección</small>
+                                <strong>{{ direccion.direccion }}</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="acciones-direccion">
+
+                        <a
+                            href="{{ url_for('editar_direccion', id=direccion.id) }}"
+                            class="btn-editar-direccion"
+                        >
+                            ✏️ Editar
+                        </a>
+
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('eliminar_direccion', id=direccion.id) }}"
+                        >
+
+                            <button
+                                type="submit"
+                                class="btn-eliminar-direccion"
+                                onclick="return confirm('¿Seguro que quieres eliminar esta dirección?')"
+                            >
+                                🗑️ Eliminar
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="sin-direcciones">
+
+            <div class="sin-direcciones-icono">
+                📍
+            </div>
+
+            <h3>
+                No tienes direcciones registradas
+            </h3>
+
+            <p>
+                Agrega una dirección para facilitar la entrega de tus pedidos.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <div class="nueva-direccion-card">
+
+        <div class="nueva-direccion-header">
+
+            <div class="nueva-direccion-icono">
+                ➕
+            </div>
+
+            <div>
+
+                <h2>
+                    Agregar nueva dirección
+                </h2>
+
+                <p>
+                    Registra una nueva dirección de entrega.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('nueva_direccion') }}"
+            class="form-nueva-direccion"
+        >
+
+            <div class="campo-direccion">
+
+                <label>
+                    Nombre y apellido
+                </label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Nombre y apellido completo"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo-direccion">
+
+                <label>
+                    País
+                </label>
+
+                <input
+                    type="text"
+                    name="pais"
+                    placeholder="País"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo-direccion">
+
+                <label>
+                    Ciudad
+                </label>
+
+                <input
+                    type="text"
+                    name="ciudad"
+                    placeholder="Ciudad"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo-direccion">
+
+                <label>
+                    Dirección
+                </label>
+
+                <input
+                    type="text"
+                    name="direccion"
+                    placeholder="Dirección completa"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo-direccion">
+
+                <label>
+                    Código postal
+                </label>
+
+                <input
+                    type="text"
+                    name="codigo_postal"
+                    placeholder="Código postal"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo-direccion boton-guardar-direccion">
+
+                <button type="submit">
+                    Guardar dirección
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 
-        
-        </div>
-        
-        {% endfor %}
-        {% else %}
-            <p style="margin-bottom: 15px;">No tienes direcciones registradas.</p>
-        {% endif %}
-        <form method="POST" action="{{ url_for('nueva_direccion') }}">
-            <input type="text" name="name" placeholder="Nombre y apellido completo" required>
-            <input type="text" name="pais" placeholder="País" required>
-            <input type="text" name="ciudad" placeholder="Ciudad" required>
-            <input type="text" name="direccion" placeholder="Dirección completa" required>
-            <input type="text" name="codigo_postal" placeholder="Código postal" required>
-            <button type="submit">Guardar dirección</button>
-        </form>
 {% endblock %}
