@@ -1305,11 +1305,16 @@ nav{
     position: relative;
     overflow: hidden;
 }
+.dashboard-hero .importacion-resumen {
+    flex: 1.4;
+    max-width: 700px;
+}
 
 .dashboard-hero > div:first-child {
     flex: 1;
     min-width: 0;
 }
+
 
 .dashboard-hero > div:first-child span {
     display: block;
