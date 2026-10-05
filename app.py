@@ -11,6 +11,7 @@ from auth.decorators import admin_required
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
 from datetime import timedelta
+import unicodedata
 import requests
 import json
 import http.client
@@ -657,24 +658,26 @@ def calcular_importacion():
 
     if direccion and direccion.ciudad:
 
-        municipios_valle_aburra = {
-            "medellín",
+        ciudad = direccion.ciudad.strip().lower()
+
+        ciudad_normalizada = ''.join(
+            c for c in unicodedata.normalize('NFD', ciudad)
+            if unicodedata.category(c) != 'Mn'
+        )
+
+        if ciudad_normalizada in {
+            "medellin",
             "bello",
             "envigado",
-            "itagüí",
+            "itagui",
             "sabaneta",
             "la estrella",
             "caldas",
             "copacabana",
             "girardota",
             "barbosa"
-        }
-
-        ciudad = direccion.ciudad.strip().lower()
-
-        if ciudad in municipios_valle_aburra:
+        }:
             es_valle_aburra = True
-
     # ==========================================
     # CALCULAR IMPORTACIÓN
     # ==========================================
