@@ -635,12 +635,55 @@ def marcar_consolidar():
 @app.route('/calcular_importacion', methods=['POST'])
 @login_required
 def calcular_importacion():
+
     peso_total = request.form.get("peso_total", 0)
     valor_total_usd = request.form.get("valor_total_usd", 0)
 
+    # Tipo de entrega:
+    # - domicilio
+    # - recoger
+    # - None = todavía no ha seleccionado
+    tipo_entrega = request.form.get("tipo_entrega")
+
+    # ==========================================
+    # VERIFICAR CIUDAD DEL CLIENTE
+    # ==========================================
+
+    direccion = Direccion.query.filter_by(
+        id_user=current_user.id
+    ).first()
+
+    es_valle_aburra = False
+
+    if direccion and direccion.ciudad:
+
+        municipios_valle_aburra = {
+            "medellín",
+            "bello",
+            "envigado",
+            "itagüí",
+            "sabaneta",
+            "la estrella",
+            "caldas",
+            "copacabana",
+            "girardota",
+            "barbosa"
+        }
+
+        ciudad = direccion.ciudad.strip().lower()
+
+        if ciudad in municipios_valle_aburra:
+            es_valle_aburra = True
+
+    # ==========================================
+    # CALCULAR IMPORTACIÓN
+    # ==========================================
+
     resultado = calcular_importacion_estimada(
         peso_total,
-        valor_total_usd
+        valor_total_usd,
+        es_valle_aburra,
+        tipo_entrega
     )
 
     if resultado is None:
@@ -653,7 +696,6 @@ def calcular_importacion():
         "success": True,
         "resultado": resultado
     }
-
 @app.route('/nueva_direccion', methods=['POST'])
 @login_required
 def nueva_direccion():
