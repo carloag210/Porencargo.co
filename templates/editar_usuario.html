@@ -1,12 +1,110 @@
 {% extends "mis_pedidos.html" %}
-{% block content %}
-<h1 class="page-title">Editar información</h1>
 
-<form method="POST">
-    <input type="text" name="user_first_name" value="{{ user.user_first_name }}" required>
-    <input type="text" name="user_last_name" value="{{ user.user_last_name }}" required>
-    <input type="email" name="email" value="{{ user.email }}" required>
-    <input type="text" name="number" value="{{ user.number }}" required>
-    <button type="submit">Guardar cambios</button>
-</form>
+{% block content %}
+
+<link rel="stylesheet" href="assets/css/mis_pedidos.css">
+
+<div class="perfil-contenedor">
+
+    <div class="perfil-header">
+
+        <div class="perfil-icono">
+            👤
+        </div>
+
+        <div>
+            <h1 class="page-title">
+                Editar información
+            </h1>
+
+            <p>
+                Actualiza los datos de tu cuenta.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="perfil-card">
+
+        <form method="POST" class="form-perfil">
+
+            <div class="campo-perfil">
+
+                <label>
+                    Nombre
+                </label>
+
+                <input
+                    type="text"
+                    name="user_first_name"
+                    value="{{ user.user_first_name }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo-perfil">
+
+                <label>
+                    Apellido
+                </label>
+
+                <input
+                    type="text"
+                    name="user_last_name"
+                    value="{{ user.user_last_name }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo-perfil">
+
+                <label>
+                    Correo electrónico
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    value="{{ user.email }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo-perfil">
+
+                <label>
+                    Teléfono
+                </label>
+
+                <input
+                    type="text"
+                    name="number"
+                    value="{{ user.number }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="boton-guardar-perfil">
+
+                <button type="submit">
+                    Guardar cambios
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
 {% endblock %}
