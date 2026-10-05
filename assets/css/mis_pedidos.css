@@ -1480,3 +1480,319 @@ form[action*="editar_direccion"] button:hover {
     transform: translateY(-1px);
     box-shadow: 0 5px 15px rgba(37, 99, 235, 0.20);
 }
+/* ==========================================
+   MIS DIRECCIONES
+   ========================================== */
+
+.direcciones-contenedor {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.direcciones-header {
+    margin-bottom: 25px;
+}
+
+.direcciones-subtitulo {
+    margin-top: 6px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* TARJETAS DE DIRECCIONES */
+
+.lista-direcciones {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.tarjeta-direccion {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.tarjeta-direccion-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eef0f3;
+}
+
+.direccion-icono {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    border-radius: 12px;
+    font-size: 20px;
+}
+
+.tarjeta-direccion-header h3 {
+    margin: 0;
+    font-size: 17px;
+    color: #111827;
+}
+
+.tarjeta-direccion-header span {
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+
+/* DATOS */
+
+.direccion-datos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 20px 0;
+}
+
+.dato-direccion {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.dato-icono {
+    font-size: 18px;
+    margin-top: 2px;
+}
+
+.dato-direccion small {
+    display: block;
+    margin-bottom: 3px;
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+.dato-direccion strong {
+    display: block;
+    color: #1f2937;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* BOTONES */
+
+.acciones-direccion {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #eef0f3;
+}
+
+.acciones-direccion form {
+    margin: 0;
+}
+
+.btn-editar-direccion,
+.btn-eliminar-direccion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 15px;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-editar-direccion {
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+}
+
+.btn-editar-direccion:hover {
+    background: #e2e8f0;
+    transform: translateY(-1px);
+}
+
+.btn-eliminar-direccion {
+    background: #fff1f2;
+    color: #be123c;
+    border: 1px solid #fecdd3;
+}
+
+.btn-eliminar-direccion:hover {
+    background: #ffe4e6;
+    transform: translateY(-1px);
+}
+
+
+/* SIN DIRECCIONES */
+
+.sin-direcciones {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 40px 25px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.sin-direcciones-icono {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.sin-direcciones h3 {
+    margin: 0 0 6px;
+    color: #1f2937;
+}
+
+.sin-direcciones p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* NUEVA DIRECCIÓN */
+
+.nueva-direccion-card {
+    margin-top: 25px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.nueva-direccion-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.nueva-direccion-icono {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    border-radius: 12px;
+    font-size: 20px;
+}
+
+.nueva-direccion-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #111827;
+}
+
+.nueva-direccion-header p {
+    margin: 4px 0 0;
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+
+/* FORMULARIO NUEVA DIRECCIÓN */
+
+.form-nueva-direccion {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.campo-direccion {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campo-direccion label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.campo-direccion input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    color: #1f2937;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.campo-direccion input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+.boton-guardar-direccion {
+    justify-content: flex-end;
+}
+
+.boton-guardar-direccion button {
+    width: fit-content;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 9px;
+    background: #2563eb;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.boton-guardar-direccion button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.20);
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 700px) {
+
+    .direccion-datos {
+        grid-template-columns: 1fr;
+    }
+
+    .form-nueva-direccion {
+        grid-template-columns: 1fr;
+    }
+
+    .acciones-direccion {
+        justify-content: stretch;
+    }
+
+    .btn-editar-direccion,
+    .btn-eliminar-direccion {
+        flex: 1;
+    }
+
+}
