@@ -1426,3 +1426,57 @@ nav{
     font-size: 22px;
     font-weight: 800;
 }
+/* ==========================================
+   EDITAR DIRECCIÓN
+   ========================================== */
+
+form[action*="editar_direccion"] {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    max-width: 850px;
+    margin-top: 25px;
+}
+
+form[action*="editar_direccion"] input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 15px;
+    border: 1px solid #d9dee7;
+    border-radius: 10px;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    color: #1f2937;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+form[action*="editar_direccion"] input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+form[action*="editar_direccion"] input::placeholder {
+    color: #9ca3af;
+}
+
+form[action*="editar_direccion"] button {
+    grid-column: 1 / -1;
+    width: fit-content;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+form[action*="editar_direccion"] button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.20);
+}
