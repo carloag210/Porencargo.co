@@ -122,18 +122,19 @@
 
 </div>
 
-        <<div class="relleno
-{% if paquete.estado.name in ['COMPRADO', 'DESPACHADO_TIENDA'] %}
+        <div class="relleno
+{% if paquete.estado.value in ['Comprado en Tienda','Despachado por Tienda'] %}
     p20
-{% elif paquete.estado.name in ['EN_ENVIO', 'DESPACHADO_A_COLOMBIA', 'EN_BODEGA_MIAMI'] %}
+{% elif paquete.estado.value in ['Despachado Bodega Miami','Llegó a Bodega Miami'] %}
     p40
-{% elif paquete.estado.name in ['EN_AEROPUERTO', 'EN_ADUANA_BOGOTA'] %}
+{% elif paquete.estado.value in ['Llegó Aeropuerto Bogotá','En Aduana Bogotá'] %}
     p60
-{% elif paquete.estado.name == 'EN_COLOMBIA' %}
+{% elif paquete.estado.value == 'En Bodega Medellín' %}
     p80
-{% elif paquete.estado.name in ['LLEGO', 'ENTREGADO'] %}
+{% elif paquete.estado.value == 'Despachado a tú Dirección' %}
     p100
 {% endif %}">
+            
 </div>
 
     <div class="timeline-v2">
