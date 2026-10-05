@@ -246,6 +246,29 @@
 
 <script>
 
+// ==========================================
+// OPCIÓN DE ENTREGA SELECCIONADA
+// ==========================================
+
+let tipoEntregaSeleccionada = null;
+
+
+// ==========================================
+// SELECCIONAR TIPO DE ENTREGA
+// ==========================================
+
+function seleccionarEntrega(tipo) {
+
+    tipoEntregaSeleccionada = tipo;
+
+    actualizarImportacion();
+}
+
+
+// ==========================================
+// CALCULAR IMPORTACIÓN ESTIMADA
+// ==========================================
+
 function actualizarImportacion() {
 
     let seleccionados = document.querySelectorAll(
@@ -280,13 +303,22 @@ function actualizarImportacion() {
 
 
     // ==========================================
-    // CALCULAR IMPORTACIÓN ESTIMADA
+    // CALCULAR IMPORTACIÓN
     // ==========================================
 
     let formData = new FormData();
 
     formData.append("peso_total", pesoTotal);
     formData.append("valor_total_usd", valorTotal);
+
+    // Solo enviamos la modalidad si el cliente
+    // ya seleccionó una.
+    if (tipoEntregaSeleccionada) {
+        formData.append(
+            "tipo_entrega",
+            tipoEntregaSeleccionada
+        );
+    }
 
     fetch("/calcular_importacion", {
         method: "POST",
@@ -305,42 +337,123 @@ function actualizarImportacion() {
 
         let resultado = data.resultado;
 
-document.getElementById("servicio-importacion").textContent =
-    "$" +
-    Math.round(resultado.servicio).toLocaleString("es-CO") +
-    " COP";
 
-document.getElementById("impuesto-importacion").textContent =
-    "$" +
-    Math.round(resultado.impuesto_cop).toLocaleString("es-CO") +
-    " COP";
+        // ==========================================
+        // SERVICIO
+        // ==========================================
 
-if (resultado.peso_total >= 10) {
+        document.getElementById("servicio-importacion").textContent =
+            "$" +
+            Math.round(resultado.servicio).toLocaleString("es-CO") +
+            " COP";
 
-    document.getElementById("envio-importacion").textContent =
-        "Incluido";
 
-} else {
+        // ==========================================
+        // IMPUESTO
+        // ==========================================
 
-    document.getElementById("envio-importacion").textContent =
-        "$" +
-        Math.round(resultado.envio).toLocaleString("es-CO") +
-        " COP";
-}
+        document.getElementById("impuesto-importacion").textContent =
+            "$" +
+            Math.round(resultado.impuesto_cop).toLocaleString("es-CO") +
+            " COP";
 
-document.getElementById("total-importacion").textContent =
-    "$" +
-    Math.round(resultado.total_cop).toLocaleString("es-CO") +
-    " COP";
+
+        // ==========================================
+        // OPCIONES DE ENTREGA
+        // ==========================================
+
+        let opcionesEntrega =
+            document.getElementById("opciones-entrega");
+
+        if (resultado.es_valle_aburra) {
+
+            // Mostrar opciones para clientes
+            // del Valle de Aburrá.
+            opcionesEntrega.style.display = "block";
+
+            // Mostrar el costo correspondiente
+            // según la selección.
+            if (tipoEntregaSeleccionada) {
+
+                document.getElementById("envio-importacion").textContent =
+                    "$" +
+                    Math.round(resultado.envio).toLocaleString("es-CO") +
+                    " COP";
+
+            } else {
+
+                document.getElementById("envio-importacion").textContent =
+                    "Selecciona una opción";
+            }
+
+        } else {
+
+            // Fuera del Valle de Aburrá:
+            // no se muestran las opciones.
+            opcionesEntrega.style.display = "none";
+
+            // Se mantiene la tarifa normal
+            // de envío según peso.
+
+            if (resultado.peso_total >= 10) {
+
+                document.getElementById("envio-importacion").textContent =
+                    "Incluido";
+
+            } else {
+
+                document.getElementById("envio-importacion").textContent =
+                    "$" +
+                    Math.round(resultado.envio).toLocaleString("es-CO") +
+                    " COP";
+            }
+        }
+
+
+        // ==========================================
+        // TOTAL
+        // ==========================================
+
+        document.getElementById("total-importacion").textContent =
+            "$" +
+            Math.round(resultado.total_cop).toLocaleString("es-CO") +
+            " COP";
+
+
+        // ==========================================
+        // MARCAR OPCIÓN SELECCIONADA
+        // ==========================================
+
+        let btnDomicilio =
+            document.getElementById("btn-domicilio");
+
+        let btnRecoger =
+            document.getElementById("btn-recoger");
+
+        if (btnDomicilio) {
+            btnDomicilio.classList.toggle(
+                "seleccionado",
+                tipoEntregaSeleccionada === "domicilio"
+            );
+        }
+
+        if (btnRecoger) {
+            btnRecoger.classList.toggle(
+                "seleccionado",
+                tipoEntregaSeleccionada === "recoger"
+            );
+        }
+
     })
     .catch(error => {
+
         console.error(
             "Error en cálculo de importación:",
             error
         );
+
     });
 }
-
 document.querySelectorAll(
     ".form-consolidar input[type='checkbox']"
 ).forEach(checkbox => {
