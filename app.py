@@ -720,6 +720,32 @@ def nueva_direccion():
     db.session.add(new_direccion)
     db.session.commit()
     return redirect('/direcciones')
+@app.route('/editar_direccion/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editar_direccion(id):
+
+    direccion = Direccion.query.get_or_404(id)
+
+    if direccion.id_user != current_user.id:
+        flash("No tienes permiso para editar esta dirección", "error")
+        return redirect(url_for('direcciones'))
+
+    if request.method == 'POST':
+
+        direccion.pais = request.form['pais']
+        direccion.ciudad = request.form['ciudad']
+        direccion.direccion = request.form['direccion']
+        direccion.codigo_postal = request.form['codigo_postal']
+        direccion.name = request.form['name']
+
+        db.session.commit()
+
+        return redirect(url_for('direcciones'))
+
+        return render_template(
+        'editar_direccion.html',
+        direccion=direccion
+    )
 
 @app.route('/eliminar_producto/<int:id>', methods=['POST'])
 @admin_required
