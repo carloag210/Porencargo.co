@@ -1,1 +1,177 @@
+{% extends "admin_panel.html" %}
 
+{% block title %}Paquetería{% endblock %}
+
+{% block content %}
+
+<div class="paqueteria-container">
+
+    <div class="paqueteria-header">
+        <div>
+            <span>PorEncargo.co</span>
+            <h1>📦 Gestión de Paquetería</h1>
+            <p>Administra los paquetes registrados en el sistema.</p>
+        </div>
+
+        <div>
+            <button class="btn-nuevo-paquete" type="button">
+                ➕ Registrar paquete
+            </button>
+        </div>
+    </div>
+
+
+    <div class="paqueteria-resumen">
+
+        <div class="resumen-card">
+            <span>📦</span>
+            <div>
+                <strong>{{ paquetes|length }}</strong>
+                <small>Paquetes registrados</small>
+            </div>
+        </div>
+
+        <div class="resumen-card">
+            <span>👥</span>
+            <div>
+                <strong>{{ usuarios|length }}</strong>
+                <small>Clientes</small>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="paqueteria-lista">
+
+        <div class="lista-header">
+            <h2>Paquetes</h2>
+
+            <input
+                type="text"
+                id="buscar-paquete"
+                placeholder="🔎 Buscar cliente, guía o paquete..."
+            >
+        </div>
+
+
+        {% if paquetes %}
+
+            {% for p in paquetes %}
+
+            <div class="paquete-admin-card">
+
+                <div class="paquete-cliente">
+
+                    <div class="cliente-avatar">
+                        👤
+                    </div>
+
+                    <div>
+                        <strong>
+                            {{ p.usuario.user_first_name }}
+                            {{ p.usuario.user_last_name }}
+                        </strong>
+
+                        <small>
+                            {{ p.usuario.email }}
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="paquete-info">
+
+                    <strong>{{ p.nombre }}</strong>
+
+                    <span>
+                        Guía: {{ p.numero_guia }}
+                    </span>
+
+                    <span>
+                        Peso: {{ p.peso }} LB
+                    </span>
+
+                    <span>
+                        Precio: ${{ p.precio }} USD
+                    </span>
+
+                </div>
+
+
+                <div class="paquete-estado">
+
+                    <span class="estado-badge">
+                        {{ p.estado.value }}
+                    </span>
+
+                    {% if p.fecha_recibido %}
+                        <small>
+                            Recibido:
+                            {{ p.fecha_recibido.strftime('%d/%m/%Y') }}
+                        </small>
+                    {% else %}
+                        <small>
+                            Fecha pendiente
+                        </small>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="sin-paquetes">
+
+                <div>📦</div>
+
+                <h2>No hay paquetes registrados</h2>
+
+                <p>
+                    Cuando registres paquetes aparecerán aquí.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<script>
+
+const buscador = document.getElementById("buscar-paquete");
+
+if (buscador) {
+
+    buscador.addEventListener("input", function () {
+
+        const texto = this.value.toLowerCase();
+
+        document
+            .querySelectorAll(".paquete-admin-card")
+            .forEach(card => {
+
+                const contenido =
+                    card.textContent.toLowerCase();
+
+                card.style.display =
+                    contenido.includes(texto)
+                    ? ""
+                    : "none";
+
+            });
+
+    });
+
+}
+
+</script>
+
+{% endblock %}
