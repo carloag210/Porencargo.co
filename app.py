@@ -345,6 +345,32 @@ def admin_panel_ver_usuarios():
         estados_posibles=estados_posibles,
         productos=productos
     )
+@app.route('/admin/paqueteria')
+@admin_required
+def admin_paqueteria():
+
+    paquetes = (
+        Paquete.query
+        .join(User)
+        .order_by(Paquete.id.desc())
+        .all()
+    )
+
+    usuarios = (
+        User.query
+        .filter_by(is_admin=False)
+        .order_by(User.user_first_name.asc())
+        .all()
+    )
+
+    estados_posibles = list(EstadoPaquete)
+
+    return render_template(
+        'admin_paqueteria.html',
+        paquetes=paquetes,
+        usuarios=usuarios,
+        estados_posibles=estados_posibles
+    )
 
 @app.route('/admin_panel_modificar_productos/<int:id>', methods=['GET', 'POST'])
 @admin_required
