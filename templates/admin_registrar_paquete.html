@@ -1,0 +1,438 @@
+{% extends "admin_panel.html" %}
+
+{% block title %}Registrar paquete{% endblock %}
+
+{% block content %}
+
+<style>
+    .registro-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 30px;
+    }
+
+    .registro-header {
+        margin-bottom: 30px;
+    }
+
+    .registro-header .etiqueta {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        color: #2563eb;
+        margin-bottom: 8px;
+    }
+
+    .registro-header h1 {
+        margin: 0;
+        font-size: 32px;
+        color: #111827;
+    }
+
+    .registro-header p {
+        margin: 8px 0 0;
+        color: #6b7280;
+    }
+
+    .registro-form {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    }
+
+    .form-seccion {
+        margin-bottom: 30px;
+    }
+
+    .form-seccion:last-child {
+        margin-bottom: 0;
+    }
+
+    .form-seccion h2 {
+        margin: 0 0 18px;
+        font-size: 18px;
+        color: #111827;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .campo {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .campo.completo {
+        grid-column: 1 / -1;
+    }
+
+    .campo label {
+        font-size: 13px;
+        font-weight: 700;
+        color: #374151;
+    }
+
+    .campo input,
+    .campo select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 13px;
+        border: 1px solid #d1d5db;
+        border-radius: 9px;
+        font-size: 14px;
+        outline: none;
+        background: white;
+        transition: 0.2s ease;
+    }
+
+    .campo input:focus,
+    .campo select:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+    }
+
+    .campo small {
+        color: #6b7280;
+        font-size: 12px;
+    }
+
+    .acciones {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        padding-top: 25px;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .btn-cancelar,
+    .btn-guardar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 20px;
+        border-radius: 9px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .btn-cancelar {
+        background: #f3f4f6;
+        color: #374151;
+        border: none;
+    }
+
+    .btn-cancelar:hover {
+        background: #e5e7eb;
+    }
+
+    .btn-guardar {
+        background: #111827;
+        color: white;
+        border: none;
+    }
+
+    .btn-guardar:hover {
+        background: #2563eb;
+    }
+
+    @media (max-width: 700px) {
+
+        .registro-container {
+            padding: 20px 15px;
+        }
+
+        .registro-form {
+            padding: 20px;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .campo.completo {
+            grid-column: auto;
+        }
+
+        .acciones {
+            flex-direction: column;
+        }
+
+        .btn-cancelar,
+        .btn-guardar {
+            width: 100%;
+        }
+    }
+</style>
+
+
+<div class="registro-container">
+
+    <div class="registro-header">
+
+        <span class="etiqueta">
+            CENTRO DE OPERACIONES
+        </span>
+
+        <h1>
+            📦 Registrar paquete
+        </h1>
+
+        <p>
+            Registra un nuevo paquete y asígnalo directamente a un cliente.
+        </p>
+
+    </div>
+
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        class="registro-form"
+    >
+
+        <!-- CLIENTE -->
+        <div class="form-seccion">
+
+            <h2>
+                👤 Cliente
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="campo completo">
+
+                    <label for="id_user">
+                        Seleccionar cliente
+                    </label>
+
+                    <select
+                        name="id_user"
+                        id="id_user"
+                        required
+                    >
+
+                        <option value="">
+                            Selecciona un cliente...
+                        </option>
+
+                        {% for usuario in usuarios %}
+
+                            <option value="{{ usuario.id }}">
+
+                                {{ usuario.user_first_name }}
+                                {{ usuario.user_last_name }}
+                                — {{ usuario.email }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- INFORMACIÓN DEL PAQUETE -->
+        <div class="form-seccion">
+
+            <h2>
+                📦 Información del paquete
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="campo">
+
+                    <label for="nombre">
+                        Nombre del paquete
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        placeholder="Ej: Audífonos Sony"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="numero_guia">
+                        Número de guía
+                    </label>
+
+                    <input
+                        type="text"
+                        id="numero_guia"
+                        name="numero_guia"
+                        placeholder="Ej: 1Z999AA..."
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="precio">
+                        Precio USD
+                    </label>
+
+                    <input
+                        type="number"
+                        id="precio"
+                        name="precio"
+                        step="0.01"
+                        min="0"
+                        placeholder="Ej: 129.99"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="peso">
+                        Peso en libras
+                    </label>
+
+                    <input
+                        type="number"
+                        id="peso"
+                        name="peso"
+                        step="0.01"
+                        min="0"
+                        placeholder="Ej: 3.5"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="fecha_recibido">
+                        Fecha de recibido
+                    </label>
+
+                    <input
+                        type="date"
+                        id="fecha_recibido"
+                        name="fecha_recibido"
+                    >
+
+                    <small>
+                        Puedes dejarla vacía si todavía no corresponde.
+                    </small>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="estado">
+                        Estado del paquete
+                    </label>
+
+                    <select
+                        name="estado"
+                        id="estado"
+                        required
+                    >
+
+                        {% for estado in estados_posibles %}
+
+                            <option value="{{ estado.name }}">
+
+                                {{ estado.value }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOTOGRAFÍAS -->
+        <div class="form-seccion">
+
+            <h2>
+                📸 Fotografías
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="campo completo">
+
+                    <label for="imagenes">
+                        Fotos del paquete
+                    </label>
+
+                    <input
+                        type="file"
+                        id="imagenes"
+                        name="imagenes"
+                        accept="image/*"
+                        multiple
+                    >
+
+                    <small>
+                        Puedes seleccionar una o varias fotografías.
+                        La primera será marcada como principal.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACCIONES -->
+        <div class="acciones">
+
+            <a
+                href="{{ url_for('admin_paqueteria') }}"
+                class="btn-cancelar"
+            >
+                ← Cancelar
+            </a>
+
+            <button
+                type="submit"
+                class="btn-guardar"
+            >
+                💾 Registrar paquete
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
