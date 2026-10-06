@@ -1,0 +1,304 @@
+/* ==========================================
+   GESTIÓN DE PAQUETERÍA
+========================================== */
+
+.paqueteria-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.paqueteria-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 28px;
+}
+
+.paqueteria-header span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.paqueteria-header h1 {
+    margin: 5px 0;
+    font-size: 32px;
+    color: #111827;
+}
+
+.paqueteria-header p {
+    margin: 0;
+    color: #6b7280;
+}
+
+
+/* ==========================================
+   BOTÓN NUEVO PAQUETE
+========================================== */
+
+.btn-nuevo-paquete {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 13px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.btn-nuevo-paquete:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   RESUMEN
+========================================== */
+
+.paqueteria-resumen {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.resumen-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, .04);
+}
+
+.resumen-card > span {
+    font-size: 28px;
+}
+
+.resumen-card strong {
+    display: block;
+    font-size: 26px;
+    color: #111827;
+}
+
+.resumen-card small {
+    color: #6b7280;
+}
+
+
+/* ==========================================
+   LISTA
+========================================== */
+
+.paqueteria-lista {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, .05);
+}
+
+.lista-header {
+    padding: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.lista-header h2 {
+    margin: 0;
+    font-size: 21px;
+    color: #111827;
+}
+
+#buscar-paquete {
+    width: 330px;
+    max-width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    font-size: 14px;
+    outline: none;
+}
+
+#buscar-paquete:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+}
+
+
+/* ==========================================
+   TARJETA DE PAQUETE
+========================================== */
+
+.paquete-admin-card {
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr 1fr;
+    align-items: center;
+    gap: 25px;
+    padding: 20px 22px;
+    border-bottom: 1px solid #eef0f3;
+    transition: .2s ease;
+}
+
+.paquete-admin-card:last-child {
+    border-bottom: none;
+}
+
+.paquete-admin-card:hover {
+    background: #f8fafc;
+}
+
+
+/* ==========================================
+   CLIENTE
+========================================== */
+
+.paquete-cliente {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cliente-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #eff6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.paquete-cliente strong {
+    display: block;
+    color: #111827;
+}
+
+.paquete-cliente small {
+    display: block;
+    margin-top: 3px;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   INFORMACIÓN DEL PAQUETE
+========================================== */
+
+.paquete-info strong {
+    display: block;
+    font-size: 16px;
+    color: #111827;
+    margin-bottom: 7px;
+}
+
+.paquete-info span {
+    display: inline-block;
+    margin-right: 14px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   ESTADO
+========================================== */
+
+.paquete-estado {
+    text-align: right;
+}
+
+.estado-badge {
+    display: inline-block;
+    padding: 7px 11px;
+    border-radius: 20px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.paquete-estado small {
+    display: block;
+    margin-top: 7px;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   SIN PAQUETES
+========================================== */
+
+.sin-paquetes {
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.sin-paquetes div {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.sin-paquetes h2 {
+    margin: 0 0 8px;
+    color: #111827;
+}
+
+.sin-paquetes p {
+    margin: 0;
+    color: #6b7280;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 900px) {
+
+    .paquete-admin-card {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .paquete-estado {
+        text-align: left;
+    }
+
+    .paqueteria-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .paqueteria-resumen {
+        grid-template-columns: 1fr;
+    }
+
+    .lista-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #buscar-paquete {
+        width: 100%;
+    }
+
+}
