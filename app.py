@@ -371,6 +371,75 @@ def admin_paqueteria():
         usuarios=usuarios,
         estados_posibles=estados_posibles
     )
+@app.route('/admin/paqueteria/registrar', methods=['GET', 'POST'])
+@admin_required
+def admin_registrar_paquete():
+
+    if request.method == 'POST':
+
+        nombre = request.form['nombre']
+        precio = request.form['precio']
+        numero_guia = request.form['numero_guia']
+        peso = request.form['peso']
+        estado_str = request.form['estado']
+        id_user = int(request.form['id_user'])
+        fecha_recibido = request.form.get('fecha_recibido') or None
+        imagenes = request.files.getlist("imagenes")
+
+        estado = EstadoPaquete[estado_str]
+
+        nuevo_paquete = Paquete(
+            nombre=nombre,
+            precio=precio,
+            numero_guia=numero_guia,
+            peso=peso,
+            estado=estado,
+            id_user=id_user,
+            fecha_recibido=fecha_recibido
+        )
+
+        db.session.add(nuevo_paquete)
+        db.session.commit()
+
+        # Subir fotografías a Cloudinary
+        for i, imagen in enumerate(imagenes):
+
+            if not imagen or imagen.filename == "":
+                continue
+
+            subida = cloudinary.uploader.upload(
+                imagen,
+                folder="porencargo/paquetes"
+            )
+
+            foto = FotoPaquete(
+                paquete_id=nuevo_paquete.id,
+                url=subida["secure_url"],
+                principal=(i == 0)
+            )
+
+            db.session.add(foto)
+
+        db.session.commit()
+
+        flash("Paquete registrado correctamente", "success")
+
+        return redirect(url_for("admin_paqueteria"))
+
+    usuarios = (
+        User.query
+        .filter_by(is_admin=False)
+        .order_by(User.user_first_name.asc())
+        .all()
+    )
+
+    estados_posibles = list(EstadoPaquete)
+
+    return render_template(
+        "admin_registrar_paquete.html",
+        usuarios=usuarios,
+        estados_posibles=estados_posibles
+    )
 
 @app.route('/admin_panel_modificar_productos/<int:id>', methods=['GET', 'POST'])
 @admin_required
