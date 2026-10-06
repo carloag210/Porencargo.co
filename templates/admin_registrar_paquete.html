@@ -11,6 +11,7 @@
         padding: 30px;
     }
 
+    /* HEADER */
     .registro-header {
         margin-bottom: 30px;
     }
@@ -35,6 +36,7 @@
         color: #6b7280;
     }
 
+    /* FORMULARIO */
     .registro-form {
         background: white;
         border: 1px solid #e5e7eb;
@@ -103,6 +105,194 @@
         font-size: 12px;
     }
 
+    /* ========================= */
+    /* BUSCADOR DE CLIENTE */
+    /* ========================= */
+
+    .cliente-selector {
+        position: relative;
+    }
+
+    .cliente-buscador {
+        position: relative;
+    }
+
+    .cliente-buscador input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 13px 15px 13px 42px;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        font-size: 14px;
+        outline: none;
+        transition: 0.2s ease;
+    }
+
+    .cliente-buscador input:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+    }
+
+    .cliente-buscador-icono {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 17px;
+        pointer-events: none;
+    }
+
+    /* RESULTADOS */
+    .cliente-resultados {
+        display: none;
+        position: absolute;
+        top: calc(100% + 7px);
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        max-height: 280px;
+        overflow-y: auto;
+        z-index: 100;
+    }
+
+    .cliente-resultados.visible {
+        display: block;
+    }
+
+    .cliente-resultado {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 13px 15px;
+        cursor: pointer;
+        border-bottom: 1px solid #f3f4f6;
+        transition: 0.15s ease;
+    }
+
+    .cliente-resultado:last-child {
+        border-bottom: none;
+    }
+
+    .cliente-resultado:hover {
+        background: #f8fafc;
+    }
+
+    .cliente-resultado-avatar {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #eff6ff;
+        font-size: 17px;
+    }
+
+    .cliente-resultado-info {
+        min-width: 0;
+    }
+
+    .cliente-resultado-info strong {
+        display: block;
+        color: #111827;
+        font-size: 14px;
+        margin-bottom: 3px;
+    }
+
+    .cliente-resultado-info small {
+        display: block;
+        color: #6b7280;
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .cliente-sin-resultados {
+        padding: 20px;
+        text-align: center;
+        color: #6b7280;
+        font-size: 13px;
+    }
+
+    /* CLIENTE SELECCIONADO */
+    .cliente-seleccionado {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 15px;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 11px;
+    }
+
+    .cliente-seleccionado.visible {
+        display: flex;
+    }
+
+    .cliente-seleccionado-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .cliente-seleccionado-avatar {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dcfce7;
+        border-radius: 50%;
+        font-size: 18px;
+    }
+
+    .cliente-seleccionado-info strong {
+        display: block;
+        color: #166534;
+        font-size: 14px;
+        margin-bottom: 3px;
+    }
+
+    .cliente-seleccionado-info small {
+        display: block;
+        color: #4b7a5a;
+        font-size: 12px;
+    }
+
+    .btn-cambiar-cliente {
+        border: none;
+        background: transparent;
+        color: #2563eb;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .btn-cambiar-cliente:hover {
+        text-decoration: underline;
+    }
+
+    .cliente-ayuda {
+        margin-top: 8px;
+        color: #6b7280;
+        font-size: 12px;
+    }
+
+    /* OCULTO */
+    #id_user {
+        display: none;
+    }
+
+    /* ACCIONES */
     .acciones {
         display: flex;
         justify-content: flex-end;
@@ -145,6 +335,7 @@
         background: #2563eb;
     }
 
+    /* RESPONSIVE */
     @media (max-width: 700px) {
 
         .registro-container {
@@ -171,12 +362,18 @@
         .btn-guardar {
             width: 100%;
         }
+
+        .cliente-seleccionado {
+            align-items: flex-start;
+            flex-direction: column;
+        }
     }
 </style>
 
 
 <div class="registro-container">
 
+    <!-- ENCABEZADO -->
     <div class="registro-header">
 
         <span class="etiqueta">
@@ -198,9 +395,13 @@
         method="POST"
         enctype="multipart/form-data"
         class="registro-form"
+        id="form-registro-paquete"
     >
 
+        <!-- ========================= -->
         <!-- CLIENTE -->
+        <!-- ========================= -->
+
         <div class="form-seccion">
 
             <h2>
@@ -209,35 +410,126 @@
 
             <div class="form-grid">
 
-                <div class="campo completo">
+                <div class="campo completo cliente-selector">
 
-                    <label for="id_user">
-                        Seleccionar cliente
+                    <label for="buscar-cliente">
+                        Buscar cliente
                     </label>
 
-                    <select
+                    <!-- ID REAL QUE SE ENVÍA AL BACKEND -->
+                    <input
+                        type="hidden"
                         name="id_user"
                         id="id_user"
-                        required
                     >
 
-                        <option value="">
-                            Selecciona un cliente...
-                        </option>
 
-                        {% for usuario in usuarios %}
+                    <!-- BUSCADOR -->
+                    <div
+                        class="cliente-buscador"
+                        id="contenedor-buscador"
+                    >
 
-                            <option value="{{ usuario.id }}">
+                        <span class="cliente-buscador-icono">
+                            🔎
+                        </span>
 
-                                {{ usuario.user_first_name }}
-                                {{ usuario.user_last_name }}
-                                — {{ usuario.email }}
+                        <input
+                            type="text"
+                            id="buscar-cliente"
+                            autocomplete="off"
+                            placeholder="Busca por nombre, apellido, correo o ID..."
+                        >
 
-                            </option>
+                        <div
+                            class="cliente-resultados"
+                            id="cliente-resultados"
+                        >
 
-                        {% endfor %}
+                            {% for usuario in usuarios %}
 
-                    </select>
+                                <div
+                                    class="cliente-resultado"
+                                    data-id="{{ usuario.id }}"
+                                    data-nombre="{{ usuario.user_first_name }} {{ usuario.user_last_name }}"
+                                    data-email="{{ usuario.email }}"
+                                    data-busqueda="{{ usuario.id }} {{ usuario.user_first_name }} {{ usuario.user_last_name }} {{ usuario.email }}"
+                                >
+
+                                    <div class="cliente-resultado-avatar">
+                                        👤
+                                    </div>
+
+                                    <div class="cliente-resultado-info">
+
+                                        <strong>
+                                            {{ usuario.user_first_name }}
+                                            {{ usuario.user_last_name }}
+                                        </strong>
+
+                                        <small>
+                                            {{ usuario.email }}
+                                            · ID {{ usuario.id }}
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                            <div
+                                class="cliente-sin-resultados"
+                                id="cliente-sin-resultados"
+                            >
+                                No encontramos clientes con esa búsqueda.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CLIENTE SELECCIONADO -->
+                    <div
+                        class="cliente-seleccionado"
+                        id="cliente-seleccionado"
+                    >
+
+                        <div class="cliente-seleccionado-info">
+
+                            <div class="cliente-seleccionado-avatar">
+                                ✓
+                            </div>
+
+                            <div>
+
+                                <strong id="cliente-seleccionado-nombre">
+                                </strong>
+
+                                <small id="cliente-seleccionado-email">
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="btn-cambiar-cliente"
+                            id="btn-cambiar-cliente"
+                        >
+                            Cambiar cliente
+                        </button>
+
+                    </div>
+
+
+                    <div class="cliente-ayuda">
+                        Escribe al menos unas letras del nombre, apellido,
+                        correo o el ID del cliente.
+                    </div>
 
                 </div>
 
@@ -246,7 +538,10 @@
         </div>
 
 
+        <!-- ========================= -->
         <!-- INFORMACIÓN DEL PAQUETE -->
+        <!-- ========================= -->
+
         <div class="form-seccion">
 
             <h2>
@@ -377,7 +672,10 @@
         </div>
 
 
+        <!-- ========================= -->
         <!-- FOTOGRAFÍAS -->
+        <!-- ========================= -->
+
         <div class="form-seccion">
 
             <h2>
@@ -412,7 +710,10 @@
         </div>
 
 
+        <!-- ========================= -->
         <!-- ACCIONES -->
+        <!-- ========================= -->
+
         <div class="acciones">
 
             <a
@@ -434,5 +735,199 @@
     </form>
 
 </div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const buscador = document.getElementById("buscar-cliente");
+    const resultados = document.getElementById("cliente-resultados");
+    const clientes = document.querySelectorAll(".cliente-resultado");
+    const sinResultados = document.getElementById("cliente-sin-resultados");
+
+    const clienteSeleccionado = document.getElementById("cliente-seleccionado");
+    const clienteSeleccionadoNombre = document.getElementById("cliente-seleccionado-nombre");
+    const clienteSeleccionadoEmail = document.getElementById("cliente-seleccionado-email");
+
+    const idUser = document.getElementById("id_user");
+
+    const contenedorBuscador = document.getElementById("contenedor-buscador");
+
+    const btnCambiar = document.getElementById("btn-cambiar-cliente");
+
+    const formulario = document.getElementById("form-registro-paquete");
+
+
+    /* ========================= */
+    /* BUSCAR CLIENTES */
+    /* ========================= */
+
+    buscador.addEventListener("focus", function () {
+
+        if (!idUser.value) {
+            resultados.classList.add("visible");
+        }
+
+    });
+
+
+    buscador.addEventListener("input", function () {
+
+        const texto = this.value
+            .toLowerCase()
+            .trim();
+
+        let encontrados = 0;
+
+
+        clientes.forEach(function (cliente) {
+
+            const busqueda =
+                cliente.dataset.busqueda.toLowerCase();
+
+            if (
+                texto === "" ||
+                busqueda.includes(texto)
+            ) {
+
+                cliente.style.display = "flex";
+
+                encontrados++;
+
+            } else {
+
+                cliente.style.display = "none";
+
+            }
+
+        });
+
+
+        if (encontrados === 0) {
+
+            sinResultados.style.display = "block";
+
+        } else {
+
+            sinResultados.style.display = "none";
+
+        }
+
+
+        resultados.classList.add("visible");
+
+    });
+
+
+    /* ========================= */
+    /* SELECCIONAR CLIENTE */
+    /* ========================= */
+
+    clientes.forEach(function (cliente) {
+
+        cliente.addEventListener("click", function () {
+
+            const id = this.dataset.id;
+
+            const nombre = this.dataset.nombre;
+
+            const email = this.dataset.email;
+
+
+            /*
+             * Guardamos el ID real.
+             * Este es el valor que Flask recibirá
+             * como request.form['id_user']
+             */
+
+            idUser.value = id;
+
+
+            clienteSeleccionadoNombre.textContent = nombre;
+
+            clienteSeleccionadoEmail.textContent =
+                email + " · ID " + id;
+
+
+            buscador.value = "";
+
+
+            resultados.classList.remove("visible");
+
+            clienteSeleccionado.classList.add("visible");
+
+            contenedorBuscador.style.display = "none";
+
+        });
+
+    });
+
+
+    /* ========================= */
+    /* CAMBIAR CLIENTE */
+    /* ========================= */
+
+    btnCambiar.addEventListener("click", function () {
+
+        idUser.value = "";
+
+        clienteSeleccionado.classList.remove("visible");
+
+        contenedorBuscador.style.display = "block";
+
+        buscador.value = "";
+
+        resultados.classList.remove("visible");
+
+        clientes.forEach(function (cliente) {
+
+            cliente.style.display = "flex";
+
+        });
+
+        sinResultados.style.display = "none";
+
+        buscador.focus();
+
+    });
+
+
+    /* ========================= */
+    /* CERRAR RESULTADOS */
+    /* ========================= */
+
+    document.addEventListener("click", function (event) {
+
+        if (!contenedorBuscador.contains(event.target)) {
+
+            resultados.classList.remove("visible");
+
+        }
+
+    });
+
+
+    /* ========================= */
+    /* VALIDAR CLIENTE */
+    /* ========================= */
+
+    formulario.addEventListener("submit", function (event) {
+
+        if (!idUser.value) {
+
+            event.preventDefault();
+
+            alert("Por favor selecciona un cliente antes de registrar el paquete.");
+
+            buscador.focus();
+
+        }
+
+    });
+
+});
+
+</script>
 
 {% endblock %}
