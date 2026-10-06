@@ -1,178 +1,255 @@
 {% extends "admin_panel.html" %}
-<link rel="stylesheet" href="/assets/css/admin_paqueteria.css">
 
 {% block title %}Paquetería{% endblock %}
 
 {% block content %}
 
-<div class="paqueteria-container">
+<style>
 
-    <div class="paqueteria-header">
-        <div>
-            <span>PorEncargo.co</span>
-            <h1>📦 Gestión de Paquetería</h1>
-            <p>Administra los paquetes registrados en el sistema.</p>
-        </div>
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+========================================== */
 
-        <div>
-            <button class="btn-nuevo-paquete" type="button">
-                ➕ Registrar paquete
-            </button>
-        </div>
-    </div>
-
-
-    <div class="paqueteria-resumen">
-
-        <div class="resumen-card">
-            <span>📦</span>
-            <div>
-                <strong>{{ paquetes|length }}</strong>
-                <small>Paquetes registrados</small>
-            </div>
-        </div>
-
-        <div class="resumen-card">
-            <span>👥</span>
-            <div>
-                <strong>{{ usuarios|length }}</strong>
-                <small>Clientes</small>
-            </div>
-        </div>
-
-    </div>
-
-
-    <div class="paqueteria-lista">
-
-        <div class="lista-header">
-            <h2>Paquetes</h2>
-
-            <input
-                type="text"
-                id="buscar-paquete"
-                placeholder="🔎 Buscar cliente, guía o paquete..."
-            >
-        </div>
-
-
-        {% if paquetes %}
-
-            {% for p in paquetes %}
-
-            <div class="paquete-admin-card">
-
-                <div class="paquete-cliente">
-
-                    <div class="cliente-avatar">
-                        👤
-                    </div>
-
-                    <div>
-                        <strong>
-                            {{ p.usuario.user_first_name }}
-                            {{ p.usuario.user_last_name }}
-                        </strong>
-
-                        <small>
-                            {{ p.usuario.email }}
-                        </small>
-                    </div>
-
-                </div>
-
-
-                <div class="paquete-info">
-
-                    <strong>{{ p.nombre }}</strong>
-
-                    <span>
-                        Guía: {{ p.numero_guia }}
-                    </span>
-
-                    <span>
-                        Peso: {{ p.peso }} LB
-                    </span>
-
-                    <span>
-                        Precio: ${{ p.precio }} USD
-                    </span>
-
-                </div>
-
-
-                <div class="paquete-estado">
-
-                    <span class="estado-badge">
-                        {{ p.estado.value }}
-                    </span>
-
-                    {% if p.fecha_recibido %}
-                        <small>
-                            Recibido:
-                            {{ p.fecha_recibido.strftime('%d/%m/%Y') }}
-                        </small>
-                    {% else %}
-                        <small>
-                            Fecha pendiente
-                        </small>
-                    {% endif %}
-
-                </div>
-
-            </div>
-
-            {% endfor %}
-
-        {% else %}
-
-            <div class="sin-paquetes">
-
-                <div>📦</div>
-
-                <h2>No hay paquetes registrados</h2>
-
-                <p>
-                    Cuando registres paquetes aparecerán aquí.
-                </p>
-
-            </div>
-
-        {% endif %}
-
-    </div>
-
-</div>
-
-
-<script>
-
-const buscador = document.getElementById("buscar-paquete");
-
-if (buscador) {
-
-    buscador.addEventListener("input", function () {
-
-        const texto = this.value.toLowerCase();
-
-        document
-            .querySelectorAll(".paquete-admin-card")
-            .forEach(card => {
-
-                const contenido =
-                    card.textContent.toLowerCase();
-
-                card.style.display =
-                    contenido.includes(texto)
-                    ? ""
-                    : "none";
-
-            });
-
-    });
-
+.paqueteria-container {
+    width: 100%;
 }
 
-</script>
 
-{% endblock %}
+/* ==========================================
+   ENCABEZADO
+========================================== */
+
+.paqueteria-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 28px;
+}
+
+.paqueteria-header .etiqueta {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 5px;
+}
+
+.paqueteria-header h1 {
+    margin: 0;
+    font-size: 32px;
+    color: #111827;
+}
+
+.paqueteria-header p {
+    margin: 7px 0 0;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+
+/* ==========================================
+   BOTÓN REGISTRAR
+========================================== */
+
+.btn-nuevo-paquete {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 13px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.btn-nuevo-paquete:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   TARJETAS DE RESUMEN
+========================================== */
+
+.paqueteria-resumen {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.resumen-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, .04);
+}
+
+.resumen-icono {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #eff6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+}
+
+.resumen-card strong {
+    display: block;
+    font-size: 25px;
+    color: #111827;
+}
+
+.resumen-card small {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   CONTENEDOR DE PAQUETES
+========================================== */
+
+.paqueteria-lista {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, .05);
+}
+
+
+/* ==========================================
+   CABECERA DE LISTA
+========================================== */
+
+.lista-header {
+    padding: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.lista-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #111827;
+}
+
+#buscar-paquete {
+    width: 350px;
+    max-width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+#buscar-paquete:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+}
+
+
+/* ==========================================
+   TARJETA DE PAQUETE
+========================================== */
+
+.paquete-admin-card {
+    display: grid;
+    grid-template-columns: 1.25fr 1.5fr 1fr;
+    align-items: center;
+    gap: 25px;
+    padding: 20px 22px;
+    border-bottom: 1px solid #eef0f3;
+    transition: .2s ease;
+}
+
+.paquete-admin-card:last-child {
+    border-bottom: none;
+}
+
+.paquete-admin-card:hover {
+    background: #f8fafc;
+}
+
+
+/* ==========================================
+   CLIENTE
+========================================== */
+
+.paquete-cliente {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cliente-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #eff6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.paquete-cliente strong {
+    display: block;
+    color: #111827;
+    font-size: 14px;
+}
+
+.paquete-cliente small {
+    display: block;
+    margin-top: 4px;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   INFORMACIÓN DEL PAQUETE
+========================================== */
+
+.paquete-info strong {
+    display: block;
+    font-size: 16px;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.paquete-info span {
+    display: inline-block;
+    margin-right: 14px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   ESTADO
+========================================== */
+
+.paquete-estado {
+    text-align: right;
+}
+
+.estado-badge {
+    display: inline-block;
+    padding: 7
