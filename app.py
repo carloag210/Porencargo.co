@@ -1249,11 +1249,10 @@ def crear_paquete_usuario():
     )
 
     ok3, resp3 = send_email(
-        subject_paquete,
-        "carloag210@hotmail.com",
-        body_paquete,
-        html=True,
-    )
+    subject=subject_paquete,
+    recipient="carloag210@hotmail.com",
+    html_content=body_paquete
+)
 
     if not ok3:
         print("Error notificando admin:", resp3)
