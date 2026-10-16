@@ -1272,11 +1272,10 @@ def crear_paquete_usuario():
     )
 
     ok_user, resp_user = send_email(
-        "Tu prealerta fue registrada correctamente 📦",
-        user.email,
-        html_prealerta,
-        html=True,
-    )
+    subject="Tu prealerta fue registrada correctamente 📦",
+    recipient=user.email,
+    html_content=html_prealerta
+)
 
     print("ENVÍO CLIENTE:", user.email, "|", ok_user, "|", resp_user)
 
