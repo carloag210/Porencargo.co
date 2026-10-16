@@ -1027,11 +1027,10 @@ def olvide_password():
             """
 
             send_email(
-                subject="Recuperación de contraseña | PorEncargo.co",
-                recipient=usuario.email,
-                body=html_body,
-                html=True
-            )
+    subject="Recuperación de contraseña | PorEncargo.co",
+    recipient=usuario.email,
+    html_content=html_body
+)
 
             flash(
                 "Revisa tu correo. Hemos enviado el enlace de recuperación.",
