@@ -659,6 +659,7 @@ def subir_fotos_paquete(paquete_id):
 
 from datetime import datetime
 
+
 @app.route('/admin/actualizar_estado', methods=['POST'])
 def actualizar_estado():
 
@@ -675,21 +676,41 @@ def actualizar_estado():
     if paquete is None:
         return "Paquete no encontrado", 404
 
-    estado_anterior = paquete.estado.name if paquete.estado else "Sin estado"
-
-    paquete.estado = EstadoPaquete(nuevo_estado_str)
-    paquete.nombre = p_nombre
-    paquete.precio = p_precio
-    paquete.numero_guia = p_numero_guia
-    paquete.peso = p_peso
-
-    if fecha_recibido:
-        paquete.fecha_recibido = datetime.strptime(fecha_recibido, "%Y-%m-%d").date()
+    estado_anterior = (
+        paquete.estado.name if paquete.estado else "Sin estado"
+    )
 
     try:
-        db.session.commit()
+        # Actualizar información del paquete
+        paquete.estado = EstadoPaquete(nuevo_estado_str)
+        paquete.nombre = p_nombre
+        paquete.precio = p_precio
+        paquete.numero_guia = p_numero_guia
+        paquete.peso = p_peso
 
-        fecha_notificacion = paquete.fecha_recibido.strftime("%d/%m/%Y")
+        if fecha_recibido:
+            paquete.fecha_recibido = datetime.strptime(
+                fecha_recibido, "%Y-%m-%d"
+            ).date()
+
+        # Guardar primero los cambios en la base de datos
+        db.session.commit()
+        print(f"Estado actualizado correctamente. Paquete ID: {paquete.id}")
+
+    except Exception as e:
+        db.session.rollback()
+        print(f"ERROR actualizando el paquete {paquete_id}: {e}")
+        flash("No fue posible actualizar el paquete.", "error")
+        return redirect(request.referrer or url_for("admin_panel"))
+
+    # Preparar y enviar la notificación por separado
+    try:
+        # Si no hay fecha de recepción, usar la fecha actual
+        fecha_notificacion = (
+            paquete.fecha_recibido.strftime("%d/%m/%Y")
+            if paquete.fecha_recibido
+            else datetime.now().strftime("%d/%m/%Y")
+        )
 
         html_user = render_template(
             "mails/estado_paquete.html",
@@ -697,7 +718,9 @@ def actualizar_estado():
             nombre_paquete=paquete.nombre,
             guia=paquete.numero_guia or "N/A",
             peso=paquete.peso,
-            estado_anterior=estado_anterior.replace("_", " ").title(),
+            estado_anterior=estado_anterior.replace(
+                "_", " "
+            ).title(),
             estado_nuevo=paquete.estado.value,
             fecha_notificacion=fecha_notificacion
         )
@@ -708,14 +731,23 @@ def actualizar_estado():
             html_content=html_user
         )
 
+        print(
+            f"RESULTADO CORREO | Paquete: {paquete.id} | "
+            f"Destino: {paquete.usuario.email} | "
+            f"Éxito: {ok} | Respuesta Brevo: {resp}"
+        )
+
         if not ok:
-            print("Error correo:", resp)
+            print(f"ERROR BREVO enviando correo: {resp}")
 
     except Exception as e:
-        db.session.rollback()
-        print("Error:", e)
+        print(
+            f"ERROR preparando o enviando correo del paquete "
+            f"{paquete_id}: {e}"
+        )
 
-    return redirect(request.referrer)
+    return redirect(request.referrer or url_for("admin_panel"))
+
         
 @app.route('/marcar_consolidar', methods=['POST'])
 @login_required
